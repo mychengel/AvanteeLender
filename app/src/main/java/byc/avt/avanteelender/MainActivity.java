@@ -1,38 +1,104 @@
 package byc.avt.avanteelender;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+import java.lang.reflect.Field;
 
-    //ActionBar bar;
+import byc.avt.avanteelender.ui.dashboard.DashboardFragment;
+import byc.avt.avanteelender.ui.notifications.NotificationsFragment;
+import byc.avt.avanteelender.ui.portofolio.PortofolioFragment;
+
+public class MainActivity extends AppCompatActivity {
+    ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = getSupportActionBar();
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        if (savedInstanceState == null){
+            navView.setSelectedItemId(R.id.navigation_dasbor);
+        }
+        disableShiftMode(navView);
+    }
 
-        //bar = getSupportActionBar();
-        //bar.hide();
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            toolbar.setDisplayShowHomeEnabled(true);
+            switch (item.getItemId()) {
+                case R.id.navigation_dasbor:
+                    //toolbar.setIcon(R.drawable.ic_outline_movie);
+                    toolbar.setTitle(" " + getString(R.string.dasbor));
+                    fragment = new DashboardFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_portofolio:
+                    //toolbar.setIcon(R.drawable.ic_outline_tv);
+                    toolbar.setTitle(" " + getString(R.string.portofolio));
+                    fragment = new PortofolioFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_notifikasi:
+                    //toolbar.setIcon(R.drawable.ic_outline_favorite);
+                    toolbar.setTitle(" " + getString(R.string.notifikasi));
+                    fragment = new NotificationsFragment();
+                    loadFragment(fragment);
+                    return true;
+            }
+            return false;
+        }
+    };
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_dasbor, R.id.navigation_portofolio, R.id.navigation_notifikasi)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_main, fragment);
+        transaction.commit();
+    }
 
+    @SuppressLint("RestrictedAPI")
+    public  void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShifting(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+
+        } catch (IllegalAccessException e) {
+
+        }
     }
 
     public boolean doubleBackToExitPressedOnce = false;

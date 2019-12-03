@@ -17,6 +17,6 @@
 
     <fragment
         android:id="@+id/navigation_notifikasi"
-        android:name="byc.avt.avanteelender.ui.notifications.NotificationsFragment"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="byc.avt.avanteelender.ui.dashboard.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
