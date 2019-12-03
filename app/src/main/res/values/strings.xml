@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Avantee Lender</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="dasbor">Dasbor</string>
+    <string name="portofolio">Portofolio</string>
+    <string name="portofolioinvest">Portofolio Investasi</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="img">img</string>
+    <string name="next">BERIKUTNYA</string>
+    <string name="skip">LEWATI</string>
+    <string name="aktif">Aktif</string>
+    <string name="pending">Pending</string>
+    <string name="selesai">Selesai</string>
+</resources>
