@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Walkthrough"></activity>
+        <activity android:name=".Daftar"></activity>
+        <activity android:name=".Walkthrough" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

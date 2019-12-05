@@ -29,7 +29,7 @@ public class Walkthrough extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button btnSkip, btnNext, btnDaftar, btnMasuk;
     private PrefManager prefManager;
 
     ActionBar bar;
@@ -186,6 +186,25 @@ public class Walkthrough extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
+            if(position==3){
+                btnDaftar = view.findViewById(R.id.btn_daftar_wt4);
+                btnDaftar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Walkthrough.this, Daftar.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                    }
+                });
+
+                btnMasuk = view.findViewById(R.id.btn_masuk_wt4);
+                btnMasuk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }
             container.addView(view);
 
             return view;

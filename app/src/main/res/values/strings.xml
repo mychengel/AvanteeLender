@@ -13,4 +13,9 @@
     <string name="aktif">Aktif</string>
     <string name="pending">Pending</string>
     <string name="selesai">Selesai</string>
+    <string name="wt1">Avantee siap menjembatani pemberi dana dan peminjam</string>
+    <string name="wt1d">Dengan sistem tekfin peer to peer, kami siap menjembatani kebutuhan pendanaan pelaku UKM, sekaligus menjadi sarana pemodalan alternatif bagi para pemberi pinjaman.</string>
+    <string name="wt4">Mulailah pendanaan Anda bersama kami</string>
+    <string name="daftar">Daftar</string>
+    <string name="masuk">Masuk</string>
 </resources>
