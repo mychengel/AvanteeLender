@@ -32,15 +32,10 @@ public class Walkthrough extends AppCompatActivity {
     private Button btnSkip, btnNext, btnDaftar, btnMasuk;
     private PrefManager prefManager;
 
-    ActionBar bar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walkthrough);
-
-        bar = getSupportActionBar();
-        bar.hide();
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(Walkthrough.this);
@@ -57,7 +52,7 @@ public class Walkthrough extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager_walkthrough);
         dotsLayout = findViewById(R.id.layout_dots_walkthrough);
         btnSkip = findViewById(R.id.btn_skip_walkthrough);
-        btnNext = findViewById(R.id.btn_next_walkthrough);
+        //btnNext = findViewById(R.id.btn_next_walkthrough);
 
 
         // layouts of all welcome sliders
@@ -66,7 +61,8 @@ public class Walkthrough extends AppCompatActivity {
                 R.layout.screen_walkthrough_1,
                 R.layout.screen_walkthrough_2,
                 R.layout.screen_walkthrough_3,
-                R.layout.screen_walkthrough_4};
+                R.layout.screen_walkthrough_4,
+                R.layout.screen_walkthrough_5};
 
         // adding bottom dots
         addBottomDots(0);
@@ -81,24 +77,24 @@ public class Walkthrough extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                viewPager.setCurrentItem(layouts.length);
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
-            }
-        });
+//        btnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // checking for last page
+//                // if last page home screen will be launched
+//                int current = getItem(+1);
+//                if (current < layouts.length) {
+//                    // move to next screen
+//                    viewPager.setCurrentItem(current);
+//                } else {
+//                    launchHomeScreen();
+//                }
+//            }
+//        });
     }
 
     private void addBottomDots(int currentPage) {
@@ -140,12 +136,9 @@ public class Walkthrough extends AppCompatActivity {
 
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                btnNext.setText("MULAI");
+
                 btnSkip.setVisibility(View.GONE);
             } else {
-                // still pages are left
-                btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }
         }
@@ -186,8 +179,8 @@ public class Walkthrough extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
-            if(position==3){
-                btnDaftar = view.findViewById(R.id.btn_daftar_wt4);
+            if(position==4){
+                btnDaftar = view.findViewById(R.id.btn_daftar_wt5);
                 btnDaftar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -197,11 +190,15 @@ public class Walkthrough extends AppCompatActivity {
                     }
                 });
 
-                btnMasuk = view.findViewById(R.id.btn_masuk_wt4);
+                btnMasuk = view.findViewById(R.id.btn_masuk_wt5);
                 btnMasuk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(Walkthrough.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
                     }
                 });
             }

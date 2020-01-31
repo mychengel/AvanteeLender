@@ -13,12 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import java.lang.reflect.Field;
 
@@ -27,14 +24,15 @@ import byc.avt.avanteelender.ui.notifications.NotificationsFragment;
 import byc.avt.avanteelender.ui.portofolio.PortofolioFragment;
 
 public class MainActivity extends AppCompatActivity {
-    ActionBar toolbar;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = getSupportActionBar();
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        BottomNavigationView navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
             navView.setSelectedItemId(R.id.navigation_dasbor);
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
-            toolbar.setDisplayShowHomeEnabled(true);
+
             switch (item.getItemId()) {
                 case R.id.navigation_dasbor:
                     //toolbar.setIcon(R.drawable.ic_outline_movie);

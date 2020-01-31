@@ -19,7 +19,6 @@ import byc.avt.avanteelender.R;
 
 public class NotificationsFragment extends Fragment {
 
-    ActionBar bar;
     private NotificationsViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,10 +33,6 @@ public class NotificationsFragment extends Fragment {
                 textView.setText(s);
             }
         });
-
-        bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        bar.hide();
-
 
 
         return root;

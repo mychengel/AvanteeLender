@@ -35,10 +35,6 @@ public class PortofolioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        bar.show();
-        bar.setTitle(R.string.portofolioinvest);
-        bar.setElevation(0);
 
         TabLayout tabLayout = view.findViewById(R.id.tab_lay_fr_portofolio);
         ViewPager viewPager = view.findViewById(R.id.vp_fr_portofolio);

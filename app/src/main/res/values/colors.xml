@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#25C70B</color>
-    <color name="colorPrimaryDark">#F3F3F3</color>
-    <color name="colorAccent">#FFB900</color>
     <color name="dot_inactive">#80909090</color>
     <color name="dot_active">#27B050</color>
     <color name="barColor">#32FFFFFF</color>
     <color name="barTextColor">#99000000</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="obHeading">#374553</color>
+    <color name="obDesc">#80374553</color>
+    <color name="bgView">#F3F3F3</color>
+    <color name="bgNav">#F8F8F8</color>
+    <color name="tabText">#374553</color>
 
     <array name="array_dot_active">
+        <item>@color/dot_active</item>
         <item>@color/dot_active</item>
         <item>@color/dot_active</item>
         <item>@color/dot_active</item>
@@ -20,5 +24,44 @@
         <item>@color/dot_inactive</item>
         <item>@color/dot_inactive</item>
         <item>@color/dot_inactive</item>
+        <item>@color/dot_inactive</item>
     </array>
+
+
+    <color name="colorPrimaryDark">#F3F3F3</color>
+    <color name="colorAccent">#25C70B</color>
+    <color name="navInactive">#BEC2C7</color>
+
+    <!-- Colors Accent -->
+    <color name="colorPrimary">#25C70B</color>
+    <color name="colorPrimaryA">#1DB474</color>
+    <color name="colorPrimaryB">#AABE2C</color>
+    <color name="colorPrimaryC">#E1B000</color>
+    <color name="colorPrimaryD">#DA874C</color>
+    <color name="colorPrimaryE">#D7623D</color>
+
+    <!-- Colors Gray base -->
+    <color name="gray1">#8E8E93</color>
+    <color name="gray2">#C7C7CC</color>
+    <color name="gray3">#D1D1D6</color>
+    <color name="gray4">#E5E5EA</color>
+    <color name="gray5">#EFEFF4</color>
+
+    <!-- Colors Basic -->
+    <color name="done">#1D80DC</color>
+    <color name="pending">#EC9512</color>
+    <color name="failed">#EB364C</color>
+    <color name="dark">#374553</color>
+    <color name="white">#FFFFFF</color>
+    <color name="overlay">#CC374553</color>
+
+    <!-- Background -->
+    <color name="neutral">#F0D2D5DB</color>
+    <color name="light_neutral">#F0EFEFF4</color>
+    <color name="lightest_neutral">#F3F3F3</color>
+    <color name="bars_light_neutral">#F8F8F8</color>
+    <color name="bars_light">#F0FFFFFF</color>
+
+    <!-- Scrims -->
+    <color name="darker">#99000000</color>
 </resources>

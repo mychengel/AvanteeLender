@@ -15,7 +15,35 @@
     <string name="selesai">Selesai</string>
     <string name="wt1">Avantee siap menjembatani pemberi dana dan peminjam</string>
     <string name="wt1d">Dengan sistem tekfin peer to peer, kami siap menjembatani kebutuhan pendanaan pelaku UKM, sekaligus menjadi sarana pemodalan alternatif bagi para pemberi pinjaman.</string>
-    <string name="wt4">Mulailah pendanaan Anda bersama kami</string>
+    <string name="title_wt5">Mulailah pendanaan Anda bersama kami</string>
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
+
+    <string name="ojk_logo">OJK Logo</string>
+    <string name="ojk_registered">Terdaftar dan diawasi oleh</string>
+    <string name="member_of">Anggota dari</string>
+    <string name="afpi_logo">AFPI Logo</string>
+    <string name="logo">Logo</string>
+    <string name="dummy_heading">Video provides a powerful way to help you prove your point</string>
+    <string name="dummy_text">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video  that best fits your document that best fits your document.</string>
+    <string name="illustration">illustration</string>
+    <string name="register">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="nav_dashboard">Dasbor</string>
+    <string name="nav_loan">Pinjaman</string>
+    <string name="nav_notification">Notifikasi</string>
+    <string name="info_heading">Informasi layanan</string>
+    <string name="press_exit">Tekan lagi untuk keluar!</string>
+    <string name="message">Pesan</string>
+    <string name="no_message">Tidak ada pesan</string>
+    <string name="information">Info &amp; Penawaran</string>
+    <string name="tagline">Penuhi kebutuhan pendanaan Anda bersama kami</string>
+    <string name="info_desc">Untuk sementara, layanan akan kami fokuskan kepada peminjam dengan domisili di area Jabodetabek serta memiliki ATM / Mobile / Internet Banking. Silahkan melanjutkan jika Anda memenuhi persyaratan tersebut. Terimkasih karena Anda terlah memilih untuk meminjam di Avantee.</string>
+    <string name="title_wt2">Bersama kita dukung UKM Indonesia</string>
+    <string name="des_wt2">Kami ajak anda untuk berperan aktif dalam mengembangkan sektor UKM sebagai urat nadi pendorong perekonomian nasional.</string>
+    <string name="title_wt4">Profesional dan berpengalaman</string>
+    <string name="des_wt4">Dikelola oleh para profesional yang berpengalaman di bidang perbankan komersial, perbankan investasi, dan teknologi informasi.</string>
+    <string name="title_wt3">Nyaman dan menguntungkan</string>
+    <string name="des_wt3">Kemudahan pendanaan dengan beragam pilihan UKM yang memberikan imbal hasil yang sangat menarik.</string>
+
 </resources>

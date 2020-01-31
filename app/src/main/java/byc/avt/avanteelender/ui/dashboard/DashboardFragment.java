@@ -19,7 +19,6 @@ import byc.avt.avanteelender.R;
 
 public class DashboardFragment extends Fragment {
 
-    ActionBar bar;
     private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,9 +34,6 @@ public class DashboardFragment extends Fragment {
                 textView.setText(s);
             }
         });
-
-        bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        bar.hide();
 
         return root;
     }
