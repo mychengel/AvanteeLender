@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/navigation_dasbor"
-        android:name="byc.avt.avanteelender.ui.dashboard.DashboardFragment"
+        android:name="byc.avt.avanteelender.view.fragment.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_portofolio"
-        android:name="byc.avt.avanteelender.ui.portofolio.PortofolioFragment"
+        android:name="byc.avt.avanteelender.view.fragment.PortofolioFragment"
         tools:layout="@layout/fragment_portofolio" />
 
     <fragment
         android:id="@+id/navigation_notifikasi"
-        android:name="byc.avt.avanteelender.ui.dashboard.DashboardFragment"
+        android:name="byc.avt.avanteelender.view.fragment.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

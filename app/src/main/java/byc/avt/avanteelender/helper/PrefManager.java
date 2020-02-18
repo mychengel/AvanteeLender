@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.configurator;
+package byc.avt.avanteelender.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

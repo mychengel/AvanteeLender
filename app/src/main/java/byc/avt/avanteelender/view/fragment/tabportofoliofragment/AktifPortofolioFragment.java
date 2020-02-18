@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.ui.portofolio.tabportofolio;
+package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
 
 public class AktifPortofolioFragment extends Fragment {
 

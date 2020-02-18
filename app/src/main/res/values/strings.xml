@@ -8,8 +8,6 @@
     <string name="portofolioinvest">Portofolio Investasi</string>
     <string name="notifikasi">Notifikasi</string>
     <string name="img">img</string>
-    <string name="next">BERIKUTNYA</string>
-    <string name="skip">LEWATI</string>
     <string name="aktif">Aktif</string>
     <string name="pending">Pending</string>
     <string name="selesai">Selesai</string>
@@ -19,31 +17,187 @@
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
 
-    <string name="ojk_logo">OJK Logo</string>
-    <string name="ojk_registered">Terdaftar dan diawasi oleh</string>
-    <string name="member_of">Anggota dari</string>
-    <string name="afpi_logo">AFPI Logo</string>
-    <string name="logo">Logo</string>
-    <string name="dummy_heading">Video provides a powerful way to help you prove your point</string>
-    <string name="dummy_text">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video  that best fits your document that best fits your document.</string>
-    <string name="illustration">illustration</string>
-    <string name="register">Daftar</string>
-    <string name="login">Masuk</string>
-    <string name="nav_dashboard">Dasbor</string>
-    <string name="nav_loan">Pinjaman</string>
-    <string name="nav_notification">Notifikasi</string>
-    <string name="info_heading">Informasi layanan</string>
-    <string name="press_exit">Tekan lagi untuk keluar!</string>
-    <string name="message">Pesan</string>
-    <string name="no_message">Tidak ada pesan</string>
-    <string name="information">Info &amp; Penawaran</string>
-    <string name="tagline">Penuhi kebutuhan pendanaan Anda bersama kami</string>
-    <string name="info_desc">Untuk sementara, layanan akan kami fokuskan kepada peminjam dengan domisili di area Jabodetabek serta memiliki ATM / Mobile / Internet Banking. Silahkan melanjutkan jika Anda memenuhi persyaratan tersebut. Terimkasih karena Anda terlah memilih untuk meminjam di Avantee.</string>
     <string name="title_wt2">Bersama kita dukung UKM Indonesia</string>
     <string name="des_wt2">Kami ajak anda untuk berperan aktif dalam mengembangkan sektor UKM sebagai urat nadi pendorong perekonomian nasional.</string>
     <string name="title_wt4">Profesional dan berpengalaman</string>
     <string name="des_wt4">Dikelola oleh para profesional yang berpengalaman di bidang perbankan komersial, perbankan investasi, dan teknologi informasi.</string>
     <string name="title_wt3">Nyaman dan menguntungkan</string>
     <string name="des_wt3">Kemudahan pendanaan dengan beragam pilihan UKM yang memberikan imbal hasil yang sangat menarik.</string>
+
+    <!-- TODO: Splash screen -->
+    <string name="ojk_logo">OJK Logo</string>
+    <string name="ojk_registered">Terdaftar dan diawasi oleh</string>
+    <string name="member_of">Anggota dari</string>
+
+    <!-- TODO: Authentication Register -->
+    <string name="register">Daftar</string>
+    <string name="email">Email (Opsional)</string>
+    <string name="referral_id">Referral ID (opsional)</string>
+    <string name="ive_read">Saya telah membaca dan setuju dengan</string>
+    <string name="terms_and_condition">Syarat &amp; Ketentuan Avantee</string>
+    <string name="register_as_lender">Daftar sebagai pemberi dana</string>
+    <string name="otp_verification">Verifikasi OTP</string>
+    <string name="otp_desc">Masukkan kode verifikasi yang telah dikirimkan melalui SMS ke </string>
+    <string name="resend_in">Kirim ulang kode dalam </string>
+    <string name="register_success">Pendaftaran berhasil</string>
+    <string name="register_success_message">Akun berhasil didaftarkan sebagai peminjam di Avantee. Silakan masuk kembali menggunakan nomor handphone dan kata sandi Anda.</string>
+    <string name="register_complete">Pendaftaran selesai</string>
+    <string name="registed_complete_message">Mohon menunggu proses verifikasi akun oleh tim kami.</string>
+
+    <!-- TODO: Authentication Login -->
+    <string name="login">Masuk</string>
+    <string name="remember_me">Ingat saya</string>
+    <string name="forgot_password">Lupa kata sandi?</string>
+    <string name="login_as_borrower">Masuk sebagai peminjam</string>
+
+    <!-- TODO: Authentication Forgot Password -->
+    <string name="reset_password">Atur ulang kata sandi</string>
+    <string name="reset_password_desc">Masukkan no. handphone Anda dan kami akan mengirimkan SMS berisi tautan untuk mengatur ulang kata sandi.</string>
+    <string name="reset">Atur ulang</string>
+    <string name="reset_message">Klik tautan dalam SMS tersebut untuk mengatur ulang kata sandi Anda.</string>
+
+    <!-- TODO: New User Get Started Screen -->
+    <string name="welcome_message">Selamat bergabung menjadi peminjam di Avantee</string>
+    <string name="new_user_form_desc">Bantu kami untuk mengenal Anda lebih baik melalui pengisian data dan dokumen. Avantee menjamin kerahasiaan informasi yang Anda berikan.</string>
+    <string name="fill_form">Isi formulis</string>
+    <string name="document_picture">Foto dokumen</string>
+    <string name="wait_verification">Tunggu verifikasi</string>
+    <string name="under_verification">Akun dalam verifikasi</string>
+    <string name="under_verification_message">Persetujuan memerlukan waktu hingga 24 jam. Kami akan memberi kabar via SMS. jangan keluar atau menghapus aplikasi ini.</string>
+
+    <!-- TODO: common use -->
+    <string name="sms_sent">SMS terkirim</string>
+    <string name="resend">Kirim ulang</string>
+    <string name="phone_number">No. handphone</string>
+    <string name="password">Kata sandi</string>
+    <string name="retype_password">Ulangi kata sandi</string>
+    <string name="cancel">Batalkan</string>
+    <string name="next">Selanjutnya</string>
+    <string name="prev">Sebelumnya</string>
+    <string name="back">Kembali</string>
+    <string name="use">Gunakan</string>
+    <string name="take_again">Foto ulang</string>
+    <string name="ive_read_2">Saya telah membaca dan setuju dengan Syarat dan Ketentuan Avantee diatas</string>
+
+    <!-- TODO: New User Form Part 1 -->
+    <string name="personal_data">Data pribadi</string>
+    <string name="full_name">Nama lengkap</string>
+    <string name="gender">Jenis Kelamin</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="rather_not_say">Lainnya</string>
+    <string name="marriage_status">Status perkawinan</string>
+    <string name="birth_place">Tempat lahir</string>
+    <string name="date_of_birth">Tanggal lahir</string>
+    <string name="religion">Agama</string>
+    <string name="last_education">Pendidikan terakhir</string>
+    <string name="home_phone_number">No. telepon rumah (Opsional)</string>
+
+    <!-- TODO: New User Form Part 2 -->
+    <string name="work_info">Data pekerjaan</string>
+    <string name="occupation">Pekerjaan</string>
+    <string name="field">Bidang</string>
+    <string name="monthly_salary">Penghasilan per bulan</string>
+    <string name="is_online_based">Pekerjaan berbasis online?</string>
+    <string name="work_experience">Pengalaman kerja</string>
+
+    <!-- TODO: New User Form Part 3 -->
+    <string name="addresses">Data Alamat</string>
+    <string name="address">Alamat</string>
+    <string name="province">Provinsi</string>
+    <string name="city">Kota / Kabupaten</string>
+    <string name="sub_district">Kecamatan</string>
+    <string name="urban">Kelurahan</string>
+    <string name="postal_code">Kode pos</string>
+    <string name="home_owned_status">Status kepemilikan rumah</string>
+    <string name="address_on_KTP">Alamat sesuai KTP</string>
+    <string name="domicile_address">Alamat tempat tinggal</string>
+    <string name="work_address">Alamat tempat bekerja</string>
+    <string name="domicile_same_as_KTP">Alamat saat ini sama dengan KTP</string>
+    <string name="work_same_as_KTP">Alamat bekerja sama dengan KTP</string>
+
+    <!-- TODO: New User Form Part 4 -->
+    <string name="other_family_member">Data keluarga tidak serumah</string>
+    <!-- TODO: use these string => full_name, phone_number, address, province, city, sub_district, urban, postal_code -->
+
+    <!-- TODO: New User Form Part 5 -->
+    <string name="bank_info">Informasi rekening bank</string>
+    <string name="bank_name">Nama Bank</string>
+    <string name="account_name">Nama pemilik rekening</string>
+    <string name="account_number">No. rekening</string>
+
+    <!-- TODO: New User Form Part 6 -->
+    <string name="essential_document">Dokumen Pendukung</string>
+    <string name="KTP_number">No. KTP</string>
+    <string name="take_photo_of_ktp">Ambil foto KTP</string>
+    <string name="take_selfie">Ambil foto selfie</string>
+    <string name="npwp_number">No. NPWP</string>
+    <string name="take_photo_of_npwp">Ambil foto NPWP</string>
+    <string name="take_photo_of_account_book">Ambil foto nama dan nomor rekening Anda</string>
+
+    <!-- TODO: Navigation & menu -->
+    <string name="nav_dashboard">Dasbor</string>
+    <string name="nav_loan">Pinjaman</string>
+    <string name="nav_notification">Notifikasi</string>
+    <string name="setting">Pengaturan</string>
+    <string name="press_exit">Tekan lagi untuk keluar!</string>
+    <string name="message">Pesan</string>
+    <string name="information">Info &amp; Penawaran</string>
+    <string name="history_transaction">Histori Transaksi</string>
+    <string name="loan">Pinjaman</string>
+    <string name="see_all">Lihat Semua</string>
+    <string name="current_loan">Pinjaman saat ini</string>
+    <string name="total_finished_loan">Total Nominal Pinjaman Selesai</string>
+
+    <!-- TODO: Empty list -->
+    <string name="no_message">Tidak ada pesan</string>
+    <string name="no_transaction_history">Belum ada transaksi</string>
+    <string name="no_loan">Anda belum mempunyai pinjaman. \nAjukan sekarang:</string>
+    <string name="no_active_loan">Anda belum memiliki pinjaman aktif. Silahkan memilih diantara tipe pinjaman yang tersedia sesuai keperluan Anda:</string>
+
+    <!-- TODO: Loan Type -->
+    <string name="staff_loan">Staff Loan</string>
+    <string name="staff_loan_desc">Pinjaman khusus karyawan</string>
+    <string name="kta_loan">KTA</string>
+    <string name="kta_loan_desc">Kredit Tanpa Agunan</string>
+    <string name="kuta_loan">KUTA</string>
+    <string name="kuta_loan_desc">Kredit Usaha Tanpa Agunan</string>
+
+
+    <!-- TODO: On boarding screen content -->
+    <string name="info_heading">Informasi layanan</string>
+    <string name="info_desc">Untuk sementara, layanan akan kami fokuskan kepada peminjam dengan domisili di area Jabodetabek serta memiliki ATM / Mobile / Internet Banking. Silahkan melanjutkan jika Anda memenuhi persyaratan tersebut. Terimkasih karena Anda terlah memilih untuk meminjam di Avantee.</string>
+    <string-array name="onboard_heading">
+        <item>Avantee siap menjembatani pemberi dana dan peminjam</item>
+        <item>Suku bunga kompetitif</item>
+        <item>Cepat dan transparan</item>
+        <item>Program referal</item>
+        <item>Penuhi kebutuhan pendanaan Anda bersama kami</item>
+    </string-array>
+    <string-array name="onboard_content">
+        <item>Dengan sistem tekfin peer to peer, kami siap menjembatani kebutuhan pendanaan pelaku UKM, sekaligus menjadi sarana pemodalan alternatif bagi para pemberi pinjaman.</item>
+        <item>Suku bunga yang kompetitif sesuai dengan penialian tingkat resiko kredit masing-masing pelaku usaha serta tingkat pendanaan sampai dengan 90%.</item>
+        <item>Dengan sistem tekfin peer to peer dan jangkauan pinjaman secara nasional, memungkinkan proses penggalangan dana pinjaman menjadi jauh lebih cepat, praktis, dan transparan dibanding proses konvensional.</item>
+        <item>Dengan membawa penyandang dana untuk ikut program pendanaan, peminjam dapat mengurangi biaya pinjaman dengan komisi referal.</item>
+        <item> </item>
+    </string-array>
+    <string name="skip">Lewati</string>
+    <string name="close">Tutup</string>
+    <string name="i_understand">Saya mengerti, lanjutkan</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Misc -->
+    <string name="dummy_heading">Video provides a powerful way to help you prove your point</string>
+    <string name="dummy_text">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video  that best fits your document that best fits your document.</string>
+    <string name="illustration">illustration</string>
+    <string name="afpi_logo">AFPI Logo</string>
+    <string name="logo">Logo</string>
+    <string name="currency_IDR">Rp</string>
+    <string name="tips_for_photo">Petunjuk pengambilan foto</string>
+    <string name="account_foto_tips">Untuk mempercepat proses verifikasi identitas Anda, mohon mengambil foto halaman depan buku rekening atau rekening koran seperti contoh berikut:</string>
+    <string name="account_book">Buku rekening</string>
+    <string name="current_account">Rekening koran</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.ui.dashboard;
+package byc.avt.avanteelender.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,14 +8,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import byc.avt.avanteelender.MainActivity;
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
 public class DashboardFragment extends Fragment {
 

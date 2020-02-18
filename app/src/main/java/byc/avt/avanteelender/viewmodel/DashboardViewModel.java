@@ -1,16 +1,16 @@
-package byc.avt.avanteelender.ui.portofolio;
+package byc.avt.avanteelender.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class PortofolioViewModel extends ViewModel {
+public class DashboardViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public PortofolioViewModel() {
+    public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is portofolio fragment");
+        mText.setValue("This is dasbor fragment");
     }
 
     public LiveData<String> getText() {

@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.ui.notifications;
+package byc.avt.avanteelender.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

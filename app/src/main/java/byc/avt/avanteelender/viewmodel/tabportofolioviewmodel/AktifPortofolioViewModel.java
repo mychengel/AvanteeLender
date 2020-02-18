@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.ui.portofolio.tabportofolio;
+package byc.avt.avanteelender.viewmodel.tabportofolioviewmodel;
 
 import androidx.lifecycle.ViewModel;
 

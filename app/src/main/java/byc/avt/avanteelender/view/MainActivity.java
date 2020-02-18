@@ -1,4 +1,4 @@
-package byc.avt.avanteelender;
+package byc.avt.avanteelender.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,27 +11,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.lang.reflect.Field;
 
-import byc.avt.avanteelender.ui.dashboard.DashboardFragment;
-import byc.avt.avanteelender.ui.notifications.NotificationsFragment;
-import byc.avt.avanteelender.ui.portofolio.PortofolioFragment;
+import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.view.fragment.DashboardFragment;
+import byc.avt.avanteelender.view.fragment.NotificationsFragment;
+import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 
 public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
         BottomNavigationView navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
@@ -48,20 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_dasbor:
-                    //toolbar.setIcon(R.drawable.ic_outline_movie);
-                    toolbar.setTitle(" " + getString(R.string.dasbor));
                     fragment = new DashboardFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_portofolio:
-                    //toolbar.setIcon(R.drawable.ic_outline_tv);
-                    toolbar.setTitle(" " + getString(R.string.portofolio));
                     fragment = new PortofolioFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_notifikasi:
-                    //toolbar.setIcon(R.drawable.ic_outline_favorite);
-                    toolbar.setTitle(" " + getString(R.string.notifikasi));
                     fragment = new NotificationsFragment();
                     loadFragment(fragment);
                     return true;

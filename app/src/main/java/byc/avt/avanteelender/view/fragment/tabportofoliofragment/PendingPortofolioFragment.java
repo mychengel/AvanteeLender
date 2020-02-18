@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.ui.portofolio.tabportofolio;
+package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,25 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.PendingPortofolioViewModel;
 
-public class SelesaiPortofolioFragment extends Fragment {
+public class PendingPortofolioFragment extends Fragment {
 
-    private SelesaiPortofolioViewModel mViewModel;
+    private PendingPortofolioViewModel mViewModel;
 
-    public static SelesaiPortofolioFragment newInstance() {
-        return new SelesaiPortofolioFragment();
+    public static PendingPortofolioFragment newInstance() {
+        return new PendingPortofolioFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_portofolio_selesai, container, false);
+        return inflater.inflate(R.layout.fragment_portofolio_pending, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SelesaiPortofolioViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(PendingPortofolioViewModel.class);
         // TODO: Use the ViewModel
     }
 

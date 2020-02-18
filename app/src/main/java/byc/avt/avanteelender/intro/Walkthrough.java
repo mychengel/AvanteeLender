@@ -1,6 +1,5 @@
-package byc.avt.avanteelender;
+package byc.avt.avanteelender.intro;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -20,7 +19,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import byc.avt.avanteelender.configurator.PrefManager;
+import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.DaftarActivity;
+import byc.avt.avanteelender.view.MainActivity;
 
 public class Walkthrough extends AppCompatActivity {
 
@@ -184,7 +186,8 @@ public class Walkthrough extends AppCompatActivity {
                 btnDaftar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Walkthrough.this, Daftar.class);
+
+                        Intent intent = new Intent(Walkthrough.this, DaftarActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);
                     }
