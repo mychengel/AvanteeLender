@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.DaftarActivity"></activity>
+        <activity android:name=".view.MasukActivity"></activity>
+        <activity android:name=".view.DaftarActivity" />
         <activity android:name=".intro.Walkthrough" />
         <activity
             android:name=".view.MainActivity"
@@ -36,7 +37,7 @@
             android:name=".intro.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

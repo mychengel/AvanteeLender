@@ -124,7 +124,6 @@ public class DaftarActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             finish();
             return true;
         }
@@ -134,7 +133,6 @@ public class DaftarActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
         finish();
     }
 

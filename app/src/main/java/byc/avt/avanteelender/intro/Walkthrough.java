@@ -23,6 +23,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.DaftarActivity;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.MasukActivity;
 
 public class Walkthrough extends AppCompatActivity {
 
@@ -186,10 +187,9 @@ public class Walkthrough extends AppCompatActivity {
                 btnDaftar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         Intent intent = new Intent(Walkthrough.this, DaftarActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
+
                     }
                 });
 
@@ -197,11 +197,8 @@ public class Walkthrough extends AppCompatActivity {
                 btnMasuk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Walkthrough.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent intent = new Intent(Walkthrough.this, MasukActivity.class);
                         startActivity(intent);
-                        finish();
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
                     }
                 });
             }

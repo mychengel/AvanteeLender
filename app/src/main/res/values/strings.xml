@@ -31,7 +31,7 @@
 
     <!-- TODO: Authentication Register -->
     <string name="register">Daftar</string>
-    <string name="email">Email (Opsional)</string>
+    <string name="email">Email</string>
     <string name="referral_id">Referral ID (opsional)</string>
     <string name="ive_read">Saya telah membaca dan setuju dengan</string>
     <string name="terms_and_condition">Syarat &amp; Ketentuan Avantee</string>
@@ -199,5 +199,7 @@
     <string name="account_foto_tips">Untuk mempercepat proses verifikasi identitas Anda, mohon mengambil foto halaman depan buku rekening atau rekening koran seperti contoh berikut:</string>
     <string name="account_book">Buku rekening</string>
     <string name="current_account">Rekening koran</string>
+    <string name="setuju_syarat_ketentuan">Saya telah membaca dan setuju dengan</string>
+    <string name="syarat_ketentuan_avantee"><![CDATA[Syarat & Ketentuan Avantee]]></string>
 
 </resources>
