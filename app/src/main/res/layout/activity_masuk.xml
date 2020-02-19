@@ -142,7 +142,7 @@
         android:enabled="false"
         android:letterSpacing="0.01"
         android:onClick="confirmInput"
-        android:text="@string/login_as_borrower"
+        android:text="@string/login_as_lender"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp" />

@@ -14,12 +14,14 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.TermFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -31,6 +33,7 @@ public class DaftarActivity extends AppCompatActivity {
     private TextInputLayout editPhoneNumber, editPassword, editEmail, editRefId, editConfirmPassword;
     private String phoneNumber, password, rePassword;
     private Button btnRegister;
+    private CheckBox checkAgree;
     private AuthenticationViewModel viewModel;
 
     @Override
@@ -48,6 +51,7 @@ public class DaftarActivity extends AppCompatActivity {
         editConfirmPassword = findViewById(R.id.edit_re_password_daftar);
         editRefId = findViewById(R.id.edit_ref_id_daftar);
         btnRegister = findViewById(R.id.btn_daftar);
+        checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
         viewModel = ViewModelProviders.of(DaftarActivity.this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPhoneNumber.getEditText()).addTextChangedListener(registerTextWatcher);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(registerTextWatcher);
@@ -56,6 +60,14 @@ public class DaftarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 confirmInput();
+            }
+        });
+
+        checkAgree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TermFragment termFragment = TermFragment.getInstance();
+                termFragment.show(getSupportFragmentManager(), termFragment.getTag());
             }
         });
 
@@ -124,7 +136,12 @@ public class DaftarActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            finish();
+            if(TermFragment.getInstance().isVisible()){
+                TermFragment.getInstance().dismiss();
+            }else {
+                finish();
+            }
+
             return true;
         }
 
