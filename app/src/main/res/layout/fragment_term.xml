@@ -10,15 +10,16 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_fr_term"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="144dp"
         android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_tb_fr_term"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="144dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ToolbarTheme"
+            app:maxLines="2"
             app:expandedTitleMargin="16dp"
             app:expandedTitleTextAppearance="@color/dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -37,7 +38,7 @@
                 app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/dark" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -60,6 +61,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="200dp"
                 android:fontFamily="@font/ibm_plex_sans"
                 android:hyphenationFrequency="none"
                 android:text="@string/terms_and_conditions"
@@ -77,7 +79,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:elevation="4dp"
         app:cardBackgroundColor="@color/lightest_neutral">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +91,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:button="@drawable/checkbox_selector"
@@ -100,8 +100,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/btn_batalkan_fr_term"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/btn_lanjutkan_fr_term"
@@ -111,7 +110,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/button_green"
+                android:background="@drawable/button_state_selector"
+                android:enabled="false"
                 android:text="@string/next"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -127,9 +127,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/button_white"
+                android:background="@drawable/button_white_state_selector"
+                android:enabled="false"
                 android:text="@string/cancel"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@drawable/text_state_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_lanjutkan_fr_term"
                 app:layout_constraintHorizontal_bias="0.5"

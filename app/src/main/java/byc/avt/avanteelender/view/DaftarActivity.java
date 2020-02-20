@@ -1,13 +1,10 @@
 package byc.avt.avanteelender.view;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,25 +12,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.TermFragment;
+import byc.avt.avanteelender.view.misc.TermFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class DaftarActivity extends AppCompatActivity {
 
+    public DaftarActivity(){}
+
     Fungsi f = new Fungsi(DaftarActivity.this);
     Toolbar bar;
     private TextInputLayout editPhoneNumber, editPassword, editEmail, editRefId, editConfirmPassword;
     private String phoneNumber, password, rePassword;
     private Button btnRegister;
-    private CheckBox checkAgree;
+    public CheckBox checkAgree;
     private AuthenticationViewModel viewModel;
 
     @Override
@@ -63,11 +63,17 @@ public class DaftarActivity extends AppCompatActivity {
             }
         });
 
-        checkAgree.setOnClickListener(new View.OnClickListener() {
+        checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                TermFragment termFragment = TermFragment.getInstance();
-                termFragment.show(getSupportFragmentManager(), termFragment.getTag());
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    TermFragment termFragment = TermFragment.getInstance();
+                    termFragment.show(getSupportFragmentManager(), termFragment.getTag());
+                    buttonView.setChecked(false);
+                }else{
+
+                }
+
             }
         });
 
