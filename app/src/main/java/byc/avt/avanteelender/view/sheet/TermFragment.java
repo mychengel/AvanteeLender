@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.misc;
+package byc.avt.avanteelender.view.sheet;
 
 
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import byc.avt.avanteelender.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -46,15 +45,13 @@ public class TermFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_term, container, false);
-
     }
 
     Toolbar toolbar;
     Button btnCancel, btnNext;
     CheckBox cbAgree, cbSetuju;
     NestedScrollView nestedSv;
-
-    public String nilai = "";
+    public static Boolean read = false; //variable untuk get status checked
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -71,7 +68,6 @@ public class TermFragment extends BottomSheetDialogFragment {
         cbAgree = view.findViewById(R.id.cb_setuju_fr_term);
         cbAgree.setEnabled(false);
         nestedSv = view.findViewById(R.id.nested_sv_fr_term);
-
         nestedSv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -81,6 +77,7 @@ public class TermFragment extends BottomSheetDialogFragment {
             }
         });
 
+        // checkbox listener untuk get sudah dicentang atau belum
         cbAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -88,6 +85,7 @@ public class TermFragment extends BottomSheetDialogFragment {
                     btnCancel.setEnabled(true);
                     btnNext.setEnabled(true);
                 }else{
+                    read = false;
                     btnCancel.setEnabled(false);
                     btnNext.setEnabled(false);
                 }
@@ -97,6 +95,7 @@ public class TermFragment extends BottomSheetDialogFragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                read = false;
                 instance.dismiss();
             }
         });
@@ -104,10 +103,10 @@ public class TermFragment extends BottomSheetDialogFragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //cbSetuju.setChecked(true);
+                read = true;
+                instance.dismiss();
             }
         });
-
     }
 
     @Override
@@ -118,7 +117,6 @@ public class TermFragment extends BottomSheetDialogFragment {
             instance.dismiss();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

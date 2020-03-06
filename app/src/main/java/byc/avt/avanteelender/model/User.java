@@ -3,19 +3,19 @@ package byc.avt.avanteelender.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class User implements Parcelable {
-    private String phoneNumber, email, password;
-    private int user_id;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String email, no_handphone, password, referral_code;
 
     public User() {
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public User(String email, String no_handphone, String password, String referral_code) {
+        this.email = email;
+        this.no_handphone = no_handphone;
+        this.password = password;
+        this.referral_code = referral_code;
     }
 
     public String getEmail() {
@@ -26,6 +26,14 @@ public class User implements Parcelable {
         this.email = email;
     }
 
+    public String getNo_handphone() {
+        return no_handphone;
+    }
+
+    public void setNo_handphone(String no_handphone) {
+        this.no_handphone = no_handphone;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -34,43 +42,11 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getReferral_code() {
+        return referral_code;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setReferral_code(String referral_code) {
+        this.referral_code = referral_code;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.phoneNumber);
-        dest.writeString(this.email);
-        dest.writeString(this.password);
-        dest.writeInt(this.user_id);
-    }
-
-    protected User(Parcel in) {
-        this.phoneNumber = in.readString();
-        this.email = in.readString();
-        this.password = in.readString();
-        this.user_id = in.readInt();
-    }
-
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 }

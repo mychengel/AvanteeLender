@@ -52,7 +52,7 @@
             android:id="@+id/cons_nested_sv_fr_term"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.misc.TermFragment">
+            tools:context=".view.sheet.TermFragment">
 
             <TextView
                 android:id="@+id/txt_toc_fr_term"
