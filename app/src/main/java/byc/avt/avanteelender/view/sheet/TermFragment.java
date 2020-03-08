@@ -49,7 +49,7 @@ public class TermFragment extends BottomSheetDialogFragment {
 
     Toolbar toolbar;
     Button btnCancel, btnNext;
-    CheckBox cbAgree, cbSetuju;
+    CheckBox cbAgree;
     NestedScrollView nestedSv;
     public static Boolean read = false; //variable untuk get status checked
 
@@ -96,6 +96,7 @@ public class TermFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 read = false;
+                cbAgree.setChecked(false);
                 instance.dismiss();
             }
         });

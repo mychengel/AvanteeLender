@@ -14,9 +14,9 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.viewmodel.LoginViewModel;
 
-public class MasukActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    Fungsi f = new Fungsi(MasukActivity.this);
+    Fungsi f = new Fungsi(LoginActivity.this);
     Toolbar bar;
     private TextInputLayout editPassword, editEmail;
     private String email, password;
@@ -35,7 +35,7 @@ public class MasukActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
-        viewModel = ViewModelProviders.of(MasukActivity.this).get(LoginViewModel.class);
+        viewModel = ViewModelProviders.of(LoginActivity.this).get(LoginViewModel.class);
     }
 
     @Override

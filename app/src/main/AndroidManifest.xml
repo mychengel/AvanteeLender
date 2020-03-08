@@ -27,8 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MasukActivity"></activity>
-        <activity android:name=".view.DaftarActivity" />
+        <activity android:name=".view.RegistrationVerifyEmailActivity"></activity>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.RegistrationActivity" />
         <activity android:name=".intro.Walkthrough" />
         <activity
             android:name=".view.MainActivity"

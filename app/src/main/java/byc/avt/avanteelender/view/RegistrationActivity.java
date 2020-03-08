@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -21,14 +22,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.intro.Walkthrough;
 import byc.avt.avanteelender.view.sheet.TermFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
-public class DaftarActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
-    Fungsi f = new Fungsi(DaftarActivity.this);
+    Fungsi f = new Fungsi(RegistrationActivity.this);
     Toolbar bar;
     private TextInputLayout editPhoneNumber, editPassword, editEmail, editRefId, editConfirmPassword;
     private Button btnRegister;
@@ -37,7 +39,7 @@ public class DaftarActivity extends AppCompatActivity {
     private String phoneNumber = "", password = "", rePassword = "", email = "", refId = "";
     public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
 
-    public DaftarActivity(){}
+    public RegistrationActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +57,46 @@ public class DaftarActivity extends AppCompatActivity {
         editRefId = findViewById(R.id.edit_ref_id_daftar);
         btnRegister = findViewById(R.id.btn_daftar);
         checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
-        viewModel = ViewModelProviders.of(DaftarActivity.this).get(AuthenticationViewModel.class);
-        Objects.requireNonNull(editEmail.getEditText()).addTextChangedListener(registerTextWatcher);
-        Objects.requireNonNull(editPhoneNumber.getEditText()).addTextChangedListener(registerTextWatcher);
-        Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(registerTextWatcher);
-        Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(registerTextWatcher);
+        viewModel = ViewModelProviders.of(RegistrationActivity.this).get(AuthenticationViewModel.class);
+//        Objects.requireNonNull(editEmail.getEditText()).addTextChangedListener(registerTextWatcher);
+//        Objects.requireNonNull(editPhoneNumber.getEditText()).addTextChangedListener(registerTextWatcher);
+        Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
+        Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
+
+        editEmail.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                email = Objects.requireNonNull(editEmail.getEditText()).getText().toString().trim();
+                cekEmail(email);
+                cekDone();
+            }
+        });
+
+        editPhoneNumber.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                phoneNumber = Objects.requireNonNull(editPhoneNumber.getEditText()).getText().toString().trim();
+                cekPhone(phoneNumber);
+                cekDone();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmInput();
+                confirmRegister();
             }
         });
 
@@ -76,7 +108,7 @@ public class DaftarActivity extends AppCompatActivity {
                     if(isread){
                         checkAgree.setChecked(true);
                         readTerm = true;
-                        btnRegister.setEnabled(readTerm && allisfilled);
+                        cekDone();
                     }else{
                         TermFragment termFragment = TermFragment.getInstance();
                         termFragment.show(getSupportFragmentManager(), termFragment.getTag());
@@ -85,8 +117,7 @@ public class DaftarActivity extends AppCompatActivity {
                 } else {
                     checkAgree.setChecked(false);
                     readTerm = false;
-                    TermFragment.read = false;
-                    btnRegister.setEnabled(readTerm && allisfilled);
+                    cekDone();
                 }
             }
         });
@@ -124,7 +155,16 @@ public class DaftarActivity extends AppCompatActivity {
     }
 
     boolean allisfilled = false;
-    private TextWatcher registerTextWatcher = new TextWatcher() {
+    private void cekDone(){
+        if(emailisvalid && phoneisvalid && !email.isEmpty() && !phoneNumber.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && password.equals(rePassword)){
+            allisfilled = true;
+        }else{
+            allisfilled = false;
+        }
+        btnRegister.setEnabled(readTerm && allisfilled);
+    }
+
+    private TextWatcher cekPassTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
@@ -133,33 +173,27 @@ public class DaftarActivity extends AppCompatActivity {
         }
         @Override
         public void afterTextChanged(Editable editable) {
-            email = Objects.requireNonNull(editEmail.getEditText()).getText().toString().trim();
-            phoneNumber = Objects.requireNonNull(editPhoneNumber.getEditText()).getText().toString().trim();
+            //email = Objects.requireNonNull(editEmail.getEditText()).getText().toString().trim();
+            //phoneNumber = Objects.requireNonNull(editPhoneNumber.getEditText()).getText().toString().trim();
+            //cekEmail(email);
+            //cekPhone(phoneNumber);
             password = Objects.requireNonNull(editPassword.getEditText()).getText().toString().trim();
             rePassword = Objects.requireNonNull(editConfirmPassword.getEditText()).getText().toString().trim();
-            cekEmail(email);
-            cekPhone(phoneNumber);
             if (rePassword.equals(password)){
                 editConfirmPassword.setError(null);
             } else {
                 editConfirmPassword.setError("Kata sandi harus sama!");
             }
-
-            if(emailisvalid && phoneisvalid && !email.isEmpty() && !phoneNumber.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && password.equals(rePassword)){
-                allisfilled = true;
-            }else{
-                allisfilled = false;
-            }
-            btnRegister.setEnabled(readTerm && allisfilled);
+            cekDone();
         }
     };
 
-    public void confirmInput() {
+    public void confirmRegister() {
         refId = Objects.requireNonNull(editRefId.getEditText()).getText().toString().trim();
         // POST to server through endpoint
         User user = new User(email, phoneNumber, password, refId);
-        viewModel.register(user, DaftarActivity.this);
-        viewModel.getResult().observe(DaftarActivity.this, checkSuccess);
+        viewModel.register(user, RegistrationActivity.this);
+        viewModel.getResult().observe(RegistrationActivity.this, checkSuccess);
     }
 
     private Observer<String> checkSuccess = new Observer<String>() {
@@ -167,7 +201,8 @@ public class DaftarActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if (result.equals("ok")) {
                 f.showMessage("Success");
-                //intent to send email
+                Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
+                startActivity(intent);
             } else {
                 f.showMessage(result);
             }
@@ -183,6 +218,7 @@ public class DaftarActivity extends AppCompatActivity {
                 TermFragment.getInstance().dismiss();
             }else {
                 finish();
+                TermFragment.read = false;
             }
             return true;
         }
@@ -192,6 +228,7 @@ public class DaftarActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+        TermFragment.read = false;
     }
 
 }

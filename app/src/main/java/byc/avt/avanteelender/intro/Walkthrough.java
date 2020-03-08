@@ -21,9 +21,9 @@ import android.widget.TextView;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.view.DaftarActivity;
+import byc.avt.avanteelender.view.RegistrationActivity;
 import byc.avt.avanteelender.view.MainActivity;
-import byc.avt.avanteelender.view.MasukActivity;
+import byc.avt.avanteelender.view.LoginActivity;
 
 public class Walkthrough extends AppCompatActivity {
 
@@ -187,7 +187,7 @@ public class Walkthrough extends AppCompatActivity {
                 btnDaftar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Walkthrough.this, DaftarActivity.class);
+                        Intent intent = new Intent(Walkthrough.this, RegistrationActivity.class);
                         startActivity(intent);
 
                     }
@@ -197,7 +197,7 @@ public class Walkthrough extends AppCompatActivity {
                 btnMasuk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Walkthrough.this, MasukActivity.class);
+                        Intent intent = new Intent(Walkthrough.this, LoginActivity.class);
                         startActivity(intent);
                     }
                 });

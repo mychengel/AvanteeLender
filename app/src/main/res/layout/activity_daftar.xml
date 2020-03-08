@@ -5,7 +5,7 @@
     android:id="@+id/circularrevealcoor_daftar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DaftarActivity">
+    tools:context=".view.RegistrationActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_daftar"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="8dp"
-            tools:context=".view.DaftarActivity">
+            tools:context=".view.RegistrationActivity">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_email_daftar"
