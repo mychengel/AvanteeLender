@@ -200,11 +200,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private Observer<String> checkSuccess = new Observer<String>() {
         @Override
         public void onChanged(String result) {
-            if (result.equals("ok")) {
-                f.showMessage("Success");
+            if(result.equals("ok")) {
+                RegistrationVerifyEmailActivity.email = email;
                 Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
                 startActivity(intent);
-            } else {
+            }else{
                 f.showMessage(result);
             }
         }

@@ -56,15 +56,16 @@ public class AuthenticationRepository {
         params.put("no_handphone", user.getNo_handphone());
         params.put("password", user.getPassword());
         params.put("referral_code", user.getReferral_code());
+        params.put("user_type", "1");
         JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"baycode/daftar", parameters,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"auth/register", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         dialog.cancel();
                         String hasil = null; //jika kembaliannya dalam string
                         try {
-                            hasil = response.getString("status");
+                            hasil = response.getString("result");
                             msg.setValue(hasil);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -74,7 +75,7 @@ public class AuthenticationRepository {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", "Error");
+                        Log.e("Volley", error.toString());
                         dialog.cancel();
                     }
                 }

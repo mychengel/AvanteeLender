@@ -207,6 +207,13 @@
     <string name="kirim_ulang">Kirim ulang</string>
     <string name="lanjutkan">Lanjutkan</string>
     <string name="email_terkirim">Email terkirim</string>
-    <string name="dummy_resent_email">Kami telah mengirim ulang email verifikasi ke johndoe@gmail.com. Klik tautan dalam email untuk verifikasi akun Anda.</string>
+    <string name="des_email_terkirim1">Kami telah mengirimkan email ke </string>
+    <string name="des_email_terkirim2"> dengan tautan yang perlu Anda klik untuk verifikasi. Harap cek folder spam atau klik “Kirim ulang” jika email tidak masuk.</string>
+    <string name="des_email_resent1">Kami telah mengirim ulang email verifikasi ke </string>
+    <string name="des_email_resent2">. Klik tautan dalam email untuk verifikasi akun Anda.</string>
+    <string name="email_not_verified">Email belum terverifikasi</string>
+    <string name="des_email_not_verified">Mohon klik tautan di email verifikasi terlebih dahulu.</string>
+    <string name="registration_success">Pendaftaran berhasil</string>
+    <string name="des_regristration_success">Akun berhasil didaftarkan sebagai pemberi dana di Avantee. Silakan masuk kembali menggunakan email dan kata sandi Anda.</string>
 
 </resources>
