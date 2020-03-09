@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_fr_resent_email"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="48dp"
+    tools:context=".view.sheet.ConfirmationSheetFragment">
+
+    <ImageView
+        android:id="@+id/img_handle_fr_resent_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/img"
+        android:src="@drawable/ic_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_fr_resent_email"
+        android:layout_width="132dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="56dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/email_sent_once"
+        tools:layout_conversion_absoluteHeight="132dp"
+        tools:layout_conversion_absoluteWidth="132dp" />
+
+    <TextView
+        android:id="@+id/lbl_title_fr_resent_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ibm_plex_sans_semi_bold"
+        android:text="@string/email_terkirim"
+        android:textColor="@color/dark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottie_fr_resent_email" />
+
+    <TextView
+        android:id="@+id/lbl_des_fr_resent_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/dummy_resent_email"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_title_fr_resent_email" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

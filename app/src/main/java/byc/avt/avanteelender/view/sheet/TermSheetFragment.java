@@ -26,17 +26,17 @@ import byc.avt.avanteelender.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TermFragment extends BottomSheetDialogFragment {
+public class TermSheetFragment extends BottomSheetDialogFragment {
 
-    private static TermFragment instance;
+    private static TermSheetFragment instance;
 
-    public TermFragment() {
+    public TermSheetFragment() {
         // Required empty public constructor
     }
 
-    public static TermFragment getInstance() {
+    public static TermSheetFragment getInstance() {
         if (instance == null) {
-            instance = new TermFragment();
+            instance = new TermSheetFragment();
         }
         return instance;
     }
@@ -44,7 +44,7 @@ public class TermFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_term, container, false);
+        return inflater.inflate(R.layout.fragment_sheet_term, container, false);
     }
 
     Toolbar toolbar;

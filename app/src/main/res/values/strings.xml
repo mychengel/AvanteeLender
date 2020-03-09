@@ -206,5 +206,7 @@
     <string name="dummy_kami_telah">Kami telah mengirimkan email ke johndoe@gmail.com dengan tautan yang perlu Anda klik untuk verifikasi. Harap cek folder spam atau klik “Kirim ulang” jika email tidak masuk.</string>
     <string name="kirim_ulang">Kirim ulang</string>
     <string name="lanjutkan">Lanjutkan</string>
+    <string name="email_terkirim">Email terkirim</string>
+    <string name="dummy_resent_email">Kami telah mengirim ulang email verifikasi ke johndoe@gmail.com. Klik tautan dalam email untuk verifikasi akun Anda.</string>
 
 </resources>

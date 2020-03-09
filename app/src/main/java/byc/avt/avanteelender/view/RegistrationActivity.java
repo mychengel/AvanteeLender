@@ -20,12 +20,10 @@ import android.widget.CompoundButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.intro.Walkthrough;
-import byc.avt.avanteelender.view.sheet.TermFragment;
+import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -103,14 +101,14 @@ public class RegistrationActivity extends AppCompatActivity {
         checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean isread = TermFragment.read;
+                boolean isread = TermSheetFragment.read;
                 if (isChecked) {
                     if(isread){
                         checkAgree.setChecked(true);
                         readTerm = true;
                         cekDone();
                     }else{
-                        TermFragment termFragment = TermFragment.getInstance();
+                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
                         termFragment.show(getSupportFragmentManager(), termFragment.getTag());
                         checkAgree.setChecked(false);
                     }
@@ -217,11 +215,11 @@ public class RegistrationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            if(TermFragment.getInstance().isVisible()){
-                TermFragment.getInstance().dismiss();
+            if(TermSheetFragment.getInstance().isVisible()){
+                TermSheetFragment.getInstance().dismiss();
             }else {
                 finish();
-                TermFragment.read = false;
+                TermSheetFragment.read = false;
             }
             return true;
         }
@@ -231,7 +229,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        TermFragment.read = false;
+        TermSheetFragment.read = false;
     }
 
 }
