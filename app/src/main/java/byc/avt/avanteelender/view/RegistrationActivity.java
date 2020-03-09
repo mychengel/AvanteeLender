@@ -20,8 +20,10 @@ import android.widget.CompoundButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.intro.Walkthrough;
 import byc.avt.avanteelender.view.sheet.TermFragment;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -29,6 +31,8 @@ import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    public RegistrationActivity(){}
 
     Fungsi f = new Fungsi(RegistrationActivity.this);
     Toolbar bar;
@@ -38,8 +42,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private AuthenticationViewModel viewModel;
     private String phoneNumber = "", password = "", rePassword = "", email = "", refId = "";
     public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
-
-    public RegistrationActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,6 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_daftar);
         checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
         viewModel = ViewModelProviders.of(RegistrationActivity.this).get(AuthenticationViewModel.class);
-//        Objects.requireNonNull(editEmail.getEditText()).addTextChangedListener(registerTextWatcher);
-//        Objects.requireNonNull(editPhoneNumber.getEditText()).addTextChangedListener(registerTextWatcher);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
         Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
@@ -156,7 +156,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     boolean allisfilled = false;
     private void cekDone(){
-        if(emailisvalid && phoneisvalid && !email.isEmpty() && !phoneNumber.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && password.equals(rePassword)){
+        if(passisvalid && emailisvalid && phoneisvalid && !email.isEmpty() && !phoneNumber.isEmpty() && !password.isEmpty() && !rePassword.isEmpty() && password.equals(rePassword)){
             allisfilled = true;
         }else{
             allisfilled = false;
@@ -164,6 +164,7 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegister.setEnabled(readTerm && allisfilled);
     }
 
+    boolean passisvalid = false;
     private TextWatcher cekPassTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -173,16 +174,18 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         @Override
         public void afterTextChanged(Editable editable) {
-            //email = Objects.requireNonNull(editEmail.getEditText()).getText().toString().trim();
-            //phoneNumber = Objects.requireNonNull(editPhoneNumber.getEditText()).getText().toString().trim();
-            //cekEmail(email);
-            //cekPhone(phoneNumber);
             password = Objects.requireNonNull(editPassword.getEditText()).getText().toString().trim();
+            passisvalid = GlobalVariables.PASSWORD_PATTERN.matcher(password).matches();
             rePassword = Objects.requireNonNull(editConfirmPassword.getEditText()).getText().toString().trim();
-            if (rePassword.equals(password)){
-                editConfirmPassword.setError(null);
-            } else {
-                editConfirmPassword.setError("Kata sandi harus sama!");
+            if(passisvalid){
+                editPassword.setError(null);
+                if (rePassword.equals(password)){
+                    editConfirmPassword.setError(null);
+                } else {
+                    editConfirmPassword.setError("Kata sandi harus sama!");
+                }
+            }else{
+                editPassword.setError("Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil & 1 angka. (min. 8 huruf & maks. 12 huruf)");
             }
             cekDone();
         }
