@@ -24,7 +24,7 @@ public final class GlobalVariables {
             //"(?=.*[a-zA-Z])" + //can be any letter (uppercase/lowercase)
             //"(?=.*[@#$%^&+=])" + //at least 1 special character
             "(?=\\S+$)." + //no white spaces
-            "{8,12}" + //at least 8 character, max 12 character
+            "{4,7}" + //at least 8 character, max 12 character
             "$");
 
     public static final Map<String, String> API_ACCESS(){
