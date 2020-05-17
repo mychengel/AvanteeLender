@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.model.User;
@@ -45,7 +46,7 @@ public class AuthenticationRepository {
         return repository;
     }
 
-    ///cara akses API
+    ///Method to post user data for register
     public MutableLiveData<String> registration(User user, Context context) {
         dialog = GlobalVariables.loadingDialog(context);
         dialog.show();
@@ -56,7 +57,6 @@ public class AuthenticationRepository {
         params.put("no_handphone", user.getNo_handphone());
         params.put("password", user.getPassword());
         params.put("referral_code", user.getReferral_code());
-        params.put("user_type", "1");
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"auth/register", parameters,
                 new Response.Listener<JSONObject>() {
@@ -86,6 +86,7 @@ public class AuthenticationRepository {
                 return GlobalVariables.API_ACCESS();
             }
         };
+        requestQueue.getCache().clear();
         requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
@@ -99,6 +100,7 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
+        Log.d("MSG: ", msg.toString());
         return msg;
     }
 

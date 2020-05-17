@@ -5,11 +5,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +20,27 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.repositories.AuthenticationRepository;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
@@ -70,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                email = Objects.requireNonNull(editEmail.getEditText()).getText().toString().trim();
+                email = editEmail.getEditText().getText().toString().trim();
                 cekEmail(email);
                 cekDone();
             }
@@ -201,16 +219,18 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
+                Log.d("Result: ", "register success");
                 RegistrationVerifyEmailActivity.email = email;
                 Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
                 startActivity(intent);
             }else{
+                Log.d("Result: ", result);
                 f.showMessage(result);
             }
         }
     };
 
-    // button back diklik
+    //back button clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

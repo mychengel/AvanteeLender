@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import byc.avt.avanteelender.R;
 
-public class Splash extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     ImageView img_logo;
     Intent i = null;
@@ -22,7 +22,7 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent onBoard = new Intent(Splash.this, Walkthrough.class);
+                Intent onBoard = new Intent(SplashActivity.this, WalkthroughActivity.class);
                 onBoard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(onBoard);
                 finish();

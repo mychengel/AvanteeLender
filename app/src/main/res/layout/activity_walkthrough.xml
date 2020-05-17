@@ -5,7 +5,7 @@
     android:id="@+id/cons_walkthrough"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".intro.Walkthrough">
+    tools:context=".intro.WalkthroughActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_walkthrough"
