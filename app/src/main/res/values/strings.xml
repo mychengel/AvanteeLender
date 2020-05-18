@@ -79,6 +79,7 @@
     <string name="use">Gunakan</string>
     <string name="take_again">Foto ulang</string>
     <string name="ive_read_2">Saya telah membaca dan setuju dengan Syarat dan Ketentuan Avantee diatas</string>
+    <string name="verify">Verifikasi</string>
 
     <!-- TODO: Lender Type Page -->
     <string name="lender_type">Tipe pemberi dana</string>
