@@ -65,7 +65,7 @@ public class AuthenticationRepository {
                         dialog.cancel();
                         String hasil = null; //jika kembaliannya dalam string
                         try {
-                            hasil = response.getString("result");
+                            hasil = response.getString("mresult");
                             msg.setValue(hasil);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -100,7 +100,7 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
-        Log.d("MSG: ", msg.toString());
+        //Log.e("MSG: ", Objects.requireNonNull(msg.getValue()));
         return msg;
     }
 

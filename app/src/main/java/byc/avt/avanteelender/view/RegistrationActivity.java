@@ -219,12 +219,12 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
-                Log.d("Result: ", "register success");
+                Log.e("Result: ", "register success");
                 RegistrationVerifyEmailActivity.email = email;
                 Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
                 startActivity(intent);
             }else{
-                Log.d("Result: ", result);
+                Log.e("Result: ", result);
                 f.showMessage(result);
             }
         }
