@@ -100,7 +100,6 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
-        //Log.e("MSG: ", Objects.requireNonNull(msg.getValue()));
         return msg;
     }
 
