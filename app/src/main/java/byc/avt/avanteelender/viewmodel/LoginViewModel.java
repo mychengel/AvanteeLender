@@ -1,19 +1,29 @@
 package byc.avt.avanteelender.viewmodel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.repositories.AuthenticationRepository;
 
 public class LoginViewModel extends ViewModel {
     private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
 
-    public void login(User user, String ref_id){
-        isSuccess.setValue(true);
+    private AuthenticationRepository authenticationRepository;
+    private MutableLiveData<String> msg = new MutableLiveData<>();
+
+    public LoginViewModel() {
+        authenticationRepository = AuthenticationRepository.getInstance();
     }
 
-    public LiveData<Boolean> getStatus(){
-        return isSuccess;
+    public void login(String email, String password, Context context){
+        msg = authenticationRepository.login(email, password, context);
+    }
+
+    public LiveData<String> getResult(){
+        return msg;
     }
 }
