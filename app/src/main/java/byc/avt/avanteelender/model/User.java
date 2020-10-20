@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Parcelable {
     private String email, no_handphone, password, referral_code;
 
     public User() {
@@ -17,6 +17,25 @@ public class User implements Serializable {
         this.password = password;
         this.referral_code = referral_code;
     }
+
+    protected User(Parcel in) {
+        email = in.readString();
+        no_handphone = in.readString();
+        password = in.readString();
+        referral_code = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getEmail() {
         return email;
@@ -48,5 +67,18 @@ public class User implements Serializable {
 
     public void setReferral_code(String referral_code) {
         this.referral_code = referral_code;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(no_handphone);
+        dest.writeString(password);
+        dest.writeString(referral_code);
     }
 }

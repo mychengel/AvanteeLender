@@ -10,7 +10,7 @@ import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.repositories.AuthenticationRepository;
 
 public class LoginViewModel extends ViewModel {
-    private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
+    //private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
 
     private AuthenticationRepository authenticationRepository;
     private MutableLiveData<String> msg = new MutableLiveData<>();

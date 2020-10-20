@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
             a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
             startActivity(a);
+            finishAffinity();
         }
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(MainActivity.this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();

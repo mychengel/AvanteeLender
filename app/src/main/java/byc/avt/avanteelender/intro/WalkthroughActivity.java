@@ -84,7 +84,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         // Checking for first time launch - before calling setContentView()
-        userPref = getSharedPreferences("user", MODE_PRIVATE);
+        //userPref = getSharedPreferences("user", MODE_PRIVATE);
         prefManager = new PrefManager(WalkthroughActivity.this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
@@ -125,11 +125,11 @@ public class WalkthroughActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        if(userPref.getString("uid", "-").equalsIgnoreCase("-")){
+        if(prefManager.getUid().equalsIgnoreCase("-")){
             viewPager.setCurrentItem(layouts.length);
         }else{
             startActivity(new Intent(WalkthroughActivity.this, MainActivity.class));
-            new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali Lender!");
+            new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali "+prefManager.getName());
             overridePendingTransition(R.anim.enter, R.anim.exit);
             finish();
         }

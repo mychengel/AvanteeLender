@@ -31,7 +31,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.model.UserData;
 
 public class AuthenticationRepository {
 
@@ -39,6 +41,7 @@ public class AuthenticationRepository {
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
     Dialog dialog;
+    private PrefManager prefManager;
 
     private AuthenticationRepository() {
     }
@@ -109,16 +112,15 @@ public class AuthenticationRepository {
 
 
     public MutableLiveData<String> login(final String email, final String password, Context context) {
+        prefManager = new PrefManager(context);
         dialog = GlobalVariables.loadingDialog(context);
         dialog.show();
         final MutableLiveData<String> msg = new MutableLiveData<>();
         final MutableLiveData<Boolean> status = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        Map<String, String> params = new HashMap<>(); //untuk passing data ke server/webservice
-
+        Map<String, String> params = new HashMap<>();
         params.put("password", password);
         params.put("email", email);
-        Log.e("Cek lempar:", params.toString());
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"signin", parameters,
                 new Response.Listener<JSONObject>() {
@@ -126,16 +128,27 @@ public class AuthenticationRepository {
                     public void onResponse(JSONObject response) {
                         dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
-                        String stat = "";
+                        String token = "";
+                        boolean status = false;
                         JSONObject res;
                         try {
                             code = response.getInt("code");
-                            res = response.getJSONObject("result");
-                            //stat = response.getJSONObject("result").getString("message");
-                            //stat = response.getJSONObject("result").getString("uid");
-                            stat = res.getString("uid");
-                            Log.e("Respon server: code: ", code+" - uid: "+stat);
-                            msg.setValue(""+code);
+                            status = response.getBoolean("status");
+                            if(code == 200 & status == true){
+                                token = response.getString("token");
+                                res = response.getJSONObject("result");
+                                String uid = res.getString("uid");
+                                int type = res.getInt("type");
+                                String client_type = res.getString("client_type");
+                                String avatar = res.getString("avatar");
+                                String name = res.getString("name");
+                                int avantee_verif = res.getInt("avantee_verif");
+                                UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token);
+                                prefManager.setUserData(ud);
+                                msg.setValue("ok");
+                            }else{
+                                msg.setValue("no");
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -173,6 +186,5 @@ public class AuthenticationRepository {
 
         return msg;
     }
-
 
 }

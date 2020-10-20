@@ -23,6 +23,8 @@ import java.util.Objects;
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.LoginViewModel;
 
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private String email = "", password = "";
     private Button btnLogin;
     private LoginViewModel viewModel;
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        prefManager = new PrefManager(LoginActivity.this);
 
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
@@ -85,13 +89,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
-//                Log.e("Result: ", "register success");
-//                RegistrationVerifyEmailActivity.email = email;
-//                Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
-//                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                f.showMessage("Selamat datang "+prefManager.getName());
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
             }else{
-//                Log.e("Result: ", result);
-//                f.showMessage(result);
+                f.showMessage("Login gagal, silahkan coba lagi.");
             }
         }
     };
