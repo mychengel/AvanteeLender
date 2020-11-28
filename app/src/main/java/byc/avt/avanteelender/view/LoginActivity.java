@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
         viewModel = ViewModelProviders.of(LoginActivity.this).get(AuthenticationViewModel.class);
-        Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
+        //Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
     boolean allisfilled = false;
     private void cekDone(){
-        if(emailisvalid && !email.isEmpty() && passisvalid && !password.isEmpty()){
+        if(emailisvalid && !email.isEmpty() && !password.isEmpty()){
             allisfilled = true;
         }else{
             allisfilled = false;
