@@ -54,6 +54,7 @@
     <color name="dark">#374553</color>
     <color name="white">#FFFFFF</color>
     <color name="overlay">#CC374553</color>
+    <color name="pendingBg">#19EC9512</color>
 
     <!-- Background -->
     <color name="neutral">#F0D2D5DB</color>

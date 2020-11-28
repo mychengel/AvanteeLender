@@ -14,6 +14,7 @@ public class LoginViewModel extends ViewModel {
 
     private AuthenticationRepository authenticationRepository;
     private MutableLiveData<String> msg = new MutableLiveData<>();
+    private MutableLiveData<String> msg_out = new MutableLiveData<>();
 
     public LoginViewModel() {
         authenticationRepository = AuthenticationRepository.getInstance();
@@ -26,4 +27,13 @@ public class LoginViewModel extends ViewModel {
     public LiveData<String> getResult(){
         return msg;
     }
+
+    public void logout(String uid, String token, Context context){
+        msg_out = authenticationRepository.logout(uid, token, context);
+    }
+
+    public LiveData<String> getLogoutResult(){
+        return msg_out;
+    }
+
 }

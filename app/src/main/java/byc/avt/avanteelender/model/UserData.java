@@ -12,10 +12,11 @@ public class UserData implements Parcelable {
     private String name;
     private int avantee_verif;
     private String token;
+    private long expired_time;
 
     public UserData(){}
 
-    public UserData(String uid, int type, String client_type, String avatar, String name, int avantee_verif, String token) {
+    public UserData(String uid, int type, String client_type, String avatar, String name, int avantee_verif, String token, long expired_time) {
         this.uid = uid;
         this.type = type;
         this.client_type = client_type;
@@ -23,6 +24,7 @@ public class UserData implements Parcelable {
         this.name = name;
         this.avantee_verif = avantee_verif;
         this.token = token;
+        this.expired_time = expired_time;
     }
 
     protected UserData(Parcel in) {
@@ -33,6 +35,7 @@ public class UserData implements Parcelable {
         name = in.readString();
         avantee_verif = in.readInt();
         token = in.readString();
+        expired_time = in.readLong();
     }
 
     public static final Creator<UserData> CREATOR = new Creator<UserData>() {
@@ -75,19 +78,24 @@ public class UserData implements Parcelable {
         return token;
     }
 
+    public long getExpired_time() {
+        return expired_time;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uid);
-        dest.writeInt(type);
-        dest.writeString(client_type);
-        dest.writeString(avatar);
-        dest.writeString(name);
-        dest.writeInt(avantee_verif);
-        dest.writeString(token);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(uid);
+        parcel.writeInt(type);
+        parcel.writeString(client_type);
+        parcel.writeString(avatar);
+        parcel.writeString(name);
+        parcel.writeInt(avantee_verif);
+        parcel.writeString(token);
+        parcel.writeLong(expired_time);
     }
 }

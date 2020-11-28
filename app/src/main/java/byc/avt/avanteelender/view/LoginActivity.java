@@ -26,6 +26,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout editPassword, editEmail;
     private String email = "", password = "";
     private Button btnLogin;
-    private LoginViewModel viewModel;
+    private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
 
     @Override
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
-        viewModel = ViewModelProviders.of(LoginActivity.this).get(LoginViewModel.class);
+        viewModel = ViewModelProviders.of(LoginActivity.this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     public void confirmLogin() {
         // POST to server through endpoint
         viewModel.login(email, password, LoginActivity.this);
-        viewModel.getResult().observe(LoginActivity.this, checkSuccess);
+        viewModel.getLoginResult().observe(LoginActivity.this, checkSuccess);
     }
 
     private Observer<String> checkSuccess = new Observer<String>() {
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                f.showMessage("Selamat datang "+prefManager.getName());
+                f.showMessage("Selamat datang "+prefManager.getName()+".");
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
             }else{

@@ -12,6 +12,8 @@ import byc.avt.avanteelender.repositories.AuthenticationRepository;
 public class AuthenticationViewModel extends ViewModel {
     private AuthenticationRepository authenticationRepository;
     private MutableLiveData<String> msg = new MutableLiveData<>();
+    private MutableLiveData<String> msg_in = new MutableLiveData<>();
+    private MutableLiveData<String> msg_out = new MutableLiveData<>();
 
     public AuthenticationViewModel() {
         authenticationRepository = AuthenticationRepository.getInstance();
@@ -23,5 +25,21 @@ public class AuthenticationViewModel extends ViewModel {
 
     public LiveData<String> getResult(){
         return msg;
+    }
+
+    public void login(String email, String password, Context context){
+        msg_in = authenticationRepository.login(email, password, context);
+    }
+
+    public LiveData<String> getLoginResult(){
+        return msg_in;
+    }
+
+    public void logout(String uid, String token, Context context){
+        msg_out = authenticationRepository.logout(uid, token, context);
+    }
+
+    public LiveData<String> getLogoutResult(){
+        return msg_out;
     }
 }

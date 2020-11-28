@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -258,5 +259,25 @@ public class WalkthroughActivity extends AppCompatActivity {
     }
 
     private void requestPhoneCallPermission() {
+    }
+
+    public boolean doubleBackToExitPressedOnce = false;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.doubleBackToExitPressedOnce = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(a);
+            finishAffinity();
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(WalkthroughActivity.this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
     }
 }

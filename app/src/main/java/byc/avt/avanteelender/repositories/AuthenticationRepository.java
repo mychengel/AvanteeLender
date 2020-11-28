@@ -122,7 +122,7 @@ public class AuthenticationRepository {
         params.put("password", password);
         params.put("email", email);
         JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"signin", parameters,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/signin", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -143,7 +143,7 @@ public class AuthenticationRepository {
                                 String avatar = res.getString("avatar");
                                 String name = res.getString("name");
                                 int avantee_verif = res.getInt("avantee_verif");
-                                UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token);
+                                UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token,0);
                                 prefManager.setUserData(ud);
                                 msg.setValue("ok");
                             }else{
@@ -167,6 +167,77 @@ public class AuthenticationRepository {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS();
+            }
+
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("password", password);
+//                params.put("email", email);
+//                return params;
+//            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return msg;
+    }
+
+    public MutableLiveData<String> logout(final String uid, final String token, Context context) {
+        prefManager = new PrefManager(context);
+        dialog = GlobalVariables.loadingDialog(context);
+        dialog.show();
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/signout", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        dialog.cancel();
+                        int code = 0;
+                        boolean status = false;
+                        JSONObject res;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");
+                            if(code == 200 & status == true){
+                                prefManager.clearUserData();
+                                msg.setValue("ok");
+                            }else{
+                                String errorMsg = "";
+                                //res = response.getJSONObject("result");
+                                errorMsg = response.getString("message");
+                                msg.setValue(errorMsg);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        dialog.cancel();
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
             }
         };
         requestQueue.getCache().clear();

@@ -224,5 +224,20 @@
     <string name="des_email_not_verified">Mohon klik tautan di email verifikasi terlebih dahulu.</string>
     <string name="registration_success">Pendaftaran berhasil</string>
     <string name="des_regristration_success">Akun berhasil didaftarkan sebagai pemberi dana di Avantee. Silakan masuk kembali menggunakan email dan kata sandi Anda.</string>
+    <string name="account_setting">Pengaturan akun</string>
+    <string name="faq">FAQ</string>
+    <string name="term_and_condition">Syarat dan ketentuan</string>
+    <string name="risk_info">Informasi risiko</string>
+    <string name="logout">Keluar</string>
+    <string name="dummy_version">Versi 1.0.0</string>
+    <string name="txtnull">-</string>
+    <string name="txt_initial">T</string>
+    <string name="available_money">Saldo Tersedia</string>
+    <string name="dummy_rp_nol">Rp 0</string>
+    <string name="topup">Top Up</string>
+    <string name="tarik">Tarik</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="info_dan_penawaran"><![CDATA[Info & Penawaran]]></string>
+    <string name="data_not_found">Data tidak ditemukan.</string>
 
 </resources>

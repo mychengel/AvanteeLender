@@ -3,7 +3,7 @@ apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "byc.avt.avanteelender"
         minSdkVersion 21
@@ -26,27 +26,29 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.airbnb.android:lottie:3.0.3'
-    implementation 'com.google.android.material:material:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.airbnb.android:lottie:3.4.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.volley:volley:1.1.1'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.loopj.android:android-async-http:1.4.10'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.4'
-    implementation 'com.google.firebase:firebase-auth:19.3.2'
-    implementation 'com.google.firebase:firebase-database:19.4.0'
-    implementation 'com.google.firebase:firebase-storage:19.2.0'
-    implementation 'com.google.firebase:firebase-config:19.2.0'
-    implementation 'com.google.firebase:firebase-invites:17.0.0'
+    //implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
+    //implementation 'com.google.firebase:firebase-database:19.4.0'
+    //implementation 'com.google.firebase:firebase-storage:19.2.0'
+    implementation 'com.google.firebase:firebase-config:20.0.1'
+    //implementation 'com.google.firebase:firebase-invites:17.0.0'
 
     //Stepper
     implementation 'com.stepstone.stepper:material-stepper:4.3.1'
@@ -55,7 +57,7 @@ dependencies {
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

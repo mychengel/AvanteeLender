@@ -51,6 +51,11 @@ public class PrefManager {
         return name;
     }
 
+    public String getToken(){
+        String token = userPref.getString("token","-");
+        return token;
+    }
+
     public String getAvatar(){
         String avatar = userPref.getString("avatar","-");
         return avatar;
@@ -64,7 +69,12 @@ public class PrefManager {
         userEditor.putString("name", ud.getName());
         userEditor.putInt("avantee_verif", ud.getAvantee_verif());
         userEditor.putString("token", ud.getToken());
+        userEditor.putString("expired_time", ud.getToken());
         userEditor.commit();
+    }
+
+    public void clearUserData(){
+        userEditor.clear().commit();
     }
 
     //function to manage user pref

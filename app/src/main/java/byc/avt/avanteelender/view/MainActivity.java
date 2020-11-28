@@ -14,20 +14,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.lang.reflect.Field;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
+import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.fragment.DashboardFragment;
 import byc.avt.avanteelender.view.fragment.NotificationsFragment;
 import byc.avt.avanteelender.view.fragment.PortofolioFragment;
+import byc.avt.avanteelender.view.others.SettingActivity;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AuthenticationViewModel viewModel;
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = ViewModelProviders.of(MainActivity.this).get(AuthenticationViewModel.class);
+        prefManager = new PrefManager(MainActivity.this);
         BottomNavigationView navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
@@ -98,15 +110,42 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(a);
-            finishAffinity();
+        if (doubleBackToExitPressedOnce){
+            logout();
+        }else {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(MainActivity.this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
         }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(MainActivity.this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
     }
 
+    public void logout() {
+        // LOGOUT: GET method to server through endpoint
+        viewModel.logout(prefManager.getUid(), prefManager.getToken(), MainActivity.this);
+        viewModel.getLogoutResult().observe(MainActivity.this, checkSuccess);
+    }
+
+    private Observer<String> checkSuccess = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("ok")) {
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+                finishAffinity();
+            }else{}
+        }
+    };
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        //new Fungsi(MainActivity.this).showMessage("Home clicked!");
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        //new Fungsi(MainActivity.this).showMessage("You resume!");
+    }
 }
