@@ -1,20 +1,20 @@
 package byc.avt.avanteelender.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,10 +24,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.intro.WalkthroughActivity;
-import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
-import byc.avt.avanteelender.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        prefManager = new PrefManager(LoginActivity.this);
+        prefManager = PrefManager.getInstance(LoginActivity.this);
 
+        dialog = GlobalVariables.loadingDialog(LoginActivity.this);
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
-        viewModel = ViewModelProviders.of(LoginActivity.this).get(AuthenticationViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
@@ -82,7 +81,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void confirmLogin() {
         // POST to server through endpoint
-        viewModel.login(email, password, LoginActivity.this);
+        dialog.show();
+        viewModel.login(email, password);
         viewModel.getLoginResult().observe(LoginActivity.this, checkSuccess);
     }
 
@@ -90,11 +90,13 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
+                dialog.cancel();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 f.showMessage("Selamat datang "+prefManager.getName()+".");
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
             }else{
+                dialog.cancel();
                 f.showMessage("Login gagal, silahkan coba lagi.");
             }
         }

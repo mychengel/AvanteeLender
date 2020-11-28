@@ -45,16 +45,16 @@ public class SplashRepository {
     }
 
     public MutableLiveData<String> sessionCheck(final String uid, final String token, Context context) {
-        prefManager = new PrefManager(context);
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
+        prefManager = PrefManager.getInstance(context);
+//        dialog = GlobalVariables.loadingDialog(context);
+//        dialog.show();
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
+//                        dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONObject res;
@@ -82,7 +82,7 @@ public class SplashRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
+//                        dialog.cancel();
                     }
                 }
         )
@@ -111,16 +111,16 @@ public class SplashRepository {
     }
 
     public MutableLiveData<String> hanyaCheck(final String uid, final String token, Context context) {
-        prefManager = new PrefManager(context);
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
+        prefManager = PrefManager.getInstance(context);
+//        dialog = GlobalVariables.loadingDialog(context);
+//        dialog.show();
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
+//                        dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONObject res;
@@ -156,7 +156,7 @@ public class SplashRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
+//                        dialog.cancel();
                     }
                 }
         )

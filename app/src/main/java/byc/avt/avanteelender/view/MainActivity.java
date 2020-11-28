@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.lang.reflect.Field;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = ViewModelProviders.of(MainActivity.this).get(AuthenticationViewModel.class);
-        prefManager = new PrefManager(MainActivity.this);
+        viewModel = new ViewModelProvider(MainActivity.this).get(AuthenticationViewModel.class);
+        prefManager = PrefManager.getInstance(MainActivity.this);
         BottomNavigationView navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void logout() {
         // LOGOUT: GET method to server through endpoint
-        viewModel.logout(prefManager.getUid(), prefManager.getToken(), MainActivity.this);
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
         viewModel.getLogoutResult().observe(MainActivity.this, checkSuccess);
     }
 

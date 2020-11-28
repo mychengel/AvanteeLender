@@ -55,8 +55,6 @@ public class AuthenticationRepository {
 
     ///Method to post user data for register
     public MutableLiveData<String> registration(User user, Context context) {
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         Map<String, String> params = new HashMap<>(); //untuk passing data ke server/webservice
@@ -69,7 +67,6 @@ public class AuthenticationRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
                         String hasil = null; //jika kembaliannya dalam string
                         try {
                             hasil = response.getString("mresult");
@@ -83,7 +80,6 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
                     }
                 }
         )
@@ -112,9 +108,7 @@ public class AuthenticationRepository {
 
 
     public MutableLiveData<String> login(final String email, final String password, Context context) {
-        prefManager = new PrefManager(context);
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
+        prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         final MutableLiveData<Boolean> status = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -126,7 +120,6 @@ public class AuthenticationRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
                         String token = "";
                         boolean status = false;
@@ -158,7 +151,6 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
                     }
                 }
         )
@@ -196,16 +188,13 @@ public class AuthenticationRepository {
     }
 
     public MutableLiveData<String> logout(final String uid, final String token, Context context) {
-        prefManager = new PrefManager(context);
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
+        prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/signout", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
                         int code = 0;
                         boolean status = false;
                         JSONObject res;
@@ -230,7 +219,6 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
                     }
                 }
         )

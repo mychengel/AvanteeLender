@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Dialog;
@@ -58,6 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private AuthenticationViewModel viewModel;
     private String phoneNumber = "", password = "", rePassword = "", email = "", refId = "";
     public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setSupportActionBar(bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        dialog = GlobalVariables.loadingDialog(RegistrationActivity.this);
 
         editEmail = findViewById(R.id.edit_email_daftar);
         editPhoneNumber = findViewById(R.id.edit_phone_daftar);
@@ -75,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editRefId = findViewById(R.id.edit_ref_id_daftar);
         btnRegister = findViewById(R.id.btn_daftar);
         checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
-        viewModel = ViewModelProviders.of(RegistrationActivity.this).get(AuthenticationViewModel.class);
+        viewModel = new ViewModelProvider(RegistrationActivity.this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
         Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
@@ -210,8 +213,9 @@ public class RegistrationActivity extends AppCompatActivity {
     public void confirmRegister() {
         refId = Objects.requireNonNull(editRefId.getEditText()).getText().toString().trim();
         // POST to server through endpoint
+        dialog.show();
         User user = new User(email, phoneNumber, password, refId);
-        viewModel.register(user, RegistrationActivity.this);
+        viewModel.register(user);
         viewModel.getResult().observe(RegistrationActivity.this, checkSuccess);
     }
 
@@ -219,11 +223,13 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
+                dialog.cancel();
                 Log.e("Result: ", "register success");
                 RegistrationVerifyEmailActivity.email = email;
                 Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
                 startActivity(intent);
             }else{
+                dialog.cancel();
                 Log.e("Result: ", result);
                 f.showMessage(result);
             }

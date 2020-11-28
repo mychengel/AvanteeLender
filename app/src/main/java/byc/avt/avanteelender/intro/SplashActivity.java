@@ -2,6 +2,7 @@ package byc.avt.avanteelender.intro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -27,8 +28,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        prefManager = new PrefManager(SplashActivity.this);
-        viewModel = ViewModelProviders.of(SplashActivity.this).get(SplashViewModel.class);
+        prefManager = PrefManager.getInstance(SplashActivity.this);
+        viewModel = new ViewModelProvider(SplashActivity.this).get(SplashViewModel.class);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -44,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public void checkSession() {
         // POST to server through endpoint
-        viewModel.sessionCheck(prefManager.getUid(), prefManager.getToken(), SplashActivity.this);
+        viewModel.sessionCheck(prefManager.getUid(), prefManager.getToken());
         viewModel.getResult().observe(SplashActivity.this, checkSuccess);
     }
 
@@ -55,14 +56,13 @@ public class SplashActivity extends AppCompatActivity {
                 Intent onBoard = new Intent(SplashActivity.this, WalkthroughActivity.class);
                 onBoard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(onBoard);
-                finish();
             }else{
                 new Fungsi(SplashActivity.this).showMessage(result);
                 Intent onBoard = new Intent(SplashActivity.this, WalkthroughActivity.class);
                 onBoard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(onBoard);
-                finish();
             }
+            finish();
         }
     };
 }

@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,19 +43,21 @@ public class SettingActivity extends AppCompatActivity {
 
     private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        viewModel = ViewModelProviders.of(SettingActivity.this).get(AuthenticationViewModel.class);
-        prefManager = new PrefManager(SettingActivity.this);
+        viewModel = new ViewModelProvider(SettingActivity.this).get(AuthenticationViewModel.class);
+        prefManager = PrefManager.getInstance(SettingActivity.this);
         Toolbar toolbar = findViewById(R.id.toolbar_settings);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        dialog = GlobalVariables.loadingDialog(SettingActivity.this);
 
         cvAccountSetting = findViewById(R.id.cv_account_setting);
         cvFAQ = findViewById(R.id.cv_faq);
@@ -99,7 +103,8 @@ public class SettingActivity extends AppCompatActivity {
 
     public void logout() {
         // LOGOUT: GET method to server through endpoint
-        viewModel.logout(prefManager.getUid(), prefManager.getToken(), SettingActivity.this);
+        dialog.show();
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
         viewModel.getLogoutResult().observe(SettingActivity.this, checkLogout);
     }
 
@@ -107,6 +112,7 @@ public class SettingActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
+                dialog.cancel();
                 Intent intent = new Intent(SettingActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -114,6 +120,7 @@ public class SettingActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 finish();
             }else{
+                dialog.cancel();
                 new Fungsi().showMessage(result);
             }
         }

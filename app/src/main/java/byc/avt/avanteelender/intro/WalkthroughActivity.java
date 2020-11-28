@@ -86,7 +86,7 @@ public class WalkthroughActivity extends AppCompatActivity {
 
         // Checking for first time launch - before calling setContentView()
         //userPref = getSharedPreferences("user", MODE_PRIVATE);
-        prefManager = new PrefManager(WalkthroughActivity.this);
+        prefManager = PrefManager.getInstance(WalkthroughActivity.this);
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             //finish();

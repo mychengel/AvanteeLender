@@ -47,9 +47,9 @@ public class DashboardRepository {
     }
 
     public MutableLiveData<ArrayList<HistoryTrx>> getHistoryTrx(final String uid, final String token, final Context context) {
-        prefManager = new PrefManager(context);
-        dialog = GlobalVariables.loadingDialog(context);
-        dialog.show();
+        prefManager = PrefManager.getInstance(context);
+//        dialog = GlobalVariables.loadingDialog(context);
+//        dialog.show();
         final MutableLiveData<ArrayList<HistoryTrx>> result = new MutableLiveData<>();
         final ArrayList<HistoryTrx> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -57,14 +57,14 @@ public class DashboardRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        dialog.cancel();
+//                        dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONArray rows = null;
                         try {
                             code = response.getInt("code");
                             status = response.getBoolean("status");;
-                            if(code == 200 && status == true){
+                            if(code == 200 && status){
                                 rows = response.getJSONArray("rows");
                                 if(rows.length()==0){
 
@@ -97,7 +97,7 @@ public class DashboardRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        dialog.cancel();
+//                        dialog.cancel();
                     }
                 }
         )
