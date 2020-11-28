@@ -135,6 +135,8 @@ public class DashboardFragment extends Fragment {
                 rvHistoryTrx.setVisibility(View.INVISIBLE);
                 txt_no_trans_history.setVisibility(View.VISIBLE);
             }else{
+                rvHistoryTrx.setVisibility(View.VISIBLE);
+                txt_no_trans_history.setVisibility(View.INVISIBLE);
                 rvHistoryTrx.setLayoutManager(new LinearLayoutManager(getActivity()));
                 HistoryTrxAdapter historyTrxAdapter = new HistoryTrxAdapter(getActivity());
                 historyTrxAdapter.setListHistoryTrx(result);

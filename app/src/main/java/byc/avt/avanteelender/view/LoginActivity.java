@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
         viewModel = ViewModelProviders.of(LoginActivity.this).get(AuthenticationViewModel.class);
-        //Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
+        Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -125,11 +125,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             password = Objects.requireNonNull(editPassword.getEditText()).getText().toString().trim();
-            passisvalid = GlobalVariables.PASSWORD_PATTERN.matcher(password).matches();
+            passisvalid = GlobalVariables.PASSWORD_PATTERN2.matcher(password).matches();
             if(passisvalid){
                 editPassword.setError(null);
             }else{
-                editPassword.setError("Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil & 1 angka. (min. 8 huruf & maks. 12 huruf)");
+                //editPassword.setError("Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil & 1 angka. (min. 8 huruf & maks. 12 huruf)");
             }
             cekDone();
         }
@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
     boolean allisfilled = false;
     private void cekDone(){
-        if(emailisvalid && !email.isEmpty() && !password.isEmpty()){
+        if(emailisvalid && !email.isEmpty() && passisvalid && !password.isEmpty()){
             allisfilled = true;
         }else{
             allisfilled = false;

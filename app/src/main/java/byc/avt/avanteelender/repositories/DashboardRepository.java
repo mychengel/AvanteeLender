@@ -69,7 +69,7 @@ public class DashboardRepository {
                                 if(rows.length()==0){
 
                                 }else{
-                                    for(int i = 0; i < rows.length(); i++){
+                                    for(int i = 0; i < 5; i++){
                                         JSONObject obj = rows.getJSONObject(i);
                                         String nom = "0";
                                         if(obj.getString("nominal_in").equals("0")){

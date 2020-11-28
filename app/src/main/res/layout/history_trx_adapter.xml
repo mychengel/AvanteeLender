@@ -24,6 +24,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/dark"
         android:textSize="13sp"
@@ -33,11 +35,13 @@
 
     <TextView
         android:id="@+id/lbl_datetime_adp_histori_trx"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:text="TextView"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_adp_histori_trx"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_status_adp_histori_trx"
         app:layout_constraintStart_toStartOf="@+id/lbl_title_adp_histori_trx" />
 
     <TextView

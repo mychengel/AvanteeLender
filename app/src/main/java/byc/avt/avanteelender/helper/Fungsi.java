@@ -70,7 +70,7 @@ public class Fungsi {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         if(numb.charAt(numb.length()-3) == '.'){
-            hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-4))));
+            hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-3))));
         }else{
             hsl = formatRupiah.format((double)Integer.parseInt(numb));
         }

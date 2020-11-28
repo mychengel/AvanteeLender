@@ -31,6 +31,16 @@ public final class GlobalVariables {
             "{8,12}" + //at least 8 character, max 12 character
             "$");
 
+    public static final Pattern PASSWORD_PATTERN2 = Pattern.compile("^" +
+            //"(?=.*[0-9])" +         //at least has 1 number
+            //"(?=.*[a-z])" +         //at least has 1 lower case letter
+            //"(?=.*[A-Z])" +         //at least has 1 upper case letter
+            //"(?=.*[a-zA-Z])" + //can be any letter (uppercase/lowercase)
+            //"(?=.*[@#$%^&+=])" + //at least 1 special character
+            "(?=\\S+$)." + //no white spaces
+            "{1,50}" + //at least 1 character, max 50 character
+            "$");
+
     public static Map<String, String> API_ACCESS(){
         final String basicAuth = "Basic " + Base64.encodeToString("Av@nTe3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
         //final String basicAuth = "Basic " + Base64.encodeToString("B@code3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);

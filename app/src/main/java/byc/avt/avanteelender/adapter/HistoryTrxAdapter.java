@@ -51,14 +51,21 @@ public class HistoryTrxAdapter extends RecyclerView.Adapter<HistoryTrxAdapter.Ca
         holder.lbl_title.setText(ht.getDescription());
         holder.lbl_datetime.setText(ht.getTrx_date().substring(0,16));
         holder.lbl_nominal.setText(ht.getNominal());
+        if(ht.getNominal().charAt(0) == '-'){
+            holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_withdraw_white));
+            holder.img.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_red));
+        }else{
+            holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_receive_white));
+            holder.img.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_green));
+        }
         String stat = "";
         if(ht.getStatus().equals("1")){
             stat = "";
-            holder.cons.setBackgroundColor(R.color.white);
+            holder.cons.setBackgroundResource(R.color.white);
         }else {
             stat = "PENDING";
             holder.lbl_status.setTextColor(ContextCompat.getColor(context, R.color.pending));
-            holder.cons.setBackgroundColor(R.color.pendingBg);
+            holder.cons.setBackgroundResource(R.color.pendingBg);
         }
         holder.lbl_status.setText(stat);
     }
