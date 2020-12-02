@@ -233,11 +233,19 @@
     <string name="txtnull">-</string>
     <string name="txt_initial">T</string>
     <string name="available_money">Saldo Tersedia</string>
-    <string name="dummy_rp_nol">Rp 0</string>
+    <string name="dummy_rp_nol">Rp0</string>
     <string name="topup">Top Up</string>
     <string name="tarik">Tarik</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="info_dan_penawaran"><![CDATA[Info & Penawaran]]></string>
     <string name="data_not_found">Data tidak ditemukan.</string>
+    <string name="active_port_nom">Total nominal portofolio aktif</string>
+    <string name="estimate_interest">Estimasi total bunga diterima</string>
+    <string name="late">Terlambat</string>
+    <string name="nol">0</string>
+    <string name="total_pending_portfolio">Total Nominal Portofolio Pending</string>
+    <string name="auto_funding">Auto Funding</string>
+    <string name="set_now">Atur Sekarang</string>
+    <string name="auto_funding_content">"Ingin mendanai tetapi tidak punya banyak waktu? Atur parameternya dan pendanaan Anda akan berjalan otomatis. "</string>
 
 </resources>

@@ -40,6 +40,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_sv_daftar"
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
             android:id="@+id/cons_daftar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="8dp"
+            android:paddingBottom="64dp"
             tools:context=".view.RegistrationActivity">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -189,9 +190,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
+                android:layout_marginBottom="40dp"
                 android:text="@string/syarat_ketentuan_avantee"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/cb_setuju_syarat_ketentuan_daftar"
                 app:layout_constraintStart_toStartOf="@+id/cb_setuju_syarat_ketentuan_daftar"
                 app:layout_constraintTop_toBottomOf="@+id/cb_setuju_syarat_ketentuan_daftar" />
@@ -199,7 +202,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_bottom_daftar"

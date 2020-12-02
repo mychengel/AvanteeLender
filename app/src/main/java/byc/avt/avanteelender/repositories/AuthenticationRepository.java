@@ -141,6 +141,7 @@ public class AuthenticationRepository {
                                 msg.setValue("ok");
                             }else{
                                 msg.setValue("no");
+                                Log.e("Login Response", "Email atau password tidak sesuai");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -242,7 +243,64 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
+        return msg;
+    }
 
+    public MutableLiveData<String> forceLogout(final String uid, final String token, Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/signout", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0;
+                        boolean status = false;
+                        JSONObject res;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");
+                            if(code == 200 & status == true){
+                                prefManager.clearUserData();
+                                msg.setValue("ok");
+                            }else{
+                                String errorMsg = "";
+                                //res = response.getJSONObject("result");
+                                errorMsg = response.getString("message");
+                                msg.setValue(errorMsg);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
         return msg;
     }
 

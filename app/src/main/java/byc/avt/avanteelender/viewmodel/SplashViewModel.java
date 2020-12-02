@@ -23,14 +23,6 @@ public class SplashViewModel extends AndroidViewModel {
         splashRepository = SplashRepository.getInstance();
     }
 
-    public void hanyaCheck(String uid, String token){
-        msgx = splashRepository.hanyaCheck(uid, token, getApplication());
-    }
-
-    public LiveData<String> getResultHanya(){
-        return msgx;
-    }
-
     public void sessionCheck(String uid, String token){
         msg = splashRepository.sessionCheck(uid, token, getApplication());
     }

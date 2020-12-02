@@ -67,6 +67,16 @@ public class PrefManager {
         return avatar;
     }
 
+    public long getExpiredTime(){
+        long exp = userPref.getLong("expired_time",0);
+        return exp;
+    }
+
+    public void setExpiredTime(long millisNow){
+        userEditor.putLong("expired_time", millisNow);
+        userEditor.commit();
+    }
+
     public void setUserData(UserData ud){
         userEditor.putString("uid", ud.getUid());
         userEditor.putInt("type", ud.getType());
@@ -75,7 +85,7 @@ public class PrefManager {
         userEditor.putString("name", ud.getName());
         userEditor.putInt("avantee_verif", ud.getAvantee_verif());
         userEditor.putString("token", ud.getToken());
-        userEditor.putString("expired_time", ud.getToken());
+        userEditor.putLong("expired_time", ud.getExpired_time());
         userEditor.commit();
     }
 

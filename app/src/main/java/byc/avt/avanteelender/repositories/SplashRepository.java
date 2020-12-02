@@ -45,25 +45,16 @@ public class SplashRepository {
     }
 
     public MutableLiveData<String> sessionCheck(final String uid, final String token, Context context) {
-        prefManager = PrefManager.getInstance(context);
-//        dialog = GlobalVariables.loadingDialog(context);
-//        dialog.show();
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        dialog.cancel();
-                        int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONObject res;
                         try {
-                            code = response.getInt("");
-                            Log.e("CODE",""+code);
                             status = response.getBoolean("status");
-                            Log.e("UID", uid);
-                            Log.e("TOKEN", token);
                             Log.e("Status", status+"");
                             if(status == true){
                                 msg.setValue("ok");
@@ -82,81 +73,6 @@ public class SplashRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-//                        dialog.cancel();
-                    }
-                }
-        )
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-            }
-        });
-
-        return msg;
-    }
-
-    public MutableLiveData<String> hanyaCheck(final String uid, final String token, Context context) {
-        prefManager = PrefManager.getInstance(context);
-//        dialog = GlobalVariables.loadingDialog(context);
-//        dialog.show();
-        final MutableLiveData<String> msg = new MutableLiveData<>();
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-//                        dialog.cancel();
-                        int code = 0; //jika kembaliannya dalam string
-                        boolean status = false;
-                        JSONObject res;
-                        JSONArray jo;
-                        try {
-                            code = response.getInt("code");
-//                            jo = response.getJSONArray("result");
-//                            if(jo == null){
-//                                Log.e("JO","kosong");
-//                            }else{
-//                                Log.e("JO","ada isinya");
-//                            }
-                            Log.e("CODE",""+code);
-                            status = response.getBoolean("status");
-                            Log.e("UID", uid);
-                            Log.e("TOKEN", token);
-                            Log.e("Status", status+"");
-                            if(status == true){
-                                msg.setValue("ok");
-                            }else{
-                                //prefManager.clearUserData();
-                                String errorMsg = response.getString("messages");
-                                Log.e("MSG", errorMsg);
-                                msg.setValue(errorMsg);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-//                        dialog.cancel();
                     }
                 }
         )

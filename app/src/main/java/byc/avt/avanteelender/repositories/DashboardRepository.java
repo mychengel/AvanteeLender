@@ -26,6 +26,7 @@ import java.util.Map;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
 
 public class DashboardRepository {
@@ -47,9 +48,6 @@ public class DashboardRepository {
     }
 
     public MutableLiveData<ArrayList<HistoryTrx>> getHistoryTrx(final String uid, final String token, final Context context) {
-        prefManager = PrefManager.getInstance(context);
-//        dialog = GlobalVariables.loadingDialog(context);
-//        dialog.show();
         final MutableLiveData<ArrayList<HistoryTrx>> result = new MutableLiveData<>();
         final ArrayList<HistoryTrx> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -57,7 +55,6 @@ public class DashboardRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        dialog.cancel();
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONArray rows = null;
@@ -67,9 +64,8 @@ public class DashboardRepository {
                             if(code == 200 && status){
                                 rows = response.getJSONArray("rows");
                                 if(rows.length()==0){
-
                                 }else{
-                                    for(int i = 0; i < 5; i++){
+                                    for(int i = 0; i < 3; i++){
                                         JSONObject obj = rows.getJSONObject(i);
                                         String nom = "0";
                                         if(obj.getString("nominal_in").equals("0")){
@@ -77,17 +73,14 @@ public class DashboardRepository {
                                         }else{
                                             nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
                                         }
-                                        HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date")
-                                            , nom, obj.getString("approved_status"));
+                                        HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
                                         list.add(historyTrx);
                                     }
-                                    result.setValue(list);
                                 }
                             }else{
-                                //String errorMsg = response.getString("messages");
-                                new Fungsi(context).showMessage("Gagal memuat data histori transaksi.");
+                                new Fungsi(context).showMessage("Gagal memuat data");
                             }
-
+                            result.setValue(list);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -97,7 +90,6 @@ public class DashboardRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-//                        dialog.cancel();
                     }
                 }
         )
@@ -122,6 +114,192 @@ public class DashboardRepository {
             }
         });
 
+        return result;
+    }
+
+    public MutableLiveData<ArrayList<Header>> getHeader(final String uid, final String token, final Context context) {
+        final MutableLiveData<ArrayList<Header>> result = new MutableLiveData<>();
+        final ArrayList<Header> list = new ArrayList<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/information/header/1", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0; //jika kembaliannya dalam string
+                        boolean status = false;
+                        JSONObject obj = null;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");;
+                            if(code == 200 && status){
+                                obj = response.getJSONObject("result");
+                                Header header = new Header(obj.getString("user_type"),obj.getString("user_code"),obj.getString("joint_date"),obj.getString("reff_code"), obj.getString("no_handphone"),obj.getString("email"));
+                                list.add(header);
+                            }else{
+                                new Fungsi(context).showMessage("Gagal memuat data");
+                            }
+                            result.setValue(list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> getDashboard(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        result.setValue(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<String> getTotActivePort(final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            result.setValue(""+response.getString("total"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<String> getTotPendingPort(final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/pending", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            result.setValue(""+response.getString("total"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
         return result;
     }
 

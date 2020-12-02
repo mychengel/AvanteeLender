@@ -69,36 +69,17 @@ public class Fungsi {
         String hsl = "";
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        if(numb.charAt(numb.length()-3) == '.'){
-            hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-3))));
+        if(numb.length() > 3){
+            if(numb.charAt(numb.length()-3) == '.'){
+                hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-3))));
+            }else{
+                hsl = formatRupiah.format((double)Integer.parseInt(numb));
+            }
         }else{
             hsl = formatRupiah.format((double)Integer.parseInt(numb));
         }
+
         return hsl;
     }
-
-//    public void checkSession(SplashViewModel viewModel) {
-//        // POST to server through endpoint
-//        viewModel.sessionCheck(prefManager.getUid(), prefManager.getToken(), ctx);
-//        viewModel.getResult().observe((LifecycleOwner) ctx, checkSuccess);
-//    }
-//
-//    private Observer<String> checkSuccess = new Observer<String>() {
-//        @Override
-//        public void onChanged(String result) {
-//            if(result.equals("ok")) {
-//                Intent onBoard = new Intent(ctx, WalkthroughActivity.class);
-//                onBoard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                ((AppCompatActivity)ctx).startActivity(onBoard);
-//                ((AppCompatActivity)ctx).finish();
-//            }else{
-//                Intent onBoard = new Intent(ctx, WalkthroughActivity.class);
-//                onBoard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                showMessage(result);
-//                ((AppCompatActivity)ctx).startActivity(onBoard);
-//                ((AppCompatActivity)ctx).finish();
-//            }
-//        }
-//    };
 
 }

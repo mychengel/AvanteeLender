@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -19,6 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(MainActivity.this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(MainActivity.this);
+        Log.e("expiredtoken", ""+prefManager.getExpiredTime());
         BottomNavigationView navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
@@ -112,7 +117,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce){
-            logout();
+            //logout();
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(a);
+            finishAffinity();
+            Calendar cNow = Calendar.getInstance();
+            cNow.add(Calendar.SECOND, 30);
+            Date currentTime = cNow.getTime();
+            long millisNow = currentTime.getTime();
+            prefManager.setExpiredTime(millisNow);
         }else {
             this.doubleBackToExitPressedOnce = true;
             Toast.makeText(MainActivity.this, "Tekan lagi untuk keluar aplikasi", Toast.LENGTH_SHORT).show();
@@ -129,11 +144,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onChanged(String result) {
             if(result.equals("ok")) {
-                Intent a = new Intent(Intent.ACTION_MAIN);
-                a.addCategory(Intent.CATEGORY_HOME);
-                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(a);
-                finishAffinity();
+//                Intent a = new Intent(Intent.ACTION_MAIN);
+//                a.addCategory(Intent.CATEGORY_HOME);
+//                a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(a);
+//                finishAffinity();
             }else{}
         }
     };
