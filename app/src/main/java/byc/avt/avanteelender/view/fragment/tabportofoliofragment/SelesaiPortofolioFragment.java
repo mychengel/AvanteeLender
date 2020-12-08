@@ -65,7 +65,7 @@ public class SelesaiPortofolioFragment extends Fragment {
         txt_tot_pb_selesai = v.findViewById(R.id.txt_pb_received_port_selesai);
         txt_tot_nom_selesai = v.findViewById(R.id.txt_nom_received_port_selesai);
         rv = v.findViewById(R.id.rv_port_selesai);
-        f.showMessage("Portofolio SELESAI");
+        //f.showMessage("Portofolio SELESAI");
         loadData();
     }
 

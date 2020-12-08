@@ -66,10 +66,11 @@ public class AuthenticationRepository {
         params.put("reffCode", user.getReferral_code());
         params.put("term", "1");
         JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/registrasi", parameters,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/register", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("REGISTRASI", response.toString());
                         result.setValue(response);
                     }
                 },

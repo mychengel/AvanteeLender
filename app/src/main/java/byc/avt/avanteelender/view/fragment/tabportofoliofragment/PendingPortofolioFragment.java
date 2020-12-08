@@ -64,7 +64,7 @@ public class PendingPortofolioFragment extends Fragment {
         txt_est_bunga_diterima = v.findViewById(R.id.txt_est_bunga_port_pending);
         txt_tot_nom_pending = v.findViewById(R.id.txt_tot_nom_port_pending);
         rv = v.findViewById(R.id.rv_port_pending);
-        f.showMessage("Portofolio PENDING");
+        //f.showMessage("Portofolio PENDING");
         loadData();
     }
 

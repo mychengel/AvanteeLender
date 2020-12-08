@@ -57,7 +57,7 @@ public class AktifPortofolioFragment extends Fragment {
         txt_tot_angs_bunga_dibayar = v.findViewById(R.id.txt_tot_angs_sudah_port_aktif);
         rv = v.findViewById(R.id.rv_port_aktif);
 
-        f.showMessage("Portofolio AKTIF");
+        //f.showMessage("Portofolio AKTIF");
     }
 
 }
