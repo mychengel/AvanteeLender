@@ -1,19 +1,34 @@
 package byc.avt.avanteelender.viewmodel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class PortofolioViewModel extends ViewModel {
+import org.json.JSONObject;
 
-    private MutableLiveData<String> mText;
+import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.repositories.AuthenticationRepository;
+import byc.avt.avanteelender.repositories.PortofolioRepository;
 
-    public PortofolioViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is portofolio fragment");
+public class PortofolioViewModel extends AndroidViewModel {
+
+    private PortofolioRepository portofolioRepository;
+    private MutableLiveData<JSONObject> portClose = new MutableLiveData<>();
+
+    public PortofolioViewModel(@NonNull Application application) {
+        super(application);
+        portofolioRepository = PortofolioRepository.getInstance();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void portofolioClose(String uid, String token){
+        portClose = portofolioRepository.portofolioClose(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResult(){
+        return portClose;
     }
 }

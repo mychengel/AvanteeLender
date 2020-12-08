@@ -26,15 +26,19 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".adapter.HistoryTrxAdapter"
-            tools:ignore="Instantiatable"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".adapter.PortofolioPendingAdapter"></activity>
+        <activity android:name=".adapter.PortofolioAktifAdapter" />
+        <activity android:name=".adapter.PortofolioSelesaiAdapter" />
+        <activity
+            android:name=".adapter.HistoryTrxAdapter"
+            tools:ignore="Instantiatable" />
         <activity android:name=".view.others.SettingActivity" />
         <activity android:name=".view.misc.OTPActivity" />
         <activity android:name=".view.RegistrationFormActivity" />

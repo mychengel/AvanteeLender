@@ -219,19 +219,33 @@ public class RegistrationActivity extends AppCompatActivity {
         viewModel.getResult().observe(RegistrationActivity.this, checkSuccess);
     }
 
-    private Observer<String> checkSuccess = new Observer<String>() {
+    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
         @Override
-        public void onChanged(String result) {
-            if(result.equals("ok")) {
-                dialog.cancel();
-                Log.e("Result: ", "register success");
-                RegistrationVerifyEmailActivity.email = email;
-                Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
-                startActivity(intent);
-            }else{
-                dialog.cancel();
-                Log.e("Result: ", result);
-                f.showMessage(result);
+        public void onChanged(JSONObject response) {
+            int code = 0;
+            boolean status = false;
+            JSONObject res;
+            String msg = "";
+            try {
+                code = response.getInt("code");
+                status = response.getBoolean("status");
+                res = response.getJSONObject("result");
+                if(code == 200 & status == true){
+                    msg = res.getString("message");
+                    f.showMessage(msg);
+                    dialog.cancel();
+                    Log.e("Result: ", "register success");
+                    RegistrationVerifyEmailActivity.email = email;
+                    Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
+                    startActivity(intent);
+                }else{
+                    msg = res.getString("email")+res.getString("phone")+res.getString("password")+res.getString("repeatPassword")+res.getString("reffCode")+res.getString("term");
+                    dialog.cancel();
+                    Log.e("Result: ", msg);
+                    f.showMessage(msg);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     };

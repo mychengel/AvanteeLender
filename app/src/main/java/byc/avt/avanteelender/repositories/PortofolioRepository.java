@@ -1,6 +1,5 @@
 package byc.avt.avanteelender.repositories;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,9 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.auth0.android.jwt.JWT;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,46 +23,31 @@ import java.util.Map;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 
-public class SplashRepository {
+public class PortofolioRepository {
 
-    private static SplashRepository repository;
+    private static PortofolioRepository repository;
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
     private PrefManager prefManager;
 
-    private SplashRepository() {
+    private PortofolioRepository() {
     }
 
-    public static SplashRepository getInstance() {
+    public static PortofolioRepository getInstance() {
         if (repository == null) {
-            repository = new SplashRepository();
+            repository = new PortofolioRepository();
         }
         return repository;
     }
 
-    public MutableLiveData<String> sessionCheck(final String uid, final String token, Context context) {
-        final MutableLiveData<String> msg = new MutableLiveData<>();
+    public MutableLiveData<JSONObject> portofolioClose(final String uid, final String token, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/close", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        boolean status = false;
-                        JSONObject res;
-                        try {
-                            status = response.getBoolean("status");
-                            Log.e("Status", status+"");
-                            if(status == true){
-                                msg.setValue("ok");
-                            }else{
-                                prefManager.clearUserData();
-                                String errorMsg = response.getString("messages");
-                                msg.setValue(errorMsg);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        result.setValue(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -96,7 +78,7 @@ public class SplashRepository {
             }
         });
 
-        return msg;
+        return result;
     }
 
 }

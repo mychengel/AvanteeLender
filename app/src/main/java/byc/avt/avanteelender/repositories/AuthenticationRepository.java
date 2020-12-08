@@ -54,26 +54,23 @@ public class AuthenticationRepository {
     }
 
     ///Method to post user data for register
-    public MutableLiveData<String> registration(User user, Context context) {
-        final MutableLiveData<String> msg = new MutableLiveData<>();
+    public MutableLiveData<JSONObject> registration(User user, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        Map<String, String> params = new HashMap<>(); //untuk passing data ke server/webservice
+        Map<String, String> params = new HashMap<>();
+        params.put("userType", "1");
         params.put("email", user.getEmail());
-        params.put("no_handphone", user.getNo_handphone());
+        params.put("phone", user.getNo_handphone());
         params.put("password", user.getPassword());
-        params.put("referral_code", user.getReferral_code());
+        params.put("repeatPassword", user.getPassword());
+        params.put("reffCode", user.getReferral_code());
+        params.put("term", "1");
         JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"auth/register", parameters,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/registrasi", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String hasil = null; //jika kembaliannya dalam string
-                        try {
-                            hasil = response.getString("mresult");
-                            msg.setValue(hasil);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        result.setValue(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -103,7 +100,7 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
-        return msg;
+        return result;
     }
 
 
