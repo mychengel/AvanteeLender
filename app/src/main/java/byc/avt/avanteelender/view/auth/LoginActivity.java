@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view;
+package byc.avt.avanteelender.view.auth;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -152,14 +153,15 @@ public class LoginActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == android.R.id.home){
             finish();
+            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
         finish();
+        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
     }
 }

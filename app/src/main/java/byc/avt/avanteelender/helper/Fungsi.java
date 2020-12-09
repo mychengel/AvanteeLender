@@ -19,6 +19,10 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import byc.avt.avanteelender.intro.SplashActivity;
@@ -82,6 +86,52 @@ public class Fungsi {
         }
 
         return hsl;
+    }
+
+    public int selisihHari(String date){
+        Calendar cNow = Calendar.getInstance();
+        Date currentTime = cNow.getTime();
+        long millisNow = currentTime.getTime();
+
+        long timeInMilliseconds = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date mDate = sdf.parse(date);
+            timeInMilliseconds = mDate.getTime();
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        int selisih = (int) ((timeInMilliseconds - millisNow) / 86400000)+1;
+
+        return selisih;
+    }
+
+    public int terkumpulPersen(String pinjaman, String funding){
+        int persen = (int) ((Float.parseFloat(funding) / Float.parseFloat(pinjaman)) * 100);
+        return persen;
+    }
+
+    public long millisFromDate(String date){
+        long timeInMilliseconds = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date mDate = sdf.parse(date);
+            timeInMilliseconds = mDate.getTime();
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return timeInMilliseconds;
+    }
+
+    public long millisFromNow(){
+        Calendar cNow = Calendar.getInstance();
+        Date currentTime = cNow.getTime();
+        long millisNow = currentTime.getTime();
+        return millisNow;
     }
 
 }

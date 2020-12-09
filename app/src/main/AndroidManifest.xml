@@ -15,7 +15,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -27,31 +29,39 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".adapter.PortofolioPendingAdapter"></activity>
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".adapter.PendanaanAdapter"></activity>
+        <activity android:name=".view.features.PendanaanActivity" />
+        <activity
+            android:name=".adapter.PortofolioPendingAdapter"
+            tools:ignore="Instantiatable" />
         <activity android:name=".adapter.PortofolioAktifAdapter" />
-        <activity android:name=".adapter.PortofolioSelesaiAdapter" />
+        <activity
+            android:name=".adapter.PortofolioSelesaiAdapter"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".adapter.HistoryTrxAdapter"
             tools:ignore="Instantiatable" />
         <activity android:name=".view.others.SettingActivity" />
         <activity android:name=".view.misc.OTPActivity" />
-        <activity android:name=".view.RegistrationFormActivity" />
+        <activity android:name=".view.auth.RegistrationFormActivity" />
         <activity
-            android:name=".view.RegistrationVerifyEmailActivity"
+            android:name=".view.auth.RegistrationVerifyEmailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.auth.LoginActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.RegistrationActivity"
+            android:name=".view.auth.RegistrationActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
@@ -75,7 +85,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".helper.receiver.OTPReceiver">
+        <receiver
+            android:name=".helper.receiver.OTPReceiver"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>

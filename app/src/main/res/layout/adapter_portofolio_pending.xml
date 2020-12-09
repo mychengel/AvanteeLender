@@ -26,15 +26,14 @@
 
             <ImageView
                 android:id="@+id/img_mark_adp_port_pending"
-                android:layout_width="48dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/img"
-                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_sharp_mark_a" />
+                app:srcCompat="@drawable/ic_loan_rating_a" />
 
             <TextView
                 android:id="@+id/txt_loan_rating_adp_port_pending"
@@ -55,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="16dp"
                 android:maxLines="1"
                 android:text="@string/txtnull"

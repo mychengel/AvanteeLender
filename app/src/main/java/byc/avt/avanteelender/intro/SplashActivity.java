@@ -3,22 +3,16 @@ package byc.avt.avanteelender.intro;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ImageView;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.view.LoginActivity;
-import byc.avt.avanteelender.view.MainActivity;
-import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.SplashViewModel;
 
 public class SplashActivity extends AppCompatActivity {

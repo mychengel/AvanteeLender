@@ -106,7 +106,6 @@
             android:layout_height="wrap_content">
 
 
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
@@ -157,6 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/img"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
@@ -173,54 +173,54 @@
                         app:layout_constraintStart_toStartOf="@+id/textView2"
                         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-                    <Button
-                        android:id="@+id/btn_topup_fr_dashboard"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/button_green"
-                        android:contentDescription="@string/img"
-                        android:drawableStart="@drawable/ic_top_up_white"
-                        android:gravity="center|center_horizontal|center_vertical"
-                        android:paddingStart="30dp"
-                        android:paddingEnd="30dp"
-                        android:text="@string/topup"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_withdraw_fr_dashboard"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         app:layout_constraintTop_toBottomOf="@+id/txt_ewallet_fr_dashboard">
 
-                    </Button>
+                        <Button
+                            android:id="@+id/btn_withdraw_fr_dashboard"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_green"
+                            android:drawableStart="@drawable/ic_withdraw_white"
+                            android:paddingStart="34dp"
+                            android:paddingEnd="26dp"
+                            android:text="@string/tarik"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
 
-                    <Button
-                        android:id="@+id/btn_withdraw_fr_dashboard"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/button_green"
-                        android:drawableStart="@drawable/ic_withdraw_white"
-                        android:drawableLeft="@drawable/ic_top_up_white"
-                        android:gravity="center"
-                        android:paddingStart="30dp"
-                        android:paddingEnd="30dp"
-                        android:text="@string/tarik"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btn_topup_fr_dashboard"
-                        app:layout_constraintTop_toTopOf="@+id/btn_topup_fr_dashboard" />
+                        <Button
+                            android:id="@+id/btn_topup_fr_dashboard"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_green"
+                            android:contentDescription="@string/img"
+                            android:drawableStart="@drawable/ic_top_up_white"
+                            android:gravity="center|center_horizontal|center_vertical"
+                            android:paddingStart="30dp"
+                            android:paddingEnd="30dp"
+                            android:text="@string/topup"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white">
+
+                        </Button>
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -593,7 +593,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="64dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -653,6 +653,26 @@
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_start_invest_fr_dashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_green_oval"
+        android:drawableStart="@drawable/ic_portfolio_add"
+        android:drawablePadding="8dp"
+        android:elevation="8dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/mulai_pendanaan"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

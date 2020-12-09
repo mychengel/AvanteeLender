@@ -272,5 +272,11 @@
     <string name="est_bunga_diterima">Estimasi Total Bunga Diterima</string>
     <string name="sudah_dibayar">Sudah dibayar</string>
     <string name="est_pengembalian">Estimasi pengembalian</string>
+    <string name="mulai_pendanaan">Mulai pendanaan</string>
+    <string name="pendanaan">Pendanaan</string>
+    <string name="dari">dari</string>
+    <string name="terkumpul">Terkumpul</string>
+    <string name="hari">hari</string>
+    <string name="percent">%</string>
 
 </resources>

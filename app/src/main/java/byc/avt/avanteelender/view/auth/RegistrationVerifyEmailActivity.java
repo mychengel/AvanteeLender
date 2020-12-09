@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view;
+package byc.avt.avanteelender.view.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

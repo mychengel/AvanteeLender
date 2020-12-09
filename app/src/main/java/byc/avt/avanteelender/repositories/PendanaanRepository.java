@@ -1,6 +1,5 @@
 package byc.avt.avanteelender.repositories;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -20,47 +19,57 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.Pendanaan;
+import byc.avt.avanteelender.model.PortofolioSelesai;
+import byc.avt.avanteelender.repositories.tabportofoliorepositories.SelesaiPortofolioRepository;
 
-public class SplashRepository {
+public class PendanaanRepository {
 
-    private static SplashRepository repository;
+    private static PendanaanRepository repository;
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
     private PrefManager prefManager;
 
-    private SplashRepository() {
+    private PendanaanRepository() {
     }
 
-    public static SplashRepository getInstance() {
+    public static PendanaanRepository getInstance() {
         if (repository == null) {
-            repository = new SplashRepository();
+            repository = new PendanaanRepository();
         }
         return repository;
     }
 
-    public MutableLiveData<String> sessionCheck(final String uid, final String token, Context context) {
-        final MutableLiveData<String> msg = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<Pendanaan>> getListPendanaan(final String uid, final String token, final Context context) {
+        final MutableLiveData<ArrayList<Pendanaan>> result = new MutableLiveData<>();
+        final ArrayList<Pendanaan> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dashboard", null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/pendanaan", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        boolean status = false;
-                        JSONObject res;
+                        JSONArray rows;
                         try {
-                            status = response.getBoolean("status");
-                            Log.e("Status", status+"");
-                            if(status == true){
-                                msg.setValue("ok");
+                            rows = response.getJSONArray("rows");
+                            if(rows.length()==0){
+                                result.setValue(list);
                             }else{
-                                prefManager.clearUserData();
-                                String errorMsg = response.getString("messages");
-                                msg.setValue(errorMsg);
+                                for(int i = 0; i < rows.length(); i++){
+                                    Pendanaan p = new Pendanaan(rows.getJSONObject(i).getString("loan_type"), rows.getJSONObject(i).getString("rating_pinjaman"), rows.getJSONObject(i).getString("loan_no"),
+                                            rows.getJSONObject(i).getString("jumlah_hari_pinjam"), rows.getJSONObject(i).getString("invest_bunga"),
+                                            rows.getJSONObject(i).getString("nominal_pinjaman"), rows.getJSONObject(i).getString("funding"),
+                                            rows.getJSONObject(i).getString("jaminan_status"), rows.getJSONObject(i).getString("tipe_jaminan"),rows.getJSONObject(i).getString("city_name"),
+                                            rows.getJSONObject(i).getString("publikasi_end"), rows.getJSONObject(i).getString("borrower_code"), rows.getJSONObject(i).getString("picture_bg"));
+                                    list.add(p);
+                                    result.setValue(list);
+                                }
                             }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -94,8 +103,7 @@ public class SplashRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
-
-        return msg;
+        return result;
     }
 
 }

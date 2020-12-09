@@ -59,15 +59,15 @@ public class PortofolioSelesaiAdapter extends RecyclerView.Adapter<PortofolioSel
         holder.txt_nominal.setText(f.toNumb(ps.getNominal()));
         holder.txt_payment_amount.setText(f.toNumb(ps.getPayment_amount()));
         if(ps.getLoan_rating().charAt(0) == 'A'){
-            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_sharp_mark_a));
+            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_a));
         }else if(ps.getLoan_rating().charAt(0) == 'B'){
-            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_sharp_mark_b));
+            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_b));
         }else if(ps.getLoan_rating().charAt(0) == 'C'){
-            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_sharp_mark_c));
+            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_c));
         }else if(ps.getLoan_rating().charAt(0) == 'D'){
-            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_sharp_mark_d));
+            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_d));
         }else if(ps.getLoan_rating().charAt(0) == 'E'){
-            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_sharp_mark_e));
+            holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_e));
         }else{
 
         }
