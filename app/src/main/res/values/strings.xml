@@ -278,5 +278,20 @@
     <string name="terkumpul">Terkumpul</string>
     <string name="hari">hari</string>
     <string name="percent">%</string>
+    <string name="tingkat_resiko">Tingkat resiko</string>
+    <string name="danai">Danai</string>
+    <string name="nominal_pinjaman">Nominal pinjaman</string>
+    <string name="pemilik_proyek">Nama pemilik proyek / pemberi kontrak</string>
+    <string name="penggalangan_dana">Penggalangan dana</string>
+    <string name="mulai">Mulai</string>
+    <string name="berakhir">Berakhir</string>
+    <string name="penggunaan_pinjaman">Penggunaan pinjaman</string>
+    <string name="des_pinjaman">Deskripsi pinjaman</string>
+    <string name="detail_peminjam">Detail peminjam</string>
+    <string name="histori_peminjam">Histori pinjaman</string>
+    <string name="tipe_perusahaan">Tipe perusahaan</string>
+    <string name="tahun_pendirian">Tahun pendirian</string>
+    <string name="bidang_usaha">Bidang usaha</string>
+    <string name="des_peminjam">Deskripsi Peminjam</string>
 
 </resources>

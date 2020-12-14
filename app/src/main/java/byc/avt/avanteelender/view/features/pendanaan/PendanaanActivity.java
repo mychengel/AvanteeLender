@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.features;
+package byc.avt.avanteelender.view.features.pendanaan;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -20,14 +21,11 @@ import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.adapter.PendanaanAdapter;
-import byc.avt.avanteelender.adapter.PortofolioSelesaiAdapter;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.ItemClickSupport;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Pendanaan;
-import byc.avt.avanteelender.model.PortofolioSelesai;
-import byc.avt.avanteelender.view.others.SettingActivity;
-import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 
 public class PendanaanActivity extends AppCompatActivity {
@@ -79,14 +77,26 @@ public class PendanaanActivity extends AppCompatActivity {
 
     private Observer<ArrayList<Pendanaan>> showListPendanaan = new Observer<ArrayList<Pendanaan>>() {
         @Override
-        public void onChanged(ArrayList<Pendanaan> result) {
+        public void onChanged(final ArrayList<Pendanaan> result) {
             if(result.isEmpty()){
-                f.showMessage("List pendanaan belum ada.");
+                f.showMessage("Belum ada pinjaman yang siap didanai.");
             }else{
                 rv.setLayoutManager(new LinearLayoutManager(PendanaanActivity.this));
                 PendanaanAdapter adapter = new PendanaanAdapter(PendanaanActivity.this);
                 adapter.setListPendanaan(result);
                 rv.setAdapter(adapter);
+                ItemClickSupport.addTo(rv).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        v.startAnimation(f.clickAnim());
+                        Pendanaan pendanaan = result.get(position);
+                        Intent i = new Intent(PendanaanActivity.this, PendanaanDetailActivity.class);
+                        i.putExtra("loan_no", pendanaan.getLoan_no());
+                        i.putExtra("tenor", pendanaan.getJumlah_hari_pinjam());
+                        startActivity(i);
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                    }
+                });
             }
             dialog.cancel();
         }

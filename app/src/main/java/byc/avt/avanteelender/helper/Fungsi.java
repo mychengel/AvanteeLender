@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
+import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,18 +74,11 @@ public class Fungsi {
         String hsl = "";
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        if(numb.length() >= 3){
-            if(numb.charAt(numb.length()-3) == '.'){
-                hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-3))));
-            }else if(numb.charAt(numb.length()-2) == '.'){
-                hsl = formatRupiah.format((double)Integer.parseInt(numb.substring(0, (numb.length()-2))));
-            }else{
-                hsl = formatRupiah.format((double)Integer.parseInt(numb));
-            }
+        if(numb.contains(".")){
+            hsl = formatRupiah.format((double) Long.parseLong(numb.substring(0, (numb.indexOf('.')))));
         }else{
-            hsl = formatRupiah.format((double)Integer.parseInt(numb));
+            hsl = formatRupiah.format((double)Long.parseLong(numb));
         }
-
         return hsl;
     }
 
@@ -92,7 +86,6 @@ public class Fungsi {
         Calendar cNow = Calendar.getInstance();
         Date currentTime = cNow.getTime();
         long millisNow = currentTime.getTime();
-
         long timeInMilliseconds = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
@@ -104,6 +97,25 @@ public class Fungsi {
         }
 
         int selisih = (int) ((timeInMilliseconds - millisNow) / 86400000)+1;
+
+        return selisih;
+    }
+
+    public int selisihHari2(String start, String end){
+        long timeStart = 0;
+        long timeEnd = 0;
+        int selisih = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date startDate = sdf.parse(start);
+            timeStart = startDate.getTime();
+            Date endDate = sdf.parse(end);
+            timeEnd = endDate.getTime();
+            selisih = (int) ((timeEnd - timeStart) / 86400000)+1;
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
 
         return selisih;
     }
@@ -132,6 +144,80 @@ public class Fungsi {
         Date currentTime = cNow.getTime();
         long millisNow = currentTime.getTime();
         return millisNow;
+    }
+
+    public String tglFull(String tanggal){
+        String hasil = "";
+        String b = "";
+        String tg = tanggal.substring(8,10);
+        String th = tanggal.substring(0,4);
+        String bln = tanggal.substring(5,7);
+
+        if(bln.equals("01")){
+            b = "Januari";
+        }else if(bln.equals("02")){
+            b = "Februari";
+        }else if(bln.equals("03")){
+            b = "Maret";
+        }else if(bln.equals("04")){
+            b = "April";
+        }else if(bln.equals("05")){
+            b = "Mei";
+        }else if(bln.equals("06")){
+            b = "Juni";
+        }else if(bln.equals("07")){
+            b = "Juli";
+        }else if(bln.equals("08")){
+            b = "Agustus";
+        }else if(bln.equals("09")){
+            b = "September";
+        }else if(bln.equals("10")){
+            b = "Oktober";
+        }else if(bln.equals("11")){
+            b = "November";
+        }else if(bln.equals("12")){
+            b = "Desember";
+        }
+
+        hasil = tg + " " + b + " " + th;
+        return hasil;
+    }
+
+    public String tglFullInit(String tanggal){
+        String hasil = "";
+        String b = "";
+        String tg = tanggal.substring(8,10);
+        String th = tanggal.substring(0,4);
+        String bln = tanggal.substring(5,7);
+
+        if(bln.equals("01")){
+            b = "Jan";
+        }else if(bln.equals("02")){
+            b = "Feb";
+        }else if(bln.equals("03")){
+            b = "Mar";
+        }else if(bln.equals("04")){
+            b = "Apr";
+        }else if(bln.equals("05")){
+            b = "Mei";
+        }else if(bln.equals("06")){
+            b = "Jun";
+        }else if(bln.equals("07")){
+            b = "Jul";
+        }else if(bln.equals("08")){
+            b = "Agus";
+        }else if(bln.equals("09")){
+            b = "Sep";
+        }else if(bln.equals("10")){
+            b = "Okt";
+        }else if(bln.equals("11")){
+            b = "Nov";
+        }else if(bln.equals("12")){
+            b = "Des";
+        }
+
+        hasil = tg + " " + b + " " + th;
+        return hasil;
     }
 
 }

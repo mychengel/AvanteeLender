@@ -65,7 +65,7 @@ public class DashboardRepository {
                                 rows = response.getJSONArray("rows");
                                 if(rows.length()==0){
                                 }else{
-                                    for(int i = 0; i < 3; i++){
+                                    for(int i = 0; i < rows.length(); i++){
                                         JSONObject obj = rows.getJSONObject(i);
                                         String nom = "0";
                                         if(obj.getString("nominal_in").equals("0")){
@@ -73,8 +73,10 @@ public class DashboardRepository {
                                         }else{
                                             nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
                                         }
-                                        HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
-                                        list.add(historyTrx);
+                                        if(i < 3){
+                                            HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
+                                            list.add(historyTrx);
+                                        }
                                     }
                                 }
                             }else{

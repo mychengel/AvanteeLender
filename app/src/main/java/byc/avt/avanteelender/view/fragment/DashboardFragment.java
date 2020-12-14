@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +43,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
-import byc.avt.avanteelender.view.features.PendanaanActivity;
+import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
@@ -190,7 +189,7 @@ public class DashboardFragment extends Fragment {
     private Observer<ArrayList<HistoryTrx>> showHistoryTrx = new Observer<ArrayList<HistoryTrx>>() {
         @Override
         public void onChanged(ArrayList<HistoryTrx> result) {
-            if(result.isEmpty()){
+            if(result.size()==0){
                 rvHistoryTrx.setVisibility(View.INVISIBLE);
                 txt_no_trans_history.setVisibility(View.VISIBLE);
                 trxdone = true;

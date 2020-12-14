@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_fr_sheet_det_peminjam"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp"
+    tools:context=".view.sheet.DetailPeminjamSheetFragment">
+
+    <ImageView
+        android:id="@+id/img_handle_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/img"
+        android:src="@drawable/ic_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_det_peminjam_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/detail_peminjam"
+        android:textColor="@color/dark"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/tipe_perusahaan"
+        android:textColor="@color/darkO05"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/lbl_det_peminjam_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_det_peminjam_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tahun_pendirian"
+        android:textColor="@color/darkO05"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/lbl_bidang_usaha_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/bidang_usaha"
+        android:textColor="@color/darkO05"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/txt_tipe_perusahaan_fr_sheet_det_peminjam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="1"
+        android:text="@string/txtnull"
+        android:textAlignment="textEnd"
+        android:textColor="@color/dark"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toTopOf="@+id/lbl_tipe_perusahaan_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/txt_tahun_pendirian_fr_sheet_det_peminjam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLines="1"
+        android:text="@string/txtnull"
+        android:textAlignment="textEnd"
+        android:textColor="@color/dark"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam"
+        app:layout_constraintEnd_toEndOf="@+id/txt_tipe_perusahaan_fr_sheet_det_peminjam"
+        app:layout_constraintStart_toEndOf="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toTopOf="@+id/lbl_tahun_pendirian_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/txt_bidang_usaha_fr_sheet_det_peminjam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLines="1"
+        android:text="@string/txtnull"
+        android:textAlignment="textEnd"
+        android:textColor="@color/dark"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_bidang_usaha_fr_sheet_det_peminjam"
+        app:layout_constraintEnd_toEndOf="@+id/txt_tahun_pendirian_fr_sheet_det_peminjam"
+        app:layout_constraintStart_toEndOf="@+id/lbl_bidang_usaha_fr_sheet_det_peminjam"
+        app:layout_constraintTop_toTopOf="@+id/lbl_bidang_usaha_fr_sheet_det_peminjam" />
+
+    <View
+        android:id="@+id/div_fr_sheet_det_peminjam"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/divider_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_bidang_usaha_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/lbl_des_peminjam_fr_sheet_det_peminjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/des_peminjam"
+        android:textAllCaps="true"
+        android:textColor="@color/dark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/div_fr_sheet_det_peminjam" />
+
+    <TextView
+        android:id="@+id/txt_des_peminjam_fr_sheet_det_peminjam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txtnull"
+        android:textColor="@color/darkO05"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_des_peminjam_fr_sheet_det_peminjam" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,8 +37,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".adapter.PendanaanAdapter"></activity>
-        <activity android:name=".view.features.PendanaanActivity" />
+        <activity android:name=".view.features.pendanaan.PendanaanDetailActivity"></activity>
+        <activity android:name=".adapter.PendanaanAdapter"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".view.features.pendanaan.PendanaanActivity" />
         <activity
             android:name=".adapter.PortofolioPendingAdapter"
             tools:ignore="Instantiatable" />
