@@ -293,5 +293,10 @@
     <string name="tahun_pendirian">Tahun pendirian</string>
     <string name="bidang_usaha">Bidang usaha</string>
     <string name="des_peminjam">Deskripsi Peminjam</string>
+    <string name="frek_byr_tepat">Frekuensi pembayaran tepat waktu</string>
+    <string name="frek_byr_late">Frekuensi pembayaran terlambat</string>
+    <string name="tot_pin_galang">Total pinjaman dalam penggalangan</string>
+    <string name="tot_pin_aktif">Total pinjaman aktif</string>
+    <string name="tot_pin_selesai">Total pinjaman selesai</string>
 
 </resources>

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cons_fr_sheet_his_pinjaman"
+    android:id="@+id/cons_fr_sheet_risk_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp"
+    android:paddingBottom="16dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -13,7 +13,7 @@
     tools:context=".view.sheet.RiskInfoSheetFragment">
 
     <ImageView
-        android:id="@+id/img_handle_fr_sheet_his_pinjaman"
+        android:id="@+id/img_handle_fr_sheet_risk_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lbl_risk_info_fr_sheet_his_pinjaman"
+        android:id="@+id/lbl_risk_info_fr_sheet_risk_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,20 +34,35 @@
         android:textColor="@color/dark"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_his_pinjaman" />
+        app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_risk_info" />
 
-    <TextView
-        android:id="@+id/txt_risk_info_fr_sheet_his_pinjaman"
-        android:layout_width="0dp"
+    <ScrollView
+        android:id="@+id/sv_fr_sheet_risk_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/txtnull"
-        android:textColor="@color/darkO05"
-        android:textSize="15sp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_risk_info_fr_sheet_his_pinjaman" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_risk_info_fr_sheet_risk_info">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/txt_risk_info_fr_sheet_risk_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/txtnull"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
