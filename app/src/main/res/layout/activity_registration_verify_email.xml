@@ -5,7 +5,7 @@
     android:id="@+id/cons_reg_verify_email"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.RegistrationVerifyEmailActivity">
+    tools:context=".view.auth.RegistrationVerifyEmailActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_reg_verify_email"

@@ -9,12 +9,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.json.JSONObject;
+
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.repositories.AuthenticationRepository;
 
 public class AuthenticationViewModel extends AndroidViewModel {
     private AuthenticationRepository authenticationRepository;
-    private MutableLiveData<String> msg = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
     private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
 
@@ -27,7 +29,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
         msg = authenticationRepository.registration(user, getApplication());
     }
 
-    public LiveData<String> getResult(){
+    public LiveData<JSONObject> getResult(){
         return msg;
     }
 

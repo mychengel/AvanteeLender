@@ -6,12 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
+import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
@@ -53,8 +55,9 @@ public class DashboardFragment extends Fragment {
     private PrefManager prefManager;
     private RecyclerView rvHistoryTrx;
     private TextView txt_no_trans_history;
-    TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
+    private TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
     private Dialog dialog;
+    private Button btn_pendanaan;
     private boolean headerdone, trxdone, dashboarddone, activedone, pendingdone = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -70,6 +73,7 @@ public class DashboardFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         toolbar = view.findViewById(R.id.toolbar_fr_dashboard);
         dialog = GlobalVariables.loadingDialog(requireActivity());
+        btn_pendanaan = view.findViewById(R.id.btn_start_invest_fr_dashboard);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         //Recycler View
@@ -91,22 +95,36 @@ public class DashboardFragment extends Fragment {
         TextView txt_initial = view.findViewById(R.id.txt_initial_fr_dashboard);
         txt_initial.setText(letter);
         Glide.with(this).load(prefManager.getAvatar())
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
-                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-                        //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
-                        if (resource.getConstantState() == null) {
-                            pp_icon.setImageResource(R.drawable.ic_iconuser);
-                        }else{
-                            Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
-                            pp_icon.setImageDrawable(newdrawable);
-                        }
-
+            .into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
+                    Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
+                    //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+                    if (resource.getConstantState() == null) {
+                        pp_icon.setImageResource(R.drawable.ic_iconuser);
+                    }else{
+                        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                        pp_icon.setImageDrawable(newdrawable);
                     }
-                });
-        runFirst();
-        loadDashboard();
+                }
+            });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                runFirst();
+                loadDashboard();
+            }
+        }, 200);
+
+        btn_pendanaan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PendanaanActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
     }
 
     public void runFirst(){
@@ -171,7 +189,7 @@ public class DashboardFragment extends Fragment {
     private Observer<ArrayList<HistoryTrx>> showHistoryTrx = new Observer<ArrayList<HistoryTrx>>() {
         @Override
         public void onChanged(ArrayList<HistoryTrx> result) {
-            if(result.isEmpty()){
+            if(result.size()==0){
                 rvHistoryTrx.setVisibility(View.INVISIBLE);
                 txt_no_trans_history.setVisibility(View.VISIBLE);
                 trxdone = true;

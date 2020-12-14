@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_adp_pendanaan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".adapter.PendanaanAdapter">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_adp_pendanaan"
+        android:layout_width="0dp"
+        android:layout_height="184dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_cv_adp_pendanaan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progress_adp_pendanaan"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:fitsSystemWindows="false"
+                android:indeterminate="false"
+                android:isScrollContainer="false"
+                android:max="100"
+                android:progress="20"
+                android:progressBackgroundTint="@color/colorPrimaryO06"
+                android:progressBackgroundTintMode="screen"
+                android:progressTint="@color/colorPrimary"
+                android:scaleY="10"
+                app:layout_constrainedHeight="false"
+                app:layout_constrainedWidth="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_mark_adp_pendanaan"
+                android:layout_width="48dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_loan_rating_a" />
+
+            <View
+                android:id="@+id/div_adp_pendanaan"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_mark_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_loan_type_adp_pendanaan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_loan_no_adp_pendanaan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textAllCaps="true"
+                android:textColor="@color/darkO05"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_loan_type_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_loan_rating_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/txtnull"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mark_adp_pendanaan"
+                app:layout_constraintEnd_toEndOf="@+id/img_mark_adp_pendanaan"
+                app:layout_constraintStart_toStartOf="@+id/img_mark_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/img_mark_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_pinjaman_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/txtnull"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_adp_pendanaan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/progress_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/lbl_dari_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@string/dari"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_adp_pendanaan"
+                app:layout_constraintEnd_toStartOf="@+id/txt_pinjaman_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/progress_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/lbl_terkumpul_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/terkumpul"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_adp_pendanaan"
+                app:layout_constraintStart_toStartOf="@+id/progress_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/progress_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_terkumpul_percent_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/txtnull"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_terkumpul_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/progress_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_sisa_hari_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_sisa_hari_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_sisa_hari_adp_pendanaan"
+                app:layout_constraintEnd_toStartOf="@+id/txt_sisa_hari_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/txt_sisa_hari_adp_pendanaan"
+                app:srcCompat="@drawable/ic_sisa_7hari" />
+
+            <TextView
+                android:id="@+id/txt_bunga_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/nol"
+                android:textColor="@color/dark"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/img_mark_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lbl_percent_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/percent"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_bunga_adp_pendanaan"
+                app:layout_constraintStart_toEndOf="@+id/txt_bunga_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/lbl_bunga_per_th_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bunga_per_th"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/txt_bunga_adp_pendanaan"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_percent_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/txt_tenor_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/nol"
+                android:textColor="@color/dark"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/lbl_bunga_per_th_adp_pendanaan"
+                app:layout_constraintTop_toTopOf="@+id/txt_bunga_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/lbl_hari_adp_penadanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/hari"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_tenor_adp_pendanaan"
+                app:layout_constraintStart_toEndOf="@+id/txt_tenor_adp_pendanaan" />
+
+            <TextView
+                android:id="@+id/lbl_tenor_adp_pendanaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tenor"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/txt_tenor_adp_pendanaan"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_hari_adp_penadanaan" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

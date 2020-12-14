@@ -15,7 +15,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.auth0.android.jwt.JWT;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,6 @@ public class SplashRepository {
     private static SplashRepository repository;
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
-    Dialog dialog;
     private PrefManager prefManager;
 
     private SplashRepository() {

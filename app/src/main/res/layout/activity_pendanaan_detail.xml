@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_pendanaan_det"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.features.pendanaan.PendanaanDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_pendanaan_det"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/ToolbarTheme"
+        app:titleTextColor="@color/dark">
+
+        <ImageView
+            android:id="@+id/img_factsheet_pendanaan_det"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_factsheet" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/sv_pendanaan_det"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cv_bottom_pendanaan_det"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_pendanaan_det">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_sv_pendanaan_det"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_mark_pendanaan_det"
+                android:layout_width="60dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/img"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_loan_rating_a" />
+
+            <TextView
+                android:id="@+id/txt_loan_rating_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/txtnull"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintEnd_toEndOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintStart_toStartOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/img_mark_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_loan_type_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/img_mark_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_loan_no_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textAllCaps="true"
+                android:textColor="@color/darkO05"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_loan_type_pendanaan_det"
+                app:layout_constraintStart_toStartOf="@+id/txt_loan_type_pendanaan_det"
+                app:layout_constraintTop_toBottomOf="@+id/txt_loan_type_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_rating_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintStart_toEndOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintTop_toBottomOf="@+id/txt_loan_no_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_tingkat_resiko_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tingkat_resiko"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/txt_rating_pendanaan_det"
+                app:layout_constraintTop_toBottomOf="@+id/txt_rating_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_bungaperth_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/bunga_per_th"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_tingkat_resiko_pendanaan_det"
+                app:layout_constraintStart_toEndOf="@+id/lbl_tingkat_resiko_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/lbl_tingkat_resiko_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_bunga_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/nol"
+                android:textColor="@color/dark"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_rating_pendanaan_det"
+                app:layout_constraintStart_toStartOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/txt_rating_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_percent_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/percent"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintStart_toEndOf="@+id/txt_bunga_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_tenor_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/tenor"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintStart_toEndOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/lbl_bungaperth_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_tenor_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/nol"
+                android:textColor="@color/dark"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_rating_pendanaan_det"
+                app:layout_constraintStart_toStartOf="@+id/lbl_tenor_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/txt_rating_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_hari_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/hari"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintStart_toEndOf="@+id/txt_tenor_pendanaan_det" />
+
+            <ImageView
+                android:id="@+id/img_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="176dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_img_rad"
+                android:contentDescription="@string/img"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tingkat_resiko_pendanaan_det"
+                app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+
+            <View
+                android:id="@+id/div1_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_nom_pinjaman_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/nominal_pinjaman"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div1_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_nom_pinjaman_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:maxLines="1"
+                android:text="@string/dummy_rp_nol"
+                android:textAlignment="textEnd"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_nom_pinjaman_pendanaan_det"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_nom_pinjaman_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/lbl_nom_pinjaman_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_est_pengembalian_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/est_pengembalian"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_nom_pinjaman_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_nama_pemilik_proyek_pendanaan_det"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/pemilik_proyek"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_est_pengembalian_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_est_pengembalian_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textAlignment="textEnd"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_est_pengembalian_pendanaan_det"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_est_pengembalian_pendanaan_det"
+                app:layout_constraintTop_toTopOf="@+id/lbl_est_pengembalian_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_nama_pemilik_proyek_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="2"
+                android:text="@string/txtnull"
+                android:textAlignment="textEnd"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_nama_pemilik_proyek_pendanaan_det"
+                app:layout_constraintTop_toBottomOf="@+id/txt_est_pengembalian_pendanaan_det" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_penggalangan_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="176dp"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_nama_pemilik_proyek_pendanaan_det">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_cv_penggalangan_pendanaan_det"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lbl_penggalangan_pendanaan_det"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                        android:maxLines="1"
+                        android:text="@string/penggalangan_dana"
+                        android:textColor="@color/dark"
+                        android:textSize="19sp"
+                        app:layout_constraintEnd_toStartOf="@+id/img_sisa_hari_pendanaan_det"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_sisa_hari_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
+                        android:text="@string/nol_hari"
+                        android:textColor="@color/dark"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lbl_penggalangan_pendanaan_det"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_sisa_hari_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="@string/img"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_sisa_hari_pendanaan_det"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_sisa_hari_pendanaan_det"
+                        app:layout_constraintTop_toTopOf="@+id/txt_sisa_hari_pendanaan_det"
+                        app:srcCompat="@drawable/ic_sisa_7hari" />
+
+                    <TextView
+                        android:id="@+id/lbl_mulai_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/mulai"
+                        android:textColor="@color/darkO05"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_penggalangan_pendanaan_det" />
+
+                    <TextView
+                        android:id="@+id/lbl_berakhir_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/berakhir"
+                        android:textColor="@color/darkO05"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@+id/lbl_mulai_pendanaan_det"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_mulai_pendanaan_det" />
+
+                    <TextView
+                        android:id="@+id/txt_mulai_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txtnull"
+                        android:textColor="@color/dark"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lbl_mulai_pendanaan_det"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lbl_mulai_pendanaan_det" />
+
+                    <TextView
+                        android:id="@+id/txt_berakhir_pendanaan_det"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/txtnull"
+                        android:textColor="@color/dark"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lbl_berakhir_pendanaan_det"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lbl_berakhir_pendanaan_det" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_prog_pendanaan_det"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cons_cv_prog_pendanaan_det"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ProgressBar
+                                android:id="@+id/progress_pendanaan_det"
+                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:fitsSystemWindows="false"
+                                android:indeterminate="false"
+                                android:isScrollContainer="false"
+                                android:max="100"
+                                android:progress="20"
+                                android:progressBackgroundTint="@color/colorPrimaryO06"
+                                android:progressBackgroundTintMode="screen"
+                                android:progressTint="@color/colorPrimary"
+                                android:scaleY="10"
+                                app:layout_constrainedHeight="false"
+                                app:layout_constrainedWidth="false"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <TextView
+                                android:id="@+id/lbl_terkumpul_pendanaan_det"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:text="@string/terkumpul"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_terkumpul_pendanaan_det"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/ibm_plex_sans_medium"
+                                android:maxLines="1"
+                                android:text="@string/dummy_rp_nol"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/txt_percent_terkumpul_pendanaan_det"
+                                app:layout_constraintStart_toEndOf="@+id/lbl_terkumpul_pendanaan_det"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_percent_terkumpul_pendanaan_det"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:fontFamily="@font/ibm_plex_sans_medium"
+                                android:text="@string/nol_percent"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/lbl_penggunaan_pinjaman_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/penggunaan_pinjaman"
+                android:textColor="@color/dark"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_penggalangan_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_penggunaan_pinjaman_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_penggunaan_pinjaman_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/lbl_des_pinjaman_pendanaan_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/des_pinjaman"
+                android:textColor="@color/dark"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_penggunaan_pinjaman_pendanaan_det" />
+
+            <TextView
+                android:id="@+id/txt_des_pinjaman_pendanaan_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_des_pinjaman_pendanaan_det" />
+
+            <View
+                android:id="@+id/div2_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_des_pinjaman_pendanaan_det" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_det_peminjam_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_background_ripple"
+                android:clickable="true"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div2_pendanaan_det">
+
+                <ImageView
+                    android:id="@+id/img_det_peminjam_pendanaan_det"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_personal_data_blue" />
+
+                <TextView
+                    android:id="@+id/lbl_det_peminjam_pendanaan_det"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:maxLines="1"
+                    android:text="@string/detail_peminjam"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_det_peminjam_pendanaan_det"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_his_pinjaman_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_background_ripple"
+                android:clickable="true"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cons_det_peminjam_pendanaan_det">
+
+                <ImageView
+                    android:id="@+id/img_his_pinjaman_pendanaan_det"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_history_green" />
+
+                <TextView
+                    android:id="@+id/lbl_his_pinjaman_pendanaan_det"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:maxLines="1"
+                    android:text="@string/histori_peminjam"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_his_pinjaman_pendanaan_det"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_ir_pendanaan_det"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_background_ripple"
+                android:clickable="true"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cons_his_pinjaman_pendanaan_det">
+
+                <ImageView
+                    android:id="@+id/img_ir_pendanaan_det"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_risk_info" />
+
+                <TextView
+                    android:id="@+id/lbl_ir_pendanaan_det"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:maxLines="1"
+                    android:text="@string/risk_info"
+                    android:textColor="@color/dark"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_ir_pendanaan_det"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_bottom_pendanaan_det"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_cv_bottom_pendanaan_det"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_danai_pendanaan_det"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_green"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/danai"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

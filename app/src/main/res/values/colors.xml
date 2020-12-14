@@ -34,6 +34,7 @@
 
     <!-- Colors Accent -->
     <color name="colorPrimary">#25C70B</color>
+    <color name="colorPrimaryO06">#9925C70B</color>
     <color name="colorPrimaryA">#1DB474</color>
     <color name="colorPrimaryB">#AABE2C</color>
     <color name="colorPrimaryC">#E1B000</color>
@@ -66,4 +67,8 @@
 
     <!-- Scrims -->
     <color name="darker">#99000000</color>
+    <color name="white_transparent_50">#80FFFFFF</color>
+    <color name="divider_color">#66E0E0E0</color>
+    <color name="white_transparent_70">#B2FFFFFF</color>
+    <color name="white_transparent_80">#CDFFFFFF</color>
 </resources>

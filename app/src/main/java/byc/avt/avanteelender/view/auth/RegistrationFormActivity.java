@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view;
+package byc.avt.avanteelender.view.auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

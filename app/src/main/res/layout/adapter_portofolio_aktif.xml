@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_adp_port_aktif"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".adapter.PortofolioAktifAdapter">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_adp_port_aktif"
+        android:layout_width="match_parent"
+        android:layout_height="186dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_cv_adp_port_aktif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_detail_adp_port_aktif"
+                android:layout_width="59dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_green"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/detail"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_mark_adp_port_aktif"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_loan_rating_a" />
+
+            <TextView
+                android:id="@+id/txt_risk_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/mark_a1"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mark_adp_port_aktif"
+                app:layout_constraintEnd_toEndOf="@+id/img_mark_adp_port_aktif"
+                app:layout_constraintStart_toStartOf="@+id/img_mark_adp_port_aktif"
+                app:layout_constraintTop_toTopOf="@+id/img_mark_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_loan_type_adp_port_aktif"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_detail_adp_port_aktif"
+                app:layout_constraintStart_toEndOf="@+id/img_mark_adp_port_aktif"
+                app:layout_constraintTop_toTopOf="@+id/img_mark_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_loan_code_adp_port_aktif"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:maxLines="1"
+                android:text="@string/txtnull"
+                android:textColor="@color/darkO05"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_loan_type_adp_port_aktif"
+                app:layout_constraintStart_toEndOf="@+id/img_mark_adp_port_aktif"
+                app:layout_constraintTop_toBottomOf="@+id/txt_loan_type_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_bunga_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/bunga_per_th"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_mark_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_tenor_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:text="@string/tenor"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_bunga_adp_port_aktif"
+                app:layout_constraintStart_toEndOf="@+id/lbl_bunga_adp_port_aktif"
+                app:layout_constraintTop_toTopOf="@+id/lbl_bunga_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_sisa_tenor_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/sisa_tenor"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_tenor_adp_port_aktif"
+                app:layout_constraintStart_toEndOf="@+id/lbl_tenor_adp_port_aktif"
+                app:layout_constraintTop_toTopOf="@+id/lbl_tenor_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_bunga_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nol_percent"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/lbl_bunga_adp_port_aktif"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_bunga_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_tenor_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nol_hari"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/lbl_tenor_adp_port_aktif"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tenor_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_sisatenor_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nol_hari"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/lbl_sisa_tenor_adp_port_aktif"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_sisa_tenor_adp_port_aktif" />
+
+            <ProgressBar
+                android:id="@+id/progress_adp_port_aktif"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:indeterminate="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_tenor_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_angs_sudah_adp_port_aktif"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="1"
+                android:text="@string/angsuran_per_sudah"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toStartOf="@+id/txt_angs_sudah_adp_port_aktif"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progress_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_angs_selanjutnya_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/angsuran_per_selanjutnya"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_angs_sudah_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_angs_sudah_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dummy_rp_nol"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_angs_sudah_adp_port_aktif"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_angs_sudah_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/txt_angs_selanjutnya_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dummy_rp_nol"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_angs_selanjutnya_adp_port_aktif"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_angs_selanjutnya_adp_port_aktif" />
+
+            <TextView
+                android:id="@+id/lbl_tepat_waktu_adp_port_aktif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/tepat_waktu"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_sisatenor_adp_port_aktif"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_tepat_waktu_adp_port_aktif"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="2dp"
+                android:contentDescription="@string/img"
+                android:src="@drawable/ic_done_24"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_tepat_waktu_adp_port_aktif"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_tepat_waktu_adp_port_aktif" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,11 @@
-package byc.avt.avanteelender.view;
+package byc.avt.avanteelender.view.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,27 +19,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HurlStack;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.repositories.AuthenticationRepository;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
@@ -52,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public RegistrationActivity(){}
 
     Fungsi f = new Fungsi(RegistrationActivity.this);
-    Toolbar bar;
+    Toolbar toolbar;
     private TextInputLayout editPhoneNumber, editPassword, editEmail, editRefId, editConfirmPassword;
     private Button btnRegister;
     public CheckBox checkAgree;
@@ -65,8 +51,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar);
-        bar = findViewById(R.id.toolbar_daftar);
-        setSupportActionBar(bar);
+        toolbar = findViewById(R.id.toolbar_daftar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         dialog = GlobalVariables.loadingDialog(RegistrationActivity.this);
@@ -219,19 +205,33 @@ public class RegistrationActivity extends AppCompatActivity {
         viewModel.getResult().observe(RegistrationActivity.this, checkSuccess);
     }
 
-    private Observer<String> checkSuccess = new Observer<String>() {
+    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
         @Override
-        public void onChanged(String result) {
-            if(result.equals("ok")) {
-                dialog.cancel();
-                Log.e("Result: ", "register success");
-                RegistrationVerifyEmailActivity.email = email;
-                Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
-                startActivity(intent);
-            }else{
-                dialog.cancel();
-                Log.e("Result: ", result);
-                f.showMessage(result);
+        public void onChanged(JSONObject response) {
+            int code = 0;
+            boolean status = false;
+            JSONObject res;
+            String msg = "";
+            try {
+                code = response.getInt("code");
+                status = response.getBoolean("status");
+                res = response.getJSONObject("result");
+                if(code == 200 & status == true){
+                    msg = res.getString("message");
+                    f.showMessage(msg);
+                    dialog.cancel();
+                    Log.e("Result: ", "register success");
+                    RegistrationVerifyEmailActivity.email = email;
+                    Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
+                    startActivity(intent);
+                }else{
+                    msg = res.getString("email")+res.getString("phone")+res.getString("password")+res.getString("repeatPassword")+res.getString("reffCode")+res.getString("term");
+                    dialog.cancel();
+                    Log.e("Result: ", msg);
+                    f.showMessage(msg);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     };
@@ -244,8 +244,9 @@ public class RegistrationActivity extends AppCompatActivity {
             if(TermSheetFragment.getInstance().isVisible()){
                 TermSheetFragment.getInstance().dismiss();
             }else {
-                finish();
                 TermSheetFragment.read = false;
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
             return true;
         }
@@ -254,8 +255,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
         TermSheetFragment.read = false;
+        finish();
+        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
     }
 
 }
