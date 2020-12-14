@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.view.sheet.HistoriPinjamanSheetFragment;
 import byc.avt.avanteelender.view.sheet.RiskInfoSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
@@ -90,14 +91,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         }, 400);
 
         btn_danai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
-        cons_his_pinjaman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -194,13 +187,28 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             try {
-                                Spanned risk_info = Html.fromHtml(res.getJSONObject("risk_information").getString("risk_disclaimer"));
+                                String str_edit = res.getJSONObject("risk_information").getString("risk_disclaimer").replace("\n", " ");
+                                str_edit = str_edit.replace("\t", " ");
+                                String risk_info = Html.fromHtml(str_edit).toString();
                                 new RiskInfoSheetFragment(risk_info);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             RiskInfoSheetFragment riskInfoSheetFragment = RiskInfoSheetFragment.getInstance();
                             riskInfoSheetFragment.show(getSupportFragmentManager(), riskInfoSheetFragment.getTag());
+                        }
+                    });
+
+                    cons_his_pinjaman.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                new HistoriPinjamanSheetFragment(res.getJSONObject("borrower_information").getString("paid_off_frequency")+"%",res.getJSONObject("borrower_information").getString("late_frequency")+"%",f.toNumb(res.getJSONObject("borrower_information").getString("funding_process")),f.toNumb(res.getJSONObject("borrower_information").getString("current_loan")), f.toNumb(res.getJSONObject("borrower_information").getString("loan_paid_off")));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            HistoriPinjamanSheetFragment historiPinjamanSheetFragment = HistoriPinjamanSheetFragment.getInstance();
+                            historiPinjamanSheetFragment.show(getSupportFragmentManager(), historiPinjamanSheetFragment.getTag());
                         }
                     });
 
