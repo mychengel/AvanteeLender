@@ -36,6 +36,7 @@ import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.auth.RegistrationActivity;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 
 public class WalkthroughActivity extends AppCompatActivity {
 
@@ -207,7 +208,8 @@ public class WalkthroughActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         v.startAnimation(new Fungsi().clickAnim());
                         prefManager.setFirstTimeLaunch(false);
-                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
+                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
+                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);
                     }

@@ -10,17 +10,17 @@
         android:id="@+id/appbar_masuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ToolbarTheme">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_tb_masuk"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:fitsSystemWindows="true"
-            android:theme="@style/ToolbarTheme"
+            android:theme="@style/ToolbarTheme.Expanded"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
             app:expandedTitleMargin="16dp"
-            app:expandedTitleTextAppearance="@color/dark"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
@@ -33,7 +33,6 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
                 app:title="@string/login"
-                app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

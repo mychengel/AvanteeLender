@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,8 +40,14 @@ public class RegistrationFormActivity extends AppCompatActivity {
                 Toast.makeText(RegistrationFormActivity.this, destination.getLabel(), Toast.LENGTH_SHORT).show();
                 switch (destination.getLabel().toString().trim()){
                     case "fragment_welcome" :
-                        getSupportActionBar().hide();
-                        appBarLayout.setVisibility(View.GONE);
+//                        getSupportActionBar().hide();
+//                        appBarLayout.setVisibility(View.GONE);
+                        appBarLayout.setVisibility(View.VISIBLE);
+                        getSupportActionBar().show();
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        getSupportActionBar().setDisplayShowHomeEnabled(true);
+                        getSupportActionBar().setTitle("Hello");
+                        //
                         break;
                     case "fragment_lender_type" :
                         appBarLayout.setVisibility(View.VISIBLE);
@@ -65,12 +72,23 @@ public class RegistrationFormActivity extends AppCompatActivity {
 //                }
             }
         });
-        setSupportActionBar(toolbar);
-        NavigationUI.setupWithNavController(toolbar, navController);
+        //setSupportActionBar(toolbar);
+        //NavigationUI.setupWithNavController(toolbar, navController);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, (DrawerLayout) null);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

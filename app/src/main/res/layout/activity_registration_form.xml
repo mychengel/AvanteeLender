@@ -8,19 +8,19 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_regis_form"
-        style="@style/ToolbarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ToolbarTheme">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_tb_regis_form"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="112dp"
             android:fitsSystemWindows="true"
-            android:theme="@style/ToolbarTheme"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
             app:expandedTitleMargin="16dp"
-            app:expandedTitleTextAppearance="@color/dark"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
@@ -33,12 +33,20 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
                 app:title="@string/register"
-                app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_sv_regis_form"

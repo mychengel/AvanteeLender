@@ -19,11 +19,12 @@
             android:layout_height="144dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ToolbarTheme"
-            app:maxLines="2"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
             app:expandedTitleMargin="16dp"
-            app:expandedTitleTextAppearance="@color/dark"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
+            app:maxLines="2"
             app:titleEnabled="true">
 
             <androidx.appcompat.widget.Toolbar
