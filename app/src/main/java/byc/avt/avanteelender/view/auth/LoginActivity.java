@@ -90,15 +90,21 @@ public class LoginActivity extends AppCompatActivity {
     private Observer<String> checkSuccess = new Observer<String>() {
         @Override
         public void onChanged(String result) {
-            if(result.equals("ok")) {
+            if(result.equals("success")) {
                 dialog.cancel();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 f.showMessage("Selamat datang "+prefManager.getName()+".");
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
-            }else{
+            }else if(result.equals("failed")){
                 dialog.cancel();
-                f.showMessage("Login gagal, silahkan coba lagi.");
+                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
+            }else if(result.equals("failed2")){
+                dialog.cancel();
+                f.showMessage("Login gagal, silahkan coba lagi");
+            }else if(result.equals("not_verified")){
+                dialog.cancel();
+                //fungsi
             }
         }
     };

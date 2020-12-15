@@ -126,19 +126,26 @@ public class AuthenticationRepository {
                             code = response.getInt("code");
                             status = response.getBoolean("status");
                             if(code == 200 & status == true){
-                                token = response.getString("token");
                                 res = response.getJSONObject("result");
-                                String uid = res.getString("uid");
-                                int type = res.getInt("type");
-                                String client_type = res.getString("client_type");
-                                String avatar = res.getString("avatar");
-                                String name = res.getString("name");
                                 int avantee_verif = res.getInt("avantee_verif");
-                                UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token,0);
-                                prefManager.setUserData(ud);
-                                msg.setValue("ok");
+                                if(avantee_verif == 1){
+                                    token = response.getString("token");
+                                    String uid = res.getString("uid");
+                                    int type = res.getInt("type");
+                                    String client_type = res.getString("client_type");
+                                    String avatar = res.getString("avatar");
+                                    String name = res.getString("name");
+                                    UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token,0);
+                                    prefManager.setUserData(ud);
+                                    msg.setValue("success");
+                                }else if(avantee_verif == 0){
+                                    msg.setValue("not_verified");
+                                }else{
+                                    msg.setValue("failed2");
+                                }
+
                             }else{
-                                msg.setValue("no");
+                                msg.setValue("failed");
                                 Log.e("Login Response", "Email atau password tidak sesuai");
                             }
                         } catch (JSONException e) {

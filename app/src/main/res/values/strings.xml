@@ -298,5 +298,6 @@
     <string name="tot_pin_galang">Total pinjaman dalam penggalangan</string>
     <string name="tot_pin_aktif">Total pinjaman aktif</string>
     <string name="tot_pin_selesai">Total pinjaman selesai</string>
+    <string name="daftar_di_sini">Belum punya akun? Daftar!</string>
 
 </resources>

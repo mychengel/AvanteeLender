@@ -207,20 +207,55 @@
                 app:layout_constraintBottom_toTopOf="@+id/lbl_bungaperth_pendanaan_det"
                 app:layout_constraintStart_toEndOf="@+id/txt_tenor_pendanaan_det" />
 
-            <ImageView
-                android:id="@+id/img_pendanaan_det"
-                android:layout_width="0dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_pendanaan_det"
+                android:layout_width="match_parent"
                 android:layout_height="176dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_img_rad"
-                android:contentDescription="@string/img"
-                android:scaleType="centerInside"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_tingkat_resiko_pendanaan_det"
-                app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_tingkat_resiko_pendanaan_det">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_cv_img_pendanaan_det"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_pendanaan_det"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/img"
+                        android:scaleType="centerInside"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+
+                    <ProgressBar
+                        android:id="@+id/prog_img_pendanaan_det"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="3dp"
+                        android:indeterminate="true"
+                        android:indeterminateBehavior="repeat"
+                        android:indeterminateOnly="false"
+                        android:indeterminateTintMode="add"
+                        android:orientation="horizontal"
+                        android:progressBackgroundTint="@color/colorPrimaryO06"
+                        android:progressBackgroundTintMode="screen"
+                        android:scaleY="3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <View
                 android:id="@+id/div1_pendanaan_det"
@@ -232,7 +267,7 @@
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_pendanaan_det" />
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_pendanaan_det" />
 
             <TextView
                 android:id="@+id/lbl_nom_pinjaman_pendanaan_det"
