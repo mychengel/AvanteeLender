@@ -50,6 +50,7 @@ public class PendingPortofolioRepository {
                     @Override
                     public void onResponse(JSONObject response) {
                         result.setValue(response);
+                        Log.e("PENDING PORT", response.toString());
                     }
                 },
                 new Response.ErrorListener() {

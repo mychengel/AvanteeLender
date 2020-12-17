@@ -1,6 +1,7 @@
 package byc.avt.avanteelender.view.features.pendanaan;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -22,8 +25,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +59,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     private TextView txt_sisa_hari, txt_pub_start, txt_pub_end, txt_terkumpul, txt_percent_terkumpul, txt_penggunaan_pinjaman, txt_des_pinjaman;
     private ConstraintLayout cons, cons_det_peminjam, cons_his_pinjaman, cons_risk_info;
     private Button btn_danai;
-    private ProgressBar prog;
+    private ProgressBar prog, prog_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +132,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         txt_penggunaan_pinjaman = findViewById(R.id.txt_penggunaan_pinjaman_pendanaan_det);
         txt_des_pinjaman = findViewById(R.id.txt_des_pinjaman_pendanaan_det);
         prog = findViewById(R.id.progress_pendanaan_det);
+        prog_img = findViewById(R.id.prog_img_pendanaan_det);
         btn_danai = findViewById(R.id.btn_danai_pendanaan_det);
     }
 
@@ -167,7 +175,21 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                             .dontAnimate()
                             .apply(RequestOptions.skipMemoryCacheOf(true))
                             .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    img_picture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                    prog_img.setVisibility(View.INVISIBLE);
+                                    return false;
+                                }
+                            })
                             .into(img_picture);
+
                     cons.setVisibility(View.VISIBLE);
 
                     cons_det_peminjam.setOnClickListener(new View.OnClickListener() {

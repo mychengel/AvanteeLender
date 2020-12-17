@@ -36,6 +36,7 @@ import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.auth.RegistrationActivity;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 
 public class WalkthroughActivity extends AppCompatActivity {
 
@@ -47,6 +48,7 @@ public class WalkthroughActivity extends AppCompatActivity {
     private Button btnSkip, btnNext, btnDaftar, btnMasuk;
     private PrefManager prefManager;
     private SharedPreferences userPref;
+    private TextView txt_link_daftar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,12 +191,25 @@ public class WalkthroughActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             if(position==4){
-                btnDaftar = view.findViewById(R.id.btn_daftar_wt5);
+                /*btnDaftar = view.findViewById(R.id.btn_daftar_wt5);
                 btnDaftar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         prefManager.setFirstTimeLaunch(false);
                         Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                    }
+                });*/
+
+                txt_link_daftar = view.findViewById(R.id.txt_link_daftar);
+                txt_link_daftar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.startAnimation(new Fungsi().clickAnim());
+                        prefManager.setFirstTimeLaunch(false);
+                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
+                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);
                     }
