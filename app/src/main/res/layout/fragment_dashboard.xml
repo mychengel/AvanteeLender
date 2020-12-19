@@ -11,19 +11,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxButtonHeight="?attr/actionBarSize"
+        app:menu="@menu/dashboard_menu"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextAppearance="@style/AppTheme.ActionBar.TitleText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@android:color/transparent"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="4dp">
 
@@ -74,6 +75,7 @@
                 android:id="@+id/txt_initial_fr_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="@string/txt_initial"
                 android:textColor="@color/bars_light"
                 android:textSize="30sp"

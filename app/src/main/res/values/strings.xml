@@ -274,6 +274,7 @@
     <string name="est_pengembalian">Estimasi pengembalian</string>
     <string name="mulai_pendanaan">Mulai pendanaan</string>
     <string name="pendanaan">Pendanaan</string>
+    <string name="loan_list">Daftar Pinjaman</string>
     <string name="dari">dari</string>
     <string name="terkumpul">Terkumpul</string>
     <string name="hari">hari</string>
@@ -299,5 +300,7 @@
     <string name="tot_pin_aktif">Total pinjaman aktif</string>
     <string name="tot_pin_selesai">Total pinjaman selesai</string>
     <string name="daftar_di_sini">Belum punya akun? Daftar!</string>
+    <string name="filter">Filter</string>
+    <string name="sort">Urutkan</string>
 
 </resources>

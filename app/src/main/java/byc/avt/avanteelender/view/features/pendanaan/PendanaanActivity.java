@@ -78,9 +78,9 @@ public class PendanaanActivity extends AppCompatActivity {
     private Observer<ArrayList<Pendanaan>> showListPendanaan = new Observer<ArrayList<Pendanaan>>() {
         @Override
         public void onChanged(final ArrayList<Pendanaan> result) {
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 f.showMessage("Belum ada pinjaman yang siap didanai.");
-            }else{
+            } else {
                 rv.setLayoutManager(new LinearLayoutManager(PendanaanActivity.this));
                 PendanaanAdapter adapter = new PendanaanAdapter(PendanaanActivity.this);
                 adapter.setListPendanaan(result);

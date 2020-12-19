@@ -1,16 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/lightest_neutral</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/lightest_neutral</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:fontFamily">@font/ibm_plex_sans</item>
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="materialButtonOutlinedStyle">@style/ItemButtonGroup</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/light_neutral</item>
         <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
         <item name="titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
         <item name="android:height">150dp</item>
@@ -25,6 +27,7 @@
     </style>
 
     <style name="ToolbarTheme.Expanded" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/light_neutral</item>
         <item name="android:textColor">@color/dark</item>
         <item name="android:padding">0dp</item>
         <item name="android:layout_margin">0dp</item>
@@ -35,6 +38,7 @@
     </style>
 
     <style name="ToolbarTheme" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/light_neutral</item>
         <item name="android:textColor">@color/dark</item>
         <item name="android:padding">0dp</item>
         <item name="android:layout_margin">0dp</item>
@@ -45,6 +49,7 @@
     </style>
 
     <style name="ToolbarTheme.Collapsed" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/light_neutral</item>
         <item name="android:textColor">@color/dark</item>
         <item name="android:padding">0dp</item>
         <item name="android:layout_margin">0dp</item>
@@ -71,5 +76,17 @@
     <style name="BottomNavigationViewStyle">
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="RoundButton" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+
+    <style name="ItemButtonGroup" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="rippleColor">@color/colorRipple</item>
     </style>
 </resources>
