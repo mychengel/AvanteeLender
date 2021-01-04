@@ -37,8 +37,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.features.pendanaan.PendanaanDetailActivity"></activity>
-        <activity android:name=".adapter.PendanaanAdapter"
+        <activity android:name=".view.others.FaqActivity"></activity>
+        <activity android:name=".view.others.TermsActivity" />
+        <activity android:name=".view.others.RiskInfoActivity" />
+        <activity android:name=".view.features.historitransaksi.HistoriTransaksiListActivity" />
+        <activity android:name=".view.features.pendanaan.PendanaanDetailActivity" />
+        <activity
+            android:name=".adapter.PendanaanAdapter"
             tools:ignore="Instantiatable" />
         <activity android:name=".view.features.pendanaan.PendanaanActivity" />
         <activity

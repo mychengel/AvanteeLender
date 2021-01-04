@@ -66,6 +66,46 @@ public class SettingActivity extends AppCompatActivity {
         String letter = String.valueOf(prefManager.getName().charAt(0));
         initial.setText(letter);
 
+        cvAccountSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(new Fungsi().clickAnim());
+//                Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        cvFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(new Fungsi().clickAnim());
+                Intent intent = new Intent(SettingActivity.this, FaqActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        cvTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(new Fungsi().clickAnim());
+                Intent intent = new Intent(SettingActivity.this, TermsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        cvRisk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(new Fungsi().clickAnim());
+                Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
         cvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

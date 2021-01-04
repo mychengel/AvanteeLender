@@ -63,6 +63,7 @@ public class DashboardRepository {
                             status = response.getBoolean("status");;
                             if(code == 200 && status){
                                 rows = response.getJSONArray("rows");
+                                Log.e("Histori", rows.toString());
                                 if(rows.length()==0){
                                 }else{
                                     for(int i = 0; i < rows.length(); i++){
@@ -77,6 +78,77 @@ public class DashboardRepository {
                                             HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
                                             list.add(historyTrx);
                                         }
+                                    }
+                                }
+                            }else{
+                                new Fungsi(context).showMessage("Gagal memuat data");
+                            }
+                            result.setValue(list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<ArrayList<HistoryTrx>> getHistoryTrxList(final String uid, final String token, final Context context) {
+        final MutableLiveData<ArrayList<HistoryTrx>> result = new MutableLiveData<>();
+        final ArrayList<HistoryTrx> list = new ArrayList<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/wallet", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0; //jika kembaliannya dalam string
+                        boolean status = false;
+                        JSONArray rows = null;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");;
+                            if(code == 200 && status){
+                                rows = response.getJSONArray("rows");
+                                Log.e("Histori", rows.toString());
+                                if(rows.length()==0){
+                                }else{
+                                    for(int i = 0; i < rows.length(); i++){
+                                        JSONObject obj = rows.getJSONObject(i);
+                                        String nom = "0";
+                                        if(obj.getString("nominal_in").equals("0")){
+                                            nom = "- "+ new Fungsi(context).toNumb(obj.getString("nominal_out")) ;
+                                        }else{
+                                            nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
+                                        }
+                                        HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
+                                        list.add(historyTrx);
                                     }
                                 }
                             }else{

@@ -26,6 +26,16 @@ import byc.avt.avanteelender.viewmodel.NotificationsViewModel;
 
 public class NotificationsFragment extends Fragment {
 
+    public static int index = 0;
+
+//    public NotificationsFragment(int index){
+//        this.index = index;
+//    }
+
+    public static TabLayout tabLayout;
+    public static ViewPager viewPager;
+    public static ViewPagerAdapter adapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_notifications, container, false);
@@ -35,13 +45,17 @@ public class NotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TabLayout tabLayout = view.findViewById(R.id.tab_lay_fr_notifications);
-        ViewPager viewPager = view.findViewById(R.id.vp_fr_notifications);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        tabLayout = view.findViewById(R.id.tab_lay_fr_notifications);
+        viewPager = view.findViewById(R.id.vp_fr_notifications);
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new PesanNotificationsFragment(), getString(R.string.text_pesan));
         adapter.addFragment(new InfoNotificationsFragment(), getString(R.string.info_dan_penawaran));
+        setNotifTab(index);
+    }
+
+    public static void setNotifTab(int i){
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
+        tabLayout.selectTab(tabLayout.getTabAt(i));
     }
 }

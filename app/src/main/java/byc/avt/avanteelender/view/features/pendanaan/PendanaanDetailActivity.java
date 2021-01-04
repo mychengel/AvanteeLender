@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.view.sheet.DanaiSheetFragment;
 import byc.avt.avanteelender.view.sheet.HistoriPinjamanSheetFragment;
 import byc.avt.avanteelender.view.sheet.RiskInfoSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -100,7 +101,9 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         btn_danai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new DanaiSheetFragment();
+                DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();
+                danaiSheetFragment.show(getSupportFragmentManager(), danaiSheetFragment.getTag());
             }
         });
 

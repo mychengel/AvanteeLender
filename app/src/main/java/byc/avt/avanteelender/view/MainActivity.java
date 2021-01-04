@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
+    public static BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(MainActivity.this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(MainActivity.this);
         Log.e("expiredtoken", ""+prefManager.getExpiredTime());
-        BottomNavigationView navView = findViewById(R.id.nav_view_main);
+        navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null){
             navView.setSelectedItemId(R.id.navigation_dasbor);
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_notifikasi:
                     fragment = new NotificationsFragment();
                     loadFragment(fragment);
+                    NotificationsFragment.index = 0;
                     return true;
             }
             return false;

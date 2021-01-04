@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,8 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
+import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
@@ -57,7 +60,7 @@ public class DashboardFragment extends Fragment {
     private TextView txt_no_trans_history;
     private TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
     private Dialog dialog;
-    private Button btn_pendanaan;
+    private Button btn_pendanaan, btn_histori_trx, btn_iap;
     private boolean headerdone, trxdone, dashboarddone, activedone, pendingdone = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -74,6 +77,7 @@ public class DashboardFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar_fr_dashboard);
         dialog = GlobalVariables.loadingDialog(requireActivity());
         btn_pendanaan = view.findViewById(R.id.btn_start_invest_fr_dashboard);
+        btn_histori_trx = view.findViewById(R.id.btn_histori_trx_fr_dashboard);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         //Recycler View
@@ -123,6 +127,25 @@ public class DashboardFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), PendanaanActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        btn_histori_trx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HistoriTransaksiListActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        btn_iap = view.findViewById(R.id.btn_iap_fr_dashboard);
+        btn_iap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity ma = new MainActivity();
+                ma.navView.setSelectedItemId(R.id.navigation_notifikasi);
+                NotificationsFragment.index = 1;
             }
         });
     }

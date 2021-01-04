@@ -299,5 +299,16 @@
     <string name="tot_pin_aktif">Total pinjaman aktif</string>
     <string name="tot_pin_selesai">Total pinjaman selesai</string>
     <string name="daftar_di_sini">Belum punya akun? Daftar!</string>
+    <string name="filter">Filter</string>
+    <string name="sembilanpuluh_day_left">90 hari terakhir</string>
+    <string name="txt_iap_des">Lihat semua info dan penawaran khusus dari kami sebagai bentuk apresiasi terhadap loyalitas anda kepada kami.</string>
+    <string name="isi_nom_pendanaan">Isi Nominal Pendanaan</string>
+    <string name="txt_rp">Rp</string>
+    <string name="kelipatan_satu_juta">Kelipatan Rp 1.000.000</string>
+    <string name="pilih_metode_pendanaan">Pilih Metode Pendanaan</string>
+    <string name="saldo_tersedia">Saldo tersedia</string>
+    <string name="tf_bank">Transfer Bank</string>
+    <string name="with_uniqe_code_va">Dengan kode unik ke rekening VA</string>
+    <string name="est_bunga_akan_diterima">Estimasi bunga yang akan diterima</string>
 
 </resources>

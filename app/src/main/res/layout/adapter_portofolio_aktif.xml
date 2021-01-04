@@ -52,11 +52,11 @@
                 app:srcCompat="@drawable/ic_loan_rating_a" />
 
             <TextView
-                android:id="@+id/txt_risk_adp_port_aktif"
+                android:id="@+id/txt_loan_rating_adp_port_aktif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
                 android:text="@string/mark_a1"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -72,6 +72,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
                 android:maxLines="1"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"

@@ -1,14 +1,23 @@
 package byc.avt.avanteelender.view.fragment.tabnotificationfragment;
 
+import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.GlobalVariables;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,10 +66,62 @@ public class InfoNotificationsFragment extends Fragment {
         }
     }
 
+    private Dialog dialog;
+    private ProgressBar prog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notifications_info, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        dialog = GlobalVariables.loadingDialog(requireActivity());
+        prog = view.findViewById(R.id.prog_fr_notif_info);
+        WebView simpleWebView = view.findViewById(R.id.wv_fr_notif_info);
+        simpleWebView.setNestedScrollingEnabled(true);
+        simpleWebView.setVerticalScrollBarEnabled(true);
+        //simpleWebView.setHorizontalScrollBarEnabled(true);
+        simpleWebView.requestFocus();
+        simpleWebView.getSettings().setDomStorageEnabled(true);
+        simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        simpleWebView.getSettings().setJavaScriptEnabled(true);
+        simpleWebView.setWebViewClient(new MyWebViewClient());
+        String url = "https://avantee.co.id:8444/blog";
+        simpleWebView.loadUrl(url);
+
+        simpleWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+            prog.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url); // load the url
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+            prog.setVisibility(View.GONE);
+        }
+    }
+
 }

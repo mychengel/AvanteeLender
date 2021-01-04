@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.repositories;
+package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
 import android.content.Context;
 import android.util.Log;
@@ -24,32 +24,71 @@ import java.util.Map;
 
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.model.Pendanaan;
-import byc.avt.avanteelender.model.PortofolioSelesai;
-import byc.avt.avanteelender.repositories.tabportofoliorepositories.SelesaiPortofolioRepository;
+import byc.avt.avanteelender.model.PortofolioAktif;
 
-public class PendanaanRepository {
+public class AktifPortofolioRepository {
 
-    private static PendanaanRepository repository;
+    private static AktifPortofolioRepository repository;
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
     private PrefManager prefManager;
 
-    private PendanaanRepository() {
+    private AktifPortofolioRepository() {
     }
 
-    public static PendanaanRepository getInstance() {
+    public static AktifPortofolioRepository getInstance() {
         if (repository == null) {
-            repository = new PendanaanRepository();
+            repository = new AktifPortofolioRepository();
         }
         return repository;
     }
 
-    public MutableLiveData<ArrayList<Pendanaan>> getListPendanaan(final String uid, final String token, final Context context) {
-        final MutableLiveData<ArrayList<Pendanaan>> result = new MutableLiveData<>();
-        final ArrayList<Pendanaan> list = new ArrayList<>();
+    public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/pendanaan", null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        result.setValue(response);
+                        Log.e("Aktif PORT", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<ArrayList<PortofolioAktif>> portofolioAktifList(final String uid, final String token, final Context context) {
+        final MutableLiveData<ArrayList<PortofolioAktif>> result = new MutableLiveData<>();
+        final ArrayList<PortofolioAktif> list = new ArrayList<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -60,17 +99,18 @@ public class PendanaanRepository {
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    Pendanaan p = new Pendanaan(rows.getJSONObject(i).getString("loan_type"), rows.getJSONObject(i).getString("rating_pinjaman"), rows.getJSONObject(i).getString("loan_no"),
-                                            rows.getJSONObject(i).getString("jumlah_hari_pinjam"), rows.getJSONObject(i).getString("invest_bunga"),
-                                            rows.getJSONObject(i).getString("nominal_pinjaman"), rows.getJSONObject(i).getString("funding"),
-                                            rows.getJSONObject(i).getString("jaminan_status"), rows.getJSONObject(i).getString("tipe_jaminan"),rows.getJSONObject(i).getString("city_name"),
-                                            rows.getJSONObject(i).getString("publikasi_end"), rows.getJSONObject(i).getString("borrower_code"), rows.getJSONObject(i).getString("picture_bg"));
-                                    list.add(p);
+                                    String loan_rating="", loan_type="";
+                                    loan_rating = rows.getJSONObject(i).getString("loan_rating");
+                                    loan_type = rows.getJSONObject(i).getString("loan_type");
+                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"),
+                                            rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
+                                            rows.getJSONObject(i).getString("sisa_hari_pinjam"), rows.getJSONObject(i).getString("status"),
+                                            rows.getJSONObject(i).getString("angsuran_terbayar"), rows.getJSONObject(i).getString("angsuran_berikutnya"));
+                                    list.add(pa);
                                     result.setValue(list);
+
                                 }
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -105,46 +145,5 @@ public class PendanaanRepository {
         });
         return result;
     }
-
-    public MutableLiveData<JSONObject> getDetailPendanaan(final String loan_no, final String uid, final String token, final Context context) {
-        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/pendanaan/detail/"+loan_no, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        result.setValue(response);
-                        Log.e("Danai", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-                    }
-                }
-        )
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-            }
-        });
-        return result;
-    }
-
+    
 }

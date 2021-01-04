@@ -52,12 +52,21 @@ public class HistoryTrxAdapter extends RecyclerView.Adapter<HistoryTrxAdapter.Ca
         holder.lbl_datetime.setText(ht.getTrx_date().substring(0,16));
         holder.lbl_nominal.setText(ht.getNominal());
         if(ht.getNominal().charAt(0) == '-'){
-            holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_withdraw_white));
+            if (ht.getDescription().matches("(?i).*investasi.*")) {
+                holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_portfolio_add));
+            }else if (ht.getDescription().matches("(?i).*penarikan.*")) {
+                holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_withdraw_white));
+            }
             holder.img.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_red));
         }else{
-            holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_receive_white));
+            if (ht.getDescription().matches("(?i).*terima.*") || ht.getDescription().matches("(?i).*pengembalian.*")) {
+                holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_receive_white));
+            }else if (ht.getDescription().matches("(?i).*top up.*")) {
+                holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_top_up_white));
+            }
             holder.img.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_green));
         }
+        holder.img.setPadding(16,16,16,16);
         String stat = "";
         if(ht.getStatus().equals("1")){
             stat = "";

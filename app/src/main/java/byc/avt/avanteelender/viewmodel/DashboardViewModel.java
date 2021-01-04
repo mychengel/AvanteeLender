@@ -24,6 +24,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private DashboardRepository dashboardRepository;
     private MutableLiveData<ArrayList<Header>> resultHeader = new MutableLiveData<>();
     private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrx = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrxList = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDashboard = new MutableLiveData<>();
     private MutableLiveData<String> totActivePort = new MutableLiveData<>();
     private MutableLiveData<String> totPendingPort = new MutableLiveData<>();
@@ -47,6 +48,14 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<ArrayList<HistoryTrx>> getResultHistoryTrx(){
         return resultHistoryTrx;
+    }
+
+    public void getHistoryTrxList(String uid, String token){
+        resultHistoryTrxList = dashboardRepository.getHistoryTrxList(uid, token, getApplication());
+    }
+
+    public LiveData<ArrayList<HistoryTrx>> getResultHistoryTrxList(){
+        return resultHistoryTrxList;
     }
 
     public void getDashboard(String uid, String token){

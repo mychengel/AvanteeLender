@@ -35,6 +35,7 @@
     <!-- Colors Accent -->
     <color name="colorPrimary">#25C70B</color>
     <color name="colorPrimaryO06">#9925C70B</color>
+    <color name="colorPrimaryO015">#E3FFE0</color>
     <color name="colorPrimaryA">#1DB474</color>
     <color name="colorPrimaryB">#AABE2C</color>
     <color name="colorPrimaryC">#E1B000</color>

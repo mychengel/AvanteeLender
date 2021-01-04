@@ -98,26 +98,18 @@ public class PendingPortofolioRepository {
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    String det = loanDetail(rows.getJSONObject(i).getString("loan_no"), uid, token, context);
-                                    if(det.equalsIgnoreCase("-")){
-                                        result.setValue(list);
-                                    }else{
-                                        //String loan_rating = det.substring(0,2);
-                                        //String loan_type = det.substring(3, det.length());
-                                        PortofolioPending ps = new PortofolioPending("-", "-", rows.getJSONObject(i).getString("loan_no"),
-                                                rows.getJSONObject(i).getString("tanggal_pengembalian"), rows.getJSONObject(i).getString("invest_bunga"),
-                                                rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("nominal"),
-                                                rows.getJSONObject(i).getString("status"));
-                                        list.add(ps);
-                                        result.setValue(list);
-                                    }
-
-
+                                    String loan_rating="", loan_type="";
+                                    loan_rating = rows.getJSONObject(i).getString("loan_rating");
+                                    loan_type = rows.getJSONObject(i).getString("loan_type");
+                                    PortofolioPending ps = new PortofolioPending(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"),
+                                            rows.getJSONObject(i).getString("tanggal_pengembalian"), rows.getJSONObject(i).getString("invest_bunga"),
+                                            rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("nominal"),
+                                            rows.getJSONObject(i).getString("status"));
+                                    list.add(ps);
+                                    result.setValue(list);
 
                                 }
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -153,60 +145,4 @@ public class PendingPortofolioRepository {
         return result;
     }
 
-    public String loanDetail(String loan_no, final String uid, final String token, Context context) {
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final String[] resultDet = {""};
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/pendanaan/detail/"+loan_no, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("DetailLoan", response.toString());
-                        JSONArray rows;
-                        String hasil = "";
-                        try {
-                            rows = response.getJSONArray("result");
-                            if(rows.length()==0){
-                                Log.e("EndpointB", "null");
-                                hasil = "";
-                                resultDet[0] = hasil;
-                            }else{
-                                hasil = rows.getJSONObject(0).getString("loan_rating")+","+rows.getJSONObject(0).getString("loan_type");
-                                resultDet[0] = hasil;
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-                    }
-                }
-        )
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-            }
-        });
-        return resultDet[0];
-    }
 }

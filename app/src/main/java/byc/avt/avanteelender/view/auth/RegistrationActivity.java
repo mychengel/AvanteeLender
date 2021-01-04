@@ -53,6 +53,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daftar);
         toolbar = findViewById(R.id.toolbar_daftar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         dialog = GlobalVariables.loadingDialog(RegistrationActivity.this);
