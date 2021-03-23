@@ -208,8 +208,8 @@ public class WalkthroughActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         v.startAnimation(new Fungsi().clickAnim());
                         prefManager.setFirstTimeLaunch(false);
-                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
-                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
+                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
+                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);
                     }

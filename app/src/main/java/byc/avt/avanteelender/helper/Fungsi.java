@@ -74,11 +74,16 @@ public class Fungsi {
         String hsl = "";
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        if(numb.contains(".")){
-            hsl = formatRupiah.format((double) Long.parseLong(numb.substring(0, (numb.indexOf('.')))));
+        if(numb == null || numb == "null"){
+            hsl = "Rp0";
         }else{
-            hsl = formatRupiah.format((double)Long.parseLong(numb));
+            if(numb.contains(".")){
+                hsl = formatRupiah.format((double) Long.parseLong(numb.substring(0, (numb.indexOf('.')))));
+            }else{
+                hsl = formatRupiah.format((double)Long.parseLong(numb));
+            }
         }
+
         return hsl;
     }
 
@@ -121,7 +126,12 @@ public class Fungsi {
     }
 
     public int terkumpulPersen(String pinjaman, String funding){
-        int persen = (int) ((Float.parseFloat(funding) / Float.parseFloat(pinjaman)) * 100);
+        int persen = 0;
+        if(funding == null || funding == "null"){
+            persen = 0;
+        }else{
+            persen = (int) ((Float.parseFloat(funding) / Float.parseFloat(pinjaman)) * 100);
+        }
         return persen;
     }
 

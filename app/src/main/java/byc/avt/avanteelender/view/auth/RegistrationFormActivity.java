@@ -41,8 +41,8 @@ public class RegistrationFormActivity extends AppCompatActivity {
                 switch (destination.getLabel().toString().trim()){
                     case "fragment_welcome" :
 //                        getSupportActionBar().hide();
-//                        appBarLayout.setVisibility(View.GONE);
-                        appBarLayout.setVisibility(View.VISIBLE);
+                        appBarLayout.setVisibility(View.GONE);
+                        //appBarLayout.setVisibility(View.VISIBLE);
                         getSupportActionBar().show();
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         getSupportActionBar().setDisplayShowHomeEnabled(true);

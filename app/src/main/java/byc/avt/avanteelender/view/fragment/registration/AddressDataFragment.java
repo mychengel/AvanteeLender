@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.registration;
 
+//import android.app.Fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
