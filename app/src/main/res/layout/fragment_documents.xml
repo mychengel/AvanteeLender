@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cons_fr_documents"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.registration.DocumentsFragment" />
+    tools:context=".view.fragment.registration.individual.DocumentsFragment" >
+
+
+    <Button
+        android:id="@+id/btn_next_fr_documents"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="148dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_state_selector"
+        android:enabled="false"
+        android:letterSpacing="0.01"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -102,13 +102,12 @@ public class PendingPortofolioRepository {
                                     loan_rating = rows.getJSONObject(i).getString("loan_rating");
                                     loan_type = rows.getJSONObject(i).getString("loan_type");
                                     PortofolioPending ps = new PortofolioPending(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"),
-                                            rows.getJSONObject(i).getString("tanggal_pengembalian"), rows.getJSONObject(i).getString("invest_bunga"),
+                                            rows.getJSONObject(i).getString("tanggal_pengembalian"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
                                             rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("nominal"),
                                             rows.getJSONObject(i).getString("status"));
                                     list.add(ps);
-                                    result.setValue(list);
-
                                 }
+                                result.setValue(list);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -52,6 +52,7 @@ public class SelesaiPortofolioRepository {
                     @Override
                     public void onResponse(JSONObject response) {
                         result.setValue(response);
+                        Log.e("SELESAI PORT", response.toString());
                     }
                 },
                 new Response.ErrorListener() {
@@ -107,8 +108,8 @@ public class SelesaiPortofolioRepository {
                                             rows.getJSONObject(i).getString("bunga_pinjaman_pa"), rows.getJSONObject(i).getString("nominal"),
                                             rows.getJSONObject(i).getString("payment_amount"));
                                     list.add(ps);
-                                    result.setValue(list);
                                 }
+                                result.setValue(list);
                             }
 
 

@@ -106,7 +106,7 @@
                 android:id="@+id/lbl_tenor_adp_port_selesai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/tenor"
                 android:textColor="@color/darkO05"
                 android:textSize="13sp"

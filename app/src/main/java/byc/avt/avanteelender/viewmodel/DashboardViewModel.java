@@ -26,12 +26,21 @@ public class DashboardViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrx = new MutableLiveData<>();
     private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrxList = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDashboard = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultWallet = new MutableLiveData<>();
     private MutableLiveData<String> totActivePort = new MutableLiveData<>();
     private MutableLiveData<String> totPendingPort = new MutableLiveData<>();
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
         dashboardRepository = DashboardRepository.getInstance();
+    }
+
+    public void getWallet(String uid, String token){
+        resultWallet = dashboardRepository.getWallet(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultWallet(){
+        return resultWallet;
     }
 
     public void getHeader(String uid, String token){

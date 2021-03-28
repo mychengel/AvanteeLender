@@ -111,15 +111,18 @@
 
             <TextView
                 android:id="@+id/txt_rating_pendanaan_det"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
+                android:maxLines="2"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_mark_pendanaan_det"
+                app:layout_constraintEnd_toStartOf="@+id/txt_bunga_pendanaan_det"
                 app:layout_constraintStart_toEndOf="@+id/img_mark_pendanaan_det"
                 app:layout_constraintTop_toBottomOf="@+id/txt_loan_no_pendanaan_det" />
 
@@ -167,7 +170,7 @@
                 android:text="@string/percent"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_bunga_pendanaan_det"
                 app:layout_constraintStart_toEndOf="@+id/txt_bunga_pendanaan_det" />
 
             <TextView
@@ -204,7 +207,7 @@
                 android:text="@string/hari"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/lbl_bungaperth_pendanaan_det"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_tenor_pendanaan_det"
                 app:layout_constraintStart_toEndOf="@+id/txt_tenor_pendanaan_det" />
 
             <androidx.cardview.widget.CardView

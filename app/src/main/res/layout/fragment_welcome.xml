@@ -11,7 +11,7 @@
         android:id="@+id/iv_welcome_fragment_register"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

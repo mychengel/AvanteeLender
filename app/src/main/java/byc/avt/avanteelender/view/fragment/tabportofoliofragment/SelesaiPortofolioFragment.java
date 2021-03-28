@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -43,6 +44,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     private TextView txt_tot_pinjaman_selesai, txt_tot_pb_selesai, txt_tot_nom_selesai;
     double tot_pb_selesai = 0, tot_nom_selesai = 0;
     private RecyclerView rv;
+    ConstraintLayout cons, cons_lottie;
 
     public static SelesaiPortofolioFragment newInstance() {
         return new SelesaiPortofolioFragment();
@@ -65,6 +67,9 @@ public class SelesaiPortofolioFragment extends Fragment {
         txt_tot_pb_selesai = v.findViewById(R.id.txt_pb_received_port_selesai);
         txt_tot_nom_selesai = v.findViewById(R.id.txt_nom_received_port_selesai);
         rv = v.findViewById(R.id.rv_port_selesai);
+        cons_lottie = v.findViewById(R.id.cons_lottie_port_selesai);
+        cons = v.findViewById(R.id.cons_port_selesai);
+        cons.setVisibility(View.INVISIBLE);
         //f.showMessage("Portofolio SELESAI");
         loadData();
     }
@@ -111,7 +116,11 @@ public class SelesaiPortofolioFragment extends Fragment {
         public void onChanged(ArrayList<PortofolioSelesai> result) {
             if(result.isEmpty()){
                 //f.showMessage("Portofolio selesai belum ada.");
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.VISIBLE);
             }else{
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.GONE);
                 rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                 PortofolioSelesaiAdapter portofolioSelesaiAdapter = new PortofolioSelesaiAdapter(getActivity());
                 portofolioSelesaiAdapter.setListPortofolioSelesai(result);

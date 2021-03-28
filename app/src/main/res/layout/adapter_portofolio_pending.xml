@@ -106,7 +106,7 @@
                 android:id="@+id/lbl_tenor_adp_port_pending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/tenor"
                 android:textColor="@color/darkO05"
                 android:textSize="13sp"
@@ -134,7 +134,6 @@
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/sudah_dibayar"
                 android:textColor="@color/dark"
-                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_tenor_adp_port_pending"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txt_tenor_adp_port_pending" />

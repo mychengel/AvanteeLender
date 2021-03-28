@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -57,11 +58,14 @@ public class DashboardFragment extends Fragment {
     Fungsi f = new Fungsi(getActivity());
     private PrefManager prefManager;
     private RecyclerView rvHistoryTrx;
-    private TextView txt_no_trans_history;
+    private TextView txt_no_trans_history, lbl_rek_va, lbl_saldo_va, lbl_rek_rdl, lbl_saldo_rdl, lbl_dana_pending;
     private TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
     private Dialog dialog;
-    private Button btn_pendanaan, btn_histori_trx, btn_iap;
+    private Button btn_pendanaan, btn_histori_trx, btn_iap, btn_topup, btn_withdraw;
     private boolean headerdone, trxdone, dashboarddone, activedone, pendingdone = false;
+    private ConstraintLayout cons_det_wallet;
+    private ImageView img_expand_wallet;
+    boolean is_expand = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +82,16 @@ public class DashboardFragment extends Fragment {
         dialog = GlobalVariables.loadingDialog(requireActivity());
         btn_pendanaan = view.findViewById(R.id.btn_start_invest_fr_dashboard);
         btn_histori_trx = view.findViewById(R.id.btn_histori_trx_fr_dashboard);
+        btn_topup = view.findViewById(R.id.btn_topup_fr_dashboard);
+        btn_withdraw = view.findViewById(R.id.btn_withdraw_fr_dashboard);
+        cons_det_wallet = view.findViewById(R.id.cons_det_wallet_fr_dashboard);
+        cons_det_wallet.setVisibility(View.GONE);
+        img_expand_wallet = view.findViewById(R.id.img_expand_wallet_fr_dashboard);
+        lbl_rek_va = view.findViewById(R.id.lbl_no_rek_va_fr_dashboard);
+        lbl_saldo_va = view.findViewById(R.id.lbl_saldo_va_fr_dashboard);
+        lbl_rek_rdl = view.findViewById(R.id.lbl_no_rek_rdl_fr_dashboard);
+        lbl_saldo_rdl = view.findViewById(R.id.lbl_saldo_rdl_fr_dashboard);
+        lbl_dana_pending = view.findViewById(R.id.lbl_dana_status_pending_fr_dashboard);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         //Recycler View
@@ -121,6 +135,36 @@ public class DashboardFragment extends Fragment {
             }
         }, 200);
 
+        btn_withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn_topup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        img_expand_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(f.clickAnim());
+                if(!is_expand){
+                    img_expand_wallet.setRotation(180);
+                    cons_det_wallet.setVisibility(View.VISIBLE);
+                    is_expand = !is_expand;
+                }else{
+                    img_expand_wallet.setRotation(0);
+                    cons_det_wallet.setVisibility(View.GONE);
+                    is_expand = !is_expand;
+                }
+            }
+        });
+
         btn_pendanaan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +202,8 @@ public class DashboardFragment extends Fragment {
     public void loadDashboard() {
         // POST to server through endpoint
         dialog.show();
+        viewModel.getWallet(prefManager.getUid(), prefManager.getToken());
+        viewModel.getResultWallet().observe(getActivity(), showWallet);
         viewModel.getHeader(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultHeader().observe(getActivity(), showHeader);
         viewModel.getHistoryTrx(prefManager.getUid(), prefManager.getToken());
@@ -169,6 +215,31 @@ public class DashboardFragment extends Fragment {
         viewModel.getTotPendingPort(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultTotPendingPort().observe(getActivity(), showTotPendingPort);
     }
+
+    private Observer<JSONObject> showWallet = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    long mywallet = result.getLong("total_dana");
+                    if(mywallet <= 0){
+                        btn_withdraw.setEnabled(false);
+                    }else{
+                        btn_withdraw.setEnabled(true);
+                    }
+                    lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
+                    lbl_saldo_va.setText(f.toNumb(""+result.getInt("total_dana_va")));
+//                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));
+//                    lbl_saldo_rdl.setText(f.toNumb(""+result.getString("total_dana_rdl")));
+                    lbl_dana_pending.setText(f.toNumb(""+result.getLong("dana_pending")));
+                }else{
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            cekDone();
+        }
+    };
 
     private Observer<String> showTotActivePort = new Observer<String>() {
         @Override

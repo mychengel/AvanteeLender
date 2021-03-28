@@ -70,6 +70,12 @@ public class Fungsi {
         return output;
     }
 
+    public double hitungBunga(double bunga){
+        double hsl = 0.0;
+
+        return hsl;
+    }
+
     public String toNumb(String numb){
         String hsl = "";
         Locale localeID = new Locale("in", "ID");

@@ -53,7 +53,7 @@ public class PortofolioSelesaiAdapter extends RecyclerView.Adapter<PortofolioSel
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());
         holder.txt_loan_rating.setText(ps.getLoan_rating());
-        holder.txt_end_date.setText(ps.getEnd_date().substring(0,10));
+        holder.txt_end_date.setText(f.tglFull(ps.getEnd_date().substring(0,10)));
         holder.txt_tenor.setText(ps.getTenor()+" hari");
         holder.txt_interest.setText(""+ (int)Float.parseFloat(ps.getInterest())+"%");
         holder.txt_nominal.setText(f.toNumb(ps.getNominal()));

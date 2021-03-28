@@ -20,6 +20,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     private AktifPortofolioRepository AktifPortofolioRepository;
     private MutableLiveData<JSONObject> resultHeader = new MutableLiveData<>();
     private MutableLiveData<ArrayList<PortofolioAktif>> resultList = new MutableLiveData<>();
+    private MutableLiveData<String> resultOnTime = new MutableLiveData<>();
 
     public AktifPortofolioViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +33,14 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultHeader(){
         return resultHeader;
+    }
+
+    public void cekTerlambat(String uid, String token, String loan_no, String funding_id){
+        resultOnTime = AktifPortofolioRepository.cekTerlambat(uid, token, getApplication(), loan_no, funding_id);
+    }
+
+    public LiveData<String> getResultOnTime(){
+        return resultOnTime;
     }
 
     public void portofolioAktifList(String uid, String token){

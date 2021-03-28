@@ -26,6 +26,7 @@
 
             <Button
                 android:id="@+id/btn_detail_adp_port_aktif"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="59dp"
                 android:layout_height="26dp"
                 android:layout_marginTop="16dp"
@@ -110,7 +111,7 @@
                 android:id="@+id/lbl_tenor_adp_port_aktif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="24dp"
                 android:text="@string/tenor"
                 android:textColor="@color/darkO05"
                 android:textSize="13sp"
@@ -234,7 +235,6 @@
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/tepat_waktu"
                 android:textColor="@color/dark"
-                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_sisatenor_adp_port_aktif"
                 app:layout_constraintEnd_toEndOf="parent" />
 

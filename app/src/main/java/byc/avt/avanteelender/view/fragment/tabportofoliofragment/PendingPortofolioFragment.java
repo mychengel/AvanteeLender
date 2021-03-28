@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +45,7 @@ public class PendingPortofolioFragment extends Fragment {
     private TextView txt_tot_pinjaman_pending, txt_est_bunga_diterima, txt_tot_nom_pending;
     int tot_nom_pending = 0, tot_est_bunga_diterima = 0;
     private RecyclerView rv;
+    ConstraintLayout cons, cons_lottie;
 
     public static PendingPortofolioFragment newInstance() {
         return new PendingPortofolioFragment();
@@ -63,6 +67,9 @@ public class PendingPortofolioFragment extends Fragment {
         txt_tot_pinjaman_pending = v.findViewById(R.id.txt_tot_pinjaman_port_pending);
         txt_est_bunga_diterima = v.findViewById(R.id.txt_est_bunga_port_pending);
         txt_tot_nom_pending = v.findViewById(R.id.txt_tot_nom_port_pending);
+        cons_lottie = v.findViewById(R.id.cons_lottie_port_pending);
+        cons = v.findViewById(R.id.cons_port_pending);
+        cons.setVisibility(View.INVISIBLE);
         rv = v.findViewById(R.id.rv_port_pending);
         //f.showMessage("Portofolio PENDING");
         loadData();
@@ -90,7 +97,8 @@ public class PendingPortofolioFragment extends Fragment {
                 if(rows.length()==0){
                 }else{
                     for(int i = 0; i < rows.length(); i++){
-                        tot_est_bunga_diterima = tot_est_bunga_diterima + ((rows.getJSONObject(i).getInt("nominal") * rows.getJSONObject(i).getInt("invest_bunga"))/100);
+                        double bunga;
+                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getInt("estimasi_bunga_per_loan");
                         tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getInt("nominal");
                     }
                 }
@@ -110,7 +118,11 @@ public class PendingPortofolioFragment extends Fragment {
         public void onChanged(ArrayList<PortofolioPending> result) {
             if(result.isEmpty()){
                 //f.showMessage("Portofolio pending belum ada.");
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.VISIBLE);
             }else{
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.GONE);
                 rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                 PortofolioPendingAdapter portofolioPendingAdapter = new PortofolioPendingAdapter(getActivity());
                 portofolioPendingAdapter.setListPortofolioPending(result);

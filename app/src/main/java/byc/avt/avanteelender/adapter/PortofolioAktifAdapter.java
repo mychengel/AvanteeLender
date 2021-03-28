@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,19 +49,25 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
     @Override
     public void onBindViewHolder(@NonNull final PortofolioAktifAdapter.CardViewViewHolder holder, int position) {
         final PortofolioAktif ps = getListPortofolioAktif().get(position);
-//        if(!ps.getIs_on_time().equalsIgnoreCase("-")){
-//            holder.txt_is_ontime.setText("Tepat waktu");
-//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_24));
-//        }else{
-//            holder.txt_is_ontime.setText("Terlambat");
-//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_late_24));
-//        }
+        if(ps.getIs_on_time().equalsIgnoreCase("0")){
+            holder.txt_is_ontime.setText("Tepat waktu");
+            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_24));
+        }else{
+            holder.txt_is_ontime.setText("Terlambat");
+            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_late_24));
+        }
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());
         holder.txt_loan_rating.setText(ps.getLoan_rating());
         holder.txt_tenor.setText(ps.getTenor()+" hari");
         holder.txt_sisa_tenor.setText(ps.getSisa_tenor()+" hari");
-        holder.txt_interest.setText(""+ (int)Float.parseFloat(ps.getInterest())+"%");
+        String interest="";
+        if(ps.getInterest() == null){
+            interest = "-";
+        }else{
+            interest = ""+ (int)Float.parseFloat(ps.getInterest());
+        }
+        holder.txt_interest.setText(interest+"%");
         holder.txt_angs_paid.setText(f.toNumb(ps.getAngs_paid()));
         holder.txt_angs_next.setText(f.toNumb(ps.getAngs_next()));
         //holder.txt_payment_amount.setText(f.toNumb(ps.getPayment_amount()));
@@ -75,8 +82,14 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
         }else if(ps.getLoan_rating().charAt(0) == 'E'){
             holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_e));
         }else{
-
         }
+
+        holder.btn_det.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -88,20 +101,26 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
     class CardViewViewHolder extends RecyclerView.ViewHolder{
         TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_is_ontime;
         ImageView img_mark, img_ontime;
+        Button btn_det;
         ConstraintLayout cons;
 
         CardViewViewHolder(View itemView) {
             super(itemView);
+            btn_det = itemView.findViewById(R.id.btn_detail_adp_port_aktif);
+            //btn_det.setVisibility(View.GONE);
             txt_loan_type = itemView.findViewById(R.id.txt_loan_type_adp_port_aktif);
             txt_loan_rating = itemView.findViewById(R.id.txt_loan_rating_adp_port_aktif);
             txt_loan_no = itemView.findViewById(R.id.txt_loan_code_adp_port_aktif);
             txt_sisa_tenor = itemView.findViewById(R.id.txt_sisatenor_adp_port_aktif);
             txt_tenor = itemView.findViewById(R.id.txt_tenor_adp_port_aktif);
+            txt_interest = itemView.findViewById(R.id.txt_bunga_adp_port_aktif);
             txt_angs_paid = itemView.findViewById(R.id.txt_angs_sudah_adp_port_aktif);
             txt_angs_next = itemView.findViewById(R.id.txt_angs_selanjutnya_adp_port_aktif);
-            txt_is_ontime = itemView.findViewById(R.id.lbl_tepat_waktu_adp_port_aktif);
             img_mark = itemView.findViewById(R.id.img_mark_adp_port_aktif);
             img_ontime = itemView.findViewById(R.id.img_tepat_waktu_adp_port_aktif);
+            //img_ontime.setVisibility(View.GONE);
+            txt_is_ontime = itemView.findViewById(R.id.lbl_tepat_waktu_adp_port_aktif);
+            //txt_is_ontime.setVisibility(View.GONE);
             cons = itemView.findViewById(R.id.cons_adp_port_aktif);
         }
     }

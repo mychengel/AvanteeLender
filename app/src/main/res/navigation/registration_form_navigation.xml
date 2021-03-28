@@ -8,16 +8,89 @@
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        android:label=""
+        tools:layout="@layout/fragment_welcome">
         <action
-            android:id="@+id/action_to_lendertype"
+            android:id="@+id/action_nav_to_lendertype"
             app:destination="@id/lenderTypeFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit" />
     </fragment>
     <fragment
         android:id="@+id/lenderTypeFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.LenderTypeFragment"
-        android:label="fragment_lender_type"
-        tools:layout="@layout/fragment_lender_type" />
+        android:label= "@string/lender_type"
+        tools:layout="@layout/fragment_lender_type" >
+        <action
+            android:id="@+id/action_lenderTypeFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/left_to_right"
+            app:exitAnim="@anim/right_to_left"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+        <action
+            android:id="@+id/action_lenderTypeFragment_to_personalDataFragment"
+            app:destination="@id/personalDataFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.individual.PersonalDataFragment"
+        android:label="@string/personal_data"
+        tools:layout="@layout/fragment_personal_data" >
+        <action
+            android:id="@+id/action_personalDataFragment_to_workInfoFragment"
+            app:destination="@id/workInfoFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/workInfoFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.individual.WorkInfoFragment"
+        android:label="@string/work_info"
+        tools:layout="@layout/fragment_work_info" >
+        <action
+            android:id="@+id/action_workInfoFragment_to_addressDataFragment"
+            app:destination="@id/addressDataFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressDataFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.individual.AddressDataFragment"
+        android:label="@string/addresses"
+        tools:layout="@layout/fragment_address_data" >
+        <action
+            android:id="@+id/action_addressDataFragment_to_bankInfoFragment"
+            app:destination="@id/bankInfoFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/bankInfoFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.individual.BankInfoFragment"
+        android:label="@string/bank_info"
+        tools:layout="@layout/fragment_bank_info" >
+        <action
+            android:id="@+id/action_bankInfoFragment_to_documentsFragment"
+            app:destination="@id/documentsFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.individual.DocumentsFragment"
+        android:label="@string/essential_document"
+        tools:layout="@layout/fragment_documents" />
 </navigation>

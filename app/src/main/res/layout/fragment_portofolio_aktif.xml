@@ -50,7 +50,7 @@
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:maxLines="1"
-                        android:text="@string/tot_angs_selanjutnya"
+                        android:text="@string/tot_angs_belum_terbayar"
                         android:textAllCaps="true"
                         android:textColor="@color/darkO05"
                         android:textSize="12sp"
@@ -190,4 +190,49 @@
         app:layout_constraintBottom_toBottomOf="@+id/txt_late_port_aktif"
         app:layout_constraintEnd_toStartOf="@+id/txt_late_port_aktif"
         app:layout_constraintTop_toTopOf="@+id/txt_late_port_aktif" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_lottie_port_aktif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightest_neutral"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_fr_port_aktif"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginBottom="56dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/funding_wait_loop"
+            tools:layout_conversion_absoluteHeight="132dp"
+            tools:layout_conversion_absoluteWidth="132dp" />
+
+        <TextView
+            android:id="@+id/lbl_none_fr_port_aktif"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/ibm_plex_sans_semi_bold"
+            android:gravity="center"
+            android:text="@string/no_port_aktif"
+            android:textColor="@color/dark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_fr_port_aktif" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

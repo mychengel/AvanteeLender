@@ -50,8 +50,8 @@ public class PortofolioPendingAdapter extends RecyclerView.Adapter<PortofolioPen
     public void onBindViewHolder(@NonNull final PortofolioPendingAdapter.CardViewViewHolder holder, int position) {
         final PortofolioPending ps = getListPortofolioPending().get(position);
         if(ps.getIs_paid().equalsIgnoreCase("-")){
-            holder.txt_is_paid.setVisibility(View.INVISIBLE);
-            holder.img_done.setVisibility(View.INVISIBLE);
+            holder.txt_is_paid.setVisibility(View.VISIBLE);
+            holder.img_done.setVisibility(View.VISIBLE);
         }else{
             holder.txt_is_paid.setVisibility(View.VISIBLE);
             holder.img_done.setVisibility(View.VISIBLE);

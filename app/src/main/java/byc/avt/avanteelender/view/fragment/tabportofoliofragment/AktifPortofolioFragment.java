@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -44,6 +45,7 @@ public class AktifPortofolioFragment extends Fragment {
     private TextView txt_tot_pinjaman_aktif, txt_tot_pinjaman_terlambat, txt_tot_angs_bunga_selanjutnya, txt_tot_angs_bunga_dibayar;
     int tot_angs_bunga_selanjutnya=0, tot_angs_bunga_dibayar=0, tot_pinjaman_aktif=0, tot_pinjaman_terlambat=0;
     private RecyclerView rv;
+    ConstraintLayout cons, cons_lottie;
 
     public static AktifPortofolioFragment newInstance() {
         return new AktifPortofolioFragment();
@@ -67,6 +69,9 @@ public class AktifPortofolioFragment extends Fragment {
         txt_tot_angs_bunga_selanjutnya = v.findViewById(R.id.txt_tot_angs_selanjutnya_port_aktif);
         txt_tot_angs_bunga_dibayar = v.findViewById(R.id.txt_tot_angs_sudah_port_aktif);
         rv = v.findViewById(R.id.rv_port_aktif);
+        cons_lottie = v.findViewById(R.id.cons_lottie_port_aktif);
+        cons = v.findViewById(R.id.cons_port_aktif);
+        cons.setVisibility(View.INVISIBLE);
         loadData();
         //f.showMessage("Portofolio AKTIF");
     }
@@ -90,38 +95,41 @@ public class AktifPortofolioFragment extends Fragment {
                 Log.e("ROWS",rows.toString());
                 if(rows.length()==0){
                 }else{
-                    for(int i = 0; i < rows.length(); i++){
-                        tot_angs_bunga_dibayar = tot_angs_bunga_dibayar + rows.getJSONObject(i).getInt("angsuran_terbayar");
-                        tot_angs_bunga_selanjutnya = tot_angs_bunga_selanjutnya + rows.getJSONObject(i).getInt("angsuran_selanjutnya");
-                        if(rows.getJSONObject(i).getString("status").equalsIgnoreCase("-")){
-                            tot_pinjaman_terlambat = tot_pinjaman_terlambat + 1;
-                        }
-                    }
-                }
 
-                txt_tot_pinjaman_terlambat.setText(tot_pinjaman_terlambat+" pinjaman");
-                txt_tot_angs_bunga_dibayar.setText(f.toNumb(""+tot_angs_bunga_dibayar));
-                txt_tot_angs_bunga_selanjutnya.setText(f.toNumb(""+(tot_angs_bunga_selanjutnya)));
+                }
+                txt_tot_angs_bunga_dibayar.setText(f.toNumb(result.getString("total_angsuran_terbayar")));
+                txt_tot_angs_bunga_selanjutnya.setText(f.toNumb(result.getString("total_angsuran_belum_terbayar")));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            dialog.cancel();
+            //dialog.cancel();
         }
     };
 
     private Observer<ArrayList<PortofolioAktif>> showDataList = new Observer<ArrayList<PortofolioAktif>>() {
         @Override
         public void onChanged(ArrayList<PortofolioAktif> result) {
+            tot_pinjaman_terlambat = 0;
             if(result.isEmpty()){
                 //f.showMessage("Portofolio Aktif belum ada.");
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.VISIBLE);
             }else{
+                cons.setVisibility(View.VISIBLE);
+                cons_lottie.setVisibility(View.GONE);
+                for(int i=0; i < result.size(); i++){
+                    if(result.get(i).getIs_on_time().equalsIgnoreCase("1")){
+                        tot_pinjaman_terlambat = tot_pinjaman_terlambat +1;
+                    }else{}
+                }
+                txt_tot_pinjaman_terlambat.setText(tot_pinjaman_terlambat+" pinjaman");
                 rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                 PortofolioAktifAdapter portofolioAktifAdapter = new PortofolioAktifAdapter(getActivity());
                 portofolioAktifAdapter.setListPortofolioAktif(result);
                 rv.setAdapter(portofolioAktifAdapter);
             }
-
+            dialog.cancel();
         }
     };
 

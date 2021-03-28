@@ -169,11 +169,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="14dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -181,7 +181,6 @@
                 android:id="@+id/img_sisa_hari_adp_pendanaan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
                 android:contentDescription="@string/img"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_sisa_hari_adp_pendanaan"
                 app:layout_constraintEnd_toStartOf="@+id/txt_sisa_hari_adp_pendanaan"

@@ -3,6 +3,7 @@ package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
@@ -92,24 +93,94 @@ public class AktifPortofolioRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        JSONArray rows;
+                        final JSONArray rows;
                         try {
                             rows = response.getJSONArray("rows");
+                            final int maxRows = rows.length()-1;
                             if(rows.length()==0){
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    String loan_rating="", loan_type="";
-                                    loan_rating = rows.getJSONObject(i).getString("loan_rating");
-                                    loan_type = rows.getJSONObject(i).getString("loan_type");
-                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"),
-                                            rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
-                                            rows.getJSONObject(i).getString("sisa_hari_pinjam"), rows.getJSONObject(i).getString("status"),
-                                            rows.getJSONObject(i).getString("angsuran_terbayar"), rows.getJSONObject(i).getString("angsuran_berikutnya"));
-                                    list.add(pa);
-                                    result.setValue(list);
+                                    String loan_no="", funding_id="";
+                                    loan_no = rows.getJSONObject(i).getString("loan_no");
+                                    funding_id = rows.getJSONObject(i).getString("funding_id");
+                                    final int finalI = i;
+                                    final JsonObjectRequest jors = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active/detail?loan_no="+loan_no+"&funding="+funding_id, null,
+                                            new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    // Log.e("Aktif PORT DETAILS", response.toString());
+                                                    JSONArray rows2;
+                                                    int tot = 0;
+                                                    try {
+                                                        rows2 = response.getJSONArray("rows");
+                                                        if(rows2.length()==0){
+                                                            //result.setValue(list);
+                                                        }else{
+                                                            for(int j = 0; j < rows2.length(); j++){
+                                                                String delay_details="", status="";
+                                                                delay_details = rows2.getJSONObject(j).getString("delay_details");
+                                                                status = rows2.getJSONObject(j).getString("status");
+                                                                if(delay_details.equalsIgnoreCase(null) || delay_details.equalsIgnoreCase("null") ){
+                                                                    tot = tot + 1;
+                                                                }
+                                                            }
+
+                                                            String is_on_time = "0";
+                                                            if(tot > 0){
+                                                                is_on_time = "1";
+                                                            }else{
+                                                                is_on_time = "0";
+                                                            }
+                                                            String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
+                                                            String loan_type = rows.getJSONObject(finalI).getString("loan_type");
+                                                            PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"),
+                                                                    rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
+                                                                    rows.getJSONObject(finalI).getString("remaining_period"), is_on_time,
+                                                                    rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));
+                                                            list.add(pa);
+                                                            result.setValue(list);
+//                                                            if(finalI == maxRows){
+//                                                                result.setValue(list);
+//                                                            }else{}
+
+                                                        }
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            },
+                                            new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    Log.e("Volley", error.toString());
+                                                }
+                                            }
+                                    )
+                                    {
+                                        @Override
+                                        public Map<String, String> getHeaders() throws AuthFailureError {
+                                            return GlobalVariables.API_ACCESS_IN(uid, token);
+                                        }
+                                    };
+                                    requestQueue.getCache().clear();
+                                    requestQueue.add(jors).setRetryPolicy(new RetryPolicy() {
+                                        @Override
+                                        public int getCurrentTimeout() {
+                                            return 60000;
+                                        }
+                                        @Override
+                                        public int getCurrentRetryCount() {
+                                            return 0;
+                                        }
+                                        @Override
+                                        public void retry(VolleyError error) throws VolleyError {
+                                        }
+                                    });
 
                                 }
+                                //result.setValue(list);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -143,6 +214,74 @@ public class AktifPortofolioRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
+        return result;
+    }
+
+
+    public MutableLiveData<String> cekTerlambat(final String uid, final String token, final Context context, final String loan_no, final String funding_id) {
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active/detail?loan_no="+loan_no+"&funding="+funding_id, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                       // Log.e("Aktif PORT DETAILS", response.toString());
+                        JSONArray rows;
+                        int tot = 0;
+                        try {
+                            rows = response.getJSONArray("rows");
+                            if(rows.length()==0){
+                                //result.setValue(list);
+                            }else{
+                                for(int i = 0; i < rows.length(); i++){
+                                    String delay_details="", status="";
+                                    delay_details = rows.getJSONObject(i).getString("delay_details");
+                                    status = rows.getJSONObject(i).getString("status");
+                                    if(delay_details.equalsIgnoreCase(null) || delay_details.equalsIgnoreCase("null") ){
+                                        tot = tot + 1;
+                                    }
+                                }
+
+                                if(tot > 0){
+                                    result.setValue("1");
+                                }else{
+                                    result.setValue("0");
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
         return result;
     }
     

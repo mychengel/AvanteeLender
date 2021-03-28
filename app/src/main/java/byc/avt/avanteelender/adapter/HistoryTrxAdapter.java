@@ -52,14 +52,15 @@ public class HistoryTrxAdapter extends RecyclerView.Adapter<HistoryTrxAdapter.Ca
         holder.lbl_datetime.setText(ht.getTrx_date().substring(0,16));
         holder.lbl_nominal.setText(ht.getNominal());
         if(ht.getNominal().charAt(0) == '-'){
-            if (ht.getDescription().matches("(?i).*investasi.*")) {
+            if (ht.getDescription().matches("(?i).*investasi.*") || ht.getDescription().matches("(?i).*pendanaan.*")) {
                 holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_portfolio_add));
             }else if (ht.getDescription().matches("(?i).*penarikan.*")) {
                 holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_withdraw_white));
             }
             holder.img.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_red));
         }else{
-            if (ht.getDescription().matches("(?i).*terima.*") || ht.getDescription().matches("(?i).*pengembalian.*")) {
+            if (ht.getDescription().matches("(?i).*terima.*") || ht.getDescription().matches("(?i).*pengembalian.*") ||
+                ht.getDescription().matches("(?i).*penolakan.*")) {
                 holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_receive_white));
             }else if (ht.getDescription().matches("(?i).*top up.*")) {
                 holder.img.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_top_up_white));

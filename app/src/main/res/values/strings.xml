@@ -63,7 +63,7 @@
     <string name="document_picture">Foto\ndokumen</string>
     <string name="wait_verification">Tunggu\nverifikasi</string>
     <string name="under_verification">Akun dalam verifikasi</string>
-    <string name="start_filling_forms">Mulai pengisisan formulir</string>
+    <string name="start_filling_forms">Mulai pengisian formulir</string>
     <string name="under_verification_message">Persetujuan memerlukan waktu hingga 24 jam. Kami akan memberi kabar via SMS. jangan keluar atau menghapus aplikasi ini.</string>
 
     <!-- TODO: common use -->
@@ -111,7 +111,7 @@
     <string name="work_experience">Pengalaman kerja</string>
 
     <!-- TODO: New User Form Part 3 -->
-    <string name="addresses">Data Alamat</string>
+    <string name="addresses">Data alamat</string>
     <string name="address">Alamat</string>
     <string name="province">Provinsi</string>
     <string name="city">Kota / Kabupaten</string>
@@ -136,7 +136,7 @@
     <string name="account_number">No. rekening</string>
 
     <!-- TODO: New User Form Part 6 -->
-    <string name="essential_document">Dokumen Pendukung</string>
+    <string name="essential_document">Dokumen pendukung</string>
     <string name="KTP_number">No. KTP</string>
     <string name="take_photo_of_ktp">Ambil foto KTP</string>
     <string name="take_selfie">Ambil foto selfie</string>
@@ -310,5 +310,14 @@
     <string name="tf_bank">Transfer Bank</string>
     <string name="with_uniqe_code_va">Dengan kode unik ke rekening VA</string>
     <string name="est_bunga_akan_diterima">Estimasi bunga yang akan diterima</string>
+    <string name="tot_angs_belum_terbayar">TOTAL ANGSURAN/BUNGA BELUM TERBAYAR</string>
+    <string name="no_port_pending">Anda belum mempunyai portofolio pendanaan pending</string>
+    <string name="no_port_aktif">Anda belum mempunyai portofolio pendanaan aktif</string>
+    <string name="no_port_selesai">Anda belum mempunyai portofolio pendanaan selesai</string>
+    <string name="va">Virtual Account</string>
+    <string name="saldo_va">Saldo Virtual Account</string>
+    <string name="norek">No rek.</string>
+    <string name="rdl">RDL</string>
+    <string name="penarikan_dana_status_pending">Penarikan dana berstatus pending</string>
 
 </resources>
