@@ -19,6 +19,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
     private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -47,5 +48,13 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<String> getLogoutResult(){
         return msg_out;
+    }
+
+    public void getSettingData(String uid, String token){
+        resultSettingData = authenticationRepository.getSettingData(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultSettingData(){
+        return resultSettingData;
     }
 }

@@ -53,6 +53,7 @@ public class PendanaanRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("Pendanaan", response.toString());
                         JSONArray rows;
                         try {
                             rows = response.getJSONArray("rows");

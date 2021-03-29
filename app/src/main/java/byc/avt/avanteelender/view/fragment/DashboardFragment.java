@@ -152,7 +152,6 @@ public class DashboardFragment extends Fragment {
         img_expand_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.startAnimation(f.clickAnim());
                 if(!is_expand){
                     img_expand_wallet.setRotation(180);
                     cons_det_wallet.setVisibility(View.VISIBLE);

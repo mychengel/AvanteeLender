@@ -37,7 +37,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.others.FaqActivity"></activity>
+        <activity android:name=".view.others.FactsheetActivity"></activity>
+        <activity android:name=".view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity" />
+        <activity android:name=".adapter.AvtFaqAdapter" />
+        <activity android:name=".view.others.FaqActivity" />
         <activity android:name=".view.others.TermsActivity" />
         <activity android:name=".view.others.RiskInfoActivity" />
         <activity android:name=".view.features.historitransaksi.HistoriTransaksiListActivity" />

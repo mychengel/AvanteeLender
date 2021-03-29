@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -19,10 +16,6 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.adapter.ViewPagerAdapter;
 import byc.avt.avanteelender.view.fragment.tabnotificationfragment.InfoNotificationsFragment;
 import byc.avt.avanteelender.view.fragment.tabnotificationfragment.PesanNotificationsFragment;
-import byc.avt.avanteelender.view.fragment.tabportofoliofragment.AktifPortofolioFragment;
-import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PendingPortofolioFragment;
-import byc.avt.avanteelender.view.fragment.tabportofoliofragment.SelesaiPortofolioFragment;
-import byc.avt.avanteelender.viewmodel.NotificationsViewModel;
 
 public class NotificationsFragment extends Fragment {
 

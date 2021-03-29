@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.adapter;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -7,7 +8,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,9 @@ import java.util.ArrayList;
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.PortofolioAktif;
+import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
+import byc.avt.avanteelender.view.features.pendanaan.PendanaanDetailActivity;
+import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 
 public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktifAdapter.CardViewViewHolder>{
 
@@ -87,7 +93,12 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
         holder.btn_det.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(context, PortofolioAktifDetailActivity.class);
+                i.putExtra("port_data", ps);
+//                i.putExtra("loan_no", ps.getLoan_no());
+//                i.putExtra("funding_id", ps.getFunding_id());
+                context.startActivity(i);
+                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 

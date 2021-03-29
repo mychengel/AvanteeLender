@@ -121,7 +121,9 @@ public class AktifPortofolioRepository {
                                                                 String delay_details="", status="";
                                                                 delay_details = rows2.getJSONObject(j).getString("delay_details");
                                                                 status = rows2.getJSONObject(j).getString("status");
-                                                                if(delay_details.equalsIgnoreCase(null) || delay_details.equalsIgnoreCase("null") ){
+                                                                if(status.equalsIgnoreCase(null) || status.equalsIgnoreCase("null") ){
+                                                                    tot = tot + 0;
+                                                                }else{
                                                                     tot = tot + 1;
                                                                 }
                                                             }
@@ -134,7 +136,7 @@ public class AktifPortofolioRepository {
                                                             }
                                                             String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
                                                             String loan_type = rows.getJSONObject(finalI).getString("loan_type");
-                                                            PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"),
+                                                            PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"), rows.getJSONObject(finalI).getString("funding_id"),
                                                                     rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
                                                                     rows.getJSONObject(finalI).getString("remaining_period"), is_on_time,
                                                                     rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));

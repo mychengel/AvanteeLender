@@ -29,6 +29,7 @@
             android:layout_marginEnd="16dp"
             android:clickable="true"
             android:contentDescription="@string/img"
+            android:foreground="@drawable/selectable_curve"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

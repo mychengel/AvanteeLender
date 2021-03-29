@@ -69,7 +69,6 @@ public class SettingActivity extends AppCompatActivity {
         cvAccountSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(new Fungsi().clickAnim());
 //                Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
 //                startActivity(intent);
 //                overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -79,7 +78,6 @@ public class SettingActivity extends AppCompatActivity {
         cvFAQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(new Fungsi().clickAnim());
                 Intent intent = new Intent(SettingActivity.this, FaqActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -89,7 +87,6 @@ public class SettingActivity extends AppCompatActivity {
         cvTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(new Fungsi().clickAnim());
                 Intent intent = new Intent(SettingActivity.this, TermsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -99,7 +96,6 @@ public class SettingActivity extends AppCompatActivity {
         cvRisk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(new Fungsi().clickAnim());
                 Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -109,7 +105,6 @@ public class SettingActivity extends AppCompatActivity {
         cvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(new Fungsi().clickAnim());
                 logoutConfirmation();
             }
         });

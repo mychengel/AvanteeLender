@@ -50,7 +50,6 @@ public class LenderTypeFragment extends Fragment {
         cvIndividu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.startAnimation(f.clickAnim());
                 Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_lenderTypeFragment_to_personalDataFragment);
             }
         });
@@ -58,7 +57,7 @@ public class LenderTypeFragment extends Fragment {
         cvInstitution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.startAnimation(f.clickAnim());
+
             }
         });
 //        toolbar = view.findViewById(R.id.tb_fr_lender_type);

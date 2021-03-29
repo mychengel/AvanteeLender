@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.text.Html;
 import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
@@ -46,6 +47,14 @@ public class Fungsi {
 
     public void showMessage(String msg) {
         Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public String htmlToStr(String msg){
+        String hsl = "";
+        msg = msg.replace("\n", " ");
+        msg = msg.replace("\t", " ");
+        hsl = Html.fromHtml(msg).toString();
+        return hsl;
     }
 
     public Bitmap getCroppedBitmap(Bitmap bitmap) {

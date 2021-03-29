@@ -38,6 +38,8 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
+import byc.avt.avanteelender.view.others.FactsheetActivity;
 import byc.avt.avanteelender.view.sheet.DanaiSheetFragment;
 import byc.avt.avanteelender.view.sheet.HistoriPinjamanSheetFragment;
 import byc.avt.avanteelender.view.sheet.RiskInfoSheetFragment;
@@ -55,7 +57,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Fungsi f;
     private ImageView img_factsheet, img_picture, img_mark, img_sisa_hari;
-    private String loan_no = "", tenor = "";
+    private String loan_no = "", tenor = "", factsheet_url = "";
     private TextView txt_loan_rating, txt_loan_type, txt_loan_no, txt_rating, txt_bunga, txt_tenor, txt_nom, txt_est, txt_pemilik;
     private TextView txt_sisa_hari, txt_pub_start, txt_pub_end, txt_terkumpul, txt_percent_terkumpul, txt_penggunaan_pinjaman, txt_des_pinjaman;
     private ConstraintLayout cons, cons_det_peminjam, cons_his_pinjaman, cons_risk_info;
@@ -84,12 +86,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         tenor = intent.getStringExtra("tenor");
 
         img_factsheet = findViewById(R.id.img_factsheet_pendanaan_det);
-        img_factsheet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(f.clickAnim());
-            }
-        });
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -150,9 +147,19 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         public void onChanged(final JSONObject result) {
             try {
                 if(result.getBoolean("status") == false){
-                    f.showMessage("Gagal memuat data.");
+                    f.showMessage(getString(R.string.failed_load_data));
                 }else{
                     final JSONObject res = result.getJSONObject("result");
+                    factsheet_url = res.getString("factsheet");
+                    img_factsheet.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(PendanaanDetailActivity.this, FactsheetActivity.class);
+                            i.putExtra("factsheet", factsheet_url);
+                            startActivity(i);
+                            overridePendingTransition(R.anim.enter, R.anim.exit);
+                        }
+                    });
                     txt_loan_rating.setText(res.getString("loan_rating"));
                     txt_rating.setText(res.getString("text_rating"));
                     setMark(res.getString("loan_rating"), f.selisihHari(res.getString("publikasi_end")));
@@ -212,9 +219,8 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             try {
-                                String str_edit = res.getJSONObject("risk_information").getString("risk_disclaimer").replace("\n", " ");
-                                str_edit = str_edit.replace("\t", " ");
-                                String risk_info = Html.fromHtml(str_edit).toString();
+                                String str_edit = res.getJSONObject("risk_information").getString("risk_disclaimer");
+                                String risk_info = f.htmlToStr(str_edit);
                                 new RiskInfoSheetFragment(risk_info);
                             } catch (JSONException e) {
                                 e.printStackTrace();
