@@ -26,6 +26,7 @@ import java.util.Map;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
+import byc.avt.avanteelender.model.PortofolioAktifDetail;
 
 public class AktifPortofolioRepository {
 
@@ -137,7 +138,7 @@ public class AktifPortofolioRepository {
                                                             String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
                                                             String loan_type = rows.getJSONObject(finalI).getString("loan_type");
                                                             PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"), rows.getJSONObject(finalI).getString("funding_id"),
-                                                                    rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
+                                                                    rows.getJSONObject(finalI).getString("dokumen_kontrak"), rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
                                                                     rows.getJSONObject(finalI).getString("remaining_period"), is_on_time,
                                                                     rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));
                                                             list.add(pa);
@@ -220,9 +221,10 @@ public class AktifPortofolioRepository {
     }
 
 
-    public MutableLiveData<String> cekTerlambat(final String uid, final String token, final Context context, final String loan_no, final String funding_id) {
+    public MutableLiveData<ArrayList<PortofolioAktifDetail>> getPortAktifDetList(final String uid, final String token, final Context context, final String loan_no, final String funding_id) {
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final MutableLiveData<String> result = new MutableLiveData<>();
+        final MutableLiveData<ArrayList<PortofolioAktifDetail>> result = new MutableLiveData<>();
+        final ArrayList<PortofolioAktifDetail> list = new ArrayList<>();
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active/detail?loan_no="+loan_no+"&funding="+funding_id, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -236,19 +238,22 @@ public class AktifPortofolioRepository {
                                 //result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    String delay_details="", status="";
-                                    delay_details = rows.getJSONObject(i).getString("delay_details");
-                                    status = rows.getJSONObject(i).getString("status");
-                                    if(delay_details.equalsIgnoreCase(null) || delay_details.equalsIgnoreCase("null") ){
-                                        tot = tot + 1;
-                                    }
+                                    String periode = rows.getJSONObject(i).getString("schedule_period");
+                                    String date_payment = rows.getJSONObject(i).getString("next_payment");
+                                    String date_actualtrans = rows.getJSONObject(i).getString("actual_transaction_date");
+                                    String principal_payment = rows.getJSONObject(i).getString("principal_payment");
+                                    String interest_amount = rows.getJSONObject(i).getString("interest_amount");
+                                    String payment_amount = rows.getJSONObject(i).getString("payment_amount");
+                                    String actual_payment = rows.getJSONObject(i).getString("actual_payment");
+                                    String tax = rows.getJSONObject(i).getString("tax");
+                                    String status = rows.getJSONObject(i).getString("status");
+                                    String delay_details = rows.getJSONObject(i).getString("delay_details");
+                                    PortofolioAktifDetail pad = new PortofolioAktifDetail(periode,date_payment,date_actualtrans,
+                                            principal_payment,interest_amount,payment_amount,actual_payment,tax,status,delay_details);
+                                    list.add(pad);
                                 }
+                                result.setValue(list);
 
-                                if(tot > 0){
-                                    result.setValue("1");
-                                }else{
-                                    result.setValue("0");
-                                }
                             }
 
                         } catch (JSONException e) {

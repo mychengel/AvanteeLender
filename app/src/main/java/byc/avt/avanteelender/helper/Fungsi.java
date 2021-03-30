@@ -173,38 +173,43 @@ public class Fungsi {
 
     public String tglFull(String tanggal){
         String hasil = "";
-        String b = "";
-        String tg = tanggal.substring(8,10);
-        String th = tanggal.substring(0,4);
-        String bln = tanggal.substring(5,7);
+        if(tanggal.equalsIgnoreCase(null) || tanggal.equalsIgnoreCase("null")){
+            hasil = "-";
+        }else{
+            String b = "";
+            String tg = tanggal.substring(8,10);
+            String th = tanggal.substring(0,4);
+            String bln = tanggal.substring(5,7);
 
-        if(bln.equals("01")){
-            b = "Januari";
-        }else if(bln.equals("02")){
-            b = "Februari";
-        }else if(bln.equals("03")){
-            b = "Maret";
-        }else if(bln.equals("04")){
-            b = "April";
-        }else if(bln.equals("05")){
-            b = "Mei";
-        }else if(bln.equals("06")){
-            b = "Juni";
-        }else if(bln.equals("07")){
-            b = "Juli";
-        }else if(bln.equals("08")){
-            b = "Agustus";
-        }else if(bln.equals("09")){
-            b = "September";
-        }else if(bln.equals("10")){
-            b = "Oktober";
-        }else if(bln.equals("11")){
-            b = "November";
-        }else if(bln.equals("12")){
-            b = "Desember";
+            if(bln.equals("01")){
+                b = "Januari";
+            }else if(bln.equals("02")){
+                b = "Februari";
+            }else if(bln.equals("03")){
+                b = "Maret";
+            }else if(bln.equals("04")){
+                b = "April";
+            }else if(bln.equals("05")){
+                b = "Mei";
+            }else if(bln.equals("06")){
+                b = "Juni";
+            }else if(bln.equals("07")){
+                b = "Juli";
+            }else if(bln.equals("08")){
+                b = "Agustus";
+            }else if(bln.equals("09")){
+                b = "September";
+            }else if(bln.equals("10")){
+                b = "Oktober";
+            }else if(bln.equals("11")){
+                b = "November";
+            }else if(bln.equals("12")){
+                b = "Desember";
+            }
+
+            hasil = tg + " " + b + " " + th;
         }
 
-        hasil = tg + " " + b + " " + th;
         return hasil;
     }
 

@@ -8,6 +8,7 @@ public class PortofolioAktif implements Parcelable {
     private String loan_rating; //endpointB
     private String loan_no;
     private String funding_id;
+    private String kontrak;
     private String interest;
     private String tenor;
     private String sisa_tenor;
@@ -17,11 +18,12 @@ public class PortofolioAktif implements Parcelable {
 
     public PortofolioAktif(){};
 
-    public PortofolioAktif(String loan_type, String loan_rating, String loan_no, String funding_id, String interest, String tenor, String sisa_tenor, String is_on_time, String angs_paid, String angs_next) {
+    public PortofolioAktif(String loan_type, String loan_rating, String loan_no, String funding_id, String kontrak, String interest, String tenor, String sisa_tenor, String is_on_time, String angs_paid, String angs_next) {
         this.loan_type = loan_type;
         this.loan_rating = loan_rating;
         this.loan_no = loan_no;
         this.funding_id = funding_id;
+        this.kontrak = kontrak;
         this.interest = interest;
         this.tenor = tenor;
         this.sisa_tenor = sisa_tenor;
@@ -35,6 +37,7 @@ public class PortofolioAktif implements Parcelable {
         loan_rating = in.readString();
         loan_no = in.readString();
         funding_id = in.readString();
+        kontrak = in.readString();
         interest = in.readString();
         tenor = in.readString();
         sisa_tenor = in.readString();
@@ -69,6 +72,10 @@ public class PortofolioAktif implements Parcelable {
 
     public String getFunding_id() {
         return funding_id;
+    }
+
+    public String getKontrak() {
+        return kontrak;
     }
 
     public String getInterest() {
@@ -106,6 +113,7 @@ public class PortofolioAktif implements Parcelable {
         parcel.writeString(loan_rating);
         parcel.writeString(loan_no);
         parcel.writeString(funding_id);
+        parcel.writeString(kontrak);
         parcel.writeString(interest);
         parcel.writeString(tenor);
         parcel.writeString(sisa_tenor);

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_adp_port_aktif_det"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".adapter.PortofolioAktifDetailAdapter">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_adp_port_aktif_det"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/lightest_neutral"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_cv_adp_port_aktif_det"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:id="@+id/img_expand_adp_port_aktif_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/img"
+                android:foreground="@drawable/selectable_curve"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_title_date_adp_port_aktif_det"
+                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+            <TextView
+                android:id="@+id/lbl_title_date_adp_port_aktif_det"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:maxLines="2"
+                android:text="@string/txtnull"
+                android:textColor="@color/dark"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_flag_adp_port_aktif_det"
+                app:layout_constraintEnd_toStartOf="@+id/lbl_title_nom_adp_port_aktif_det"
+                app:layout_constraintStart_toEndOf="@+id/img_flag_adp_port_aktif_det"
+                app:layout_constraintTop_toTopOf="@+id/img_flag_adp_port_aktif_det" />
+
+            <TextView
+                android:id="@+id/lbl_title_nom_adp_port_aktif_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dummy_rp_nol"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_title_date_adp_port_aktif_det"
+                app:layout_constraintEnd_toStartOf="@+id/img_expand_adp_port_aktif_det"
+                app:layout_constraintTop_toTopOf="@+id/lbl_title_date_adp_port_aktif_det" />
+
+            <ImageView
+                android:id="@+id/img_flag_adp_port_aktif_det"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/img"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_bg_round_white" />
+
+            <TextView
+                android:id="@+id/lbl_flag_ke_adp_port_aktif_det"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="@string/txtnull"
+                android:textColor="@color/darkO05"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_flag_adp_port_aktif_det"
+                app:layout_constraintEnd_toEndOf="@+id/img_flag_adp_port_aktif_det"
+                app:layout_constraintStart_toStartOf="@+id/img_flag_adp_port_aktif_det"
+                app:layout_constraintTop_toTopOf="@+id/img_flag_adp_port_aktif_det" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_expand_adp_port_aktif_det"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/lbl_title_nom_adp_port_aktif_det"
+                app:layout_constraintStart_toStartOf="@+id/lbl_title_date_adp_port_aktif_det"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_title_date_adp_port_aktif_det">
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dibayar_pada"
+                    android:textColor="@color/darkO05"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jumlah_pembayaran"
+                    android:textColor="@color/darkO05"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lbl_actual_date_adp_port_aktif_det"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/txtnull"
+                    android:textColor="@color/dark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+                <TextView
+                    android:id="@+id/lbl_delay_det_adp_port_aktif_det"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/txtnull"
+                    android:textColor="@color/darkO05"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_actual_date_adp_port_aktif_det" />
+
+                <TextView
+                    android:id="@+id/lbl_actual_nom_adp_port_aktif_det"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
+                    android:text="@string/dummy_rp_nol"
+                    android:textColor="@color/dark"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView29" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

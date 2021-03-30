@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import byc.avt.avanteelender.model.PortofolioAktif;
+import byc.avt.avanteelender.model.PortofolioAktifDetail;
 import byc.avt.avanteelender.repositories.tabportofoliorepositories.AktifPortofolioRepository;
 
 public class AktifPortofolioViewModel extends AndroidViewModel {
@@ -20,6 +21,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     private AktifPortofolioRepository AktifPortofolioRepository;
     private MutableLiveData<JSONObject> resultHeader = new MutableLiveData<>();
     private MutableLiveData<ArrayList<PortofolioAktif>> resultList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<PortofolioAktifDetail>> resultListDetail = new MutableLiveData<>();
     private MutableLiveData<String> resultOnTime = new MutableLiveData<>();
 
     public AktifPortofolioViewModel(@NonNull Application application) {
@@ -35,12 +37,12 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
         return resultHeader;
     }
 
-    public void cekTerlambat(String uid, String token, String loan_no, String funding_id){
-        resultOnTime = AktifPortofolioRepository.cekTerlambat(uid, token, getApplication(), loan_no, funding_id);
+    public void portofolioAktifDetailList(String uid, String token, String loan_no, String funding_id){
+        resultListDetail = AktifPortofolioRepository.getPortAktifDetList(uid, token, getApplication(), loan_no, funding_id);
     }
 
-    public LiveData<String> getResultOnTime(){
-        return resultOnTime;
+    public LiveData<ArrayList<PortofolioAktifDetail>> getResultListDetail(){
+        return resultListDetail;
     }
 
     public void portofolioAktifList(String uid, String token){

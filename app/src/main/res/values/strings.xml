@@ -322,5 +322,9 @@
     <string name="failed_load_data">Gagal memuat data</string>
     <string name="failed_load_doc">Gagal memuat dokumen</string>
     <string name="failed_load_info">Gagal memuat informasi</string>
+    <string name="jadwal_pembayaran">Jadwal Pembayaran</string>
+    <string name="jumlah_tagihan">Jumlah Tagihan</string>
+    <string name="dibayar_pada">Dibayar pada</string>
+    <string name="jumlah_pembayaran">Jumlah pembayaran</string>
 
 </resources>
