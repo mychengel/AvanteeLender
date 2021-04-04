@@ -326,5 +326,6 @@
     <string name="jumlah_tagihan">Jumlah Tagihan</string>
     <string name="dibayar_pada">Dibayar pada</string>
     <string name="jumlah_pembayaran">Jumlah pembayaran</string>
+    <string name="pilih_kewarganegaraan">Pilih kewarganegaraan</string>
 
 </resources>

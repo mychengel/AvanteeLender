@@ -25,7 +25,6 @@
             android:elevation="0dp"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMargin="16dp"
             app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
             app:layout_scrollFlags="exitUntilCollapsed"

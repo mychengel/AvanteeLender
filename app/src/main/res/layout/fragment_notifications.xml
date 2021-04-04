@@ -66,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/barColor"
+                app:tabTextAppearance="@style/tab_text"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/dark"
                 app:tabSelectedTextColor="@color/dark"

@@ -75,7 +75,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +99,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/phone_number"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +125,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +151,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/retype_password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +175,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/referral_id"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

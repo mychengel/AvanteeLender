@@ -38,7 +38,6 @@ public class LenderTypeFragment extends Fragment {
     }
 
     NavController navController;
-    Toolbar toolbar;
     CardView cvIndividu, cvInstitution;
     Fungsi f;
     @Override
@@ -60,19 +59,6 @@ public class LenderTypeFragment extends Fragment {
 
             }
         });
-//        toolbar = view.findViewById(R.id.tb_fr_lender_type);
-//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //navController.navigate(R.id.action_lenderTypeFragment_to_welcomeFragment);
-//                navController.navigate(R.id.action_lenderTypeFragment_to_welcomeFragment);
-//            }
-//        });
     }
 
 }

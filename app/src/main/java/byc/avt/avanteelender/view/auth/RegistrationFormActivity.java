@@ -66,14 +66,12 @@ public class RegistrationFormActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         navController = Navigation.findNavController(this, R.id.regis_form_fragment_container);
-        NavigationUI.setupWithNavController(toolbar, navController);
+        NavigationUI.setupWithNavController(collapsing, toolbar, navController);
 
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull final NavDestination destination, @Nullable Bundle arguments) {
-                //Toast.makeText(RegistrationFormActivity.this, destination.getLabel(), Toast.LENGTH_SHORT).show();
-                //toolbar.setTitle(destination.getLabel());
                 switch (destination.getId()) {
                     case R.id.welcomeFragment:
                         linStep.setVisibility(View.GONE);
@@ -95,7 +93,6 @@ public class RegistrationFormActivity extends AppCompatActivity {
                         break;
 
                     case R.id.lenderTypeFragment:
-                        //getSupportActionBar().setTitle(R.string.lender_type);
                         params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
                                 | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
                         collapsing.setVisibility(View.VISIBLE);

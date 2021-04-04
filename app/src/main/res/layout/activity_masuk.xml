@@ -68,8 +68,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:background="@color/lightest_neutral"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,8 +93,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:background="@color/lightest_neutral"
                     android:hint="@string/password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

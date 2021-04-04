@@ -1,19 +1,29 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/lightest_neutral</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>\
+        <item name="backgroundColor">@color/lightest_neutral</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/lightest_neutral</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:fontFamily">@font/ibm_plex_sans</item>
+<!--        <item name="fontFamily">@font/ibm_plex_sans</item>-->
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="android:textColor">@color/dark</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/ibm_plex_sans</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
         <item name="android:titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
         <item name="titleTextStyle">@style/AppTheme.ActionBar.TitleText</item>
         <item name="android:height">150dp</item>
+        <item name="android:background">@color/lightest_neutral</item>
         <item name="height">60dp</item>
     </style>
 
@@ -32,6 +42,7 @@
         <item name="android:contentInsetLeft">0dp</item>
         <item name="android:fontFamily">@font/ibm_plex_sans_semi_bold</item>
         <item name="android:textSize">30sp</item>
+        <item name="android:background">@color/lightest_neutral</item>
     </style>
 
     <style name="ToolbarTheme" parent="Widget.AppCompat.Light.ActionBar">
@@ -42,6 +53,7 @@
         <item name="android:contentInsetLeft">0dp</item>
         <item name="android:fontFamily">@font/ibm_plex_sans_semi_bold</item>
         <item name="android:textSize">30sp</item>
+        <item name="android:background">@color/lightest_neutral</item>
     </style>
 
     <style name="ToolbarTheme.Collapsed" parent="Widget.AppCompat.Light.ActionBar">

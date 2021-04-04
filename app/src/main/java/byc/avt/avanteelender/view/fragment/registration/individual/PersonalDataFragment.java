@@ -10,9 +10,18 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 import byc.avt.avanteelender.R;
+
+import static com.google.android.gms.common.util.CollectionUtils.listOf;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +40,12 @@ public class PersonalDataFragment extends Fragment {
     }
 
     Button btn_next;
+    AutoCompleteTextView auto_kewarganegaraan;
+    //TextInputLayout
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        auto_kewarganegaraan = view.findViewById(R.id.auto_kewarganegaraan_fr_personal_data);
         btn_next = view.findViewById(R.id.btn_next_fr_personal_data);
         btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -42,5 +54,9 @@ public class PersonalDataFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
             }
         });
+
+        List<String> items = listOf("Material", "Design", "Components", "Android");
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, items);
+        auto_kewarganegaraan.setAdapter(adapter);
     }
 }

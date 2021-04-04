@@ -7,8 +7,8 @@ import byc.avt.avanteelender.model.UserData;
 
 public class PrefManager {
 
-    private SharedPreferences pref, userPref;
-    private SharedPreferences.Editor editor, userEditor;
+    private SharedPreferences pref, userPref, perRegPref, insRegPref;
+    private SharedPreferences.Editor editor, userEditor, perRegEditor, insRegEditor;
     private static PrefManager instance;
 
     // shared pref mode
@@ -17,6 +17,8 @@ public class PrefManager {
     // Shared preferences file name
     private static final String PREF_NAME = "welcome";
     private static final String PREF_USER = "user";
+    private static final String PREF_PERSONAL_REG = "personalreg";
+    private static final String PREF_INSTITUTION_REG = "institutionreg";
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
@@ -26,9 +28,14 @@ public class PrefManager {
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
 
-        //pref manager for user auth
         userPref = context.getSharedPreferences(PREF_USER, PRIVATE_MODE);
         userEditor = userPref.edit();
+
+//        perRegPref = context.getSharedPreferences(PREF_PERSONAL_REG, PRIVATE_MODE);
+//        perRegEditor = perRegPref.edit();
+//
+//        insRegPref = context.getSharedPreferences(PREF_INSTITUTION_REG, PRIVATE_MODE);
+//        insRegEditor = insRegPref.edit();
     }
 
     public static PrefManager getInstance(Context context) {
