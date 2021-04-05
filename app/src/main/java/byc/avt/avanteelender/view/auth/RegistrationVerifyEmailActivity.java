@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view.auth;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 
 public class RegistrationVerifyEmailActivity extends AppCompatActivity {
@@ -45,9 +49,14 @@ public class RegistrationVerifyEmailActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ConfirmationSheetFragment(R.raw.verify_email_loop, getString(R.string.email_not_verified), getString(R.string.des_email_not_verified));
-                ConfirmationSheetFragment resentEmailFragment = ConfirmationSheetFragment.getInstance();
-                resentEmailFragment.show(getSupportFragmentManager(), resentEmailFragment.getTag());
+//                new ConfirmationSheetFragment(R.raw.verify_email_loop, getString(R.string.email_not_verified), getString(R.string.des_email_not_verified));
+//                ConfirmationSheetFragment resentEmailFragment = ConfirmationSheetFragment.getInstance();
+//                resentEmailFragment.show(getSupportFragmentManager(), resentEmailFragment.getTag());
+                Intent intent = new Intent(RegistrationVerifyEmailActivity.this, WalkthroughActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
             }
         });
     }
@@ -66,7 +75,7 @@ public class RegistrationVerifyEmailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        email = "";
-        finish();
+//        email = "";
+//        finish();
     }
 }

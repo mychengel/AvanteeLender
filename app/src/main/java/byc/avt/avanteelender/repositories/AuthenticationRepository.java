@@ -118,6 +118,7 @@ public class AuthenticationRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("LoginResp", response.toString());
                         int code = 0; //jika kembaliannya dalam string
                         String token = "";
                         boolean status = false;
@@ -135,10 +136,18 @@ public class AuthenticationRepository {
                                     String client_type = res.getString("client_type");
                                     String avatar = res.getString("avatar");
                                     String name = res.getString("name");
-                                    UserData ud = new UserData(uid,type,client_type,avatar,name,avantee_verif,token,0);
+                                    UserData ud = new UserData(email,password,uid,type,client_type,avatar,name,avantee_verif,token,0);
                                     prefManager.setUserData(ud);
                                     msg.setValue("success");
                                 }else if(avantee_verif == 0){
+                                    token = response.getString("token");
+                                    String uid = res.getString("uid");
+                                    int type = res.getInt("type");
+                                    String client_type = res.getString("client_type");
+                                    String avatar = res.getString("avatar");
+                                    String name = res.getString("name");
+                                    UserData ud = new UserData(email,password,uid,type,client_type,avatar,name,avantee_verif,token,0);
+                                    prefManager.setUserData(ud);
                                     msg.setValue("not_verified");
                                 }else{
                                     msg.setValue("failed2");
@@ -166,14 +175,6 @@ public class AuthenticationRepository {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS();
             }
-
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<String, String>();
-//                params.put("password", password);
-//                params.put("email", email);
-//                return params;
-//            }
         };
         requestQueue.getCache().clear();
         requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
@@ -192,6 +193,69 @@ public class AuthenticationRepository {
 
         return msg;
     }
+
+    public MutableLiveData<String> sendOTPVerification(final String uid, final String token, Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        final MutableLiveData<Boolean> status = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "verification");
+        JSONObject parameters = new JSONObject(params);
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"merchand/bulk/otp", parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0; //jika kembaliannya dalam string
+                        boolean status = false;
+                        JSONObject res;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");
+                            if(code == 200 & status == true){
+                                res = response.getJSONObject("result");
+                                msg.setValue(res.getString("message"));
+                            }else{
+                                msg.setValue("failed");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return msg;
+    }
+
 
     public MutableLiveData<String> logout(final String uid, final String token, Context context) {
         prefManager = PrefManager.getInstance(context);

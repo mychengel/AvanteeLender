@@ -25,6 +25,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -93,10 +94,14 @@ public class LoginActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("success")) {
                 dialog.cancel();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                f.showMessage("Selamat datang "+prefManager.getName()+".");
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                finish();
+                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
+                    ///isi di sini untuk memulai pendaftaran registrasi form
+                }else{
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    f.showMessage("Selamat datang "+prefManager.getName()+".");
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();
+                }
             }else if(result.equals("failed")){
                 dialog.cancel();
                 f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
@@ -105,7 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                 f.showMessage("Login gagal, silahkan coba lagi");
             }else if(result.equals("not_verified")){
                 dialog.cancel();
-                //fungsi
+                startActivity(new Intent(LoginActivity.this, OTPActivity.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
             }
         }
     };

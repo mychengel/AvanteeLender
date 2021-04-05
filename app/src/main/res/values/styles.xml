@@ -13,6 +13,10 @@
         <item name="android:textColor">@color/dark</item>
     </style>
 
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/colorPrimary</item>
+    </style>
+
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/ibm_plex_sans</item>
         <item name="android:textSize">15sp</item>

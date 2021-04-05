@@ -88,7 +88,7 @@
             android:layout_height="match_parent">
 
             <CheckBox
-                android:id="@+id/cb_setuju_fr_term"
+               android:id="@+id/cb_setuju_fr_term"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -97,8 +97,10 @@
                 android:button="@drawable/checkbox_selector"
                 android:fontFamily="@font/ibm_plex_sans"
                 android:padding="8dp"
+                app:useMaterialThemeColors="false"
                 android:text="@string/ive_read_2"
                 android:textSize="16sp"
+
                 app:layout_constraintBottom_toTopOf="@+id/btn_batalkan_fr_term"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -132,6 +134,7 @@
                 android:enabled="false"
                 android:text="@string/cancel"
                 android:textColor="@drawable/text_state_selector"
+                app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_lanjutkan_fr_term"
                 app:layout_constraintHorizontal_bias="0.5"

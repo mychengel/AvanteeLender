@@ -8,6 +8,8 @@ import android.telephony.SmsMessage;
 
 import com.mukesh.OtpView;
 
+import byc.avt.avanteelender.view.misc.OTPActivity;
+
 public class OTPReceiver extends BroadcastReceiver {
 
     private static OtpView otpView;
@@ -25,6 +27,7 @@ public class OTPReceiver extends BroadcastReceiver {
             String message = sms.getMessageBody();
             String otp = message.split(": ")[1];
             otpView.setText(otp);
+            OTPActivity.btnVerify.setEnabled(true);
         }
     }
 }

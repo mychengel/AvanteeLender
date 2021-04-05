@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 public class UserData implements Parcelable {
 
+    private String email;
+    private String password;
     private String uid;
     private int type;
     private String client_type;
@@ -16,7 +18,9 @@ public class UserData implements Parcelable {
 
     public UserData(){}
 
-    public UserData(String uid, int type, String client_type, String avatar, String name, int avantee_verif, String token, long expired_time) {
+    public UserData(String email, String password, String uid, int type, String client_type, String avatar, String name, int avantee_verif, String token, long expired_time) {
+        this.email = email;
+        this.password = password;
         this.uid = uid;
         this.type = type;
         this.client_type = client_type;
@@ -28,6 +32,8 @@ public class UserData implements Parcelable {
     }
 
     protected UserData(Parcel in) {
+        email = in.readString();
+        password = in.readString();
         uid = in.readString();
         type = in.readInt();
         client_type = in.readString();
@@ -49,6 +55,14 @@ public class UserData implements Parcelable {
             return new UserData[size];
         }
     };
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public String getUid() {
         return uid;
@@ -89,6 +103,8 @@ public class UserData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(email);
+        parcel.writeString(password);
         parcel.writeString(uid);
         parcel.writeInt(type);
         parcel.writeString(client_type);

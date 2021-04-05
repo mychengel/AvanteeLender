@@ -104,6 +104,12 @@ public class WalkthroughActivity extends AppCompatActivity {
         requestMultiPermission();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestMultiPermission();
+    }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[layouts.length];
 
@@ -209,8 +215,8 @@ public class WalkthroughActivity extends AppCompatActivity {
                         v.startAnimation(new Fungsi().clickAnim());
                         prefManager.setFirstTimeLaunch(false);
                         //new Fungsi(WalkthroughActivity.this).showMessage("In progress ~ byc");
-                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class); //yg bener
-                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
+                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class); //yg bener
+                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);
                     }
@@ -253,6 +259,9 @@ public class WalkthroughActivity extends AppCompatActivity {
     private void requestMultiPermission() {
         Dexter.withContext(WalkthroughActivity.this)
                 .withPermissions(
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION
