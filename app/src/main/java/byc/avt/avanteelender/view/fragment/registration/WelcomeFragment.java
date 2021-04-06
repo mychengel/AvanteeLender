@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
+import byc.avt.avanteelender.view.misc.OTPActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,18 +38,20 @@ public class WelcomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_welcome, container, false);
     }
 
-    Button btn_isi_form;
+    Button btn_begin;
     NavController navController;
     ConstraintLayout layout;
+    //Fungsi f = new Fungsi(requireActivity());
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button btn_begin = view.findViewById(R.id.btn_welcome_form_begin);
+        btn_begin = view.findViewById(R.id.btn_welcome_form_begin);
         btn_begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_nav_to_lendertype);
+                new Fungsi(getActivity()).showMessage("In progress ~ Baycode");
+                //Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_nav_to_lendertype);
             }
         });
 

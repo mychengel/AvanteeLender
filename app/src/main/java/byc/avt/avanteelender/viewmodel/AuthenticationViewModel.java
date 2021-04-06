@@ -20,6 +20,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
+    private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
@@ -57,6 +58,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<String> getOTPVerificationResult(){
         return msg_otp_ver;
+    }
+
+    public void verifyOTP(String uid, String token, String otpCode){
+        msg_ver_otp = authenticationRepository.verifyOTP(uid, token, otpCode, getApplication());
+    }
+
+    public LiveData<String> getVerifyOTPResult(){
+        return msg_ver_otp;
     }
 
     public void getSettingData(String uid, String token){

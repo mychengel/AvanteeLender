@@ -2,6 +2,7 @@ package byc.avt.avanteelender.view.auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItem;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -18,6 +21,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,7 +37,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.view.misc.OTPActivity;
+import byc.avt.avanteelender.view.others.SettingActivity;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class RegistrationFormActivity extends AppCompatActivity {
 
@@ -46,6 +57,8 @@ public class RegistrationFormActivity extends AppCompatActivity {
     Dialog dialog;
     LinearLayout linStep, step1, step2, step3, step4, step5;
     AppBarLayout.LayoutParams params;
+    private AuthenticationViewModel viewModel;
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +76,8 @@ public class RegistrationFormActivity extends AppCompatActivity {
         step3 = findViewById(R.id.step3);
         step4 = findViewById(R.id.step4);
         step5 = findViewById(R.id.step5);
+        viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
+        prefManager = PrefManager.getInstance(RegistrationFormActivity.this);
         //setSupportActionBar(toolbar);
 
         navController = Navigation.findNavController(this, R.id.regis_form_fragment_container);
@@ -142,10 +157,56 @@ public class RegistrationFormActivity extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
         if(navController.getCurrentDestination().getId() == R.id.welcomeFragment){
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            logoutConfirmation();
         }
     }
+
+    private void logoutConfirmation(){
+        new AlertDialog.Builder(RegistrationFormActivity.this)
+                .setTitle("Konfirmasi")
+                .setIcon(R.drawable.logo)
+                .setMessage("Apakah anda yakin mau keluar dari pengisian data akun?")
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        logout();
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogs, int which) {
+                        dialogs.cancel();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    public void logout() {
+        // LOGOUT: GET method to server through endpoint
+        dialog.show();
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
+        viewModel.getLogoutResult().observe(RegistrationFormActivity.this, checkLogout);
+    }
+
+    private Observer<String> checkLogout = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("ok")) {
+                dialog.cancel();
+                Intent intent = new Intent(RegistrationFormActivity.this, WalkthroughActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                new Fungsi(RegistrationFormActivity.this).showMessage("Anda keluar dari pengisian data akun.");
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                finish();
+            }else{
+                dialog.cancel();
+                new Fungsi().showMessage(result);
+            }
+        }
+    };
 
     @SuppressLint("ResourceAsColor")
     public void setStep(int c1, int c2, int c3, int c4, int c5){

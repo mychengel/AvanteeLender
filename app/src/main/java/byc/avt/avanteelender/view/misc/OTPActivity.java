@@ -31,6 +31,7 @@ import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
@@ -70,7 +71,7 @@ public class OTPActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                verifyOTP();
             }
         });
 
@@ -80,8 +81,64 @@ public class OTPActivity extends AppCompatActivity {
             user = getIntent().getParcelableExtra(NEW_USER);
             tvSendTo.setText(getString(R.string.otp_desc) + user.getNo_handphone());
         }
-
     }
+
+    public void verifyOTP() {
+        // POST to server through endpoint
+        dialog.show();
+        viewModel.verifyOTP(prefManager.getUid(), prefManager.getToken(), otpView.getText().toString());
+        viewModel.getVerifyOTPResult().observe(OTPActivity.this, verifyOTPSuccess);
+    }
+
+    private Observer<String> verifyOTPSuccess = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            String cek = result.split(": ")[0];
+            String msg = result.split(": ")[1];
+            if(cek.equalsIgnoreCase("success")){
+                f.showMessage(msg);
+                confirmLogin();
+            }else{
+                f.showMessage(msg);
+            }
+
+        }
+    };
+
+
+    public void confirmLogin() {
+        // POST to server through endpoint
+        viewModel.login(prefManager.getEmail(), prefManager.getPassword());
+        viewModel.getLoginResult().observe(OTPActivity.this, checkSuccessLogin);
+    }
+
+    private Observer<String> checkSuccessLogin = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("success")) {
+                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
+                    ///isi di sini untuk memulai pendaftaran registrasi form
+                    startActivity(new Intent(OTPActivity.this, RegistrationFormActivity.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();
+                }else{
+                    startActivity(new Intent(OTPActivity.this, MainActivity.class));
+                    f.showMessage("Selamat datang "+prefManager.getName()+".");
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();
+                }
+            }else if(result.equals("failed")){
+                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
+            }else if(result.equals("failed2")){
+                f.showMessage("Login gagal, silahkan coba lagi");
+            }else if(result.equals("not_verified")){
+                startActivity(new Intent(OTPActivity.this, OTPActivity.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
+            }
+            dialog.cancel();
+        }
+    };
 
 
     public void sendOTPVerification() {

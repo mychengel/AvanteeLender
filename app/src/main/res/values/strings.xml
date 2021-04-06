@@ -327,5 +327,10 @@
     <string name="dibayar_pada">Dibayar pada</string>
     <string name="jumlah_pembayaran">Jumlah pembayaran</string>
     <string name="pilih_kewarganegaraan">Pilih kewarganegaraan</string>
+    <string name="tkb_1">Tingkat Keberhasilan 90 (TKB90) menunjukkan tingkat keberhasilan Avantee dalam menjaga tingkat kredit macet/ Non Performing Loan (NPL) agar tetap rendah. Semakin tinggi nilai TKB90, semakin baik performa Avantee dalam menekan angka NPL.</string>
+    <string name="tkb_2">TKB90 adalah ukuran tingkat keberhasilan penyelenggara Fintech P2P Lending dalam memfasilitasi penyelesaian kewajiban pinjam meminjam dalam jangka waktu sampai dengan 90 hari sejak tanggal jatuh tempo.
+        TWP90 adalah ukuran tingkat wanprestasi atau kelalaian penyelesaian kewajiban yang tertera dalam perjanjian diatas 90 hari sejak tanggal jatuh tempo.</string>
+    <string name="tkb_90">TKB90</string>
+    <string name="rumus_hitung">Rumus perhitungan:</string>
 
 </resources>

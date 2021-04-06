@@ -54,6 +54,16 @@ public class PrefManager {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
+    public String getEmail(){
+        String email = userPref.getString("email","-");
+        return email;
+    }
+
+    public String getPassword(){
+        String password = userPref.getString("password","-");
+        return password;
+    }
+
     public String getUid(){
         String uid = userPref.getString("uid","-");
         return uid;
@@ -85,6 +95,8 @@ public class PrefManager {
     }
 
     public void setUserData(UserData ud){
+        userEditor.putString("email", ud.getEmail());
+        userEditor.putString("password", ud.getPassword());
         userEditor.putString("uid", ud.getUid());
         userEditor.putInt("type", ud.getType());
         userEditor.putString("client_type", ud.getClient_type());

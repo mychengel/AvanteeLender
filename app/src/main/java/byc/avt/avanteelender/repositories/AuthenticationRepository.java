@@ -256,6 +256,69 @@ public class AuthenticationRepository {
         return msg;
     }
 
+    public MutableLiveData<String> verifyOTP(final String uid, final String token, final String otpCode, Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "verification");
+        params.put("verification_code", otpCode);
+        JSONObject parameters = new JSONObject(params);
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"merchand/bulk/verification", parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0; //jika kembaliannya dalam string
+                        boolean status = false;
+                        JSONObject res;
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");
+                            if(code == 200 & status == true){
+                                res = response.getJSONObject("result");
+                                msg.setValue("success: " + res.getString("message"));
+                            }else{
+                                res = response.getJSONObject("result");
+                                msg.setValue("failed: " + res.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return msg;
+    }
+
 
     public MutableLiveData<String> logout(final String uid, final String token, Context context) {
         prefManager = PrefManager.getInstance(context);
