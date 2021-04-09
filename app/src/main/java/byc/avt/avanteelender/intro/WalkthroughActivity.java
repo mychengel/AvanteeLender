@@ -260,6 +260,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         Dexter.withContext(WalkthroughActivity.this)
                 .withPermissions(
                         Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.READ_SMS,
                         Manifest.permission.CAMERA,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE,
