@@ -48,6 +48,7 @@ import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
+import byc.avt.avanteelender.view.features.topup.TopupInstructionActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
@@ -145,7 +146,9 @@ public class DashboardFragment extends Fragment {
         btn_topup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), TopupInstructionActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 

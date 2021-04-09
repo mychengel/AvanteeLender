@@ -14,11 +14,14 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -386,6 +389,48 @@ public class DashboardRepository {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<String> getTopupInstruction(final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/panduan_topup",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Document doc = Jsoup.parse(String.valueOf(response));
+                        result.setValue(doc.toString());
+                        Log.e("PanDuan", doc.toString());
                     }
                 },
                 new Response.ErrorListener() {

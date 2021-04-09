@@ -21,8 +21,6 @@ import java.util.List;
 
 import byc.avt.avanteelender.R;
 
-import static com.google.android.gms.common.util.CollectionUtils.listOf;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -55,8 +53,8 @@ public class PersonalDataFragment extends Fragment {
             }
         });
 
-        List<String> items = listOf("Material", "Design", "Components", "Android");
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, items);
-        auto_kewarganegaraan.setAdapter(adapter);
+//        List<String> items = new List{"Material", "Design", "Components", "Android"};
+//        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, items);
+//        auto_kewarganegaraan.setAdapter(adapter);
     }
 }

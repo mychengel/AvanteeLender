@@ -92,7 +92,7 @@
 
     <Button
         android:id="@+id/btn_filter_his_trx_list"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="82dp"
         android:layout_height="32dp"
         android:layout_gravity="bottom|center|center_horizontal"
@@ -100,14 +100,18 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_white_ripple_border"
-        android:drawableStart="@drawable/ic_adjust_13px"
+        android:elevation="2dp"
         android:enabled="true"
         android:fontFamily="@font/ibm_plex_sans_medium"
-        android:paddingStart="12dp"
+        android:paddingStart="8dp"
+        android:paddingTop="0dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="0dp"
         android:text="@string/filter"
         android:textAllCaps="true"
         android:textColor="@color/darkO05"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:icon="@drawable/ic_adjust_13px" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

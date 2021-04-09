@@ -29,6 +29,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultWallet = new MutableLiveData<>();
     private MutableLiveData<String> totActivePort = new MutableLiveData<>();
     private MutableLiveData<String> totPendingPort = new MutableLiveData<>();
+    private MutableLiveData<String> resultTopupInstruction = new MutableLiveData<>();
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -90,5 +91,14 @@ public class DashboardViewModel extends AndroidViewModel {
     public LiveData<String> getResultTotPendingPort(){
         return totPendingPort;
     }
+
+    public void getTopupInstruction(String uid, String token){
+        resultTopupInstruction = dashboardRepository.getTopupInstruction(uid, token, getApplication());
+    }
+
+    public LiveData<String> getResultTopupInstruction(){
+        return resultTopupInstruction;
+    }
+
 
 }

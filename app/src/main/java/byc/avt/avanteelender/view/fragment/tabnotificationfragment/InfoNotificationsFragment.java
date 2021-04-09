@@ -68,6 +68,7 @@ public class InfoNotificationsFragment extends Fragment {
 
     private Dialog dialog;
     private ProgressBar prog;
+    private WebView simpleWebView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +81,7 @@ public class InfoNotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         dialog = GlobalVariables.loadingDialog(requireActivity());
         prog = view.findViewById(R.id.prog_fr_notif_info);
-        WebView simpleWebView = view.findViewById(R.id.wv_fr_notif_info);
+        simpleWebView = view.findViewById(R.id.wv_fr_notif_info);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
         //simpleWebView.setHorizontalScrollBarEnabled(true);
