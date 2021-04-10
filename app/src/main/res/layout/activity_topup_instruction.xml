@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back_24px"
-        app:titleTextAppearance="@style/AppTheme.ActionBar.TitleText"
+        app:titleTextAppearance="@style/ToolbarTheme.Collapsed"
         app:titleTextColor="@color/dark" />
 
     <WebView

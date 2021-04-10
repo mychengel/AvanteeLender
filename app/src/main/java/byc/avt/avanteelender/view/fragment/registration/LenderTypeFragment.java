@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
+import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 
 /**
@@ -40,6 +41,7 @@ public class LenderTypeFragment extends Fragment {
     NavController navController;
     CardView cvIndividu, cvInstitution;
     Fungsi f;
+    GlobalVariables gv;
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -49,6 +51,7 @@ public class LenderTypeFragment extends Fragment {
         cvIndividu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gv.perRegData.put("tipe_investor", "perorangan");
                 Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_lenderTypeFragment_to_personalDataFragment);
             }
         });
@@ -56,7 +59,7 @@ public class LenderTypeFragment extends Fragment {
         cvInstitution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                gv.insRegData.put("tipe_investor", "institusi");
             }
         });
     }

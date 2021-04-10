@@ -128,13 +128,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_birth_place_fr_personal_data">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_birthdate_fr_personal_data"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
+                    android:background="@android:color/transparent"
                     android:hint="@string/date_of_birth"
                     android:inputType="date|textPersonName"
-                    android:background="@android:color/transparent"
                     android:paddingStart="0dp"
-                    android:paddingEnd="0dp"/>
+                    android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -156,31 +157,155 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:background="@android:color/transparent"
-                    android:hint="@string/pilih_kewarganegaraan"
+                    android:hint="@string/kewarganegaraan"
                     android:inputType="none"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_status_fr_personal_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_kewarganegaraan_fr_personal_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_status_fr_personal_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/marriage_status"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_religion_fr_personal_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_status_fr_personal_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_religion_fr_personal_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/religion"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_education_fr_personal_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_religion_fr_personal_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_education_fr_personal_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/last_education"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_mothername_fr_personal_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_education_fr_personal_data">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/mothername"
+                    android:inputType="textPersonName"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_homenumber_fr_personal_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_mothername_fr_personal_data">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/home_phone_number"
+                    android:inputType="number"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_next_fr_personal_data"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="148dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_state_selector"
+                android:enabled="false"
+                android:letterSpacing="0.01"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_homenumber_fr_personal_data" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_next_fr_personal_data"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="148dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/button_state_selector"
-        android:enabled="false"
-        android:letterSpacing="0.01"
-        android:text="@string/next"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

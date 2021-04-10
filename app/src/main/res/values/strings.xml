@@ -332,5 +332,7 @@
         TWP90 adalah ukuran tingkat wanprestasi atau kelalaian penyelesaian kewajiban yang tertera dalam perjanjian diatas 90 hari sejak tanggal jatuh tempo.</string>
     <string name="tkb_90">TKB90</string>
     <string name="rumus_hitung">Rumus perhitungan:</string>
+    <string name="kewarganegaraan">Kewarganegaraan</string>
+    <string name="mothername">Nama ibu kandung</string>
 
 </resources>

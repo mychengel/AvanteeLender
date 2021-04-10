@@ -20,7 +20,7 @@
             android:id="@+id/collapsing_regis_form"
             style="@style/ToolbarTheme.Expanded"
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="116dp"
 
             android:elevation="0dp"
             android:fitsSystemWindows="true"
@@ -68,7 +68,7 @@
         android:layout_height="2dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="14dp"
         android:orientation="horizontal"
