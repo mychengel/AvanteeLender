@@ -23,6 +23,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,6 +39,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
@@ -69,7 +72,7 @@ public class PersonalDataFragment extends Fragment {
 
     private RadioGroup radGroupGender;
     private RadioButton radButtonGender;
-    TextInputLayout txtName, txtBirthPlace, txtBirthDate, txtMotherName, txtHomePhone;
+    TextInputLayout txtName, txtBirthPlace, txtBirthDate, txtCivil, txtStatus, txtReligion, txtEdu, txtMotherName, txtHomePhone;
     EditText editBirthDate;
 
     String name="", gender="male", birthplace="", birtdate="", civil="", status="", religion="", education="", telprumah="", mothername="";
@@ -93,11 +96,15 @@ public class PersonalDataFragment extends Fragment {
         auto_status = view.findViewById(R.id.auto_status_fr_personal_data);
         auto_religion = view.findViewById(R.id.auto_religion_fr_personal_data);
         auto_education = view.findViewById(R.id.auto_education_fr_personal_data);
-        txtBirthDate = view.findViewById(R.id.edit_birth_date_fr_personal_data);
         txtName = view.findViewById(R.id.edit_name_fr_personal_data);
+        txtBirthPlace = view.findViewById(R.id.edit_birth_place_fr_personal_data);
+        txtBirthDate = view.findViewById(R.id.edit_birth_date_fr_personal_data);
+        txtCivil = view.findViewById(R.id.edit_kewarganegaraan_fr_personal_data);
+        txtStatus = view.findViewById(R.id.edit_status_fr_personal_data);
+        txtReligion = view.findViewById(R.id.edit_religion_fr_personal_data);
+        txtEdu = view.findViewById(R.id.edit_education_fr_personal_data);
         txtMotherName = view.findViewById(R.id.edit_mothername_fr_personal_data);
         txtHomePhone = view.findViewById(R.id.edit_homenumber_fr_personal_data);
-        txtBirthPlace = view.findViewById(R.id.edit_birth_place_fr_personal_data);
         editBirthDate = view.findViewById(R.id.editText_birthdate_fr_personal_data);
         radGroupGender = view.findViewById(R.id.rad_group_gender_fr_personal_data);
         radGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -119,11 +126,7 @@ public class PersonalDataFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.e("gender", gender);
-                name = txtName.getEditText().getText().toString().trim();
-                birthplace = txtBirthPlace.getEditText().getText().toString().trim();
-                mothername = txtMotherName.getEditText().getText().toString().trim();
-                telprumah = txtHomePhone.getEditText().getText().toString().trim();
-                Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
+                confirmNext(v);
             }
         });
         Log.e("tipeinvestor", ""+gv.perRegData.get("tipe_investor"));
@@ -140,13 +143,15 @@ public class PersonalDataFragment extends Fragment {
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                         birtdate = sdf.format(selection);
                         editBirthDate.setText(birtdate);
                     }
                 });
             }
         });
+
+
 
         loadData();
     }
@@ -188,6 +193,7 @@ public class PersonalDataFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
                                 civil = listCivilID.get(x).toString();
                                 Log.e("civil", civil);
+                                txtCivil.setError(null);
                             }
                         });
                     }
@@ -217,6 +223,7 @@ public class PersonalDataFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
                                 status = listStatusID.get(x).toString();
                                 Log.e("status", status);
+                                txtStatus.setError(null);
                             }
                         });
                     }
@@ -246,6 +253,7 @@ public class PersonalDataFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
                                 religion = listReligionID.get(x).toString();
                                 Log.e("religion", religion);
+                                txtReligion.setError(null);
                             }
                         });
                     }
@@ -275,6 +283,7 @@ public class PersonalDataFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
                                 education = listEduID.get(x).toString();
                                 Log.e("education", education);
+                                txtEdu.setError(null);
                             }
                         });
                     }
@@ -286,5 +295,32 @@ public class PersonalDataFragment extends Fragment {
             }
         }
     };
+
+
+    //boolean allisfilled = false;
+    private void confirmNext(View v){
+        name = Objects.requireNonNull(txtName.getEditText().getText().toString().trim());
+        birthplace = Objects.requireNonNull(txtBirthPlace.getEditText().getText().toString().trim());
+        mothername = Objects.requireNonNull(txtMotherName.getEditText().getText().toString().trim());
+        telprumah = Objects.requireNonNull(txtHomePhone.getEditText().getText().toString().trim());
+
+        Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
+//        if(!name.isEmpty() && !gender.isEmpty() && !birthplace.isEmpty() && !birtdate.isEmpty()
+//                && !civil.isEmpty() && !status.isEmpty() && !religion.isEmpty()
+//                && !education.isEmpty() && !mothername.isEmpty()){
+//            //allisfilled = true;
+//            Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
+//        }else{
+//            //allisfilled = false;
+//            if(name.isEmpty()){txtName.setError(getString(R.string.cannotnull));}else{txtName.setError(null);}
+//            if(birthplace.isEmpty()){txtBirthPlace.setError(getString(R.string.cannotnull));}else{txtBirthPlace.setError(null);}
+//            if(birtdate.isEmpty()){txtBirthDate.setError(getString(R.string.cannotnull));}else{txtBirthDate.setError(null);}
+//            if(civil.isEmpty()){txtCivil.setError(getString(R.string.cannotnull));}else{txtCivil.setError(null);}
+//            if(status.isEmpty()){txtStatus.setError(getString(R.string.cannotnull));}else{txtStatus.setError(null);}
+//            if(religion.isEmpty()){txtReligion.setError(getString(R.string.cannotnull));}else{txtReligion.setError(null);}
+//            if(education.isEmpty()){txtEdu.setError(getString(R.string.cannotnull));}else{txtEdu.setError(null);}
+//            if(mothername.isEmpty()){txtMotherName.setError(getString(R.string.cannotnull));}else{txtMotherName.setError(null);}
+//        }
+    }
 
 }

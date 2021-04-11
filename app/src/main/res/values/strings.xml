@@ -105,19 +105,27 @@
     <!-- TODO: New User Form Part 2 -->
     <string name="work_info">Data pekerjaan</string>
     <string name="occupation">Pekerjaan</string>
-    <string name="field">Bidang</string>
+    <string name="job_field">Bidang pekerjaan</string>
     <string name="monthly_salary">Penghasilan per bulan</string>
-    <string name="is_online_based">Pekerjaan berbasis online?</string>
-    <string name="work_experience">Pengalaman kerja</string>
+    <string name="is_online_based">Pekerjaan berbasis internet?</string>
+    <string name="work_experience">Lama bekerja</string>
+    <string name="jabatan">Jabatan</string>
+    <string name="company_name">Nama perusahaan</string>
+    <string name="company_number">No. telepon perusahaan (opsional)</string>
+    <string name="company_address">Alamat perusahaan</string>
+    <string name="funds_source">Sumber dana</string>
 
     <!-- TODO: New User Form Part 3 -->
     <string name="addresses">Data alamat</string>
+    <string name="country">Negara</string>
     <string name="address">Alamat</string>
     <string name="province">Provinsi</string>
-    <string name="city">Kota / Kabupaten</string>
+    <string name="city">Kota/Kabupaten</string>
     <string name="sub_district">Kecamatan</string>
     <string name="urban">Kelurahan</string>
     <string name="postal_code">Kode pos</string>
+    <string name="rt">RT (contoh: 001)</string>
+    <string name="rw">RW (contoh: 001)</string>
     <string name="home_owned_status">Status kepemilikan rumah</string>
     <string name="address_on_KTP">Alamat sesuai KTP</string>
     <string name="domicile_address">Alamat tempat tinggal</string>
@@ -130,10 +138,11 @@
     <!-- TODO: use these string => full_name, phone_number, address, province, city, sub_district, urban, postal_code -->
 
     <!-- TODO: New User Form Part 5 -->
-    <string name="bank_info">Informasi rekening bank</string>
-    <string name="bank_name">Nama Bank</string>
+    <string name="bank_info">Informasi rekening</string>
+    <string name="bank_name">Nama bank</string>
     <string name="account_name">Nama pemilik rekening</string>
     <string name="account_number">No. rekening</string>
+    <string name="avg_transaction">Rata-rata transaksi</string>
 
     <!-- TODO: New User Form Part 6 -->
     <string name="essential_document">Dokumen pendukung</string>
@@ -334,5 +343,8 @@
     <string name="rumus_hitung">Rumus perhitungan:</string>
     <string name="kewarganegaraan">Kewarganegaraan</string>
     <string name="mothername">Nama ibu kandung</string>
+    <string name="cannotnull">Field tidak boleh kosong</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
 
 </resources>
