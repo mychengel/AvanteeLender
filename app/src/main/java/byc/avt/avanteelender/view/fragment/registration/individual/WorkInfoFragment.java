@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
@@ -44,7 +45,6 @@ public class WorkInfoFragment extends Fragment {
     public WorkInfoFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +86,9 @@ public class WorkInfoFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(MasterDataViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
+
+        gv.stPerAddressData = false;
+
         auto_job = view.findViewById(R.id.auto_job_fr_work_info);
         auto_jobField = view.findViewById(R.id.auto_job_field_fr_work_info);
         auto_jobPosition = view.findViewById(R.id.auto_jabatan_fr_work_info);
@@ -109,7 +112,7 @@ public class WorkInfoFragment extends Fragment {
         txtCompanyDistrict = view.findViewById(R.id.edit_company_kecamatan_fr_work_info);
         txtCompanyUrban = view.findViewById(R.id.edit_company_kelurahan_fr_work_info);
         txtCompanyRT = view.findViewById(R.id.edit_company_rt_fr_work_info);
-        txtCompanyRW = view.findViewById(R.id.edit_company_rt_fr_work_info);
+        txtCompanyRW = view.findViewById(R.id.edit_company_rw_fr_work_info);
         txtCompanyPostalCode = view.findViewById(R.id.edit_company_kodepos_fr_work_info);
 
         radGroupIsOnlineBased = view.findViewById(R.id.rad_group_is_online_based_fr_work_info);
@@ -130,7 +133,7 @@ public class WorkInfoFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_workInfoFragment_to_addressDataFragment);
+                confirmNext(v);
             }
         });
 
@@ -151,6 +154,33 @@ public class WorkInfoFragment extends Fragment {
     public void loadData(){
         clearMasterList();
         dialog.show();
+        if(gv.stPerWorkInfo){
+            job = gv.perRegData.get("pekerjaan").toString();
+            jobField = gv.perRegData.get("bidang_pekerjaan").toString();
+            isOnlineBased = gv.perRegData.get("basis_internet").toString();
+            jobPosition = gv.perRegData.get("jabatan").toString();
+            experience = gv.perRegData.get("lama_bekerja").toString();
+            income = gv.perRegData.get("pendapatan_per_bulan").toString();
+            fundsSource = gv.perRegData.get("sumber_dana").toString();
+            companyName = gv.perRegData.get("nama_perusahaan").toString();
+            txtCompanyName.getEditText().setText(companyName);
+            companyAddress = gv.perRegData.get("alamat_perusahaan").toString();
+            txtCompanyAddress.getEditText().setText(companyAddress);
+            companyProvince = gv.perRegData.get("provinsi_perusahaan").toString();
+            companyCity = gv.perRegData.get("kota_perusahaan").toString();
+            companyDistrict = gv.perRegData.get("kecamatan_perusahaan").toString();
+            txtCompanyDistrict.getEditText().setText(companyDistrict);
+            companyUrban = gv.perRegData.get("kelurahan_perusahaan").toString();
+            txtCompanyUrban.getEditText().setText(companyUrban);
+            companyRT = gv.perRegData.get("rt_perusahaan").toString();
+            txtCompanyRT.getEditText().setText(companyRT);
+            companyRW = gv.perRegData.get("rw_perusahaan").toString();
+            txtCompanyRW.getEditText().setText(companyRW);
+            companyPostalCode = gv.perRegData.get("kode_pos_perusahaan").toString();
+            txtCompanyPostalCode.getEditText().setText(companyPostalCode);
+            companyNumber = gv.perRegData.get("no_telepon_perusahaan").toString();
+            txtCompanyNumber.getEditText().setText(companyNumber);
+        }else{}
         viewModel.getJob(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultJob().observe(getActivity(), showJob);
         viewModel.getJobField(prefManager.getUid(), prefManager.getToken());
@@ -167,6 +197,82 @@ public class WorkInfoFragment extends Fragment {
         viewModel.getResultProvince().observe(getActivity(), showProvince);
     }
 
+    private void confirmNext(View v){
+        companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
+        companyNumber = Objects.requireNonNull(txtCompanyNumber.getEditText().getText().toString().trim());
+        companyAddress = Objects.requireNonNull(txtCompanyAddress.getEditText().getText().toString().trim());
+        companyDistrict = Objects.requireNonNull(txtCompanyDistrict.getEditText().getText().toString().trim());
+        companyUrban = Objects.requireNonNull(txtCompanyUrban.getEditText().getText().toString().trim());
+        companyRT = Objects.requireNonNull(txtCompanyRT.getEditText().getText().toString().trim());
+        companyRW = Objects.requireNonNull(txtCompanyRW.getEditText().getText().toString().trim());
+        companyPostalCode = Objects.requireNonNull(txtCompanyPostalCode.getEditText().getText().toString().trim());
+
+        if(!job.isEmpty() && !jobField.isEmpty() && !jobPosition.isEmpty() && !experience.isEmpty()
+                && !companyName.isEmpty() && !income.isEmpty() && !fundsSource.isEmpty()
+                && !companyAddress.isEmpty() && !companyProvince.isEmpty() && !companyCity.isEmpty()
+                && !companyDistrict.isEmpty() && !companyUrban.isEmpty() && !companyRT.isEmpty()
+                && !companyRW.isEmpty() && !companyPostalCode.isEmpty()){
+            gv.stPerWorkInfo = true;
+            gv.perRegData.put("pekerjaan",job);
+            gv.perRegData.put("bidang_pekerjaan",jobField);
+            gv.perRegData.put("basis_internet",isOnlineBased);
+            gv.perRegData.put("jabatan",jobPosition);
+            gv.perRegData.put("lama_bekerja",experience);
+            gv.perRegData.put("pendapatan_per_bulan",income);
+            gv.perRegData.put("sumber_dana",fundsSource);
+            gv.perRegData.put("nama_perusahaan",companyName);
+            gv.perRegData.put("alamat_perusahaan",companyAddress);
+            gv.perRegData.put("provinsi_perusahaan",companyProvince);
+            gv.perRegData.put("kota_perusahaan",companyCity);
+            gv.perRegData.put("kecamatan_perusahaan",companyDistrict);
+            gv.perRegData.put("kelurahan_perusahaan",companyUrban);
+            gv.perRegData.put("rt_perusahaan",companyRT);
+            gv.perRegData.put("rw_perusahaan",companyRW);
+            gv.perRegData.put("kode_pos_perusahaan",companyPostalCode);
+            gv.perRegData.put("no_telepon_perusahaan",companyNumber);
+            setNoError();
+            Navigation.findNavController(v).navigate(R.id.action_workInfoFragment_to_addressDataFragment);
+        }else{
+            cekError();
+        }
+    }
+
+    private void setNoError(){
+        txtJob.setError(null);
+        txtJobField.setError(null);
+        txtJobPosition.setError(null);
+        txtExperience.setError(null);
+        txtIncome.setError(null);
+        txtFundsSource.setError(null);
+        txtCompanyName.setError(null);
+        txtCompanyAddress.setError(null);
+        txtCompanyProvince.setError(null);
+        txtCompanyCity.setError(null);
+        txtCompanyDistrict.setError(null);
+        txtCompanyUrban.setError(null);
+        txtCompanyRT.setError(null);
+        txtCompanyRW.setError(null);
+        txtCompanyPostalCode.setError(null);
+    }
+
+    private void cekError(){
+        if(job.isEmpty()){txtJob.setError(getString(R.string.cannotnull));}else{txtJob.setError(null);}
+        if(jobField.isEmpty()){txtJobField.setError(getString(R.string.cannotnull));}else{txtJobField.setError(null);}
+        if(jobPosition.isEmpty()){txtJobPosition.setError(getString(R.string.cannotnull));}else{txtJobPosition.setError(null);}
+        if(experience.isEmpty()){txtExperience.setError(getString(R.string.cannotnull));}else{txtExperience.setError(null);}
+        if(income.isEmpty()){txtIncome.setError(getString(R.string.cannotnull));}else{txtIncome.setError(null);}
+        if(fundsSource.isEmpty()){txtFundsSource.setError(getString(R.string.cannotnull));}else{txtFundsSource.setError(null);}
+        if(companyName.isEmpty()){txtCompanyName.setError(getString(R.string.cannotnull));}else{txtCompanyName.setError(null);}
+        if(companyAddress.isEmpty()){txtCompanyAddress.setError(getString(R.string.cannotnull));}else{txtCompanyAddress.setError(null);}
+        if(companyProvince.isEmpty()){txtCompanyProvince.setError(getString(R.string.cannotnull));}else{txtCompanyProvince.setError(null);}
+        if(companyCity.isEmpty()){txtCompanyCity.setError(getString(R.string.cannotnull));}else{txtCompanyCity.setError(null);}
+        if(companyDistrict.isEmpty()){txtCompanyDistrict.setError(getString(R.string.cannotnull));}else{txtCompanyDistrict.setError(null);}
+        if(companyUrban.isEmpty()){txtCompanyUrban.setError(getString(R.string.cannotnull));}else{txtCompanyUrban.setError(null);}
+        if(companyRT.isEmpty()){txtCompanyRT.setError(getString(R.string.cannotnull));}else{txtCompanyRT.setError(null);}
+        if(companyRW.isEmpty()){txtCompanyRW.setError(getString(R.string.cannotnull));}else{txtCompanyRW.setError(null);}
+        if(companyPostalCode.isEmpty()){txtCompanyPostalCode.setError(getString(R.string.cannotnull));}else{txtCompanyPostalCode.setError(null);}
+    }
+
     private Observer<JSONObject> showJob = new Observer<JSONObject>() {
         @Override
         public void onChanged(JSONObject result) {
@@ -177,17 +283,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJob.add(jar.getJSONObject(i).getString("name"));
                         listJobID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJob);
-                        auto_job.setAdapter(adapter);
-                        auto_job.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                job = listJobID.get(x).toString();
-                                Log.e("job", job);
-                                txtJob.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJob);
+                    auto_job.setAdapter(adapter);
+                    auto_job.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            job = listJobID.get(x).toString();
+                            Log.e("job", job);
+                            txtJob.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -207,17 +313,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJobField.add(jar.getJSONObject(i).getString("name"));
                         listJobFieldID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobField);
-                        auto_jobField.setAdapter(adapter);
-                        auto_jobField.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                jobField = listJobFieldID.get(x).toString();
-                                Log.e("jobField", jobField);
-                                txtJobField.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobField);
+                    auto_jobField.setAdapter(adapter);
+                    auto_jobField.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            jobField = listJobFieldID.get(x).toString();
+                            Log.e("jobField", jobField);
+                            txtJobField.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -237,17 +343,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJobPosition.add(jar.getJSONObject(i).getString("name"));
                         listJobPositionID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobPosition);
-                        auto_jobPosition.setAdapter(adapter);
-                        auto_jobPosition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                jobPosition = listJobPositionID.get(x).toString();
-                                Log.e("jobPosition", jobPosition);
-                                txtJobPosition.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobPosition);
+                    auto_jobPosition.setAdapter(adapter);
+                    auto_jobPosition.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            jobPosition = listJobPositionID.get(x).toString();
+                            Log.e("jobPosition", jobPosition);
+                            txtJobPosition.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -267,17 +373,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listExperience.add(jar.getJSONObject(i).getString("name"));
                         listExperienceID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listExperience);
-                        auto_experience.setAdapter(adapter);
-                        auto_experience.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                experience = listExperienceID.get(x).toString();
-                                Log.e("experience", experience);
-                                txtExperience.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listExperience);
+                    auto_experience.setAdapter(adapter);
+                    auto_experience.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            experience = listExperienceID.get(x).toString();
+                            Log.e("experience", experience);
+                            txtExperience.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -297,17 +403,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listIncome.add(jar.getJSONObject(i).getString("name"));
                         listIncomeID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listIncome);
-                        auto_income.setAdapter(adapter);
-                        auto_income.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                income = listIncomeID.get(x).toString();
-                                Log.e("income", income);
-                                txtIncome.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listIncome);
+                    auto_income.setAdapter(adapter);
+                    auto_income.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            income = listIncomeID.get(x).toString();
+                            Log.e("income", income);
+                            txtIncome.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -327,17 +433,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listFundsSource.add(jar.getJSONObject(i).getString("name"));
                         listFundsSourceID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listFundsSource);
-                        auto_fundsSource.setAdapter(adapter);
-                        auto_fundsSource.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                fundsSource = listFundsSourceID.get(x).toString();
-                                Log.e("funds", fundsSource);
-                                txtFundsSource.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listFundsSource);
+                    auto_fundsSource.setAdapter(adapter);
+                    auto_fundsSource.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            fundsSource = listFundsSourceID.get(x).toString();
+                            Log.e("funds", fundsSource);
+                            txtFundsSource.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -357,19 +463,19 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listProvince.add(jar.getJSONObject(i).getString("name"));
                         listProvinceID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listProvince);
-                        auto_companyProvince.setAdapter(adapter);
-                        auto_companyProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                companyProvince = listProvinceID.get(x).toString();
-                                Log.e("comProvince", companyProvince);
-                                txtCompanyProvince.setError(null);
-                                viewModel.getCity(prefManager.getUid(), prefManager.getToken(), companyProvince);
-                                viewModel.getResultCity().observe(getActivity(), showCity);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listProvince);
+                    auto_companyProvince.setAdapter(adapter);
+                    auto_companyProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            companyProvince = listProvinceID.get(x).toString();
+                            Log.e("comProvince", companyProvince);
+                            txtCompanyProvince.setError(null);
+                            viewModel.getCity(prefManager.getUid(), prefManager.getToken(), companyProvince);
+                            viewModel.getResultCity().observe(getActivity(), showCity);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();
@@ -391,17 +497,17 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCity.add(jar.getJSONObject(i).getString("name"));
                         listCityID.add(jar.getJSONObject(i).getString("id"));
-                        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCity);
-                        auto_companyCity.setAdapter(adapter);
-                        auto_companyCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                                companyCity = listCityID.get(x).toString();
-                                Log.e("comCity", companyCity);
-                                txtCompanyCity.setError(null);
-                            }
-                        });
                     }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCity);
+                    auto_companyCity.setAdapter(adapter);
+                    auto_companyCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            companyCity = listCityID.get(x).toString();
+                            Log.e("comCity", companyCity);
+                            txtCompanyCity.setError(null);
+                        }
+                    });
                 }else{
                 }
                 dialog.cancel();

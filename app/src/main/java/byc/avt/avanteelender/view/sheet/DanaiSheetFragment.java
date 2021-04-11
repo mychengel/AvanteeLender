@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     RadioButton radSaldo, radTfBank;
     Button btn_next;
     boolean mSaldo = true, mTfBank = false;
+    ImageView img_plus, img_minus;
 
     public DanaiSheetFragment() {
     }
@@ -39,10 +41,26 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         radSaldo = view.findViewById(R.id.rad_metode_saldo_fr_sheet_danai);
         radTfBank = view.findViewById(R.id.rad_metode_tf_bank_fr_sheet_danai);
         btn_next = view.findViewById(R.id.btn_selanjutnya_fr_sheet_danai);
+        img_plus = view.findViewById(R.id.img_plus_fr_sheet_danai);
+        img_minus = view.findViewById(R.id.img_minus_fr_sheet_danai);
         /*final int selectedId = rg_metode.getCheckedRadioButtonId();
         radioButton = view.findViewById(selectedId);*/
         radSaldo.setChecked(mSaldo);
         radTfBank.setChecked(mTfBank);
+
+        img_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        img_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         radSaldo.setOnClickListener(new View.OnClickListener() {
             @Override

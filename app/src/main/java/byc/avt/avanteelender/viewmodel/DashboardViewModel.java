@@ -30,6 +30,8 @@ public class DashboardViewModel extends AndroidViewModel {
     private MutableLiveData<String> totActivePort = new MutableLiveData<>();
     private MutableLiveData<String> totPendingPort = new MutableLiveData<>();
     private MutableLiveData<String> resultTopupInstruction = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultRequestWithdrawal = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSubmitWithdrawal = new MutableLiveData<>();
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -98,6 +100,22 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<String> getResultTopupInstruction(){
         return resultTopupInstruction;
+    }
+
+    public void getRequestWithdrawal(String uid, String token){
+        resultRequestWithdrawal = dashboardRepository.requestWithdrawal(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultRequestWithdrawal(){
+        return resultRequestWithdrawal;
+    }
+
+    public void getSubmitWithdrawal(String uid, String token, String vaNo, String amount, String vaBank){
+        resultSubmitWithdrawal = dashboardRepository.submitWithdrawal(uid, token, vaNo, amount, vaBank, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultSubmitWithdrawal(){
+        return resultSubmitWithdrawal;
     }
 
 

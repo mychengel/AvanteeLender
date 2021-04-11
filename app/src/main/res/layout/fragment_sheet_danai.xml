@@ -69,6 +69,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/img"
+        android:foreground="@drawable/selectable_curve"
         app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_fr_sheet_danai"
         app:layout_constraintEnd_toEndOf="@+id/edit_nom_pendanaan_fr_sheet_danai"
         app:srcCompat="@drawable/ic_plus_outline" />
@@ -80,6 +81,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/img"
+        android:foreground="@drawable/selectable_curve"
         app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_fr_sheet_danai"
         app:layout_constraintStart_toStartOf="@+id/edit_nom_pendanaan_fr_sheet_danai"
         app:srcCompat="@drawable/ic_minus_outline" />

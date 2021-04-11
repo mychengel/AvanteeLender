@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coor_penarikan_dana"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_penarikan_dana"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ToolbarTheme">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tb_penarikan_dana"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ToolbarTheme"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
+            app:expandedTitleMargin="16dp"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_penarikan_dana"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:title="@string/penarikan_dana"
+                app:titleTextAppearance="@style/ToolbarTheme"
+                app:titleTextColor="@color/dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_sv_penarikan_dana"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_penarikan_dana"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/lbl_total_saldo_penarikan_dana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:maxLines="2"
+                android:text="@string/total_saldo_tersedia"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/txt_total_saldo_penarikan_dana"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_total_saldo_penarikan_dana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dummy_rp_nol"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbl_total_saldo_penarikan_dana"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbl_total_saldo_penarikan_dana" />
+
+            <TextView
+                android:id="@+id/lbl_isi_nom_penarikan_dana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/isi_nom_penarikan"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_total_saldo_penarikan_dana" />
+
+            <EditText
+                android:id="@+id/edit_nom_pendanaan_penarikan_dana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:ems="10"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:inputType="number"
+                android:paddingStart="80dp"
+                android:paddingEnd="32dp"
+                android:textColor="@color/dark"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_isi_nom_penarikan_dana" />
+
+            <ImageView
+                android:id="@+id/img_plus_penarikan_dana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/img"
+                android:foreground="@drawable/selectable_curve"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintEnd_toEndOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:srcCompat="@drawable/ic_plus_outline" />
+
+            <ImageView
+                android:id="@+id/img_minus_penarikan_dana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/img"
+                android:foreground="@drawable/selectable_curve"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintStart_toStartOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:srcCompat="@drawable/ic_minus_outline" />
+
+            <TextView
+                android:id="@+id/lbl_rp_penarikan_dana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/ibm_plex_sans_semi_bold"
+                android:text="@string/txt_rp"
+                android:textColor="@color/dark"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintStart_toEndOf="@+id/img_minus_penarikan_dana" />
+
+            <TextView
+                android:id="@+id/lbl_info_max_tarik_penarikan_dana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/info_penarikan_dana_maks_1"
+                android:textColor="@color/darkO05"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_next_penarikan_dana"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_state_selector"
+        android:enabled="false"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

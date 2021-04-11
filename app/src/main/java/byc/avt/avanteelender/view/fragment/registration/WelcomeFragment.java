@@ -19,6 +19,7 @@ import android.widget.Button;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
+import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 
 /**
@@ -41,11 +42,14 @@ public class WelcomeFragment extends Fragment {
     Button btn_begin;
     NavController navController;
     ConstraintLayout layout;
-    //Fungsi f = new Fungsi(requireActivity());
+    Fungsi f;
+    GlobalVariables gv;
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        f = new Fungsi(getActivity());
+        gv.perRegData.clear();
         btn_begin = view.findViewById(R.id.btn_welcome_form_begin);
         btn_begin.setOnClickListener(new View.OnClickListener() {
             @Override

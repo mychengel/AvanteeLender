@@ -47,6 +47,7 @@ import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
+import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.features.topup.TopupInstructionActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
@@ -139,7 +140,9 @@ public class DashboardFragment extends Fragment {
         btn_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), PenarikanDanaActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
@@ -224,11 +227,12 @@ public class DashboardFragment extends Fragment {
             try {
                 if(result.getInt("code") == 200){
                     long mywallet = result.getLong("total_dana");
-                    if(mywallet <= 0){
-                        btn_withdraw.setEnabled(false);
-                    }else{
-                        btn_withdraw.setEnabled(true);
-                    }
+//                    if(mywallet <= 0){
+//                        btn_withdraw.setEnabled(false);
+//                    }else{
+//                        btn_withdraw.setEnabled(true);
+//                    }
+                    btn_withdraw.setEnabled(true);
                     lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
                     lbl_saldo_va.setText(f.toNumb(""+result.getInt("total_dana_va")));
 //                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));

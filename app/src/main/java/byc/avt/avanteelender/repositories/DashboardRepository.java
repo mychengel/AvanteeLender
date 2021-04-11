@@ -24,6 +24,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import byc.avt.avanteelender.helper.Fungsi;
@@ -31,6 +32,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
+import byc.avt.avanteelender.model.User;
 
 public class DashboardRepository {
 
@@ -431,6 +433,93 @@ public class DashboardRepository {
                         Document doc = Jsoup.parse(String.valueOf(response));
                         result.setValue(doc.toString());
                         Log.e("PanDuan", doc.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> requestWithdrawal(final String uid, final String token, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/requestWithdrawal", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("RequestWithdrawal", response.toString());
+                        result.setValue(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> submitWithdrawal(final String uid, final String token, final String vaNo, final String amount, final String vaBank, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Map<String, String> params = new HashMap<>();
+        params.put("va_no", vaNo);
+        params.put("amount", amount);
+        params.put("va_bank", vaBank);
+        JSONObject parameters = new JSONObject(params);
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/submitWithdrawal", parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("WithdrawalResponse", response.toString());
+                        result.setValue(response);
                     }
                 },
                 new Response.ErrorListener() {

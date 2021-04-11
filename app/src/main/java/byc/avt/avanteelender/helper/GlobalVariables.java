@@ -40,6 +40,12 @@ public final class GlobalVariables {
             "$");
 
     public static Map<String, Object> perRegData = new HashMap<>();
+    public static boolean stPerPersonalData;
+    public static boolean stPerWorkInfo;
+    public static boolean stPerAddressData;
+    public static boolean stPerBankInfo;
+    public static boolean stPerDocument;
+
     public static Map<String, Object> insRegData = new HashMap<>();
 
     public static Map<String, String> API_ACCESS(){
