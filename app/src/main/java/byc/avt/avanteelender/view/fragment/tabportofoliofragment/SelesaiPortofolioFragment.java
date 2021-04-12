@@ -42,7 +42,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     private TextView txt_tot_pinjaman_selesai, txt_tot_pb_selesai, txt_tot_nom_selesai;
-    double tot_pb_selesai = 0, tot_nom_selesai = 0;
+    int tot_pb_selesai, tot_nom_selesai;
     private RecyclerView rv;
     ConstraintLayout cons, cons_lottie;
 
@@ -85,6 +85,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     private Observer<JSONObject> showDataHeader = new Observer<JSONObject>() {
         @Override
         public void onChanged(JSONObject result) {
+            Log.e("PortSelesai",result.toString());
             JSONArray rows;
             tot_pb_selesai = 0;
             tot_nom_selesai = 0;
@@ -96,11 +97,10 @@ public class SelesaiPortofolioFragment extends Fragment {
                 if(rows.length()==0){
                 }else{
                     for(int i = 0; i < rows.length(); i++){
-                        tot_pb_selesai = tot_pb_selesai + Float.parseFloat(rows.getJSONObject(i).getString("payment_amount"));
-                        tot_nom_selesai = tot_nom_selesai + Float.parseFloat(rows.getJSONObject(i).getString("nominal"));
+                        tot_pb_selesai = tot_pb_selesai + (int) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
+                        tot_nom_selesai = tot_nom_selesai + (int) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
                     }
                 }
-
                 txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
                 txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
 
