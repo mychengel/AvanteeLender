@@ -5,7 +5,7 @@
     android:id="@+id/cons_fr_sheet_tkb"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".TkbSheetFragment">
+    tools:context=".view.sheet.TkbSheetFragment">
 
     <ImageView
         android:id="@+id/img_handle_fr_sheet_tkb"

@@ -5,7 +5,7 @@
     android:id="@+id/cons_fr_sheet_confirmation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="48dp"
+    android:paddingBottom="56dp"
     tools:context=".view.sheet.ConfirmationSheetFragment">
 
     <ImageView
@@ -23,7 +23,7 @@
         android:id="@+id/lottie_fr_sheet_confirmation"
         android:layout_width="132dp"
         android:layout_height="132dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

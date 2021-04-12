@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,6 +26,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
     private Dialog dialog;
+    private TextView linkForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +52,23 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         prefManager = PrefManager.getInstance(LoginActivity.this);
-
+        linkForgotPassword = findViewById(R.id.txt_forgot_password_masuk);
         dialog = GlobalVariables.loadingDialog(LoginActivity.this);
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
         btnLogin = findViewById(R.id.btn_masuk);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
+
+        linkForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(f.clickAnim());
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
 
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
             @Override

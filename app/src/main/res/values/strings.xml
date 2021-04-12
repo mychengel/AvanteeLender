@@ -53,8 +53,10 @@
 
     <!-- TODO: Authentication Forgot Password -->
     <string name="reset_password">Atur ulang kata sandi</string>
+    <string name="reset_password_email">Masukkan alamat email Anda dan kami akan mengirimkan email berisi tautan untuk mengatur ulang kata sandi.</string>
     <string name="reset_password_desc">Masukkan no. handphone Anda dan kami akan mengirimkan SMS berisi tautan untuk mengatur ulang kata sandi.</string>
     <string name="reset">Atur ulang</string>
+    <string name="reset_failed">Pengiriman tautan atur ulang kata sandi gagal, silahkan cek kembali email yang Anda isikan</string>
     <string name="reset_message">Klik tautan dalam SMS tersebut untuk mengatur ulang kata sandi Anda.</string>
 
     <!-- TODO: New User Get Started Screen -->

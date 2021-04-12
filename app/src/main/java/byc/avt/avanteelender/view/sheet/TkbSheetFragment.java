@@ -1,19 +1,14 @@
-package byc.avt.avanteelender;
+package byc.avt.avanteelender.view.sheet;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import byc.avt.avanteelender.view.sheet.DanaiSheetFragment;
+import byc.avt.avanteelender.R;
 
 
 public class TkbSheetFragment extends BottomSheetDialogFragment {
