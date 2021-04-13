@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -198,14 +199,16 @@ public class AuthenticationRepository {
     public MutableLiveData<JSONObject> resetPassword(final String email, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        Map<String, String> params = new HashMap<>();
-        params.put("email", email);
-        JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/auth/lupa_password", parameters,
-                new Response.Listener<JSONObject>() {
+        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/auth/lupa_password",
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        result.setValue(response);
+                    public void onResponse(String response) {
+                        try {
+                            result.setValue(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("resetPassResult", response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -220,6 +223,14 @@ public class AuthenticationRepository {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS();
             }
+
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+
         };
         requestQueue.getCache().clear();
         requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {

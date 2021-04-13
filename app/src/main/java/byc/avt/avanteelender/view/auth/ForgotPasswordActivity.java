@@ -38,6 +38,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button btn_atur_ulang;
     private TextInputLayout editEmail;
     String email = "";
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +72,22 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btn_atur_ulang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //resetPassword();
-                new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), getString(R.string.reset_failed));
-                ConfirmationSheetFragment resentEmailFragment = ConfirmationSheetFragment.getInstance();
-                resentEmailFragment.show(getSupportFragmentManager(), resentEmailFragment.getTag());
+                count++;
+                resetPassword();
+//                new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), getString(R.string.reset_failed));
+//                ConfirmationSheetFragment resentEmailFragment = ConfirmationSheetFragment.getInstance();
+//                resentEmailFragment.show(getSupportFragmentManager(), resentEmailFragment.getTag());
             }
         });
     }
 
     public void resetPassword() {
         // POST to server through endpoint
+        if(count > 0){
+            btn_atur_ulang.setText(getString(R.string.resend));
+        }else{
+            btn_atur_ulang.setText(getString(R.string.reset));
+        }
         dialog.show();
         viewModel.resetPassword(email);
         viewModel.getResultResetPassword().observe(ForgotPasswordActivity.this, showResult);
@@ -102,6 +109,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            dialog.cancel();
         }
     };
 
