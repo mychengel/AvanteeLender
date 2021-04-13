@@ -54,6 +54,47 @@ public class AuthenticationRepository {
         return repository;
     }
 
+    public MutableLiveData<JSONObject> getAccountData(final String uid, final String token, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dokumen", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("AccountData", response.toString());
+                        result.setValue(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
     ///Method to post user data for register
     public MutableLiveData<JSONObject> registration(User user, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();

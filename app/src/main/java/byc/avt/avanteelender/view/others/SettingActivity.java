@@ -24,6 +24,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.view.features.account.SettingAccountActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class SettingActivity extends AppCompatActivity {
@@ -69,9 +70,9 @@ public class SettingActivity extends AppCompatActivity {
         cvAccountSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.enter, R.anim.exit);
+                Intent intent = new Intent(SettingActivity.this, SettingAccountActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 

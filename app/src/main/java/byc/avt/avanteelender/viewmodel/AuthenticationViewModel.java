@@ -16,6 +16,7 @@ import byc.avt.avanteelender.repositories.AuthenticationRepository;
 
 public class AuthenticationViewModel extends AndroidViewModel {
     private AuthenticationRepository authenticationRepository;
+    private MutableLiveData<JSONObject> resultAccountData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
     private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
@@ -27,6 +28,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
         authenticationRepository = AuthenticationRepository.getInstance();
+    }
+
+    public void getAccountData(String uid, String token){
+        resultAccountData = authenticationRepository.getAccountData(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultAccountData(){
+        return resultAccountData;
     }
 
     public void register(User user){

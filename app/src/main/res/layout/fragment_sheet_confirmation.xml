@@ -5,7 +5,7 @@
     android:id="@+id/cons_fr_sheet_confirmation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="56dp"
+    android:paddingBottom="48dp"
     tools:context=".view.sheet.ConfirmationSheetFragment">
 
     <ImageView

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -101,8 +102,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     JSONObject job = result.getJSONObject("result");
                     String msg = job.getString("message");
                     new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), msg);
-                    ConfirmationSheetFragment resentEmailFragment = ConfirmationSheetFragment.getInstance();
-                    resentEmailFragment.show(getSupportFragmentManager(), resentEmailFragment.getTag());
+                    ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
+                    sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            onBackPressed();
+//                        }
+//                    }, 3000);
                 }else{
                     f.showMessage(getString(R.string.reset_failed));
                 }

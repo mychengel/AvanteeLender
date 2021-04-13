@@ -279,6 +279,7 @@ public class DashboardFragment extends Fragment {
                 headerdone = true;
             }else{
                 txt_code.setText(result.get(0).getUser_code());
+                GlobalVariables.LENDER_CODE = result.get(0).getUser_code();
                 headerdone = true;
             }
             cekDone();

@@ -30,6 +30,8 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.view.others.RiskInfoActivity;
+import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
+import byc.avt.avanteelender.view.sheet.WithdrawalConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
@@ -46,7 +48,8 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     EditText edit_nominal;
     long nominal_tarik_int = 0;
     String nominal_tarik_show="", current="";
-    int ewallet = 0;
+    int ewallet = 0, maxTarik = 0;
+    String namaBank="", noRek="", vaNo="", namaPemilikBank="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,13 +108,6 @@ public class PenarikanDanaActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-//                nominal_tarik_str = edit_nominal_tarik.getText().toString().trim();
-//                nominal_tarik_int = Integer.parseInt(nominal_tarik_str);
-//                nominal_tarik_show = f.toNumb(nominal_tarik_str);
-//                nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-//                edit_nominal_tarik.setText(nominal_tarik_show);
-//                Log.e("Tampilnya_Str", nominal_tarik_str);
-//                Log.e("Tampilnya_Int", ""+nominal_tarik_int);
             }
         });
 
@@ -177,7 +173,9 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new WithdrawalConfirmationSheetFragment((int) nominal_tarik_int, namaBank, noRek, namaPemilikBank, vaNo);
+                WithdrawalConfirmationSheetFragment withdrawalConfirmationSheetFragment = WithdrawalConfirmationSheetFragment.getInstance();
+                withdrawalConfirmationSheetFragment.show(getSupportFragmentManager(), withdrawalConfirmationSheetFragment.getTag());
             }
         });
 
@@ -198,12 +196,11 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         viewModel.getResultRequestWithdrawal().observe(PenarikanDanaActivity.this, showData);
     }
 
-    String vaNo="";
     private Observer<JSONObject> showData = new Observer<JSONObject>() {
         @Override
         public void onChanged(JSONObject result) {
             try {
-                int maxTarik = 0;
+                maxTarik = 0;
                 ewallet = result.getInt("ewallet");
                 txt_saldo_tersedia.setText(f.toNumb(""+ewallet));
                 if(ewallet < 1000000){
@@ -214,7 +211,9 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                 txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+getString(R.string.info_penarikan_dana_maks_2));
                 JSONObject job = result.getJSONObject("info_ewallet");
                 vaNo = job.getString("va_no");
-                Log.e("va_no", vaNo);
+                namaBank = job.getString("bank_name");
+                noRek = job.getString("bank_account_no");
+                namaPemilikBank = job.getString("bank_account_holder");
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -19,6 +19,8 @@ public final class GlobalVariables {
     public static final String BASE_URL = "https://avantee.co.id:8444/api/";
     public static final String BASE_URL2 = "https://avantee.co.id:8444/api/internal/";
     public static final String IMG_URL = "https://avantee.co.id:8444/assets/images/";
+    public static final int BIAYA_PENARIKAN = 6000;
+    public static String LENDER_CODE;
     public static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
             "(?=.*[0-9])" +         //at least has 1 number
             "(?=.*[a-z])" +         //at least has 1 lower case letter

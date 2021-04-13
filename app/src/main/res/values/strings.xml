@@ -144,6 +144,7 @@
     <string name="bank_info">Informasi rekening</string>
     <string name="bank_name">Nama bank</string>
     <string name="account_name">Nama pemilik rekening</string>
+    <string name="name">Nama</string>
     <string name="account_number">No. rekening</string>
     <string name="avg_transaction">Rata-rata transaksi</string>
 
@@ -355,5 +356,15 @@
     <string name="info_penarikan_dana_maks_2"> (saldo tersedia dipotong biaya penarikan sebesar 6.000). Penarikan dana kelipatan Rp1.000.000.</string>
     <string name="reach_limit_withdrawal">Anda telah mencapai batas maksimum penarikan dana dengan kelipatan Rp1.000.000</string>
     <string name="reach_limit_number">Nominal yang diinputkan melebihi batas seharusnya</string>
+    <string name="desc_withdrawal_conf">Anda akan melakukan penarikan dana dengan detail sebagai berikut:</string>
+    <string name="confirmation">Konfirmasi</string>
+    <string name="withdrawal_nominal">Nominal penarikan</string>
+    <string name="withdrawal_fee">Biaya penarikan</string>
+    <string name="withdrawal_success">Penarikan dana berhasil</string>
+    <string name="withdrawal_in_process">Penarikan dana sedang diproses</string>
+    <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Kami akan mengirimkan notifikasi saat dana telah ditransfer ke rekening bank Anda.</string>
+    <string name="dana_akan_ditransfer_ke">Dana akan ditransfer ke:</string>
+    <string name="total_yang_akan_diterima">Total yang akan diterima</string>
+    <string name="change_pass">Ubah kata sandi</string>
 
 </resources>
