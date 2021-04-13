@@ -89,7 +89,7 @@ public class Fungsi {
         String hsl = "";
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        if(numb == null || numb == "null"){
+        if(numb == null || numb == "null" || numb == "" || numb.isEmpty()){
             hsl = "Rp0";
         }else{
             if(numb.contains(".")){

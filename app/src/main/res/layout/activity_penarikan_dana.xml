@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbl_total_saldo_penarikan_dana" />
 
             <EditText
-                android:id="@+id/edit_nom_pendanaan_penarikan_dana"
+                android:id="@+id/edit_nom_penarikan_dana"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -107,7 +107,7 @@
                 android:ems="10"
                 android:fontFamily="@font/ibm_plex_sans_semi_bold"
                 android:inputType="number"
-                android:paddingStart="80dp"
+                android:paddingStart="76dp"
                 android:paddingEnd="32dp"
                 android:textColor="@color/dark"
                 android:textSize="30sp"
@@ -123,8 +123,8 @@
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/img"
                 android:foreground="@drawable/selectable_curve"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
-                app:layout_constraintEnd_toEndOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_penarikan_dana"
+                app:layout_constraintEnd_toEndOf="@+id/edit_nom_penarikan_dana"
                 app:srcCompat="@drawable/ic_plus_outline" />
 
             <ImageView
@@ -135,8 +135,8 @@
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/img"
                 android:foreground="@drawable/selectable_curve"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
-                app:layout_constraintStart_toStartOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_penarikan_dana"
+                app:layout_constraintStart_toStartOf="@+id/edit_nom_penarikan_dana"
                 app:srcCompat="@drawable/ic_minus_outline" />
 
             <TextView
@@ -149,7 +149,7 @@
                 android:text="@string/txt_rp"
                 android:textColor="@color/dark"
                 android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_nom_penarikan_dana"
                 app:layout_constraintStart_toEndOf="@+id/img_minus_penarikan_dana" />
 
             <TextView
@@ -164,7 +164,7 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_nom_pendanaan_penarikan_dana" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_nom_penarikan_dana" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

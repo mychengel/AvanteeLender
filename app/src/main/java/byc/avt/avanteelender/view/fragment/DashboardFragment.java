@@ -227,12 +227,11 @@ public class DashboardFragment extends Fragment {
             try {
                 if(result.getInt("code") == 200){
                     long mywallet = result.getLong("total_dana");
-//                    if(mywallet <= 0){
-//                        btn_withdraw.setEnabled(false);
-//                    }else{
-//                        btn_withdraw.setEnabled(true);
-//                    }
-                    btn_withdraw.setEnabled(true);
+                    if(mywallet <= 0){
+                        btn_withdraw.setEnabled(false);
+                    }else{
+                        btn_withdraw.setEnabled(true);
+                    }
                     lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
                     lbl_saldo_va.setText(f.toNumb(""+result.getInt("total_dana_va")));
 //                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));

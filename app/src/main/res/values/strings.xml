@@ -352,6 +352,8 @@
     <string name="no">Tidak</string>
     <string name="total_saldo_tersedia">Total saldo tersedia</string>
     <string name="info_penarikan_dana_maks_1">Dana maksimum yang bisa Anda tarik adalah sebesar </string>
-    <string name="info_penarikan_dana_maks_2"> (saldo tersedia dipotong biaya penarikan sebesar 6.000).</string>
+    <string name="info_penarikan_dana_maks_2"> (saldo tersedia dipotong biaya penarikan sebesar 6.000). Penarikan dana kelipatan Rp1.000.000.</string>
+    <string name="reach_limit_withdrawal">Anda telah mencapai batas maksimum penarikan dana dengan kelipatan Rp1.000.000</string>
+    <string name="reach_limit_number">Nominal yang diinputkan melebihi batas seharusnya</string>
 
 </resources>

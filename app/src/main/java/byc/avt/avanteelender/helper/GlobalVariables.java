@@ -52,8 +52,8 @@ public final class GlobalVariables {
         //final String basicAuth = "Basic " + Base64.encodeToString("Av@nTe3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
         final String basicAuth = "Basic " + Base64.encodeToString("B@code3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
         Map<String, String> header = new HashMap<>();
-        //header.put("Content-Type", "application/json; charset=utf-8");
         header.put("Authorization", basicAuth);
+        //header.put("Content-Type", "application/json; charset=utf-8");
         //header.put("X-API-KEY", "G2HN@D4N483RS@MA");
         //header.put("userid", "baycode");
         return header;
@@ -63,10 +63,10 @@ public final class GlobalVariables {
         //final String basicAuth = "Basic " + Base64.encodeToString("Av@nTe3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
         final String basicAuth = "Basic " + Base64.encodeToString("B@code3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
         Map<String, String> header = new HashMap<>();
-        //header.put("Content-Type", "application/json; charset=utf-8");
         header.put("Authorization", basicAuth);
         header.put("Token", token);
         header.put("Uid", uid);
+        //header.put("Content-Type", "application/json; charset=utf-8");
         return header;
     }
 
