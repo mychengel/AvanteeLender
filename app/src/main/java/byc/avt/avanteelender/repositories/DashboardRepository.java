@@ -514,7 +514,7 @@ public class DashboardRepository {
         params.put("amount", amount);
         params.put("va_bank", vaBank);
         JSONObject parameters = new JSONObject(params);
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/submitWithdrawal", parameters,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/lender/submitWithdrawal", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

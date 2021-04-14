@@ -38,7 +38,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.features.account.SettingAccountActivity"></activity>
+        <activity android:name=".view.features.account.DataPendukungShowActivity"></activity>
+        <activity android:name=".view.features.account.AddressDataShowActivity" />
+        <activity android:name=".view.features.account.BankInfoShowActivity" />
+        <activity android:name=".view.features.account.WorkInfoShowActivity" />
+        <activity android:name=".view.features.account.PersonalDataShowActivity" />
+        <activity android:name=".view.features.account.SettingAccountActivity" />
         <activity android:name=".view.sheet.WithdrawalConfirmationSheetFragment" />
         <activity android:name=".view.auth.ForgotPasswordActivity" />
         <activity android:name=".view.features.penarikan.PenarikanDanaActivity" />

@@ -1,7 +1,9 @@
 package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -14,16 +16,22 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioAktifDetail;
@@ -43,6 +51,97 @@ public class AktifPortofolioRepository {
             repository = new AktifPortofolioRepository();
         }
         return repository;
+    }
+
+    public MutableLiveData<String> downloadSuratKuasa(final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        String myurl = url+"internal/portofolio/download_suratkuasa";
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+                                result.setValue(response.toString());
+                                Log.e("ResponSuratKuasa", response.toString());
+                                String filename = "AvanteeSuratKuasa.pdf";
+//                                ContextWrapper contextWrapper = new ContextWrapper(context);
+//                                File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
+//                                File file =  new File(directory,filename);
+                                FileOutputStream outputStream;
+                                outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+                                //outputStream = new FileOutputStream(new File(context.getFilesDir(),filename));
+                                outputStream.write(response);
+                                outputStream.close();
+
+                                Toast.makeText(context, "Download selesai.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+// TODO handle the error
+                error.printStackTrace();
+            }
+        }, null)
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        mRequestQueue.add(request);
+        return result;
+    }
+
+    public MutableLiveData<String> downloadSuratKuasax(final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/portofolio/download_suratkuasa",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Document doc = Jsoup.parse(String.valueOf(response));
+                        result.setValue(response.toString());
+                        Log.e("DownloadSuratKuasa", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
     }
 
     public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {

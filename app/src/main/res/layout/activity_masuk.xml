@@ -105,12 +105,23 @@
                 android:id="@+id/txt_forgot_password_masuk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/cb_remember_me_masuk"
                 app:layout_constraintEnd_toEndOf="@+id/edit_password_masuk"
-                app:layout_constraintTop_toTopOf="@+id/cb_remember_me_masuk" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_password_masuk" />
+
+            <TextView
+                android:id="@+id/txt_not_received_confirmation_email_masuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/not_received_confirmation_email"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/edit_password_masuk"
+                app:layout_constraintTop_toBottomOf="@+id/txt_forgot_password_masuk" />
 
             <CheckBox
                 android:id="@+id/cb_remember_me_masuk"

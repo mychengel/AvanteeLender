@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,6 +46,7 @@ public class AktifPortofolioFragment extends Fragment {
     private TextView txt_tot_pinjaman_aktif, txt_tot_pinjaman_terlambat, txt_tot_angs_bunga_selanjutnya, txt_tot_angs_bunga_dibayar;
     int tot_angs_bunga_selanjutnya=0, tot_angs_bunga_dibayar=0, tot_pinjaman_aktif=0, tot_pinjaman_terlambat=0;
     private RecyclerView rv;
+    private CardView cv_download_surat_kuasa, cv_download_perjanjian_kerja_sama;
     ConstraintLayout cons, cons_lottie;
 
     public static AktifPortofolioFragment newInstance() {
@@ -72,6 +74,25 @@ public class AktifPortofolioFragment extends Fragment {
         cons_lottie = v.findViewById(R.id.cons_lottie_port_aktif);
         cons = v.findViewById(R.id.cons_port_aktif);
         cons.setVisibility(View.INVISIBLE);
+
+        cv_download_surat_kuasa = v.findViewById(R.id.cv_download_surat_kuasa_port_aktif);
+        cv_download_surat_kuasa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+            }
+        });
+
+        cv_download_perjanjian_kerja_sama = v.findViewById(R.id.cv_download_surat_kerja_sama_port_aktif);
+        cv_download_perjanjian_kerja_sama.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         loadData();
         //f.showMessage("Portofolio AKTIF");
     }
@@ -83,6 +104,13 @@ public class AktifPortofolioFragment extends Fragment {
         viewModel.portofolioAktifList(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultList().observe(getActivity(), showDataList);
     }
+
+    private Observer<String> showResultDownloadSuratKuasa = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            dialog.cancel();
+        }
+    };
 
     private Observer<JSONObject> showDataHeader = new Observer<JSONObject>() {
         @Override

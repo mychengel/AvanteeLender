@@ -366,5 +366,8 @@
     <string name="dana_akan_ditransfer_ke">Dana akan ditransfer ke:</string>
     <string name="total_yang_akan_diterima">Total yang akan diterima</string>
     <string name="change_pass">Ubah kata sandi</string>
+    <string name="surat_kuasa">Surat Kuasa</string>
+    <string name="perjanjian_kerja_sama">Perjanjian Kerja Sama</string>
+    <string name="not_received_confirmation_email">Belum terima email konfirmasi?</string>
 
 </resources>

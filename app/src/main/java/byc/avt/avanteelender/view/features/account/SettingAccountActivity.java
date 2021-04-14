@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -102,35 +103,51 @@ public class SettingAccountActivity extends AppCompatActivity {
         cv_personal_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, PersonalDataShowActivity.class);
+                intent.putExtra("jobPersonalData", jobDataPribadi.toString());
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
         cv_job_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, WorkInfoShowActivity.class);
+                intent.putExtra("jobWorkInfo", jobDataPekerjaan.toString());
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
         cv_address_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, AddressDataShowActivity.class);
+                intent.putExtra("jobAddressDataKTP", jobDataAlamatKTP.toString());
+                intent.putExtra("jobAddressDataDomicile", jobDataAlamatDomisili.toString());
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
         cv_bank_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, BankInfoShowActivity.class);
+                intent.putExtra("jobBankInfo", jobDataRekBank.toString());
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
         cv_essential_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, DataPendukungShowActivity.class);
+                intent.putExtra("jobEssDocument", jobDataDokumenPendukung.toString());
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 

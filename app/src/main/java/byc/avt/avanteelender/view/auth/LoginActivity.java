@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private AuthenticationViewModel viewModel;
     private PrefManager prefManager;
     private Dialog dialog;
-    private TextView linkForgotPassword;
+    private TextView linkForgotPassword, notReceivedConfirmationEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         prefManager = PrefManager.getInstance(LoginActivity.this);
         linkForgotPassword = findViewById(R.id.txt_forgot_password_masuk);
+        notReceivedConfirmationEmail = findViewById(R.id.txt_not_received_confirmation_email_masuk);
         dialog = GlobalVariables.loadingDialog(LoginActivity.this);
         editEmail = findViewById(R.id.edit_email_masuk);
         editPassword = findViewById(R.id.edit_password_masuk);
@@ -67,6 +68,14 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+
+        notReceivedConfirmationEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.startAnimation(f.clickAnim());
+
             }
         });
 

@@ -94,7 +94,6 @@ public class PersonalDataFragment extends Fragment {
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
         gv.stPerWorkInfo = false;
-
         auto_kewarganegaraan = view.findViewById(R.id.auto_kewarganegaraan_fr_personal_data);
         auto_status = view.findViewById(R.id.auto_status_fr_personal_data);
         auto_religion = view.findViewById(R.id.auto_religion_fr_personal_data);
