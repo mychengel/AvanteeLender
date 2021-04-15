@@ -73,7 +73,7 @@ public class PersonalDataShowActivity extends AppCompatActivity {
             radButtonGender.setChecked(true);
             txtName.getEditText().setText(job.getString("name"));
             txtBirthPlace.getEditText().setText(job.getString("birth_place"));
-            txtBirthPlace.getEditText().setText(job.getString("birth_date"));
+            txtBirthDate.getEditText().setText(job.getString("birth_date"));
             txtCivil.getEditText().setText(job.getString("citizenship"));
             txtStatus.getEditText().setText(job.getString("marital_status"));
             txtReligion.getEditText().setText(job.getString("religion"));

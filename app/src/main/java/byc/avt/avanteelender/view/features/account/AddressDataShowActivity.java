@@ -65,8 +65,8 @@ public class AddressDataShowActivity extends AppCompatActivity {
             txtKtpCity.getEditText().setText(job1.getString("identity_city"));
             txtKtpDistrict.getEditText().setText(job1.getString("identity_district"));
             txtKtpUrban.getEditText().setText(job1.getString("identity_village"));
-            //txtKtpRT.getEditText().setText(job1.getString("identity_rt"));
-            //txtKtpRW.getEditText().setText(job1.getString("identity_rw"));
+            txtKtpRT.getEditText().setText(job1.getString("identity_rt"));
+            txtKtpRW.getEditText().setText(job1.getString("identity_rw"));
             txtKtpPostalCode.getEditText().setText(job1.getString("identity_postal_code"));
 
             job2 = new JSONObject(i.getStringExtra("jobAddressDataDomicile"));
@@ -76,8 +76,8 @@ public class AddressDataShowActivity extends AppCompatActivity {
             txtDomicileCity.getEditText().setText(job2.getString("clients_city"));
             txtDomicileDistrict.getEditText().setText(job2.getString("clients_district"));
             txtDomicileUrban.getEditText().setText(job2.getString("clients_village"));
-            //txtDomicileRT.getEditText().setText(job2.getString("clients_rt"));
-            //txtDomicileRW.getEditText().setText(job2.getString("clients_rw"));
+            txtDomicileRT.getEditText().setText(job2.getString("rt"));
+            txtDomicileRW.getEditText().setText(job2.getString("rw"));
             txtDomicilePostalCode.getEditText().setText(job2.getString("clients_postal_code"));
 
         } catch (JSONException e) {

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import byc.avt.avanteelender.model.Blog;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.model.User;
@@ -32,6 +33,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private MutableLiveData<String> resultTopupInstruction = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultRequestWithdrawal = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSubmitWithdrawal = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Blog>> resultBlog = new MutableLiveData<>();
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -116,6 +118,14 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultSubmitWithdrawal(){
         return resultSubmitWithdrawal;
+    }
+
+    public void getBlog(String uid, String token){
+        resultBlog = dashboardRepository.getBlog(uid, token, getApplication());
+    }
+
+    public LiveData<ArrayList<Blog>> getResultBlog(){
+        return resultBlog;
     }
 
 

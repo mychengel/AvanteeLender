@@ -6,7 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,9 +20,21 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.adapter.BlogAdapter;
+import byc.avt.avanteelender.adapter.PortofolioPendingAdapter;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.Blog;
+import byc.avt.avanteelender.model.PortofolioPending;
+import byc.avt.avanteelender.view.others.RiskInfoActivity;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
+import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,8 +84,11 @@ public class InfoNotificationsFragment extends Fragment {
     }
 
     private Dialog dialog;
-    private ProgressBar prog;
-    private WebView simpleWebView;
+    Fungsi f = new Fungsi(getActivity());
+    private PrefManager prefManager;
+    private TextView txt_no_data;
+    private DashboardViewModel viewModel;
+    private RecyclerView rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,50 +99,35 @@ public class InfoNotificationsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(getActivity()).get(DashboardViewModel.class);
         dialog = GlobalVariables.loadingDialog(requireActivity());
-        prog = view.findViewById(R.id.prog_fr_notif_info);
-        simpleWebView = view.findViewById(R.id.wv_fr_notif_info);
-        simpleWebView.setNestedScrollingEnabled(true);
-        simpleWebView.setVerticalScrollBarEnabled(true);
-        //simpleWebView.setHorizontalScrollBarEnabled(true);
-        simpleWebView.requestFocus();
-        simpleWebView.getSettings().setDomStorageEnabled(true);
-        simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
-        simpleWebView.getSettings().setJavaScriptEnabled(true);
-        simpleWebView.setWebViewClient(new MyWebViewClient());
-        String url = "https://avantee.co.id:8444/blog";
-        simpleWebView.loadUrl(url);
+        prefManager = PrefManager.getInstance(getActivity());
+        txt_no_data = view.findViewById(R.id.txt_no_data_fr_notif_info);
+        txt_no_data.setVisibility(View.GONE);
+        rv = view.findViewById(R.id.rv_fr_notif_info);
+        loadData();
+    }
 
-        simpleWebView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                view.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
+    private void loadData(){
+        dialog.show();
+        viewModel.getBlog(prefManager.getUid(), prefManager.getToken());
+        viewModel.getResultBlog().observe(getActivity(), showData);
+    }
+
+    private Observer<ArrayList<Blog>> showData = new Observer<ArrayList<Blog>>() {
+        @Override
+        public void onChanged(ArrayList<Blog> result) {
+            if(result.isEmpty()){
+                txt_no_data.setVisibility(View.VISIBLE);
+            }else{
+                txt_no_data.setVisibility(View.GONE);
+                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                BlogAdapter blogAdapter = new BlogAdapter(getActivity());
+                blogAdapter.setListBlog(result);
+                rv.setAdapter(blogAdapter);
             }
-        });
-
-    }
-
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            // TODO Auto-generated method stub
-            super.onPageStarted(view, url, favicon);
-            prog.setVisibility(View.VISIBLE);
+            dialog.cancel();
         }
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url); // load the url
-            return true;
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            // TODO Auto-generated method stub
-            super.onPageFinished(view, url);
-            prog.setVisibility(View.GONE);
-        }
-    }
+    };
 
 }

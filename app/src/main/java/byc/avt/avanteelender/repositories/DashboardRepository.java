@@ -30,6 +30,7 @@ import java.util.Map;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.Blog;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.model.User;
@@ -520,6 +521,61 @@ public class DashboardRepository {
                     public void onResponse(JSONObject response) {
                         Log.e("WithdrawalResponse", response.toString());
                         result.setValue(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<ArrayList<Blog>> getBlog(final String uid, final String token, Context context) {
+        final MutableLiveData<ArrayList<Blog>> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/blog", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //result.setValue(response);
+                        try {
+                            JSONObject job = response.getJSONObject("result");
+                            JSONArray jar = job.getJSONArray("data");
+                            ArrayList<Blog> list = new ArrayList<>();
+                            for(int i = 0; i < jar.length(); i++){
+                                Blog b = new Blog(jar.getJSONObject(i).getString("picture_bg"),jar.getJSONObject(i).getString("blog_title"),
+                                        jar.getJSONObject(i).getString("blog_slug"),jar.getJSONObject(i).getString("blog_text"),jar.getJSONObject(i).getString("category"),
+                                        jar.getJSONObject(i).getString("created_date"),jar.getJSONObject(i).getString("created_by"));
+                                list.add(b);
+                            }
+                            result.setValue(list);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {

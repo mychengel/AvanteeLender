@@ -77,10 +77,10 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             radButtonIsOnlineBased.setChecked(true);
             txtJob.getEditText().setText(job.getString("client_job"));
             txtJobField.getEditText().setText(job.getString("client_job_type"));
-            //txtJobPosition.getEditText().setText(job.getString("client_job_position"));
+            txtJobPosition.getEditText().setText(job.getString("job_position"));
             txtExperience.getEditText().setText(job.getString("job_experience").replaceAll("[lgt;&]", ""));
             txtIncome.getEditText().setText(job.getString("income"));
-            //txtCompanyName.getEditText().setText(job.getString("company_name"));
+            txtCompanyName.getEditText().setText(job.getString("company_name"));
             txtCompanyNumber.getEditText().setText(job.getString("office_phone"));
             txtFundsSource.getEditText().setText(job.getString("source_funds"));
             txtCompanyAddress.getEditText().setText(job.getString("company_address"));
