@@ -38,7 +38,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".adapter.BlogAdapter"></activity>
+        <activity android:name=".view.others.BlogDetailActivity"></activity>
+        <activity android:name=".adapter.BlogAdapter" />
         <activity android:name=".view.features.account.DataPendukungShowActivity" />
         <activity android:name=".view.features.account.AddressDataShowActivity" />
         <activity android:name=".view.features.account.BankInfoShowActivity" />
@@ -83,9 +84,9 @@
             android:name=".view.auth.LoginActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -93,9 +94,7 @@
                     android:host="avanteeapps.com"
                     android:scheme="https"
                     tools:ignore="AppLinkUrlError" />
-
             </intent-filter>
-
         </activity>
         <activity
             android:name=".view.auth.RegistrationActivity"

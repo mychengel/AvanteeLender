@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,16 +21,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.Blog;
+import byc.avt.avanteelender.view.features.account.DataPendukungShowActivity;
 import byc.avt.avanteelender.view.features.account.SettingAccountActivity;
+import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
+import byc.avt.avanteelender.view.others.BlogDetailActivity;
 
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.CardViewViewHolder>{
 
@@ -60,8 +68,8 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.CardViewViewHo
     public void onBindViewHolder(@NonNull final BlogAdapter.CardViewViewHolder holder, int position) {
         final Blog b = getListBlog().get(position);
         holder.lbl_title.setText(b.getTitle());
-        holder.lbl_by.setText("Dipost oleh: "+b.getCreated_by());
-        holder.lbl_date.setText(b.getCreated_date().substring(0,19));
+        holder.lbl_by.setText("Ditulis oleh: "+b.getCreated_by());
+        holder.lbl_date.setText(f.tglFull(b.getCreated_date()));
 //        Glide.with(context).load(b.getImg())
 //                .apply(RequestOptions.skipMemoryCacheOf(true))
 //                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -78,16 +86,40 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.CardViewViewHo
                         if (resource.getConstantState() == null) {
                             holder.img.setImageResource(R.drawable.ic_baseline_no_photography_24);
                         }else{
-                            Drawable newdrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmapSquare(bitmap), 248, 248, true));
+                            Drawable newdrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmapSquare(bitmap), 272, 248, true));
                             holder.img.setImageDrawable(newdrawable);
                         }
                     }
                 });
 
+//        Glide.with(context).load(b.getImg())
+//                .placeholder(R.drawable.ic_baseline_no_photography_24)
+//                .error(R.drawable.ic_baseline_no_photography_24)
+//                .dontAnimate()
+//                .apply(RequestOptions.skipMemoryCacheOf(true))
+//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+//                .listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        return false;
+//                    }
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
+//                        Drawable newdrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmapSquare(bitmap), 272, 248, true));
+//                        holder.img.setImageDrawable(newdrawable);
+//                        return false;
+//                    }
+//                })
+//                .into(holder.img);
+
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(context, BlogDetailActivity.class);
+                i.putExtra("blog", b);
+                context.startActivity(i);
+                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
     }

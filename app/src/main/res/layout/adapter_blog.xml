@@ -11,12 +11,8 @@
         android:id="@+id/cv_adp_blog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:foreground="@drawable/selectable_square"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +26,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_img_adp_blog"
-                android:layout_width="80dp"
+                android:layout_width="88dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +54,6 @@
                 android:lines="1"
                 android:text="@string/txtnull"
                 android:textColor="@color/darkO05"
-                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cv_img_adp_blog"
                 app:layout_constraintTop_toTopOf="@+id/cv_img_adp_blog" />
@@ -83,13 +78,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="2dp"
                 android:maxLines="1"
                 android:text="@string/txtnull"
-                android:textColor="@color/colorPrimaryO06"
-                android:textSize="12sp"
-                android:textStyle="italic"
+                android:textColor="@color/darkO05"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@+id/cv_img_adp_blog"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cv_img_adp_blog" />
+
+            <ImageView
+                android:id="@+id/img_pencil_adp_blog"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="12dp"
+                android:contentDescription="@string/img"
+                android:src="@drawable/ic_pencil_dark05"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_img_adp_blog"
                 app:layout_constraintStart_toEndOf="@+id/cv_img_adp_blog" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
