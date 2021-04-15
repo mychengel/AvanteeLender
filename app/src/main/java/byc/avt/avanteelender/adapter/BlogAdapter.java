@@ -70,48 +70,24 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.CardViewViewHo
         holder.lbl_title.setText(b.getTitle());
         holder.lbl_by.setText("Ditulis oleh: "+b.getCreated_by());
         holder.lbl_date.setText(f.tglFull(b.getCreated_date()));
-//        Glide.with(context).load(b.getImg())
-//                .apply(RequestOptions.skipMemoryCacheOf(true))
-//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-//                .placeholder(R.color.colorPrimary)
-//                .error(R.drawable.ic_baseline_no_photography_24)
-//                .dontAnimate()
-//                .into(holder.img);
         Glide.with(context).load(b.getImg())
-                .into(new SimpleTarget<Drawable>() {
+                .placeholder(R.drawable.ic_baseline_no_photography_24)
+                .error(R.drawable.ic_baseline_no_photography_24)
+                .dontAnimate()
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .listener(new RequestListener<Drawable>() {
                     @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
-                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-                        //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
-                        if (resource.getConstantState() == null) {
-                            holder.img.setImageResource(R.drawable.ic_baseline_no_photography_24);
-                        }else{
-                            Drawable newdrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmapSquare(bitmap), 272, 248, true));
-                            holder.img.setImageDrawable(newdrawable);
-                        }
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
                     }
-                });
-
-//        Glide.with(context).load(b.getImg())
-//                .placeholder(R.drawable.ic_baseline_no_photography_24)
-//                .error(R.drawable.ic_baseline_no_photography_24)
-//                .dontAnimate()
-//                .apply(RequestOptions.skipMemoryCacheOf(true))
-//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-//                .listener(new RequestListener<Drawable>() {
-//                    @Override
-//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        return false;
-//                    }
-//                    @Override
-//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-//                        Drawable newdrawable = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmapSquare(bitmap), 272, 248, true));
-//                        holder.img.setImageDrawable(newdrawable);
-//                        return false;
-//                    }
-//                })
-//                .into(holder.img);
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.img.setScaleType(ImageView.ScaleType.FIT_XY);
+                        return false;
+                    }
+                })
+                .into(holder.img);
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

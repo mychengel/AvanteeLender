@@ -39,9 +39,10 @@
 
                 <ImageView
                     android:id="@+id/img_adp_blog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:contentDescription="@string/img"
+                    android:scaleType="centerInside"
                     tools:srcCompat="@drawable/ic_baseline_no_photography_24" />
             </androidx.cardview.widget.CardView>
 

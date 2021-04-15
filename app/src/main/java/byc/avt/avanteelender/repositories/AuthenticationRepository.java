@@ -236,11 +236,10 @@ public class AuthenticationRepository {
         return msg;
     }
 
-
-    public MutableLiveData<JSONObject> resetPassword(final String email, Context context) {
+    public MutableLiveData<JSONObject> resendEmailVerification(final String email, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/auth/lupa_password",
+        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/auth/resend",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -269,6 +268,115 @@ public class AuthenticationRepository {
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<>();
                 params.put("email", email);
+                return params;
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+
+    public MutableLiveData<JSONObject> resetPassword(final String email, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/forgot_password",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            result.setValue(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("resetPassResult", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS();
+            }
+
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> setNewPassword(final String newPass, final String key, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Log.e("MyResetKey", key);
+        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/action_recover_password/"+key,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            result.setValue(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("setNewPassResult", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS();
+            }
+
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put("password", newPass);
+                params.put("authkey", key);
                 return params;
             }
 

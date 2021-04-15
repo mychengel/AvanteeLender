@@ -191,7 +191,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     editConfirmPassword.setError("Kata sandi harus sama!");
                 }
             }else{
-                editPassword.setError("Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil & 1 angka. (min. 8 huruf & maks. 12 huruf)");
+                editPassword.setError(getString(R.string.pass_terms));
             }
             cekDone();
         }

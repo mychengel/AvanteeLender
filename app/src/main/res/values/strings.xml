@@ -44,6 +44,9 @@
     <string name="register_success_message">Akun berhasil didaftarkan sebagai peminjam di Avantee. Silakan masuk kembali menggunakan nomor handphone dan kata sandi Anda.</string>
     <string name="register_complete">Pendaftaran selesai</string>
     <string name="registed_complete_message">Mohon menunggu proses verifikasi akun oleh tim kami.</string>
+    <string name="resend_email_title">Kirim ulang email verifikasi</string>
+    <string name="resend_email_failed">Kirim ulang email gagal. Silahkan coba beberapa saat lagi</string>
+    <string name="resend_email_desc">Masukkan alamat email Anda dan kami akan mengirimkan ulang email berisi tautan untuk memverifikasi akun Anda.</string>
 
     <!-- TODO: Authentication Login -->
     <string name="login">Masuk</string>
@@ -58,6 +61,7 @@
     <string name="reset">Atur ulang</string>
     <string name="reset_failed">Pengiriman tautan atur ulang kata sandi gagal, silahkan cek kembali email yang Anda isikan</string>
     <string name="reset_message">Klik tautan dalam SMS tersebut untuk mengatur ulang kata sandi Anda.</string>
+    <string name="set_new_pass_failed">Atur ulang kata sandi gagal. Silahkan coba beberapa saat lagi.</string>
 
     <!-- TODO: New User Get Started Screen -->
     <string name="welcome_message">Selamat bergabung menjadi\npemberi dana di Avantee</string>
@@ -366,8 +370,17 @@
     <string name="dana_akan_ditransfer_ke">Dana akan ditransfer ke:</string>
     <string name="total_yang_akan_diterima">Total yang akan diterima</string>
     <string name="change_pass">Ubah kata sandi</string>
+    <string name="new_pass">Kata sandi baru</string>
     <string name="surat_kuasa">Surat Kuasa</string>
+    <string name="desc_set_new_pass">Masukkan kata sandi baru Anda sekarang juga sebelum waktu masa penggantian password habis.</string>
     <string name="perjanjian_kerja_sama">Perjanjian Kerja Sama</string>
+    <string name="selfie_photo">Foto selfie</string>
+    <string name="spesimen_ttd">Spesimen tanda tangan</string>
     <string name="not_received_confirmation_email">Belum terima email konfirmasi?</string>
+    <string name="failed_exc_data">Terdapat kesalahan data pada sistem, mohon hubungi admin Avantee untuk melakukan pengecekan data akun Anda.</string>
+    <string name="save_new_pass">Simpan kata sandi baru</string>
+    <string name="pass_terms">Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil &amp; 1 angka. (min. 8 huruf &amp; maks. 12 huruf)</string>
+    <string name="new_pass_success">Ubah kata sandi berhasil</string>
+    <string name="new_pass_success_desc">Anda telah berhasil mengubah kata sandi. Silahkan masuk aplikasi dengan kata sandi baru.</string>
 
 </resources>

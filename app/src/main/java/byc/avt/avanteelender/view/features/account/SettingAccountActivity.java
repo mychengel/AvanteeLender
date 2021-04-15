@@ -146,6 +146,7 @@ public class SettingAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SettingAccountActivity.this, DataPendukungShowActivity.class);
                 intent.putExtra("jobEssDocument", jobDataDokumenPendukung.toString());
+                intent.putExtra("jobDataPribadi", jobDataPribadi.toString());
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
             }
@@ -165,6 +166,7 @@ public class SettingAccountActivity extends AppCompatActivity {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
+                    setEnabled();
                     JSONObject job = result.getJSONObject("result");
                     jobDataPribadi = job.getJSONObject("data_pribadi");
                     jobDataPekerjaan = job.getJSONObject("data_pekerjaan");
@@ -193,10 +195,32 @@ public class SettingAccountActivity extends AppCompatActivity {
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
+                setDisabled();
+                dialog.cancel();
+                f.showMessage(getString(R.string.failed_exc_data));
             }
         }
     };
 
+    private void setEnabled(){
+        cv_personal_data.setEnabled(true);
+        cv_job_info.setEnabled(true);
+        cv_address_data.setEnabled(true);
+        cv_bank_info.setEnabled(true);
+        cv_essential_doc.setEnabled(true);
+        cv_change_password.setEnabled(true);
+        img_pp.setEnabled(true);
+    }
+
+    private void setDisabled(){
+        cv_personal_data.setEnabled(false);
+        cv_job_info.setEnabled(false);
+        cv_address_data.setEnabled(false);
+        cv_bank_info.setEnabled(false);
+        cv_essential_doc.setEnabled(false);
+        cv_change_password.setEnabled(false);
+        img_pp.setEnabled(false);
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

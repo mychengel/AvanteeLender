@@ -7,8 +7,8 @@ import byc.avt.avanteelender.model.UserData;
 
 public class PrefManager {
 
-    private SharedPreferences pref, userPref, perRegPref, insRegPref;
-    private SharedPreferences.Editor editor, userEditor, perRegEditor, insRegEditor;
+    private SharedPreferences pref, userPref, keyPref;
+    private SharedPreferences.Editor editor, userEditor, keyEditor;
     private static PrefManager instance;
 
     // shared pref mode
@@ -17,6 +17,7 @@ public class PrefManager {
     // Shared preferences file name
     private static final String PREF_NAME = "welcome";
     private static final String PREF_USER = "user";
+    private static final String PREF_KEYS = "keys";
     private static final String PREF_PERSONAL_REG = "personalreg";
     private static final String PREF_INSTITUTION_REG = "institutionreg";
 
@@ -30,6 +31,9 @@ public class PrefManager {
 
         userPref = context.getSharedPreferences(PREF_USER, PRIVATE_MODE);
         userEditor = userPref.edit();
+
+        keyPref = context.getSharedPreferences(PREF_KEYS, PRIVATE_MODE);
+        keyEditor = keyPref.edit();
 
 //        perRegPref = context.getSharedPreferences(PREF_PERSONAL_REG, PRIVATE_MODE);
 //        perRegEditor = perRegPref.edit();
@@ -110,6 +114,20 @@ public class PrefManager {
 
     public void clearUserData(){
         userEditor.clear().commit();
+    }
+
+    public void setResetPasswordKey(String key){
+        keyEditor.putString("reset_pass_key", key);
+        keyEditor.commit();
+    }
+
+    public String getResetPasswordKey(){
+        String key = keyPref.getString("reset_pass_key","-");
+        return key;
+    }
+
+    public void clearResetPasswordKeyData(){
+        keyEditor.clear().commit();
     }
 
     //function to manage user pref

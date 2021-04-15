@@ -27,38 +27,35 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
-import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ResendEmailVerifActivity extends AppCompatActivity {
 
     private PrefManager prefManager;
-    Fungsi f = new Fungsi(ForgotPasswordActivity.this);
+    Fungsi f = new Fungsi(ResendEmailVerifActivity.this);
     private AuthenticationViewModel viewModel;
     Toolbar toolbar;
     private Dialog dialog;
-    private Button btn_atur_ulang;
+    private Button btn_kirim_ulang;
     private TextInputLayout editEmail;
     String email = "";
-    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
-        prefManager = PrefManager.getInstance(ForgotPasswordActivity.this);
-        toolbar = findViewById(R.id.tb_forgot_pass);
+        setContentView(R.layout.activity_resend_email_verif);
+        prefManager = PrefManager.getInstance(ResendEmailVerifActivity.this);
+        toolbar = findViewById(R.id.tb_resend_email);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        dialog = GlobalVariables.loadingDialog(ForgotPasswordActivity.this);
-        viewModel = new ViewModelProvider(ForgotPasswordActivity.this).get(AuthenticationViewModel.class);
+        dialog = GlobalVariables.loadingDialog(ResendEmailVerifActivity.this);
+        viewModel = new ViewModelProvider(ResendEmailVerifActivity.this).get(AuthenticationViewModel.class);
 
-        editEmail = findViewById(R.id.edit_email_forgot_pass);
+        editEmail = findViewById(R.id.edit_email_resend_email);
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,26 +70,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        btn_atur_ulang = findViewById(R.id.btn_atur_ulang_forgot_pass);
-        btn_atur_ulang.setOnClickListener(new View.OnClickListener() {
+        btn_kirim_ulang = findViewById(R.id.btn_kirim_ulang_resend_email);
+        btn_kirim_ulang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count++;
-                resetPassword();
+                resendEmail();
             }
         });
     }
 
-    public void resetPassword() {
+    public void resendEmail() {
         // POST to server through endpoint
-        if(count > 0){
-            btn_atur_ulang.setText(getString(R.string.resend));
-        }else{
-            btn_atur_ulang.setText(getString(R.string.reset));
-        }
         dialog.show();
-        viewModel.resetPassword(email);
-        viewModel.getResultResetPassword().observe(ForgotPasswordActivity.this, showResult);
+        viewModel.setResendEmail(email);
+        viewModel.getResultResendEmail().observe(ResendEmailVerifActivity.this, showResult);
     }
 
     private Observer<JSONObject> showResult = new Observer<JSONObject>() {
@@ -101,22 +92,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             try {
                 if(result.getInt("code") == 200){
                     JSONObject job = result.getJSONObject("result");
-                    String msg = job.getString("message");
-                    prefManager.setResetPasswordKey(job.getString("authkey"));
+                    String msg = job.getString("messages");
                     new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), msg);
                     ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                     sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            onBackPressed();
-//                        }
-//                    }, 3000);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onBackPressed();
+                            onBackPressed();
+                        }
+                    }, 3000);
                 }else{
-                    f.showMessage(getString(R.string.reset_failed));
+                    f.showMessage(getString(R.string.resend_email_failed));
+                    dialog.cancel();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                dialog.cancel();
             }
             dialog.cancel();
         }
@@ -126,15 +119,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void cekEmail(String mail){
         if(TextUtils.isEmpty(mail)){
             editEmail.setError("Field email harus diisi!");
-            btn_atur_ulang.setEnabled(false);
+            btn_kirim_ulang.setEnabled(false);
         }else{
             emailisvalid = Patterns.EMAIL_ADDRESS.matcher(mail).matches();
             if(emailisvalid){
                 editEmail.setError(null);
-                btn_atur_ulang.setEnabled(true);
+                btn_kirim_ulang.setEnabled(true);
             }else{
                 editEmail.setError("Email tidak valid!");
-                btn_atur_ulang.setEnabled(false);
+                btn_kirim_ulang.setEnabled(false);
             }
         }
     }

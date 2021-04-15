@@ -24,6 +24,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResetPassword = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -92,5 +94,21 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultResetPassword(){
         return resultResetPassword;
+    }
+
+    public void setNewPassword(String newPass, String key){
+        resultSetNewPassword = authenticationRepository.setNewPassword(newPass, key, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultSetNewPassword(){
+        return resultSetNewPassword;
+    }
+
+    public void setResendEmail(String email){
+        resultResendEmail = authenticationRepository.resendEmailVerification(email, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultResendEmail(){
+        return resultResendEmail;
     }
 }

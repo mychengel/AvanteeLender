@@ -75,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(f.clickAnim());
-
+                Intent intent = new Intent(LoginActivity.this, ResendEmailVerifActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
 
