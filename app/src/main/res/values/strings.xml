@@ -47,6 +47,7 @@
     <string name="resend_email_title">Kirim ulang email verifikasi</string>
     <string name="resend_email_failed">Kirim ulang email gagal. Silahkan coba beberapa saat lagi</string>
     <string name="resend_email_desc">Masukkan alamat email Anda dan kami akan mengirimkan ulang email berisi tautan untuk memverifikasi akun Anda.</string>
+    <string name="not_have_npwp">Saya belum mempunyai NPWP</string>
 
     <!-- TODO: Authentication Login -->
     <string name="login">Masuk</string>
@@ -159,6 +160,8 @@
     <string name="take_selfie">Ambil foto selfie</string>
     <string name="npwp_number">No. NPWP</string>
     <string name="take_photo_of_npwp">Ambil foto NPWP</string>
+    <string name="take_photo_of_selfie">Ambil foto Selfie</string>
+    <string name="take_photo_of_spesimenttd">Ambil foto Spesimen TTD</string>
     <string name="take_photo_of_account_book">Ambil foto nama dan nomor rekening Anda</string>
 
     <!-- TODO: Navigation & menu -->
@@ -390,5 +393,6 @@
     <string name="periode_of_trans">Periode transaksi</string>
     <string name="pick_range_time">Pilih rentang waktu</string>
     <string name="pembayaran">Pembayaran</string>
+    <string name="take_ktp_pict">Ambil foto KTP</string>
 
 </resources>

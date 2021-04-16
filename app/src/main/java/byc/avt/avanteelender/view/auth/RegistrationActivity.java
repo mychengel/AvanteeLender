@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.view.others.TermsActivity;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.User;
@@ -69,6 +70,8 @@ public class RegistrationActivity extends AppCompatActivity {
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
         Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
 
+        loadTermsAndCondition();
+
         editEmail.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,22 +112,30 @@ public class RegistrationActivity extends AppCompatActivity {
         checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean isread = TermSheetFragment.read;
-                if (isChecked) {
-                    if(isread){
-                        checkAgree.setChecked(true);
-                        readTerm = true;
-                        cekDone();
-                    }else{
-                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
-                        termFragment.show(getSupportFragmentManager(), termFragment.getTag());
-                        checkAgree.setChecked(false);
-                    }
-                } else {
-                    checkAgree.setChecked(false);
+                if(isChecked){
+                    readTerm = true;
+                    cekDone();
+                }else{
                     readTerm = false;
                     cekDone();
                 }
+
+//                boolean isread = TermSheetFragment.read;
+//                if (isChecked) {
+//                    if(isread){
+//                        checkAgree.setChecked(true);
+//                        readTerm = true;
+//                        cekDone();
+//                    }else{
+//                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
+//                        termFragment.show(getSupportFragmentManager(), termFragment.getTag());
+//                        checkAgree.setChecked(false);
+//                    }
+//                } else {
+//                    checkAgree.setChecked(false);
+//                    readTerm = false;
+//                    cekDone();
+//                }
             }
         });
     }
@@ -234,6 +245,37 @@ public class RegistrationActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    };
+
+    private void loadTermsAndCondition() {
+        dialog.show();
+        viewModel.getSettingDataNoAuth();
+        viewModel.getResultSettingDataNoAuth().observe(RegistrationActivity.this, showSettingData);
+    }
+
+    private Observer<JSONObject> showSettingData = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject job = result.getJSONObject("result");
+                    JSONObject terms_job = job.getJSONObject("syaratketentuan");
+                    String terms = terms_job.getString("content_text");
+                    String terms_final = f.htmlToStr(terms);
+                    TermSheetFragment.text = terms_final;
+                    TermSheetFragment termFragment = TermSheetFragment.getInstance();
+                    termFragment.setCancelable(false);
+                    termFragment.show(getSupportFragmentManager(), termFragment.getTag());
+                }else{
+                    f.showMessage(getString(R.string.failed_load_info));
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                dialog.cancel();
+            }
+            dialog.cancel();
         }
     };
 

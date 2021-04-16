@@ -133,7 +133,8 @@ public class WorkInfoFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmNext(v);
+                //confirmNext(v);
+                Navigation.findNavController(v).navigate(R.id.action_workInfoFragment_to_addressDataFragment);
             }
         });
 

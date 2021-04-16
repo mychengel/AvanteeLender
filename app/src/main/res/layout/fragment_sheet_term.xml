@@ -11,12 +11,14 @@
         android:id="@+id/appbar_fr_term"
         android:layout_width="match_parent"
         android:layout_height="144dp"
+        android:elevation="0dp"
         android:fitsSystemWindows="true">
 
         <net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_tb_fr_term"
             android:layout_width="match_parent"
             android:layout_height="144dp"
+            android:elevation="0dp"
             android:fitsSystemWindows="true"
             android:theme="@style/ToolbarTheme"
             app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
@@ -32,6 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="16dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
@@ -65,7 +69,7 @@
                 android:layout_marginBottom="200dp"
                 android:fontFamily="@font/ibm_plex_sans"
                 android:hyphenationFrequency="none"
-                android:text="@string/terms_and_conditions"
+                android:text="@string/txtnull"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -142,5 +146,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/img_logo_fr_term"
+        android:layout_width="60dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/img"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

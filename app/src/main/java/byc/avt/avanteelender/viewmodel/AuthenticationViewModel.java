@@ -23,6 +23,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSettingDataNoAuth = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResetPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
@@ -110,5 +111,13 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultResendEmail(){
         return resultResendEmail;
+    }
+
+    public void getSettingDataNoAuth(){
+        resultSettingDataNoAuth = authenticationRepository.getSettingDataNoAuth(getApplication());
+    }
+
+    public LiveData<JSONObject> getResultSettingDataNoAuth(){
+        return resultSettingDataNoAuth;
     }
 }

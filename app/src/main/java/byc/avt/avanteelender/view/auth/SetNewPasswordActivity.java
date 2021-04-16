@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -51,6 +53,12 @@ public class SetNewPasswordActivity extends AppCompatActivity {
         edit_pass = findViewById(R.id.edit_newpass_set_new_pass);
         btn_simpan = findViewById(R.id.btn_atur_ulang_set_new_pass);
         authkey = prefManager.getResetPasswordKey();
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();
+        Log.e("IntentURIParams", data.getLastPathSegment());
+        //f.showMessage("AuthKey: "+data.getLastPathSegment());
 
         edit_pass.getEditText().addTextChangedListener(new TextWatcher() {
             @Override

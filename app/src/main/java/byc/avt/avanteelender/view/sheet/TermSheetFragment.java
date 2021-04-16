@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -50,7 +51,9 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
     Toolbar toolbar;
     Button btnCancel, btnNext;
     CheckBox cbAgree;
+    TextView txt_content;
     NestedScrollView nestedSv;
+    public static String text = "-";
     public static Boolean read = false; //variable untuk get status checked
 
     @Override
@@ -58,9 +61,12 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         toolbar = view.findViewById(R.id.toolbar_fr_term);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setIcon(R.drawable.logo_s);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_xs);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        txt_content = view.findViewById(R.id.txt_toc_fr_term);
+        txt_content.setText(text);
         btnCancel = view.findViewById(R.id.btn_batalkan_fr_term);
         btnCancel.setEnabled(false);
         btnNext = view.findViewById(R.id.btn_lanjutkan_fr_term);
@@ -98,6 +104,7 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
                 read = false;
                 cbAgree.setChecked(false);
                 instance.dismiss();
+                getActivity().finish();
             }
         });
 
@@ -110,15 +117,17 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == android.R.id.home){
-            if(instance.isVisible()){}
-            instance.dismiss();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if(id == android.R.id.home){
+//            if(instance.isVisible()){}
+//            getActivity().finish();
+//            instance.dismiss();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
 
 }

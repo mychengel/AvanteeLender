@@ -82,11 +82,12 @@ public class BankInfoFragment extends Fragment {
         txtAvgTrans = view.findViewById(R.id.edit_avg_transaction_fr_bank_info);
 
         btn_next = view.findViewById(R.id.btn_next_fr_bank_info);
-        btn_next.setEnabled(false);
+        btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmNext(v);
+                //confirmNext(v);
+                Navigation.findNavController(v).navigate(R.id.action_bankInfoFragment_to_documentsFragment);
             }
         });
 
