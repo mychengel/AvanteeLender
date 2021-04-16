@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_fr_sheet_filter_his_trans"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.sheet.HisTransFilterSheetFragment">
+
+    <ImageView
+        android:id="@+id/img_handle_fr_sheet_filter_his_trans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/img"
+        android:src="@drawable/ic_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_title_fr_sheet_filter_his_trans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/filter"
+        android:textColor="@color/dark"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_filter_his_trans" />
+
+    <Button
+        android:id="@+id/btn_reset_fr_sheet_filter_his_trans"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="64dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_white_ripple_border"
+        android:gravity="center|center_vertical"
+        android:padding="0dp"
+        android:text="@string/reset_eng"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_title_fr_sheet_filter_his_trans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lbl_title_fr_sheet_filter_his_trans" />
+
+    <ScrollView
+        android:id="@+id/sv_fr_sheet_filter_his_trans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_title_fr_sheet_filter_his_trans">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_sv_fr_sheet_filter_his_trans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/lbl_periode_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/periode_of_trans"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/rad_group_pof_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_periode_fr_sheet_filter_his_trans">
+
+                <RadioButton
+                    android:id="@+id/rad_last90_pof_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/sembilanpuluh_day_left"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rad_range_pof_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pick_range_time"
+                    android:textSize="16sp" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/lin_range_pof_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rad_group_pof_fr_sheet_filter_his_trans">
+
+                <AutoCompleteTextView
+                    android:id="@+id/date_start_pof_fr_sheet_filter_his_trans"
+                    style="@android:style/Widget.Material.AutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:hint="@string/mulai" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/date_end_pof_fr_sheet_filter_his_trans"
+                    style="@android:style/Widget.Material.AutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:hint="@string/selesai" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/div1_fr_sheet_filter_his_trans"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lin_range_pof_fr_sheet_filter_his_trans" />
+
+            <TextView
+                android:id="@+id/lbl_status_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/status"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div1_fr_sheet_filter_his_trans" />
+
+            <RadioGroup
+                android:id="@+id/rad_group_status_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_status_fr_sheet_filter_his_trans">
+
+                <RadioButton
+                    android:id="@+id/rad_berhasil_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/berhasil"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rad_pending_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pending"
+                    android:textSize="16sp" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/div2_fr_sheet_filter_his_trans"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/divider_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rad_group_status_fr_sheet_filter_his_trans" />
+
+            <TextView
+                android:id="@+id/lbl_type_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/trans_type"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div2_fr_sheet_filter_his_trans" />
+
+            <RadioGroup
+                android:id="@+id/rad_group_type_fr_sheet_filter_his_trans"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_type_fr_sheet_filter_his_trans">
+
+                <RadioButton
+                    android:id="@+id/rad_pembayaran_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/pembayaran"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rad_penarikan_fr_sheet_filter_his_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/penarikan_dana"
+                    android:textSize="16sp" />
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_terapkan_fr_sheet_filter_his_trans"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_green"
+        android:text="@string/terapkan"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_fr_sheet_filter_his_trans" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

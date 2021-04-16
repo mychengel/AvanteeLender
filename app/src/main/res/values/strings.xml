@@ -382,5 +382,13 @@
     <string name="pass_terms">Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil &amp; 1 angka. (min. 8 huruf &amp; maks. 12 huruf)</string>
     <string name="new_pass_success">Ubah kata sandi berhasil</string>
     <string name="new_pass_success_desc">Anda telah berhasil mengubah kata sandi. Silahkan masuk aplikasi dengan kata sandi baru.</string>
+    <string name="reset_eng">Reset</string>
+    <string name="terapkan">Terapkan</string>
+    <string name="status">Status</string>
+    <string name="berhasil">Berhasil</string>
+    <string name="trans_type">Tipe transaksi</string>
+    <string name="periode_of_trans">Periode transaksi</string>
+    <string name="pick_range_time">Pilih rentang waktu</string>
+    <string name="pembayaran">Pembayaran</string>
 
 </resources>

@@ -75,13 +75,13 @@ public class PortofolioAktifDetailAdapter extends RecyclerView.Adapter<Portofoli
         });
 
         holder.lbl_period.setText(pad.getPeriode());
-        if((pad.getDate_actualtrans() != "null") && (pad.getStatus() == "null")){
+        if((pad.getDate_actualtrans() != "null") && (pad.getStatus().equalsIgnoreCase("Lancar"))){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_paid));
             holder.lbl_period.setVisibility(View.GONE);
         }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null")){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bg_round_white));
             holder.lbl_period.setVisibility(View.VISIBLE);
-        }else if(pad.getStatus() != "null"){
+        }else if((pad.getDate_actualtrans() != "null") && (pad.getStatus() == "null" || pad.getStatus().equalsIgnoreCase("Tidak Lancar") || pad.getStatus().equalsIgnoreCase("Macet"))){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_unpaid));
             holder.lbl_period.setVisibility(View.GONE);
         }

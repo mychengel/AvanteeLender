@@ -122,6 +122,10 @@ public class Fungsi {
             }
         }
 
+        if(hsl.contains(",")){
+            hsl = hsl.substring(0, hsl.indexOf(','));
+        }else{}
+
         return hsl;
     }
 

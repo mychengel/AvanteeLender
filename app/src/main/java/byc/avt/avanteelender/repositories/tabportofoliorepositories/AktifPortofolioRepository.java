@@ -328,7 +328,7 @@ public class AktifPortofolioRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       // Log.e("Aktif PORT DETAILS", response.toString());
+                        Log.e("Aktif PORT DETAILS", response.toString());
                         JSONArray rows;
                         int tot = 0;
                         try {

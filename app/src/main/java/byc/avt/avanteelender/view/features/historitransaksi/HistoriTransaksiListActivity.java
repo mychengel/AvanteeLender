@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.sheet.DanaiSheetFragment;
+import byc.avt.avanteelender.view.sheet.HisTransFilterSheetFragment;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
 public class HistoriTransaksiListActivity extends AppCompatActivity {
@@ -34,7 +37,9 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
     private Dialog dialog;
     private RecyclerView rv_his_trx_list;
     private DashboardViewModel viewModel;
-    private TextView lbl_no_trx;
+    private TextView lbl_no_trx, txt_filter_text;
+    private Button btn_filter;
+    public static boolean filter_is_active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         prefManager = PrefManager.getInstance(HistoriTransaksiListActivity.this);
         dialog = GlobalVariables.loadingDialog(HistoriTransaksiListActivity.this);
+        txt_filter_text = findViewById(R.id.lbl_filter_text_his_trx_list);
         rv_his_trx_list = findViewById(R.id.rv_his_trx_list);
         lbl_no_trx = findViewById(R.id.lbl_no_trx_his_trx_list);
         new Handler().postDelayed(new Runnable() {
@@ -57,9 +63,20 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
                 loadHistoryTrxList();
             }
         }, 200);
+
+        btn_filter = findViewById(R.id.btn_filter_his_trx_list);
+        btn_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new HisTransFilterSheetFragment();
+                HisTransFilterSheetFragment sheetFragment = HisTransFilterSheetFragment.getInstance();
+                sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
+            }
+        });
     }
 
     public void runFirst(){
+        rv_his_trx_list.setAdapter(null);
         rv_his_trx_list.setVisibility(View.INVISIBLE);
         lbl_no_trx.setVisibility(View.INVISIBLE);
     }
