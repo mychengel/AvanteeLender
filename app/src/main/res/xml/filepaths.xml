@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    <files-path path="images/" name="avt_lender" />-->
+    <external-path name="avt_lender" path="." />
+    <external-path name="avt_lender" path="." />
+</paths>

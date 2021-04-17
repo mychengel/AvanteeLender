@@ -60,6 +60,7 @@ public class BankInfoFragment extends Fragment {
     AutoCompleteTextView auto_bank, auto_avg_trans;
     TextInputLayout txtBank, txtAccountName, txtAccountNumber, txtAvgTrans;
     String bank="", accountName="", accountNumber="", avgTrans="";
+    String SUMBER_DANA_LAIN = "GAJI";
 
     List<Object> listBank = new ArrayList<>(); List<Object> listBankID = new ArrayList<>();
     List<Object> listAvgTrans = new ArrayList<>(); List<Object> listAvgTransID = new ArrayList<>();
@@ -121,11 +122,11 @@ public class BankInfoFragment extends Fragment {
         accountNumber = Objects.requireNonNull(txtAccountNumber.getEditText().getText().toString().trim());
         if(!bank.isEmpty() && !accountName.isEmpty() && !accountNumber.isEmpty() && !avgTrans.isEmpty()){
             gv.stPerBankInfo = true;
-            gv.perRegData.put("bank",bank);
-            gv.perRegData.put("nama_pemilik_rekening",accountName);
-            gv.perRegData.put("no_rekening",accountNumber);
-            gv.perRegData.put("rata_rata_transaksi",avgTrans);
-            gv.perRegData.put("sumber_dana_lain","GAJI");
+            gv.perRegData.put("bank", bank);
+            gv.perRegData.put("nama_pemilik_rekening", accountName);
+            gv.perRegData.put("no_rekening", accountNumber);
+            gv.perRegData.put("rata_rata_transaksi", avgTrans);
+            gv.perRegData.put("sumber_dana_lain", SUMBER_DANA_LAIN);
             setNoError();
             Navigation.findNavController(v).navigate(R.id.action_bankInfoFragment_to_documentsFragment);
         }else{

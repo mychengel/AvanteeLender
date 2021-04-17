@@ -394,5 +394,7 @@
     <string name="pick_range_time">Pilih rentang waktu</string>
     <string name="pembayaran">Pembayaran</string>
     <string name="take_ktp_pict">Ambil foto KTP</string>
+    <string name="min_digit_npwp">No. NPWP minimum 15 digit</string>
+    <string name="min_digit_ktp">No. KTP minimum 16 digit</string>
 
 </resources>
