@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cons_otp"
+    android:id="@+id/cons_otp_doc_doc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.misc.OTPActivity">
+    tools:context=".view.misc.OTPDocActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_otp"
+        android:id="@+id/toolbar_otp_doc"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,18 +16,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/img_otp"
+        android:id="@+id/img_otp_doc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:contentDescription="@string/otp_verification"
+        android:contentDescription="@string/img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_otp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_otp_doc"
         app:srcCompat="@drawable/ic_screen_lock_portrait" />
 
     <TextView
-        android:id="@+id/lbl_title_otp"
+        android:id="@+id/lbl_title_otp_doc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -40,10 +40,10 @@
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_otp" />
+        app:layout_constraintTop_toBottomOf="@+id/img_otp_doc" />
 
     <TextView
-        android:id="@+id/lbl_desc_sent_to_otp"
+        android:id="@+id/lbl_desc_sent_to_otp_doc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -51,12 +51,12 @@
         android:text="@string/otp_desc"
         android:textAlignment="center"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/lbl_title_otp"
-        app:layout_constraintStart_toStartOf="@+id/lbl_title_otp"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_title_otp" />
+        app:layout_constraintEnd_toEndOf="@+id/lbl_title_otp_doc"
+        app:layout_constraintStart_toStartOf="@+id/lbl_title_otp_doc"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_title_otp_doc" />
 
     <com.mukesh.OtpView
-        android:id="@+id/edit_code_otp"
+        android:id="@+id/edit_code_otp_doc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -75,12 +75,12 @@
         app:itemWidth="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_desc_sent_to_otp"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_desc_sent_to_otp_doc"
         app:lineColor="@color/dark"
         app:viewType="line" />
 
     <TextView
-        android:id="@+id/txt_countdown_otp"
+        android:id="@+id/txt_countdown_otp_doc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -93,10 +93,10 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_code_otp" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_code_otp_doc" />
 
     <Button
-        android:id="@+id/btn_verify_otp"
+        android:id="@+id/btn_verify_otp_doc"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -115,5 +115,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

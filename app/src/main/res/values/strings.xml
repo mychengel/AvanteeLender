@@ -396,5 +396,11 @@
     <string name="take_ktp_pict">Ambil foto KTP</string>
     <string name="min_digit_npwp">No. NPWP minimum 15 digit</string>
     <string name="min_digit_ktp">No. KTP minimum 16 digit</string>
+    <string name="create_doc_confirmation">Apakah anda yakin untuk melanjutkan menyimpan? Pastikan Anda sudah mengisi seluruh data dengan benar dan sejujur-jujurnya.</string>
+    <string name="saldo_rdl">Saldo RDL</string>
+    <string name="saya_setuju_mendanai">Saya setuju untuk mendanai sebesar</string>
+    <string name="saldo_not_enough">Saldo Anda tidak cukup untuk memberikan pendanaan. Silahkan melakukan topup saldo.</string>
+    <string name="pendanaan_confirmation">Apakah Anda yakin akan mendanai pinjaman ini?</string>
+    <string name="setuju_lanjutkan">Saya setuju, lanjutkan.</string>
 
 </resources>

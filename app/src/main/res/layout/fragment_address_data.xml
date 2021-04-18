@@ -135,6 +135,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_ktp_kecamatan_fr_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -146,18 +147,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_ktp_city_fr_address_data">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_kecamatan_fr_address_data"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@color/lightest_neutral"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
                     android:hint="@string/sub_district"
-                    android:inputType="text|none"
-                    android:paddingStart="0dp"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_ktp_kelurahan_fr_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -169,13 +172,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_ktp_kecamatan_fr_address_data">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_kelurahan_fr_address_data"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@color/lightest_neutral"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
                     android:hint="@string/urban"
-                    android:inputType="text|none"
-                    android:paddingStart="0dp"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -392,6 +396,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_domicile_kecamatan_fr_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -402,18 +407,20 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_kecamatan_fr_address_data"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="@color/lightest_neutral"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
                         android:hint="@string/sub_district"
-                        android:inputType="text|none"
-                        android:paddingStart="0dp"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
                         android:paddingEnd="0dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_domicile_kelurahan_fr_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -424,13 +431,14 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_kelurahan_fr_address_data"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:background="@color/lightest_neutral"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
                         android:hint="@string/urban"
-                        android:inputType="text|none"
-                        android:paddingStart="0dp"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
                         android:paddingEnd="0dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 

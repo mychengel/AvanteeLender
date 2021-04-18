@@ -22,15 +22,26 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
+    private MutableLiveData<String> msg_ver_otp_doc = new MutableLiveData<>();
+    private MutableLiveData<String> msg_check_surat_kuasa = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingDataNoAuth = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResetPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
         authenticationRepository = AuthenticationRepository.getInstance();
+    }
+
+    public void checkSuratKuasa(String uid, String token){
+        msg_check_surat_kuasa = authenticationRepository.cekSuratKuasa2(uid, token, getApplication());
+    }
+
+    public LiveData<String> getCheckSuratKuasaResult(){
+        return msg_check_surat_kuasa;
     }
 
     public void getAccountData(String uid, String token){
@@ -81,6 +92,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return msg_ver_otp;
     }
 
+    public void verifyOTPDoc(String uid, String token, String otpCode){
+        msg_ver_otp_doc = authenticationRepository.verifyOTPDoc(uid, token, otpCode, getApplication());
+    }
+
+    public LiveData<String> getVerifyOTPDocResult(){
+        return msg_ver_otp_doc;
+    }
+
     public void getSettingData(String uid, String token){
         resultSettingData = authenticationRepository.getSettingData(uid, token, getApplication());
     }
@@ -119,5 +138,13 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultSettingDataNoAuth(){
         return resultSettingDataNoAuth;
+    }
+
+    public void createPersonalDoc(String uid, String token){
+        resultCreatePersonalDoc = authenticationRepository.createPersonalDocument(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultCreatePersonalDoc(){
+        return resultCreatePersonalDoc;
     }
 }

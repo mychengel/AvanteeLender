@@ -16,6 +16,8 @@ public class MasterDataViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultCountry = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultProvince = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCity = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultDistrict = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultVillage = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultBank = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCivil = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultStatus = new MutableLiveData<>();
@@ -61,6 +63,22 @@ public class MasterDataViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultCity(){
         return resultCity;
+    }
+
+    public void getDistrict(String uid, String token, String city_id){
+        resultDistrict = repository.getDistrict(uid, token, city_id, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultDistrict(){
+        return resultDistrict;
+    }
+
+    public void getUrban(String uid, String token, String district_id){
+        resultVillage = repository.getVillage(uid, token, district_id, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultUrban(){
+        return resultVillage;
     }
 
     public void getBank(String uid, String token){

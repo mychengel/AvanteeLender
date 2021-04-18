@@ -41,14 +41,14 @@ public final class GlobalVariables {
             "{1,50}" + //at least 1 character, max 50 character
             "$");
 
-    public static Map<String, Object> perRegData = new HashMap<>();
+    public static Map<String, String> perRegData = new HashMap<>();
     public static boolean stPerPersonalData;
     public static boolean stPerWorkInfo;
     public static boolean stPerAddressData;
     public static boolean stPerBankInfo;
     public static boolean stPerDocument;
 
-    public static Map<String, Object> insRegData = new HashMap<>();
+    public static Map<String, String> insRegData = new HashMap<>();
 
     public static Map<String, String> API_ACCESS(){
         //final String basicAuth = "Basic " + Base64.encodeToString("Av@nTe3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);

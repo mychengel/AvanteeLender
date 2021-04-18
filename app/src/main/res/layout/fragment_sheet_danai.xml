@@ -5,7 +5,7 @@
     android:id="@+id/cons_fr_sheet_danai"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp"
+    android:paddingBottom="16dp"
     tools:context=".view.sheet.DetailPeminjamSheetFragment">
 
     <ImageView
@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/ibm_plex_sans_semi_bold"
         android:text="@string/danai"
         android:textColor="@color/dark"
@@ -36,14 +35,14 @@
         android:id="@+id/lbl_isi_nom_fr_sheet_danai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:text="@string/isi_nom_pendanaan"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/lbl_danai_fr_sheet_danai"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_danai_fr_sheet_danai" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_saldo_rdl_fr_sheet_danai" />
 
     <EditText
         android:id="@+id/edit_nom_pendanaan_fr_sheet_danai"
@@ -106,7 +105,6 @@
         android:layout_marginStart="16dp"
         android:text="@string/kelipatan_satu_juta"
         android:textColor="@color/darkO05"
-        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_nom_pendanaan_fr_sheet_danai" />
 
@@ -114,7 +112,7 @@
         android:id="@+id/lbl_pil_metode_fr_sheet_danai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:text="@string/pilih_metode_pendanaan"
         android:textAllCaps="true"
@@ -136,7 +134,7 @@
         <LinearLayout
             android:id="@+id/lin_pil_metode_fr_sheet_danai"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="144dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -162,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:contentDescription="@string/img"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -173,11 +171,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/saldo_tersedia"
                         android:textColor="@color/dark"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_saldo_fr_sheet_danai" />
 
@@ -190,7 +187,6 @@
                         android:maxLines="2"
                         android:text="@string/dummy_rp_nol"
                         android:textColor="@color/darkO05"
-                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/lbl_saldo_fr_sheet_danai"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_saldo_fr_sheet_danai" />
@@ -228,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:contentDescription="@string/img"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -239,11 +235,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="4dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="@string/tf_bank"
                         android:textColor="@color/dark"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_tf_bank_fr_sheet_danai" />
 
@@ -256,7 +251,6 @@
                         android:maxLines="2"
                         android:text="@string/with_uniqe_code_va"
                         android:textColor="@color/darkO05"
-                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/lbl_tf_bank_fr_sheet_danai"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tf_bank_fr_sheet_danai" />
@@ -275,14 +269,86 @@
         </LinearLayout>
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/lbl_saldo_va_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/saldo_va"
+        android:textColor="@color/darkO05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_danai_fr_sheet_danai" />
+
+    <TextView
+        android:id="@+id/txt_saldo_va_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/dummy_rp_nol"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_saldo_va_fr_sheet_danai" />
+
+    <TextView
+        android:id="@+id/lbl_saldo_rdl_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/saldo_rdl"
+        android:textColor="@color/darkO05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_saldo_va_fr_sheet_danai" />
+
+    <TextView
+        android:id="@+id/txt_saldo_rdl_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:text="@string/dummy_rp_nol"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_saldo_rdl_fr_sheet_danai" />
+
+    <CheckBox
+        android:id="@+id/cb_setuju_mendanai_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:button="@drawable/checkbox_selector"
+        android:fontFamily="@font/ibm_plex_sans"
+        android:maxLines="2"
+        android:padding="8dp"
+        android:text="@string/saya_setuju_mendanai"
+        android:textColor="@color/dark"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_metode_fr_sheet_danai"
+        app:useMaterialThemeColors="false" />
+
     <Button
         android:id="@+id/btn_selanjutnya_fr_sheet_danai"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_green"
+        android:background="@drawable/button_state_selector"
+        android:enabled="false"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:text="@string/next"
@@ -290,33 +356,6 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_metode_fr_sheet_danai" />
-
-    <TextView
-        android:id="@+id/txt_est_bunga_fr_sheet_danai"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/ibm_plex_sans_semi_bold"
-        android:maxLines="1"
-        android:text="@string/dummy_rp_nol"
-        android:textColor="@color/dark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_selanjutnya_fr_sheet_danai"
-        app:layout_constraintEnd_toStartOf="@+id/btn_selanjutnya_fr_sheet_danai"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/lbl_est_bunga_fr_sheet_danai"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="@string/est_bunga_akan_diterima"
-        android:textColor="@color/dark"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_est_bunga_fr_sheet_danai"
-        app:layout_constraintEnd_toEndOf="@+id/txt_est_bunga_fr_sheet_danai"
-        app:layout_constraintStart_toStartOf="@+id/txt_est_bunga_fr_sheet_danai" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_setuju_mendanai_fr_sheet_danai" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

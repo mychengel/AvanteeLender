@@ -59,7 +59,7 @@ public class WorkInfoFragment extends Fragment {
     GlobalVariables gv;
     Button btn_next;
     AutoCompleteTextView auto_job, auto_jobField, auto_jobPosition, auto_experience, auto_income,
-            auto_fundsSource, auto_companyProvince, auto_companyCity;
+            auto_fundsSource, auto_companyProvince, auto_companyCity, auto_companyDistrict, auto_companyUrban;
     private RadioGroup radGroupIsOnlineBased;
     private RadioButton radButtonIsOnlineBased;
     TextInputLayout txtJob, txtJobField, txtJobPosition, txtExperience, txtIncome, txtCompanyName,
@@ -78,6 +78,8 @@ public class WorkInfoFragment extends Fragment {
     List<Object> listFundsSource = new ArrayList<>(); List<Object> listFundsSourceID = new ArrayList<>();
     List<Object> listProvince = new ArrayList<>(); List<Object> listProvinceID = new ArrayList<>();
     List<Object> listCity = new ArrayList<>(); List<Object> listCityID = new ArrayList<>();
+    List<Object> listDistrict = new ArrayList<>(); List<Object> listDistrictID = new ArrayList<>();
+    List<Object> listUrban = new ArrayList<>(); List<Object> listUrbanID = new ArrayList<>();
 
 
     @Override
@@ -97,6 +99,8 @@ public class WorkInfoFragment extends Fragment {
         auto_fundsSource = view.findViewById(R.id.auto_funds_source_fr_work_info);
         auto_companyProvince = view.findViewById(R.id.auto_company_province_fr_work_info);
         auto_companyCity = view.findViewById(R.id.auto_company_city_fr_work_info);
+        auto_companyDistrict = view.findViewById(R.id.auto_company_kecamatan_fr_work_info);
+        auto_companyUrban = view.findViewById(R.id.auto_company_kelurahan_fr_work_info);
 
         txtJob = view.findViewById(R.id.edit_job_fr_work_info);
         txtJobField = view.findViewById(R.id.edit_job_field_fr_work_info);
@@ -202,8 +206,8 @@ public class WorkInfoFragment extends Fragment {
         companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
         companyNumber = Objects.requireNonNull(txtCompanyNumber.getEditText().getText().toString().trim());
         companyAddress = Objects.requireNonNull(txtCompanyAddress.getEditText().getText().toString().trim());
-        companyDistrict = Objects.requireNonNull(txtCompanyDistrict.getEditText().getText().toString().trim());
-        companyUrban = Objects.requireNonNull(txtCompanyUrban.getEditText().getText().toString().trim());
+//        companyDistrict = Objects.requireNonNull(txtCompanyDistrict.getEditText().getText().toString().trim());
+//        companyUrban = Objects.requireNonNull(txtCompanyUrban.getEditText().getText().toString().trim());
         companyRT = Objects.requireNonNull(txtCompanyRT.getEditText().getText().toString().trim());
         companyRW = Objects.requireNonNull(txtCompanyRW.getEditText().getText().toString().trim());
         companyPostalCode = Objects.requireNonNull(txtCompanyPostalCode.getEditText().getText().toString().trim());
@@ -507,6 +511,74 @@ public class WorkInfoFragment extends Fragment {
                             companyCity = listCityID.get(x).toString();
                             Log.e("comCity", companyCity);
                             txtCompanyCity.setError(null);
+                            viewModel.getDistrict(prefManager.getUid(), prefManager.getToken(), companyCity);
+                            viewModel.getResultDistrict().observe(getActivity(), showDistrict);
+                        }
+                    });
+                }else{
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Observer<JSONObject> showDistrict = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            listDistrict.clear();
+            listDistrictID.clear();
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    JSONArray jar = jobRes.getJSONArray("district");
+                    for(int i = 0; i < jar.length(); i++){
+                        listDistrict.add(jar.getJSONObject(i).getString("name"));
+                        listDistrictID.add(jar.getJSONObject(i).getString("id"));
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listDistrict);
+                    auto_companyDistrict.setAdapter(adapter);
+                    auto_companyDistrict.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            companyDistrict = listDistrictID.get(x).toString();
+                            Log.e("comDistrict", companyDistrict);
+                            txtCompanyDistrict.setError(null);
+                            viewModel.getUrban(prefManager.getUid(), prefManager.getToken(), companyDistrict);
+                            viewModel.getResultUrban().observe(getActivity(), showUrban);
+                        }
+                    });
+                }else{
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Observer<JSONObject> showUrban = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            listUrban.clear();
+            listUrbanID.clear();
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    JSONArray jar = jobRes.getJSONArray("villages");
+                    for(int i = 0; i < jar.length(); i++){
+                        listUrban.add(jar.getJSONObject(i).getString("name"));
+                        listUrbanID.add(jar.getJSONObject(i).getString("id"));
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listUrban);
+                    auto_companyUrban.setAdapter(adapter);
+                    auto_companyUrban.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            companyUrban = listUrbanID.get(x).toString();
+                            Log.e("comUrban", companyUrban);
+                            txtCompanyUrban.setError(null);
                         }
                     });
                 }else{

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -87,7 +88,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
 
         img_factsheet = findViewById(R.id.img_factsheet_pendanaan_det);
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -98,13 +98,38 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         btn_danai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DanaiSheetFragment();
-                DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();
-                danaiSheetFragment.show(getSupportFragmentManager(), danaiSheetFragment.getTag());
+                confirmDanai();
             }
         });
 
     }
+
+    public void confirmDanai(){
+        dialog.show();
+        viewModel.getStageFunding(prefManager.getUid(), prefManager.getToken(), loan_no);
+        viewModel.getStageFundingResult().observe(PendanaanDetailActivity.this, showStageFunding);
+    }
+
+    private Observer<JSONObject> showStageFunding = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject res = result.getJSONObject("result");
+                    Log.e("resultStage", res.toString());
+                    DanaiSheetFragment.loan_no = loan_no;
+                    new DanaiSheetFragment(res);
+                    DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();
+                    danaiSheetFragment.show(getSupportFragmentManager(), danaiSheetFragment.getTag());
+                }else{
+                    f.showMessage(getString(R.string.failed_load_data));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            dialog.cancel();
+        }
+    };
 
     private void loadForm(){
         cons = findViewById(R.id.cons_sv_pendanaan_det);

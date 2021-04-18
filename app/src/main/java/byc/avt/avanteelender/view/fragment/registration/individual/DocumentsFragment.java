@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -28,6 +29,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -38,6 +41,10 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,7 +54,11 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.misc.OTPActivity;
+import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 import static androidx.core.graphics.TypefaceCompatUtil.getTempFile;
@@ -61,7 +72,6 @@ public class DocumentsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +80,7 @@ public class DocumentsFragment extends Fragment {
     }
 
     private MasterDataViewModel viewModel;
+    private AuthenticationViewModel viewModel2;
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
@@ -94,6 +105,7 @@ public class DocumentsFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MasterDataViewModel.class);
+        viewModel2 = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
         cv_ktp = view.findViewById(R.id.cv_take_ktp_fr_documents);
@@ -245,9 +257,59 @@ public class DocumentsFragment extends Fragment {
                 gv.perRegData.put("selfie", str_selfie);
                 gv.perRegData.put("spesimen_ttd", str_ttd);
                 //Navigation.findNavController(view).navigate(R.id.action_ban);
+                createDocument();
             }
         });
     }
+
+    private void createDocument(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Konfirmasi")
+                .setIcon(R.drawable.logo)
+                .setMessage(getString(R.string.create_doc_confirmation))
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                        dialog.show();
+                        viewModel2.createPersonalDoc(prefManager.getUid(), prefManager.getToken());
+                        viewModel2.getResultCreatePersonalDoc().observe(getActivity(), showResult);
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .create()
+                .show();
+
+    }
+
+    private Observer<JSONObject> showResult = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = jobRes.getString("messages");
+                    Log.e("Respon per cr doc", jobRes.toString());
+                    f.showMessage(msg);
+                    startActivity(new Intent(getActivity(), OTPDocActivity.class));
+                    getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+                    getActivity().finish();
+                }else{
+                    JSONObject jobRes = result.getJSONObject("result");
+                    Log.e("Respon per cr doc", jobRes.toString());
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     boolean ktpisvalid = false;
     public void cekKTP(String ktp){
@@ -429,6 +491,7 @@ public class DocumentsFragment extends Fragment {
                 if(requestCode == PICK_KTP){
                     decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                     str_ktp = f.getStringImage(decoded_ktp);
+                    Log.e("str_ktp", str_ktp);
                     txt_ktp.setText(filePath.getLastPathSegment()+".png");
                 }else if(requestCode == PICK_NPWP){
                     decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));

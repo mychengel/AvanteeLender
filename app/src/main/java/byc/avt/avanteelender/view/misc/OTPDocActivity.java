@@ -30,9 +30,10 @@ import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
+import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
-public class OTPActivity extends AppCompatActivity {
+public class OTPDocActivity extends AppCompatActivity {
 
     private TextView tvCountdown, tvSendTo;
     public static Button btnVerify;
@@ -45,26 +46,26 @@ public class OTPActivity extends AppCompatActivity {
     private Dialog dialog;
     private PrefManager prefManager;
     Toolbar bar;
-    Fungsi f = new Fungsi(OTPActivity.this);
+    Fungsi f = new Fungsi(OTPDocActivity.this);
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp);
-        bar = findViewById(R.id.toolbar_otp);
+        setContentView(R.layout.activity_otp_doc);
+        bar = findViewById(R.id.toolbar_otp_doc);
         setSupportActionBar(bar);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tvSendTo = findViewById(R.id.lbl_desc_sent_to_otp);
-        tvCountdown = findViewById(R.id.txt_countdown_otp);
-        otpView = findViewById(R.id.edit_code_otp);
+        tvSendTo = findViewById(R.id.lbl_desc_sent_to_otp_doc);
+        tvCountdown = findViewById(R.id.txt_countdown_otp_doc);
+        otpView = findViewById(R.id.edit_code_otp_doc);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
-        dialog = GlobalVariables.loadingDialog(OTPActivity.this);
-        prefManager = PrefManager.getInstance(OTPActivity.this);
-        btnVerify = findViewById(R.id.btn_verify_otp);
+        dialog = GlobalVariables.loadingDialog(OTPDocActivity.this);
+        prefManager = PrefManager.getInstance(OTPDocActivity.this);
+        btnVerify = findViewById(R.id.btn_verify_otp_doc);
 
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,28 +74,25 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        sendOTPVerification();
-
-        if (getIntent().getParcelableExtra(NEW_USER) != null) {
-            user = getIntent().getParcelableExtra(NEW_USER);
-            tvSendTo.setText(getString(R.string.otp_desc) + user.getNo_handphone());
-        }
     }
 
     public void verifyOTP() {
         // POST to server through endpoint
         dialog.show();
-        viewModel.verifyOTP(prefManager.getUid(), prefManager.getToken(), otpView.getText().toString());
-        viewModel.getVerifyOTPResult().observe(OTPActivity.this, verifyOTPSuccess);
+        viewModel.verifyOTPDoc(prefManager.getUid(), prefManager.getToken(), otpView.getText().toString());
+        viewModel.getVerifyOTPDocResult().observe(OTPDocActivity.this, verifyOTPDocSuccess);
     }
 
-    private Observer<String> verifyOTPSuccess = new Observer<String>() {
+    private Observer<String> verifyOTPDocSuccess = new Observer<String>() {
         @Override
         public void onChanged(String result) {
             String cek = result.split(": ")[0];
             String msg = result.split(": ")[1];
             if(cek.equalsIgnoreCase("success")){
                 f.showMessage(msg);
+                new ConfirmationSheetFragment(R.raw.registration_done_once, getString(R.string.register_complete), getString(R.string.registed_complete_message));
+                ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
+                sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
                 confirmLogin();
             }else{
                 f.showMessage(msg);
@@ -103,11 +101,10 @@ public class OTPActivity extends AppCompatActivity {
         }
     };
 
-
     public void confirmLogin() {
         // POST to server through endpoint
         viewModel.login(prefManager.getEmail(), prefManager.getPassword());
-        viewModel.getLoginResult().observe(OTPActivity.this, checkSuccessLogin);
+        viewModel.getLoginResult().observe(OTPDocActivity.this, checkSuccessLogin);
     }
 
     private Observer<String> checkSuccessLogin = new Observer<String>() {
@@ -116,11 +113,11 @@ public class OTPActivity extends AppCompatActivity {
             if(result.equals("success")) {
                 if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
                     ///isi di sini untuk memulai pendaftaran registrasi form
-                    startActivity(new Intent(OTPActivity.this, RegistrationFormActivity.class));
+                    startActivity(new Intent(OTPDocActivity.this, RegistrationFormActivity.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
                 }else{
-                    startActivity(new Intent(OTPActivity.this, MainActivity.class));
+                    startActivity(new Intent(OTPDocActivity.this, MainActivity.class));
                     f.showMessage("Selamat datang "+prefManager.getName()+".");
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
@@ -130,7 +127,7 @@ public class OTPActivity extends AppCompatActivity {
             }else if(result.equals("failed2")){
                 f.showMessage("Login gagal, silahkan coba lagi");
             }else if(result.equals("not_verified")){
-                startActivity(new Intent(OTPActivity.this, OTPActivity.class));
+                startActivity(new Intent(OTPDocActivity.this, OTPDocActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
             }
@@ -138,12 +135,11 @@ public class OTPActivity extends AppCompatActivity {
         }
     };
 
-
     public void sendOTPVerification() {
         // POST to server through endpoint
         dialog.show();
         viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken());
-        viewModel.getOTPVerificationResult().observe(OTPActivity.this, sendSuccess);
+        viewModel.getOTPVerificationResult().observe(OTPDocActivity.this, sendSuccess);
     }
 
     private Observer<String> sendSuccess = new Observer<String>() {
@@ -163,7 +159,7 @@ public class OTPActivity extends AppCompatActivity {
         public void onClick(View view) {
             sendOTPVerification();
             btnVerify.setEnabled(false);
-            OTPActivity.this.setTimer();
+            OTPDocActivity.this.setTimer();
         }
     };
 
@@ -204,7 +200,7 @@ public class OTPActivity extends AppCompatActivity {
         // LOGOUT: GET method to server through endpoint
         dialog.show();
         viewModel.logout(prefManager.getUid(), prefManager.getToken());
-        viewModel.getLogoutResult().observe(OTPActivity.this, checkLogout);
+        viewModel.getLogoutResult().observe(OTPDocActivity.this, checkLogout);
     }
 
     private Observer<String> checkLogout = new Observer<String>() {
@@ -212,10 +208,10 @@ public class OTPActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 dialog.cancel();
-                Intent intent = new Intent(OTPActivity.this, WalkthroughActivity.class);
+                Intent intent = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                new Fungsi(OTPActivity.this).showMessage("Anda keluar dari verifikasi akun.");
+                new Fungsi(OTPDocActivity.this).showMessage("Anda keluar dari verifikasi dokumen akun.");
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 finish();
             }else{
@@ -224,4 +220,5 @@ public class OTPActivity extends AppCompatActivity {
             }
         }
     };
+
 }

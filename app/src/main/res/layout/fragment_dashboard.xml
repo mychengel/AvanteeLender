@@ -486,7 +486,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/lbl_title_otp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -512,7 +512,7 @@
                         android:textSize="24sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_title_otp" />
 
                     <TextView
                         android:id="@+id/textView13"

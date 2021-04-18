@@ -87,7 +87,6 @@ public class AktifPortofolioRepository {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-// TODO handle the error
                 error.printStackTrace();
             }
         }, null)

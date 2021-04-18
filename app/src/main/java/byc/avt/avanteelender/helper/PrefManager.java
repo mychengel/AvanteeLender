@@ -7,8 +7,8 @@ import byc.avt.avanteelender.model.UserData;
 
 public class PrefManager {
 
-    private SharedPreferences pref, userPref, keyPref;
-    private SharedPreferences.Editor editor, userEditor, keyEditor;
+    private SharedPreferences pref, userPref, keyPref, docPref;
+    private SharedPreferences.Editor editor, userEditor, keyEditor, docEditor;
     private static PrefManager instance;
 
     // shared pref mode
@@ -18,6 +18,7 @@ public class PrefManager {
     private static final String PREF_NAME = "welcome";
     private static final String PREF_USER = "user";
     private static final String PREF_KEYS = "keys";
+    private static final String PREF_DOC = "doc";
     private static final String PREF_PERSONAL_REG = "personalreg";
     private static final String PREF_INSTITUTION_REG = "institutionreg";
 
@@ -34,6 +35,9 @@ public class PrefManager {
 
         keyPref = context.getSharedPreferences(PREF_KEYS, PRIVATE_MODE);
         keyEditor = keyPref.edit();
+
+        docPref = context.getSharedPreferences(PREF_DOC, PRIVATE_MODE);
+        docEditor = docPref.edit();
 
 //        perRegPref = context.getSharedPreferences(PREF_PERSONAL_REG, PRIVATE_MODE);
 //        perRegEditor = perRegPref.edit();
@@ -128,6 +132,21 @@ public class PrefManager {
 
     public void clearResetPasswordKeyData(){
         keyEditor.clear().commit();
+    }
+
+    //documents verification check
+    public void setDocVerification(String ver){
+        docEditor.putString("is_doc_verif", ver);
+        docEditor.commit();
+    }
+
+    public String getDocVerification(){
+        String ver = docPref.getString("is_doc_verif","0");
+        return ver;
+    }
+
+    public void clearDocVerification(){
+        docEditor.clear().commit();
     }
 
     //function to manage user pref
