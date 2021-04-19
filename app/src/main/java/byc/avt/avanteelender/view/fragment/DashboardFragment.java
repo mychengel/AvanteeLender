@@ -232,8 +232,9 @@ public class DashboardFragment extends Fragment {
                     }else{
                         btn_withdraw.setEnabled(true);
                     }
+                    txt_ewallet.setText(f.toNumb(""+mywallet));
                     lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
-                    lbl_saldo_va.setText(f.toNumb(""+result.getInt("total_dana_va")));
+                    lbl_saldo_va.setText(f.toNumb(""+result.getLong("total_dana_va")));
 //                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));
 //                    lbl_saldo_rdl.setText(f.toNumb(""+result.getString("total_dana_rdl")));
                     lbl_dana_pending.setText(f.toNumb(""+result.getLong("dana_pending")));
@@ -336,13 +337,13 @@ public class DashboardFragment extends Fragment {
         try {
             JSONObject res = obj.getJSONObject("result");
             JSONArray interestArr = res.getJSONArray("interestChart");
-            int totInterest = 0;
+            long totInterest = 0;
             for(int i = 0; i < interestArr.length(); i++){
-                totInterest = totInterest + interestArr.getJSONObject(i).getInt("value");
+                totInterest = totInterest + interestArr.getJSONObject(i).getLong("value");
             }
-            txt_ewallet.setText(f.toNumb(""+res.getInt("totalEwallet")));
-            txt_nom_active_port.setText(f.toNumb(""+res.getInt("totalInves")));
-            txt_nom_pending_port.setText(f.toNumb(""+res.getInt("totalPending")));
+            //txt_ewallet.setText(f.toNumb(""+res.getInt("totalEwallet")));
+            txt_nom_active_port.setText(f.toNumb(""+res.getLong("totalInves")));
+            txt_nom_pending_port.setText(f.toNumb(""+res.getLong("totalPending")));
             txt_estimate_received_interest.setText(f.toNumb(""+totInterest));
             //txt_late.setText(); //data diambil dari mana (?)
         } catch (JSONException e) {

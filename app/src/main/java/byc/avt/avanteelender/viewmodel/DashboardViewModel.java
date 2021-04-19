@@ -64,8 +64,8 @@ public class DashboardViewModel extends AndroidViewModel {
         return resultHistoryTrx;
     }
 
-    public void getHistoryTrxList(String uid, String token){
-        resultHistoryTrxList = dashboardRepository.getHistoryTrxList(uid, token, getApplication());
+    public void getHistoryTrxList(String uid, String token, String page){
+        resultHistoryTrxList = dashboardRepository.getHistoryTrxList(page, uid, token, getApplication());
     }
 
     public LiveData<ArrayList<HistoryTrx>> getResultHistoryTrxList(){

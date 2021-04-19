@@ -167,11 +167,17 @@ public class DashboardRepository {
         return result;
     }
 
-    public MutableLiveData<ArrayList<HistoryTrx>> getHistoryTrxList(final String uid, final String token, final Context context) {
+    public MutableLiveData<ArrayList<HistoryTrx>> getHistoryTrxList(final String page, final String uid, final String token, final Context context) {
         final MutableLiveData<ArrayList<HistoryTrx>> result = new MutableLiveData<>();
         final ArrayList<HistoryTrx> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/wallet", null,
+        String pg = "";
+        if(page.equalsIgnoreCase("1")){
+            pg = "";
+        }else{
+            pg = "?page="+page;
+        }
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/wallet"+pg, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

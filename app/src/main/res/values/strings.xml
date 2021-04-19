@@ -406,5 +406,6 @@
     <string name="setuju_lanjutkan">Saya setuju, lanjutkan.</string>
     <string name="biaya_admin_penarikan">Penarikan dana akan dikenakan biaya administrasi sebesar </string>
     <string name="finish_funding_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses pendanaan ini akan kami anggap batal. Lanjutkan?</string>
+    <string name="va_short">VA</string>
 
 </resources>

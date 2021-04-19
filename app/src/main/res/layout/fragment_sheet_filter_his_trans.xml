@@ -5,6 +5,7 @@
     android:id="@+id/cons_fr_sheet_filter_his_trans"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/lightest_neutral"
     tools:context=".view.sheet.HisTransFilterSheetFragment">
 
     <ImageView
@@ -24,10 +25,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:fontFamily="@font/ibm_plex_sans_semi_bold"
         android:text="@string/filter"
         android:textColor="@color/dark"
-        android:textSize="30sp"
+        android:textSize="27sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_filter_his_trans" />
 
@@ -73,7 +74,7 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/periode_of_trans"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,14 +96,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/sembilanpuluh_day_left"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <RadioButton
                     android:id="@+id/rad_range_pof_fr_sheet_filter_his_trans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pick_range_time"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
             </RadioGroup>
 
             <LinearLayout
@@ -125,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
-                    android:hint="@string/mulai" />
+                    android:hint="@string/mulai"
+                    android:textSize="15sp" />
 
                 <AutoCompleteTextView
                     android:id="@+id/date_end_pof_fr_sheet_filter_his_trans"
@@ -134,7 +136,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
-                    android:hint="@string/selesai" />
+                    android:hint="@string/selesai"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View
@@ -142,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,11 +157,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/status"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/div1_fr_sheet_filter_his_trans" />
@@ -168,7 +171,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,14 +183,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/berhasil"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <RadioButton
                     android:id="@+id/rad_pending_fr_sheet_filter_his_trans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pending"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
             </RadioGroup>
 
             <View
@@ -195,7 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -207,11 +210,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/trans_type"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/div2_fr_sheet_filter_his_trans" />
@@ -221,7 +224,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,14 +236,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/pembayaran"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <RadioButton
                     android:id="@+id/rad_penarikan_fr_sheet_filter_his_trans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/penarikan_dana"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
             </RadioGroup>
 
 
@@ -253,7 +256,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_green"
