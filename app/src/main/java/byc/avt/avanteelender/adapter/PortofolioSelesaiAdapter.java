@@ -1,14 +1,12 @@
 package byc.avt.avanteelender.adapter;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +51,7 @@ public class PortofolioSelesaiAdapter extends RecyclerView.Adapter<PortofolioSel
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());
         holder.txt_loan_rating.setText(ps.getLoan_rating());
-        holder.txt_end_date.setText(f.tglFull(ps.getEnd_date().substring(0,10)));
+        holder.txt_invest_date.setText(f.tglFull(ps.getInvest_date().substring(0,10)));
         holder.txt_tenor.setText(ps.getTenor()+" hari");
         holder.txt_interest.setText(""+ (int)Float.parseFloat(ps.getInterest())+"%");
         holder.txt_nominal.setText(f.toNumb(ps.getNominal()));
@@ -80,7 +78,7 @@ public class PortofolioSelesaiAdapter extends RecyclerView.Adapter<PortofolioSel
     }
 
     class CardViewViewHolder extends RecyclerView.ViewHolder{
-        TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_end_date, txt_tenor, txt_interest, txt_nominal, txt_payment_amount;
+        TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_invest_date, txt_tenor, txt_interest, txt_nominal, txt_payment_amount;
         ImageView img_mark;
         ConstraintLayout cons;
 
@@ -89,7 +87,7 @@ public class PortofolioSelesaiAdapter extends RecyclerView.Adapter<PortofolioSel
             txt_loan_type = itemView.findViewById(R.id.txt_loan_type_adp_port_selesai);
             txt_loan_rating = itemView.findViewById(R.id.txt_loan_rating_adp_port_selesai);
             txt_loan_no = itemView.findViewById(R.id.txt_loan_no_adp_port_selesai);
-            txt_end_date = itemView.findViewById(R.id.txt_selesai_pendanaan_adp_port_selesai);
+            txt_invest_date = itemView.findViewById(R.id.txt_mulai_pendanaan_adp_port_selesai);
             txt_tenor = itemView.findViewById(R.id.txt_tenor_adp_port_selesai);
             txt_interest = itemView.findViewById(R.id.txt_interest_adp_port_selesai);
             txt_nominal = itemView.findViewById(R.id.txt_nominal_pendanaan_adp_port_selesai);

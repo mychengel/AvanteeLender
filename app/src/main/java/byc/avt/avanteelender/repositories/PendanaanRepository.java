@@ -325,8 +325,8 @@ public class PendanaanRepository {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         Log.e("AGREEMENTCODE", code);
-        HashMap<String, String> params = new HashMap<>(1);
-        params.put("agreement_code", ""+code);
+        Map<String, String> params = new HashMap<>();
+        params.put("agreement_code", code);
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/pendanaan/setuju", parameters,
                 new Response.Listener<JSONObject>() {

@@ -134,8 +134,8 @@ public class PersonalDataFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //confirmNext(v);
-                Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
+                confirmNext(v);
+                //Navigation.findNavController(v).navigate(R.id.action_personalDataFragment_to_workInfoFragment);
             }
         });
         Log.e("tipeinvestor", ""+gv.perRegData.get("tipe_investor"));

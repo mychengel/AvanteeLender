@@ -87,8 +87,8 @@ public class BankInfoFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //confirmNext(v);
-                Navigation.findNavController(v).navigate(R.id.action_bankInfoFragment_to_documentsFragment);
+                confirmNext(v);
+                //Navigation.findNavController(v).navigate(R.id.action_bankInfoFragment_to_documentsFragment);
             }
         });
 

@@ -59,46 +59,34 @@
 
     <TextView
         android:id="@+id/lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/withdrawal_fee"
+        android:layout_marginEnd="16dp"
+        android:text="@string/biaya_admin_penarikan"
         android:textColor="@color/darkO05"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/lbl_nom_penarikan_fr_sheet_withdrawal_confirmation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_nom_penarikan_fr_sheet_withdrawal_confirmation" />
 
     <TextView
         android:id="@+id/txt_nom_penarikan_fr_sheet_withdrawal_confirmation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        android:maxLines="1"
+        android:fontFamily="@font/ibm_plex_sans_medium"
+        android:maxLines="2"
         android:text="@string/dummy_rp_nol"
         android:textAlignment="textEnd"
         android:textColor="@color/dark"
-        android:textSize="15sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/lbl_nom_penarikan_fr_sheet_withdrawal_confirmation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lbl_nom_penarikan_fr_sheet_withdrawal_confirmation"
         app:layout_constraintTop_toTopOf="@+id/lbl_nom_penarikan_fr_sheet_withdrawal_confirmation" />
-
-    <TextView
-        android:id="@+id/txt_biaya_penarikan_fr_sheet_withdrawal_confirmation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:maxLines="1"
-        android:text="@string/dummy_rp_nol"
-        android:textAlignment="textEnd"
-        android:textColor="@color/dark"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation"
-        app:layout_constraintTop_toTopOf="@+id/lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation" />
 
     <View
         android:id="@+id/div_fr_sheet_withdrawal_confirmation"
@@ -113,45 +101,18 @@
         app:layout_constraintTop_toBottomOf="@+id/lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation" />
 
     <TextView
-        android:id="@+id/lbl_tot_diterima_fr_withdrawal_confirmation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:maxLines="2"
-        android:text="@string/total_yang_akan_diterima"
-        android:textColor="@color/darkO05"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/txt_tot_diterima_fr_withdrawal_confirmation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/div_fr_sheet_withdrawal_confirmation" />
-
-    <TextView
-        android:id="@+id/txt_tot_diterima_fr_withdrawal_confirmation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/ibm_plex_sans_medium"
-        android:text="@string/dummy_rp_nol"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lbl_tot_diterima_fr_withdrawal_confirmation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lbl_tot_diterima_fr_withdrawal_confirmation" />
-
-    <TextView
         android:id="@+id/lbl_dana_akan_ditransfer_ke_fr_sheet_withdrawal_confirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:text="@string/dana_akan_ditransfer_ke"
         android:textAllCaps="false"
         android:textColor="@color/dark"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_tot_diterima_fr_withdrawal_confirmation" />
+        app:layout_constraintTop_toBottomOf="@+id/div_fr_sheet_withdrawal_confirmation" />
 
     <TextView
         android:id="@+id/lbl_nama_bank_fr_sheet_withdrawal_confirmation"

@@ -176,7 +176,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_pb_received_port_aktif_det"
-                android:layout_width="304dp"
+                android:layout_width="wrap_content"
                 android:layout_height="84dp"
                 android:layout_marginStart="16dp"
                 app:cardBackgroundColor="@color/colorPrimary"
@@ -188,38 +188,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:background="@android:color/white">
+                    android:background="@android:color/white"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:id="@+id/lbl_tot_angs_selanjutnya_port_aktif_det"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:maxLines="1"
                         android:text="@string/angsuran_per_selanjutnya"
                         android:textAllCaps="true"
                         android:textColor="@color/darkO05"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/txt_tot_angs_selanjutnya_port_aktif_det"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/ibm_plex_sans_semi_bold"
                         android:text="@string/dummy_rp_nol"
                         android:textColor="@color/dark"
                         android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tot_angs_selanjutnya_port_aktif_det" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -227,7 +224,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_nom_received_port_aktif_det"
-                android:layout_width="304dp"
+                android:layout_width="wrap_content"
                 android:layout_height="84dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -240,38 +237,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:id="@+id/lbl_tot_angs_sudah_port_aktif_det"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:maxLines="1"
                         android:text="@string/angsuran_per_sudah"
                         android:textAllCaps="true"
                         android:textColor="@color/darkO05"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/txt_tot_angs_sudah_port_aktif_det"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/ibm_plex_sans_semi_bold"
                         android:text="@string/dummy_rp_nol"
                         android:textColor="@color/dark"
                         android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tot_angs_sudah_port_aktif_det" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

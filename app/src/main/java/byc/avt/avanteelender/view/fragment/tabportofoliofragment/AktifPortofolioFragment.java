@@ -79,9 +79,9 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_surat_kuasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
-                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+//                dialog.show();
+//                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+//                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
             }
         });
 

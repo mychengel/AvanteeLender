@@ -121,13 +121,14 @@ public class LoginActivity extends AppCompatActivity {
                 if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
                     ///isi di sini untuk memulai pendaftaran registrasi form
                     //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
+                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     startActivity(new Intent(LoginActivity.this, RegistrationFormActivity.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
                 }else if(!prefManager.getName().equalsIgnoreCase("null")){
                     //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    f.showMessage("Selamat datang "+prefManager.getName()+".");
+                    f.showMessage("Selamat datang "+prefManager.getName()+".");
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
                 }

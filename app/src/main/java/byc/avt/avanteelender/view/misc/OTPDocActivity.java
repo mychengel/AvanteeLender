@@ -147,7 +147,7 @@ public class OTPDocActivity extends AppCompatActivity {
         public void onChanged(String result) {
             f.showMessage(result);
             dialog.cancel();
-            new OTPReceiver().setEditText(otpView);
+            new OTPReceiver().setEditText(otpView, "document");
             setTimer();
         }
     };

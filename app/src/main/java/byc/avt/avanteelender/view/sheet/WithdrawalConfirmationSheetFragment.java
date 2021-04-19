@@ -35,9 +35,9 @@ import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragment {
 
     private static WithdrawalConfirmationSheetFragment instance;
-    public static int nominal_penarikan;
+    public static long nominal_penarikan;
     public static int biaya_penarikan;
-    public static int total_diterima;
+    public static long total_diterima;
     public static String nama_bank;
     public static String no_rek_bank;
     public static String no_va;
@@ -56,10 +56,10 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
     public WithdrawalConfirmationSheetFragment() {
     }
 
-    public WithdrawalConfirmationSheetFragment(int nominal_penarikan, String nama_bank, String no_rek_bank, String nama_pemilik_bank, String no_va){
+    public WithdrawalConfirmationSheetFragment(long nominal_penarikan, int biaya_penarikan, String nama_bank, String no_rek_bank, String nama_pemilik_bank, String no_va){
         this.nominal_penarikan = nominal_penarikan;
-        this.biaya_penarikan = gv.BIAYA_PENARIKAN;
-        this.total_diterima = nominal_penarikan - gv.BIAYA_PENARIKAN;
+        this.biaya_penarikan = biaya_penarikan;
+        //this.total_diterima = nominal_penarikan - biaya_penarikan;
         this.nama_bank = nama_bank;
         this.no_rek_bank = no_rek_bank;
         this.nama_pemilik_bank = nama_pemilik_bank;
@@ -77,14 +77,13 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_sheet_withdrawal_confirmation, container, false);
         txt_nominal_penarikan = view.findViewById(R.id.txt_nom_penarikan_fr_sheet_withdrawal_confirmation);
-        txt_biaya_penarikan = view.findViewById(R.id.txt_biaya_penarikan_fr_sheet_withdrawal_confirmation);
-        txt_total_diterima = view.findViewById(R.id.txt_tot_diterima_fr_withdrawal_confirmation);
+        txt_biaya_penarikan = view.findViewById(R.id.lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation);
+
         txt_nama_bank = view.findViewById(R.id.txt_nama_bank_fr_sheet_withdrawal_confirmation);
         txt_no_rek_bank = view.findViewById(R.id.txt_no_bank_fr_sheet_withdrawal_confirmation);
         txt_nama_pemilik_bank = view.findViewById(R.id.txt_nama_pemilik_bank_fr_sheet_withdrawal_confirmation);
         txt_nominal_penarikan.setText(f.toNumb(""+nominal_penarikan));
-        txt_biaya_penarikan.setText("-"+f.toNumb(""+biaya_penarikan));
-        txt_total_diterima.setText(f.toNumb(""+total_diterima));
+        txt_biaya_penarikan.setText(getString(R.string.biaya_admin_penarikan)+" -"+f.toNumb(""+biaya_penarikan));
         txt_nama_bank.setText(nama_bank);
         txt_no_rek_bank.setText(no_rek_bank);
         txt_nama_pemilik_bank.setText(nama_pemilik_bank);

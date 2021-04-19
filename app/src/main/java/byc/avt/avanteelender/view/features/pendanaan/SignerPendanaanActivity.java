@@ -1,10 +1,12 @@
 package byc.avt.avanteelender.view.features.pendanaan;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,11 +14,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 
 public class SignerPendanaanActivity extends AppCompatActivity {
@@ -104,7 +111,29 @@ public class SignerPendanaanActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        new AlertDialog.Builder(SignerPendanaanActivity.this)
+                .setTitle("Konfirmasi")
+                .setIcon(R.drawable.logo)
+                .setMessage(getString(R.string.finish_funding_first))
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                        f.showMessage("Pendanaan selesai");
+                        startActivity(new Intent(SignerPendanaanActivity.this, MainActivity.class));
+                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .create()
+                .show();
     }
 
 }

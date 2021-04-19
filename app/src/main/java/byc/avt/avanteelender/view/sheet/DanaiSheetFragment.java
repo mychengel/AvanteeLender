@@ -1,6 +1,7 @@
 package byc.avt.avanteelender.view.sheet;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,8 +47,6 @@ import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 public class DanaiSheetFragment extends BottomSheetDialogFragment {
 
     public static String loan_no;
-
-    Fungsi f = new Fungsi(getActivity());
     private Dialog dialog;
     private PendanaanViewModel viewModel;
     private PrefManager prefManager;
@@ -66,6 +65,8 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     String nominal_show = "", current = "";
     long saldoVa=0, saldoRdl=0, totalSaldo=0, pending=0, multiplesFunding=0, minInvest=0, maxInvest=0;
     String investType="";
+    Context ctx;
+    Fungsi f;
 
     public DanaiSheetFragment() {
     }
@@ -84,6 +85,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_sheet_danai, container, false);
+        f = new Fungsi(ctx);
         Log.e("JOBDanai", job.toString());
         try {
             saldoVa = job.getInt("saldo_va");
@@ -126,8 +128,10 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         Log.e("LOAN_NO", loan_no);
 
         if(totalSaldo < minInvest){
-            //f.showMessage(getString(R.string.saldo_not_enough));
-            getInstance().dismiss();
+            new Fungsi(getActivity()).showMessage(getString(R.string.saldo_not_enough));
+            instance.dismiss();
+        }else{
+            confirmNominal("va");
         }
 
         cb_agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -333,8 +337,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                         .show();
             }
         });
-
-        confirmNominal("va");
 
         return view;
     }

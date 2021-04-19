@@ -11,7 +11,12 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.Html;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
@@ -49,7 +54,11 @@ public class Fungsi {
     }
 
     public void showMessage(String msg) {
-        Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+        Spannable centeredText = new SpannableString(msg);
+        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0, msg.length() - 1,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
     }
 
     public String htmlToStr(String msg){

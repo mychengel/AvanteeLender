@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -41,7 +42,7 @@ public final class GlobalVariables {
             "{1,50}" + //at least 1 character, max 50 character
             "$");
 
-    public static Map<String, String> perRegData = new HashMap<>();
+    public static Map<String, String> perRegData = new Hashtable<>();
     public static boolean stPerPersonalData;
     public static boolean stPerWorkInfo;
     public static boolean stPerAddressData;

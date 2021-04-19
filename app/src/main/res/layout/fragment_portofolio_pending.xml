@@ -27,7 +27,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_pb_received_port_pending"
-                android:layout_width="304dp"
+                android:layout_width="wrap_content"
                 android:layout_height="84dp"
                 android:layout_marginStart="16dp"
                 app:cardBackgroundColor="@color/pending"
@@ -39,38 +39,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:background="@color/white_transparent_80">
+                    android:background="@color/white_transparent_80"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:id="@+id/lbl_tot_nom_port_pending"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:maxLines="1"
                         android:text="@string/tot_nom_port_pending"
                         android:textAllCaps="true"
                         android:textColor="@color/darkO05"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/txt_tot_nom_port_pending"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/ibm_plex_sans_semi_bold"
                         android:text="@string/dummy_rp_nol"
                         android:textColor="@color/dark"
                         android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_tot_nom_port_pending" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,7 +75,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_nom_received_port_pending"
-                android:layout_width="304dp"
+                android:layout_width="wrap_content"
                 android:layout_height="84dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -91,38 +88,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:background="@color/white_transparent_80">
+                    android:background="@color/white_transparent_80"
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:id="@+id/lbl_est_bunga_port_pending"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/ibm_plex_sans_medium"
                         android:maxLines="1"
                         android:text="@string/est_bunga_diterima"
                         android:textAllCaps="true"
                         android:textColor="@color/darkO05"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/txt_est_bunga_port_pending"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/ibm_plex_sans_semi_bold"
                         android:text="@string/dummy_rp_nol"
                         android:textColor="@color/dark"
                         android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lbl_est_bunga_port_pending" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -175,6 +169,7 @@
         android:text="@string/txtnull"
         android:textColor="@color/pending"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_tot_pinjaman_port_pending"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txt_tot_pinjaman_port_pending" />
@@ -187,6 +182,7 @@
         android:text="@string/belum_dibayar"
         android:textColor="@color/darkO05"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/txt_late_port_pending"
         app:layout_constraintEnd_toStartOf="@+id/txt_late_port_pending"
         app:layout_constraintTop_toTopOf="@+id/txt_late_port_pending" />

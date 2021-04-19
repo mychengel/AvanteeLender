@@ -46,9 +46,10 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     private TextView txt_saldo_tersedia, txt_info_max_tarik;
     ImageView imgPlus, imgMinus;
     EditText edit_nominal;
-    long nominal_tarik_int = 0;
+    long nominal_tarik_int = 20000;
+    int biaya_penarikan = 0;
     String nominal_tarik_show="", current="";
-    int ewallet = 0, maxTarik = 0;
+    long ewallet = 0, maxTarik = 0;
     String namaBank="", noRek="", vaNo="", namaPemilikBank="";
 
     @Override
@@ -70,6 +71,10 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         imgMinus = findViewById(R.id.img_minus_penarikan_dana);
 
         edit_nominal = findViewById(R.id.edit_nom_penarikan_dana);
+        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
+        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
+        edit_nominal.setText(nominal_tarik_show);
+
         edit_nominal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -82,19 +87,24 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                     edit_nominal.removeTextChangedListener(this);
                     String cleanString = s.toString().replaceAll("[$,.]", "");
                     if(cleanString.isEmpty() || cleanString.equalsIgnoreCase("")){
-                        nominal_tarik_int = 0;
-                        nominal_tarik_show = f.toNumb(cleanString);
+                        nominal_tarik_int = 20000;
+                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                         nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                     }else{
                         try {
                             nominal_tarik_int = Long.parseLong(cleanString);
-                            nominal_tarik_show = f.toNumb(cleanString);
-                            nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-                        }catch (Exception e){
-                            nominal_tarik_int = ewallet - (ewallet % 1000000);
+                            if(nominal_tarik_int < 20000){
+                                nominal_tarik_int = 20000;
+                            }else if(nominal_tarik_int > ewallet){
+                                nominal_tarik_int = ewallet;
+                            }
                             nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                             nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-                            f.showMessage(getString(R.string.reach_limit_number));
+                        }catch (Exception e){
+                            nominal_tarik_int = ewallet;
+                            nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
+                            nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
+                            //f.showMessage(getString(R.string.reach_limit_number));
                         }
                     }
 
@@ -114,16 +124,16 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         imgPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nominal_tarik_int > ewallet){
-                    nominal_tarik_int = ewallet - (ewallet % 1000000);
+                if(nominal_tarik_int + 1 > ewallet){
+                    nominal_tarik_int = ewallet;
                     nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                     nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
-                    f.showMessage(getString(R.string.reach_limit_withdrawal));
+                    //f.showMessage(getString(R.string.reach_limit_withdrawal));
                 }else{
-                    if((nominal_tarik_int + 1000000) < ewallet){
-                        nominal_tarik_int = nominal_tarik_int - (nominal_tarik_int % 1000000) + 1000000;
+                    if((nominal_tarik_int + 1) <= ewallet){
+                        nominal_tarik_int = nominal_tarik_int + 1;
                         nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                         nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                         edit_nominal.setText(nominal_tarik_show);
@@ -140,25 +150,26 @@ public class PenarikanDanaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(nominal_tarik_int > ewallet){
-                    nominal_tarik_int = ewallet - (ewallet % 1000000);
+                    nominal_tarik_int = ewallet;
                     nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                     nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
                 }else{
-                    if((nominal_tarik_int - 1000000) >= 1000000){
+                    if((nominal_tarik_int - 1) >= 20000){
                         long nom_mod = nominal_tarik_int % 1000000;
-                        if(nom_mod == 0){
-                            nominal_tarik_int = nominal_tarik_int - 1000000;
-                        }else{
-                            nominal_tarik_int = nominal_tarik_int - nom_mod;
-                        }
+//                        if(nom_mod == 0){
+//                            nominal_tarik_int = nominal_tarik_int - 1000000;
+//                        }else{
+//                            nominal_tarik_int = nominal_tarik_int - nom_mod;
+//                        }
+                        nominal_tarik_int = nominal_tarik_int - 1;
                         nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                         nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                         edit_nominal.setText(nominal_tarik_show);
                         edit_nominal.setSelection(nominal_tarik_show.length());
                     }else{
-                        nominal_tarik_int = 0;
+                        nominal_tarik_int = 20000;
                         nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
                         nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                         edit_nominal.setText(nominal_tarik_show);
@@ -173,7 +184,12 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new WithdrawalConfirmationSheetFragment((int) nominal_tarik_int, namaBank, noRek, namaPemilikBank, vaNo);
+                if(nominal_tarik_int >= 20000 && nominal_tarik_int < 500000000){
+                    biaya_penarikan = 2900;
+                }else if(nominal_tarik_int >= 500000000){
+                    biaya_penarikan = 35000;
+                }
+                new WithdrawalConfirmationSheetFragment((long) nominal_tarik_int, biaya_penarikan, namaBank, noRek, namaPemilikBank, vaNo);
                 WithdrawalConfirmationSheetFragment withdrawalConfirmationSheetFragment = WithdrawalConfirmationSheetFragment.getInstance();
                 withdrawalConfirmationSheetFragment.show(getSupportFragmentManager(), withdrawalConfirmationSheetFragment.getTag());
             }
@@ -183,7 +199,12 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     }
 
     private void cekDone(){
-        if(nominal_tarik_int >= 1000000 && (nominal_tarik_int % 1000000) == 0 && nominal_tarik_int <= ewallet){
+//        if(nominal_tarik_int >= 1000000 && (nominal_tarik_int % 1000000) == 0 && nominal_tarik_int <= ewallet){
+//            btn_next.setEnabled(true);
+//        }else {
+//            btn_next.setEnabled(false);
+//        }
+        if(nominal_tarik_int >= 20000 && nominal_tarik_int <= ewallet){
             btn_next.setEnabled(true);
         }else {
             btn_next.setEnabled(false);
@@ -201,14 +222,23 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         public void onChanged(JSONObject result) {
             try {
                 maxTarik = 0;
-                ewallet = result.getInt("ewallet");
+                ewallet = result.getLong("ewallet");
                 txt_saldo_tersedia.setText(f.toNumb(""+ewallet));
-                if(ewallet < 1000000){
+                String info2 = "";
+                if(ewallet < 20000){
                     maxTarik = 0;
+                    info2 = getString(R.string.info_penarikan_dana_maks_2_nol);
+                    btn_next.setEnabled(false);
+                }else if(ewallet >= 500000000){
+                    maxTarik = ewallet - 35000;
+                    info2 = getString(R.string.info_penarikan_dana_maks_2_above500jt);
+                    btn_next.setEnabled(true);
                 }else{
-                    maxTarik = ewallet - 6000;
+                    maxTarik = ewallet - 2900;
+                    info2 = getString(R.string.info_penarikan_dana_maks_2_below500jt);
+                    btn_next.setEnabled(true);
                 }
-                txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+getString(R.string.info_penarikan_dana_maks_2));
+                txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+info2);
                 JSONObject job = result.getJSONObject("info_ewallet");
                 vaNo = job.getString("va_no");
                 namaBank = job.getString("bank_name");

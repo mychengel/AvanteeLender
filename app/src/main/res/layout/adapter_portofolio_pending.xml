@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_adp_port_pending"
         android:layout_width="match_parent"
-        android:layout_height="186dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         app:cardElevation="0dp"
@@ -22,7 +22,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cons_cv_adp_port_pending"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp">
 
             <ImageView
                 android:id="@+id/img_mark_adp_port_pending"
@@ -57,7 +58,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
                 android:textSize="16sp"
@@ -88,7 +89,7 @@
                 android:textColor="@color/darkO05"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_mark_adp_port_pending" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_loan_no_adp_port_pending" />
 
             <TextView
                 android:id="@+id/txt_interest_adp_port_pending"
@@ -175,14 +176,18 @@
 
             <TextView
                 android:id="@+id/txt_est_pengembalian_adp_port_pending"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:gravity="end"
+                android:maxLines="2"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_est_pengembalian_adp_port_pending"
                 app:layout_constraintTop_toBottomOf="@+id/div_adp_port_pending" />
 
             <TextView
@@ -198,15 +203,19 @@
 
             <TextView
                 android:id="@+id/txt_nominal_pendanaan_adp_port_pending"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
+                android:gravity="end"
+                android:maxLines="2"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/lbl_nominal_pendanaan_adp_port_pending"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_nominal_pendanaan_adp_port_pending"
                 app:layout_constraintTop_toTopOf="@+id/lbl_nominal_pendanaan_adp_port_pending" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

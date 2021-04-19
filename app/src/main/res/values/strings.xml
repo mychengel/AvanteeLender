@@ -360,7 +360,9 @@
     <string name="no">Tidak</string>
     <string name="total_saldo_tersedia">Total saldo tersedia</string>
     <string name="info_penarikan_dana_maks_1">Dana maksimum yang bisa Anda tarik adalah sebesar </string>
-    <string name="info_penarikan_dana_maks_2"> (saldo tersedia dipotong biaya penarikan sebesar 6.000). Penarikan dana kelipatan Rp1.000.000.</string>
+    <string name="info_penarikan_dana_maks_2_nol"> </string>
+    <string name="info_penarikan_dana_maks_2_above500jt"> (saldo tersedia dipotong biaya penarikan sebesar 35.000).</string>
+    <string name="info_penarikan_dana_maks_2_below500jt"> (saldo tersedia dipotong biaya penarikan sebesar 2.900).</string>
     <string name="reach_limit_withdrawal">Anda telah mencapai batas maksimum penarikan dana dengan kelipatan Rp1.000.000</string>
     <string name="reach_limit_number">Nominal yang diinputkan melebihi batas seharusnya</string>
     <string name="desc_withdrawal_conf">Anda akan melakukan penarikan dana dengan detail sebagai berikut:</string>
@@ -402,5 +404,7 @@
     <string name="saldo_not_enough">Saldo Anda tidak cukup untuk memberikan pendanaan. Silahkan melakukan topup saldo.</string>
     <string name="pendanaan_confirmation">Apakah Anda yakin akan mendanai pinjaman ini?</string>
     <string name="setuju_lanjutkan">Saya setuju, lanjutkan.</string>
+    <string name="biaya_admin_penarikan">Penarikan dana akan dikenakan biaya administrasi sebesar </string>
+    <string name="finish_funding_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses pendanaan ini akan kami anggap batal. Lanjutkan?</string>
 
 </resources>
