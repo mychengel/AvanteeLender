@@ -65,6 +65,7 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_xs);
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        nestedSv = view.findViewById(R.id.nested_sv_fr_term);
         txt_content = view.findViewById(R.id.txt_toc_fr_term);
         txt_content.setText(text);
         btnCancel = view.findViewById(R.id.btn_batalkan_fr_term);
@@ -73,7 +74,14 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
         btnNext.setEnabled(false);
         cbAgree = view.findViewById(R.id.cb_setuju_fr_term);
         cbAgree.setEnabled(false);
-        nestedSv = view.findViewById(R.id.nested_sv_fr_term);
+        if(read == false){
+            btnCancel.setEnabled(false);
+            btnNext.setEnabled(false);
+            cbAgree.setEnabled(false);
+            cbAgree.setChecked(false);
+            nestedSv.setScrollY(View.SCROLL_INDICATOR_TOP);
+        }
+
         nestedSv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -111,6 +119,7 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cbAgree.setChecked(false);
                 read = true;
                 instance.dismiss();
             }

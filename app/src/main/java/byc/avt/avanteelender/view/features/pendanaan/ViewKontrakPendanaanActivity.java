@@ -1,10 +1,12 @@
 package byc.avt.avanteelender.view.features.pendanaan;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.features.topup.TopupInstructionActivity;
 import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 
@@ -150,6 +154,28 @@ public class ViewKontrakPendanaanActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        new AlertDialog.Builder(ViewKontrakPendanaanActivity.this)
+                .setTitle("Konfirmasi")
+                .setIcon(R.drawable.logo)
+                .setMessage(getString(R.string.back_from_funding_process))
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                        Intent intent = new Intent(ViewKontrakPendanaanActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        new Routes(ViewKontrakPendanaanActivity.this).moveOutIntent(intent);
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .create()
+                .show();
 
     }
 }

@@ -236,6 +236,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     dialog.cancel();
                     Log.e("Result: ", "register success");
                     RegistrationVerifyEmailActivity.email = email;
+                    TermSheetFragment.read = false;
                     Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
                     new Routes(RegistrationActivity.this).moveInFinish(intent);
                 }else{

@@ -14,16 +14,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
-import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.MainActivity;
-import byc.avt.avanteelender.view.auth.LoginActivity;
-import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 
 public class SignerPendanaanActivity extends AppCompatActivity {
@@ -35,6 +33,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
     private PrefManager prefManager;
     String doc_token = "";
     private WebView simpleWebView;
+    ImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,13 @@ public class SignerPendanaanActivity extends AppCompatActivity {
         prefManager = PrefManager.getInstance(SignerPendanaanActivity.this);
         dialog = GlobalVariables.loadingDialog(SignerPendanaanActivity.this);
         viewModel = new ViewModelProvider(SignerPendanaanActivity.this).get(PendanaanViewModel.class);
+        img_back = findViewById(R.id.img_close_signer_pendanaan);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         Intent i = getIntent();
         doc_token = i.getStringExtra("doc_token");
@@ -121,9 +127,8 @@ public class SignerPendanaanActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         f.showMessage("Pendanaan selesai");
-                        startActivity(new Intent(SignerPendanaanActivity.this, MainActivity.class));
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
-                        finish();
+                        Intent intent = new Intent(SignerPendanaanActivity.this, MainActivity.class);
+                        new Routes(SignerPendanaanActivity.this).moveOutIntent(intent);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

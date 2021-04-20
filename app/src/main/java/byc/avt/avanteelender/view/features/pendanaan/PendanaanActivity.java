@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.sheet.TkbSheetFragment;
 import byc.avt.avanteelender.adapter.PendanaanAdapter;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -82,7 +83,7 @@ public class PendanaanActivity extends AppCompatActivity {
         @Override
         public void onChanged(final ArrayList<Pendanaan> result) {
             if(result.isEmpty()){
-                f.showMessage("Belum ada pinjaman yang siap didanai.");
+                f.showMessage(getString(R.string.no_funding_ready));
             }else{
                 rv.setLayoutManager(new LinearLayoutManager(PendanaanActivity.this));
                 PendanaanAdapter adapter = new PendanaanAdapter(PendanaanActivity.this);
@@ -96,8 +97,7 @@ public class PendanaanActivity extends AppCompatActivity {
                         Intent i = new Intent(PendanaanActivity.this, PendanaanDetailActivity.class);
                         i.putExtra("loan_no", pendanaan.getLoan_no());
                         i.putExtra("tenor", pendanaan.getJumlah_hari_pinjam());
-                        startActivity(i);
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                        new Routes(PendanaanActivity.this).moveIn(i);
                     }
                 });
             }
@@ -108,8 +108,7 @@ public class PendanaanActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(PendanaanActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,7 +116,6 @@ public class PendanaanActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(PendanaanActivity.this).moveOut();
     }
 }

@@ -23,6 +23,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.features.account.SettingAccountActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -71,8 +72,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, SettingAccountActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingActivity.this).moveIn(intent);
             }
         });
 
@@ -80,8 +80,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, FaqActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingActivity.this).moveIn(intent);
             }
         });
 
@@ -89,8 +88,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, TermsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingActivity.this).moveIn(intent);
             }
         });
 
@@ -98,8 +96,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SettingActivity.this, RiskInfoActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingActivity.this).moveIn(intent);
             }
         });
 
@@ -145,12 +142,10 @@ public class SettingActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 dialog.cancel();
+                new Fungsi(SettingActivity.this).showMessage("Berhasil keluar aplikasi.");
                 Intent intent = new Intent(SettingActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                new Fungsi(SettingActivity.this).showMessage("Berhasil keluar aplikasi.");
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-                finish();
+                new Routes(SettingActivity.this).moveOutIntent(intent);
             }else{
                 dialog.cancel();
                 new Fungsi().showMessage(result);
@@ -161,8 +156,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(SettingActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -170,7 +164,6 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(SettingActivity.this).moveOut();
     }
 }

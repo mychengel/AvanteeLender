@@ -11,6 +11,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.mukesh.OtpView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Objects;
@@ -27,10 +30,14 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
+import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -91,11 +98,16 @@ public class OTPDocActivity extends AppCompatActivity {
             String cek = result.split(": ")[0];
             String msg = result.split(": ")[1];
             if(cek.equalsIgnoreCase("success")){
-                f.showMessage(msg);
+                //f.showMessage(msg);
                 new ConfirmationSheetFragment(R.raw.registration_done_once, getString(R.string.register_complete), getString(R.string.registed_complete_message));
                 ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                 sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
-                confirmLogin();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        confirmLogin();
+                    }
+                }, 3000);
             }else{
                 f.showMessage(msg);
             }
@@ -112,26 +124,47 @@ public class OTPDocActivity extends AppCompatActivity {
     private Observer<JSONObject> checkSuccessLogin = new Observer<JSONObject>() {
         @Override
         public void onChanged(JSONObject result) {
-            if(result.equals("success")) {
-                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
-                    ///isi di sini untuk memulai pendaftaran registrasi form
-                    startActivity(new Intent(OTPDocActivity.this, RegistrationFormActivity.class));
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
+            JSONObject res;
+            String msg = "";
+            try {
+                if (result.getInt("code") == 200 && result.getBoolean("status") == true) {
+                    Intent i = null;
+                    String token = result.getString("token");
+                    res = result.getJSONObject("result");
+                    String uid = res.getString("uid");
+                    int verif = res.getInt("avantee_verif");
+                    UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
+                    prefManager.setUserData(ud);
+                    if(verif == 1){
+                        if(res.isNull("doc")){
+                            Log.e("Doc", "Aman");
+                            if(res.isNull("privy_status")){
+                                Log.e("PrivyStatus", "Aman, sistem bermasalah tapi");
+                                i = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
+                            }else{
+                                msg = res.getJSONObject("privy_status").getString("msg");
+                                i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
+                                i.putExtra("info", msg);
+                            }
+                        }else{
+                            i = new Intent(OTPDocActivity.this, RegistrationFormActivity.class);
+                        }
+                    }else{
+                        i = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
+                    }
+
+                    //Routing
+                    new Routes(OTPDocActivity.this).moveInFinish(i);
+                    dialog.cancel();
                 }else{
-                    startActivity(new Intent(OTPDocActivity.this, MainActivity.class));
-                    f.showMessage("Selamat datang "+prefManager.getName()+".");
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
+                    res = result.getJSONObject("result");
+                    msg = res.getString("message");
+                    f.showMessage(msg);
                 }
-            }else if(result.equals("failed")){
-                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
-            }else if(result.equals("failed2")){
-                f.showMessage("Login gagal, silahkan coba lagi");
-            }else if(result.equals("not_verified")){
-                startActivity(new Intent(OTPDocActivity.this, OTPDocActivity.class));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                finish();
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                dialog.cancel();
             }
             dialog.cancel();
         }
@@ -210,12 +243,10 @@ public class OTPDocActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 dialog.cancel();
+                new Fungsi(OTPDocActivity.this).showMessage("Anda keluar dari verifikasi dokumen akun. Silahkan lakukan pengisian dokumen kembali.");
                 Intent intent = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                new Fungsi(OTPDocActivity.this).showMessage("Anda keluar dari verifikasi dokumen akun.");
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-                finish();
+                new Routes(OTPDocActivity.this).moveOutIntent(intent);
             }else{
                 dialog.cancel();
                 new Fungsi().showMessage(result);

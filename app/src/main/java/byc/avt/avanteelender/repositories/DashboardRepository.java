@@ -252,6 +252,7 @@ public class DashboardRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("Header", response.toString());
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         JSONObject obj = null;
@@ -309,6 +310,7 @@ public class DashboardRepository {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("Dashboard", response.toString());
                         result.setValue(response);
                     }
                 },

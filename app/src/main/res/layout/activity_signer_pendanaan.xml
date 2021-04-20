@@ -15,6 +15,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></WebView>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </WebView>
+
+    <ImageView
+        android:id="@+id/img_close_signer_pendanaan"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/img"
+        android:foreground="@drawable/selectable_curve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cancel_24px" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

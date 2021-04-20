@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.Pendanaan;
 import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 import byc.avt.avanteelender.view.others.FactsheetActivity;
@@ -304,8 +305,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(PendanaanDetailActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -313,7 +313,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(PendanaanDetailActivity.this).moveOut();
     }
 }

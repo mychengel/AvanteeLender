@@ -31,18 +31,28 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSigner = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
         authenticationRepository = AuthenticationRepository.getInstance();
     }
 
-    public void checkSuratKuasa(String uid, String token){
-        msg_check_surat_kuasa = authenticationRepository.cekSuratKuasa2(uid, token, getApplication());
+    public void getDocToken(String uid, String token, String docType){
+        resultDocToken = authenticationRepository.getDocToken(docType, uid, token, getApplication());
     }
 
-    public LiveData<String> getCheckSuratKuasaResult(){
-        return msg_check_surat_kuasa;
+    public LiveData<JSONObject> getDocTokenResult(){
+        return resultDocToken;
+    }
+
+    public void getSigners(String uid, String token, String docToken){
+        resultSigner = authenticationRepository.getSigner(docToken, uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getSignerResult(){
+        return resultSigner;
     }
 
     public void getAccountData(String uid, String token){

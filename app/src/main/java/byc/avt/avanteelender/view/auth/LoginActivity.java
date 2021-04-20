@@ -132,6 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                     res = result.getJSONObject("result");
                     String uid = res.getString("uid");
                     int verif = res.getInt("avantee_verif");
+                    UserData ud = new UserData(email,password,uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
+                    prefManager.setUserData(ud);
                     if(verif == 1){
                         if(res.isNull("doc")){
                             Log.e("Doc", "Aman");
@@ -140,24 +142,29 @@ public class LoginActivity extends AppCompatActivity {
                                 if(res.isNull("suratkuasa")){
                                     Log.e("TTDSuratKuasa", "Aman");
                                     if(res.isNull("suratperjanjian")){
+                                        // Masuk DASHBOARD
                                         Log.e("TTDSuratPK", "Aman");
-                                        UserData ud = new UserData(email,password,uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
-                                        prefManager.setUserData(ud);
                                         i = new Intent(LoginActivity.this, MainActivity.class);
                                         f.showMessage("Selamat datang "+res.getString("name"));
                                     }else{
                                         msg = res.getJSONObject("suratperjanjian").getString("msg");
                                         f.showMessage(msg);
+                                        i = new Intent(LoginActivity.this, SignersCheckActivity.class);
+                                        i.putExtra("doc_type", "Surat Perjanjian");
                                         //diarahkan untuk ttd surat perjanjian kerja sama
                                     }
                                 }else{
                                     msg = res.getJSONObject("suratkuasa").getString("msg");
                                     f.showMessage(msg);
+                                    i = new Intent(LoginActivity.this, SignersCheckActivity.class);
+                                    i.putExtra("doc_type", "Surat Kuasa");
                                     //diarahkan untuk ttd surat kuasa
                                 }
                             }else{
                                 msg = res.getJSONObject("privy_status").getString("msg");
-                                f.showMessage(msg);
+                                i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
+                                i.putExtra("info", msg);
+                                //f.showMessage(msg);
                             }
                         }else{
                             i = new Intent(LoginActivity.this, RegistrationFormActivity.class);
@@ -166,19 +173,19 @@ public class LoginActivity extends AppCompatActivity {
                         i = new Intent(LoginActivity.this, OTPActivity.class);
                     }
 
+                    //Routing
                     new Routes(LoginActivity.this).moveInFinish(i);
+                    dialog.cancel();
                 }else{
                     res = result.getJSONObject("result");
                     msg = res.getString("message");
                     f.showMessage(msg);
                 }
-
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
                 dialog.cancel();
             }
-
             dialog.cancel();
         }
     };

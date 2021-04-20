@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Pendanaan;
@@ -340,6 +342,10 @@ public class PendanaanRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        Map<String,String> msg = new HashMap<>();
+                        msg.put("code","400");
+                        new Fungsi(context).showMessage(context.getString(R.string.system_in_trouble));
+                        result.setValue(new JSONObject(msg));
                     }
                 }
         )

@@ -880,153 +880,19 @@ public class AuthenticationRepository {
         return result;
     }
 
-    public MutableLiveData<String> cekSuratKuasa(final String uid, final String token, final Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        String myurl = url+"internal/portofolio/download_suratkuasa";
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        // TODO handle the response
-                        try {
-                            if (response!=null) {
-                                result.setValue(response.toString());
-                                Log.e("ResponSuratKuasa", ""+response.length);
-//                                String filename = "AvanteeSuratKuasa.pdf";
-////                                ContextWrapper contextWrapper = new ContextWrapper(context);
-////                                File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-////                                File file =  new File(directory,filename);
-//                                FileOutputStream outputStream;
-//                                outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-//                                //outputStream = new FileOutputStream(new File(context.getFilesDir(),filename));
-//                                outputStream.write(response);
-//                                outputStream.close();
-
-                                Toast.makeText(context, "Download selesai.", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }, null)
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
-        mRequestQueue.add(request);
-        return result;
-    }
-
-    public MutableLiveData<String> cekSuratKuasa2(final String uid, final String token, Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/portofolio/download_suratkuasa",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result.setValue(response);
-                        Log.e("ResponseCekSuratKuasa", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-                    }
-                }
-        )
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-
-        };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-                Log.e("VolleyError", error.toString());
-            }
-        });
-        return result;
-    }
-
-    public MutableLiveData<String> cekSuratPerjanjian(final String uid, final String token, Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/portofolio/download_suratperjanjian",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result.setValue(response);
-                        Log.e("ResponseCekSuratKuasa", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-                    }
-                }
-        )
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-
-        };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-                Log.e("VolleyError", error.toString());
-            }
-        });
-        return result;
-    }
-
-    public MutableLiveData<String> cekSuratKuasa2x(final String uid, final String token, Context context) {
+    public MutableLiveData<JSONObject> getDocToken(final String doc_type, final String uid, final String token, Context context) {
         prefManager = PrefManager.getInstance(context);
-        final MutableLiveData<String> msg = new MutableLiveData<>();
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         Map<String, String> params = new HashMap<>();
-        params.put("doc_type", "Surat Kuasa");
+        params.put("doc_type", doc_type);
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"merchand/privy/doctoken", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        msg.setValue(response.toString());
-                        Log.e("ResponseCekSurat", response.toString());
+                        result.setValue(response);
+                        Log.e("RespGetToken", response.toString());
                     }
                 },
                 new Response.ErrorListener() {
@@ -1059,7 +925,53 @@ public class AuthenticationRepository {
             }
         });
 
-        return msg;
+        return result;
+    }
+
+
+    public MutableLiveData<JSONObject> getSigner(final String doc_token, final String uid, final String token, Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"merchand/privy/signers/"+doc_token, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        result.setValue(response);
+                        Log.e("RespSigners", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                    }
+                }
+        )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return result;
     }
 
 }

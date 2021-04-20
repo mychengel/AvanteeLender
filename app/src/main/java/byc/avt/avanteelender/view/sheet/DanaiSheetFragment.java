@@ -35,10 +35,12 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.auth.SetNewPasswordActivity;
 import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanDetailActivity;
+import byc.avt.avanteelender.view.features.pendanaan.SignerPendanaanActivity;
 import byc.avt.avanteelender.view.features.pendanaan.ViewKontrakPendanaanActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
@@ -351,9 +353,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                     intent.putExtra("agreement_code", res.getString("agreement_code"));
                     intent.putExtra("loan_no", res.getString("loan_no"));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    getActivity().finish();
-                    getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+                    new Routes(getActivity()).moveInFinish(intent);
 
 //                    new DanaiSheetFragment(res);
 //                    DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();

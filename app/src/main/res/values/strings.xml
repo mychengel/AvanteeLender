@@ -29,6 +29,7 @@
     <string name="ojk_logo">OJK Logo</string>
     <string name="ojk_registered">Terdaftar dan diawasi oleh</string>
     <string name="member_of">Anggota dari</string>
+    <string name="in_process_verification">Akun Anda sedang dalam tahap proses verifikasi oleh kami. Mohon menunggu beberapa saat.</string>
 
     <!-- TODO: Authentication Register -->
     <string name="register">Daftar</string>
@@ -406,6 +407,9 @@
     <string name="setuju_lanjutkan">Saya setuju, lanjutkan.</string>
     <string name="biaya_admin_penarikan">Penarikan dana akan dikenakan biaya administrasi sebesar </string>
     <string name="finish_funding_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses pendanaan ini akan kami anggap batal. Lanjutkan?</string>
+    <string name="finish_regis_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses verifikasi dokumen akun ini akan tidak valid. Lanjutkan?</string>
     <string name="va_short">VA</string>
-
+    <string name="back_from_funding_process">Apakah Anda yakin mau keluar dari proses pendanaan?</string>
+    <string name="system_in_trouble">Sistem sedang mengalami gangguan. Silahkan coba lagi nanti.</string>
+    <string name="no_funding_ready">Belum ada pinjaman yang siap didanai</string>
 </resources>
