@@ -28,6 +28,8 @@ import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.others.TermsActivity;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -235,7 +237,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Log.e("Result: ", "register success");
                     RegistrationVerifyEmailActivity.email = email;
                     Intent intent = new Intent(RegistrationActivity.this, RegistrationVerifyEmailActivity.class);
-                    startActivity(intent);
+                    new Routes(RegistrationActivity.this).moveInFinish(intent);
                 }else{
                     msg = res.getString("email")+res.getString("phone")+res.getString("password")+res.getString("repeatPassword")+res.getString("reffCode")+res.getString("term");
                     dialog.cancel();
@@ -288,8 +290,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 TermSheetFragment.getInstance().dismiss();
             }else {
                 TermSheetFragment.read = false;
-                finish();
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                new Routes(RegistrationActivity.this).moveOut();
             }
             return true;
         }
@@ -299,8 +300,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         TermSheetFragment.read = false;
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(RegistrationActivity.this).moveOut();
     }
 
 }

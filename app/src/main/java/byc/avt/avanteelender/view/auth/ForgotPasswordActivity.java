@@ -27,6 +27,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
@@ -106,12 +107,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), msg);
                     ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                     sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            onBackPressed();
-//                        }
-//                    }, 3000);
                 }else{
                     f.showMessage(getString(R.string.reset_failed));
                 }
@@ -144,8 +139,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(ForgotPasswordActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -153,7 +147,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(ForgotPasswordActivity.this).moveOut();
     }
 }

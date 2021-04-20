@@ -43,7 +43,7 @@ public class PendingPortofolioFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     private TextView txt_tot_pinjaman_pending, txt_est_bunga_diterima, txt_tot_nom_pending;
-    int tot_nom_pending = 0, tot_est_bunga_diterima = 0;
+    long tot_nom_pending = 0, tot_est_bunga_diterima = 0;
     private RecyclerView rv;
     ConstraintLayout cons, cons_lottie;
 
@@ -90,16 +90,16 @@ public class PendingPortofolioFragment extends Fragment {
             tot_est_bunga_diterima = 0;
             tot_nom_pending = 0;
             try {
-                txt_tot_pinjaman_pending.setText(result.getInt("total")+" pinjaman");
-                Log.e("pinjaman",result.getInt("total")+"");
+                txt_tot_pinjaman_pending.setText(result.getLong("total")+" pinjaman");
+                Log.e("pinjaman",result.getLong("total")+"");
                 rows = result.getJSONArray("rows");
                 Log.e("ROWS",rows.toString());
                 if(rows.length()==0){
                 }else{
                     for(int i = 0; i < rows.length(); i++){
                         double bunga;
-                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getInt("estimasi_bunga_per_loan");
-                        tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getInt("nominal");
+                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getLong("estimasi_bunga_per_loan");
+                        tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getLong("nominal");
                     }
                 }
 

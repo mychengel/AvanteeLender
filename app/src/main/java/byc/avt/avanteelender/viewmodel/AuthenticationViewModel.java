@@ -18,7 +18,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private AuthenticationRepository authenticationRepository;
     private MutableLiveData<JSONObject> resultAccountData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
-    private MutableLiveData<String> msg_in = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> msg_in = new MutableLiveData<>();
+    //private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
@@ -64,7 +65,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
         msg_in = authenticationRepository.login(email, password, getApplication());
     }
 
-    public LiveData<String> getLoginResult(){
+    public LiveData<JSONObject> getLoginResult(){
         return msg_in;
     }
 

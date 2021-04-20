@@ -27,6 +27,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.intro.SplashActivity;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
@@ -97,8 +98,6 @@ public class SetNewPasswordActivity extends AppCompatActivity {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getBoolean("status") == true){
-//                    JSONObject job = result.getJSONObject("result");
-//                    String msg = job.getString("message");
                     prefManager.clearResetPasswordKeyData();
                     new ConfirmationSheetFragment(R.raw.new_password_done_once, getString(R.string.new_pass_success), getString(R.string.new_pass_success_desc));
                     ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
@@ -108,8 +107,7 @@ public class SetNewPasswordActivity extends AppCompatActivity {
                         public void run() {
                             Intent intent = new Intent(SetNewPasswordActivity.this, WalkthroughActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
+                            new Routes(SetNewPasswordActivity.this).moveInFinish(intent);
                         }
                     }, 3000);
                 }else{

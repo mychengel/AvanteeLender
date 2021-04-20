@@ -88,14 +88,14 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         f = new Fungsi(ctx);
         Log.e("JOBDanai", job.toString());
         try {
-            saldoVa = job.getInt("saldo_va");
-            //saldoRdl = job.getInt("saldo_rdl");
-            totalSaldo = job.getInt("total_saldo");
-            pending = job.getInt("pending_balance");
-            multiplesFunding = job.getInt("multiples_funding_nominal");
-            minInvest = job.getInt("min_invest");
-            nominal = job.getInt("min_invest");
-            maxInvest = job.getInt("max_invest");
+            saldoVa = job.getLong("saldo_va");
+            //saldoRdl = job.getLong("saldo_rdl");
+            totalSaldo = job.getLong("total_saldo");
+            pending = job.getLong("pending_balance");
+            multiplesFunding = job.getLong("multiples_funding_nominal");
+            minInvest = job.getLong("min_invest");
+            nominal = job.getLong("min_invest");
+            maxInvest = job.getLong("max_invest");
             investType = job.getString("invest_type");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -158,20 +158,23 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                     edit_nominal.removeTextChangedListener(this);
                     String cleanString = s.toString().replaceAll("[$,.]", "");
                     if(cleanString.isEmpty() || cleanString.equalsIgnoreCase("")){
-                        nominal = 1000000;
+                        nominal = 0;
                         nominal_show = f.toNumb(""+nominal);
                         nominal_show = nominal_show.substring(2, nominal_show.length());
                     }else{
                         try {
                             nominal = Long.parseLong(cleanString);
-                            nominal_show = f.toNumb(cleanString);
+                            if(totalSaldo >= maxInvest){
+                                if(nominal >= maxInvest){
+                                    nominal = maxInvest;
+                                }else{
+                                }
+                            }
+                            nominal_show = f.toNumb(""+nominal);
                             nominal_show = nominal_show.substring(2, nominal_show.length());
                         }catch (Exception e){
                             if(totalSaldo >= maxInvest){
                                 nominal = maxInvest;
-                            }else if(totalSaldo < minInvest){
-                                isNomValid = false;
-                                //f.showMessage(getString(R.string.saldo_not_enough));
                             }else{
                                 nominal = totalSaldo - (totalSaldo % 1000000);
                             }
@@ -215,10 +218,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             }else{
                             }
                         }
-                        isNomValid = true;
-                    }else if(totalSaldo < minInvest){
-                        isNomValid = false;
-                        f.showMessage(getString(R.string.saldo_not_enough));
                     }else{
                         if((nominal + 1000000) <= totalSaldo){
                             if((nominal + 1000000) <= maxInvest){
@@ -230,9 +229,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             }else{
                             }
                         }else{
-
                         }
-                        isNomValid = true;
                     }
                 }else{
 
@@ -267,10 +264,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                                 edit_nominal.setSelection(nominal_show.length());
                             }
                         }
-                        isNomValid = true;
-                    }else if(totalSaldo < minInvest){
-                        isNomValid = false;
-                        //f.showMessage(getString(R.string.saldo_not_enough));
                     }else{
                         if((nominal - 1000000) >= minInvest){
                             nominal = nominal - (nominal % 1000000) - 1000000;
@@ -285,7 +278,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             edit_nominal.setText(nominal_show);
                             edit_nominal.setSelection(nominal_show.length());
                         }
-                        isNomValid = true;
                     }
                 }else{
                 }
@@ -404,7 +396,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
 
     public void cekDone(){
         cb_agree.setText(getString(R.string.saya_setuju_mendanai)+" "+f.toNumb(""+nominal));
-        if((nominal % 1000000 == 0) && (nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo > minInvest)){
+        if((nominal % 1000000 == 0) && (nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
             isNomValid = true;
         }else{
             isNomValid = false;

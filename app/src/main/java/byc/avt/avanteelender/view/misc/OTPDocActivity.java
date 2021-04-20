@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.mukesh.OtpView;
 
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
@@ -107,9 +109,9 @@ public class OTPDocActivity extends AppCompatActivity {
         viewModel.getLoginResult().observe(OTPDocActivity.this, checkSuccessLogin);
     }
 
-    private Observer<String> checkSuccessLogin = new Observer<String>() {
+    private Observer<JSONObject> checkSuccessLogin = new Observer<JSONObject>() {
         @Override
-        public void onChanged(String result) {
+        public void onChanged(JSONObject result) {
             if(result.equals("success")) {
                 if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
                     ///isi di sini untuk memulai pendaftaran registrasi form

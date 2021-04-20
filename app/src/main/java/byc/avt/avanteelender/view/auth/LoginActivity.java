@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +20,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
@@ -113,39 +120,103 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.getLoginResult().observe(LoginActivity.this, checkSuccess);
     }
 
-    private Observer<String> checkSuccess = new Observer<String>() {
+    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
         @Override
-        public void onChanged(String result) {
-            if(result.equals("success")) {
-                dialog.cancel();
-                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
-                    ///isi di sini untuk memulai pendaftaran registrasi form
-                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
-                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    startActivity(new Intent(LoginActivity.this, RegistrationFormActivity.class));
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
-                }else if(!prefManager.getName().equalsIgnoreCase("null")){
-                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    f.showMessage("Selamat datang "+prefManager.getName()+".");
-                    overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
+        public void onChanged(JSONObject result) {
+            JSONObject res;
+            String msg = "";
+            try {
+                if (result.getInt("code") == 200 && result.getBoolean("status") == true) {
+                    Intent i = null;
+                    String token = result.getString("token");
+                    res = result.getJSONObject("result");
+                    String uid = res.getString("uid");
+                    int verif = res.getInt("avantee_verif");
+                    if(verif == 1){
+                        if(res.isNull("doc")){
+                            Log.e("Doc", "Aman");
+                            if(res.isNull("privy_status")){
+                                Log.e("PrivyStatus", "Aman");
+                                if(res.isNull("suratkuasa")){
+                                    Log.e("TTDSuratKuasa", "Aman");
+                                    if(res.isNull("suratperjanjian")){
+                                        Log.e("TTDSuratPK", "Aman");
+                                        UserData ud = new UserData(email,password,uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
+                                        prefManager.setUserData(ud);
+                                        i = new Intent(LoginActivity.this, MainActivity.class);
+                                        f.showMessage("Selamat datang "+res.getString("name"));
+                                    }else{
+                                        msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                        f.showMessage(msg);
+                                        //diarahkan untuk ttd surat perjanjian kerja sama
+                                    }
+                                }else{
+                                    msg = res.getJSONObject("suratkuasa").getString("msg");
+                                    f.showMessage(msg);
+                                    //diarahkan untuk ttd surat kuasa
+                                }
+                            }else{
+                                msg = res.getJSONObject("privy_status").getString("msg");
+                                f.showMessage(msg);
+                            }
+                        }else{
+                            i = new Intent(LoginActivity.this, RegistrationFormActivity.class);
+                        }
+                    }else{
+                        i = new Intent(LoginActivity.this, OTPActivity.class);
+                    }
+
+                    new Routes(LoginActivity.this).moveInFinish(i);
+                }else{
+                    res = result.getJSONObject("result");
+                    msg = res.getString("message");
+                    f.showMessage(msg);
                 }
-            }else if(result.equals("failed")){
+
                 dialog.cancel();
-                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
-            }else if(result.equals("failed2")){
+            } catch (JSONException e) {
+                e.printStackTrace();
                 dialog.cancel();
-                f.showMessage("Login gagal, silahkan coba lagi");
-            }else if(result.equals("not_verified")){
-                dialog.cancel();
-                startActivity(new Intent(LoginActivity.this, OTPActivity.class));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                finish();
             }
+
+            dialog.cancel();
         }
     };
+
+//    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
+//        @Override
+//        public void onChanged(JSONObject result) {
+//            if(result.equals("success")) {
+//                dialog.cancel();
+//                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
+//                    ///isi di sini untuk memulai pendaftaran registrasi form
+//                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
+//                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, RegistrationFormActivity.class));
+//                    overridePendingTransition(R.anim.enter, R.anim.exit);
+//                    finish();
+//                }else if(!prefManager.getName().equalsIgnoreCase("null")){
+//                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                    f.showMessage("Selamat datang "+prefManager.getName()+".");
+//                    overridePendingTransition(R.anim.enter, R.anim.exit);
+//                    finish();
+//                }
+//            }else if(result.equals("failed")){
+//                dialog.cancel();
+//                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
+//            }else if(result.equals("failed2")){
+//                dialog.cancel();
+//                f.showMessage("Login gagal, silahkan coba lagi");
+//            }else if(result.equals("not_verified")){
+//                dialog.cancel();
+//                startActivity(new Intent(LoginActivity.this, OTPActivity.class));
+//                overridePendingTransition(R.anim.enter, R.anim.exit);
+//                finish();
+//            }
+//            dialog.cancel();
+//        }
+//    };
 
     boolean emailisvalid = false;
     public void cekEmail(String mail){
@@ -196,8 +267,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(LoginActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -205,7 +275,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(LoginActivity.this).moveOut();
     }
 }

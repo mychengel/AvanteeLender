@@ -153,7 +153,9 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
+                dialog.cancel();
             }
+            dialog.cancel();
         }
     };
 }

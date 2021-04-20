@@ -42,7 +42,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     private TextView txt_tot_pinjaman_selesai, txt_tot_pb_selesai, txt_tot_nom_selesai;
-    int tot_pb_selesai, tot_nom_selesai;
+    long tot_pb_selesai = 0, tot_nom_selesai = 0;
     private RecyclerView rv;
     ConstraintLayout cons, cons_lottie;
 
@@ -90,15 +90,15 @@ public class SelesaiPortofolioFragment extends Fragment {
             tot_pb_selesai = 0;
             tot_nom_selesai = 0;
             try {
-                txt_tot_pinjaman_selesai.setText(result.getInt("total")+" pinjaman");
-                Log.e("pinjaman",result.getInt("total")+"");
+                txt_tot_pinjaman_selesai.setText(result.getLong("total")+" pinjaman");
+                Log.e("pinjaman",result.getLong("total")+"");
                 rows = result.getJSONArray("rows");
                 Log.e("ROWS",rows.toString());
                 if(rows.length()==0){
                 }else{
                     for(int i = 0; i < rows.length(); i++){
-                        tot_pb_selesai = tot_pb_selesai + (int) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
-                        tot_nom_selesai = tot_nom_selesai + (int) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
+                        tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
+                        tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
                     }
                 }
                 txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));

@@ -27,6 +27,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
@@ -100,7 +101,6 @@ public class ResendEmailVerifActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             onBackPressed();
-                            onBackPressed();
                         }
                     }, 3000);
                 }else{
@@ -118,7 +118,7 @@ public class ResendEmailVerifActivity extends AppCompatActivity {
     boolean emailisvalid = false;
     public void cekEmail(String mail){
         if(TextUtils.isEmpty(mail)){
-            editEmail.setError("Field email harus diisi!");
+            editEmail.setError(getString(R.string.cannotnull));
             btn_kirim_ulang.setEnabled(false);
         }else{
             emailisvalid = Patterns.EMAIL_ADDRESS.matcher(mail).matches();
@@ -137,8 +137,7 @@ public class ResendEmailVerifActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(ResendEmailVerifActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -146,7 +145,6 @@ public class ResendEmailVerifActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(ResendEmailVerifActivity.this).moveOut();
     }
 }

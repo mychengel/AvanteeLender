@@ -44,7 +44,7 @@ public class AktifPortofolioFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     private TextView txt_tot_pinjaman_aktif, txt_tot_pinjaman_terlambat, txt_tot_angs_bunga_selanjutnya, txt_tot_angs_bunga_dibayar;
-    int tot_angs_bunga_selanjutnya=0, tot_angs_bunga_dibayar=0, tot_pinjaman_aktif=0, tot_pinjaman_terlambat=0;
+    long tot_angs_bunga_selanjutnya=0, tot_angs_bunga_dibayar=0, tot_pinjaman_aktif=0, tot_pinjaman_terlambat=0;
     private RecyclerView rv;
     private CardView cv_download_surat_kuasa, cv_download_perjanjian_kerja_sama;
     ConstraintLayout cons, cons_lottie;
@@ -117,8 +117,8 @@ public class AktifPortofolioFragment extends Fragment {
         public void onChanged(JSONObject result) {
             JSONArray rows;
             try {
-                txt_tot_pinjaman_aktif.setText(result.getInt("total")+" pinjaman");
-                Log.e("pinjaman",result.getInt("total")+"");
+                txt_tot_pinjaman_aktif.setText(result.getLong("total")+" pinjaman");
+                Log.e("pinjaman",result.getLong("total")+"");
                 rows = result.getJSONArray("rows");
                 Log.e("ROWS",rows.toString());
                 if(rows.length()==0){

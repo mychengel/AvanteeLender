@@ -45,7 +45,7 @@
     <string name="register_complete">Pendaftaran selesai</string>
     <string name="registed_complete_message">Mohon menunggu proses verifikasi akun oleh tim kami.</string>
     <string name="resend_email_title">Kirim ulang email verifikasi</string>
-    <string name="resend_email_failed">Kirim ulang email gagal. Silahkan coba beberapa saat lagi</string>
+    <string name="resend_email_failed">Kirim ulang email gagal. Silahkan coba kembali.</string>
     <string name="resend_email_desc">Masukkan alamat email Anda dan kami akan mengirimkan ulang email berisi tautan untuk memverifikasi akun Anda.</string>
     <string name="not_have_npwp">Saya belum mempunyai NPWP</string>
 
@@ -371,7 +371,7 @@
     <string name="withdrawal_fee">Biaya penarikan</string>
     <string name="withdrawal_success">Penarikan dana berhasil</string>
     <string name="withdrawal_in_process">Penarikan dana sedang diproses</string>
-    <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Kami akan mengirimkan notifikasi saat dana telah ditransfer ke rekening bank Anda.</string>
+    <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Silahkan menunggu hingga dana ditransfer ke rekening bank Anda.</string>
     <string name="dana_akan_ditransfer_ke">Dana akan ditransfer ke:</string>
     <string name="total_yang_akan_diterima">Total yang akan diterima</string>
     <string name="change_pass">Ubah kata sandi</string>

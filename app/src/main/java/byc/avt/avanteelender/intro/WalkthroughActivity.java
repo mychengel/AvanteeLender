@@ -33,6 +33,7 @@ import java.util.List;
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.auth.RegistrationActivity;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
@@ -137,10 +138,9 @@ public class WalkthroughActivity extends AppCompatActivity {
         if(prefManager.getUid().equalsIgnoreCase("-")){
             viewPager.setCurrentItem(layouts.length);
         }else{
-            startActivity(new Intent(WalkthroughActivity.this, MainActivity.class));
             new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali "+prefManager.getName());
-            overridePendingTransition(R.anim.enter, R.anim.exit);
-            finish();
+            Intent intent = new Intent(WalkthroughActivity.this, MainActivity.class);
+            new Routes(WalkthroughActivity.this).moveInFinish(intent);
         }
 
     }
@@ -197,17 +197,6 @@ public class WalkthroughActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             if(position==4){
-                /*btnDaftar = view.findViewById(R.id.btn_daftar_wt5);
-                btnDaftar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        prefManager.setFirstTimeLaunch(false);
-                        Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
-                    }
-                });*/
-
                 txt_link_daftar = view.findViewById(R.id.txt_link_daftar);
                 txt_link_daftar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -216,9 +205,7 @@ public class WalkthroughActivity extends AppCompatActivity {
                         prefManager.setFirstTimeLaunch(false);
                         //new Fungsi(WalkthroughActivity.this).showMessage("In progress ~ byc");
                         Intent intent = new Intent(WalkthroughActivity.this, RegistrationActivity.class); //yg bener
-                        //Intent intent = new Intent(WalkthroughActivity.this, RegistrationFormActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                        new Routes(WalkthroughActivity.this).moveIn(intent);
                     }
                 });
 
@@ -228,8 +215,7 @@ public class WalkthroughActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         prefManager.setFirstTimeLaunch(false);
                         Intent intent = new Intent(WalkthroughActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.enter, R.anim.exit);
+                        new Routes(WalkthroughActivity.this).moveIn(intent);
                     }
                 });
             }

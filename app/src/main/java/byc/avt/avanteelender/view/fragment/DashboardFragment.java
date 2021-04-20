@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -199,6 +201,14 @@ public class DashboardFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    @Override
+    public void onResume() {
+        super.onResume();
+        runFirst();
+        loadDashboard();
+    }
+
     public void runFirst(){
         rvHistoryTrx.setVisibility(View.INVISIBLE);
         txt_no_trans_history.setVisibility(View.INVISIBLE);
@@ -227,6 +237,8 @@ public class DashboardFragment extends Fragment {
             try {
                 if(result.getInt("code") == 200){
                     long mywallet = result.getLong("total_dana");
+                    long saldova = result.getLong("total_dana_va");
+                    //long saldordl = result.getLong("total_dana_rdl");
                     if(mywallet <= 0){
                         btn_withdraw.setEnabled(false);
                     }else{
@@ -234,7 +246,7 @@ public class DashboardFragment extends Fragment {
                     }
                     txt_ewallet.setText(f.toNumb(""+mywallet));
                     lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
-                    lbl_saldo_va.setText(f.toNumb(""+result.getLong("total_dana_va")));
+                    lbl_saldo_va.setText(f.toNumb(""+saldova));
 //                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));
 //                    lbl_saldo_rdl.setText(f.toNumb(""+result.getString("total_dana_rdl")));
                     lbl_dana_pending.setText(f.toNumb(""+result.getLong("dana_pending")));
