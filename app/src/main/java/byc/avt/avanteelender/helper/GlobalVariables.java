@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.VolleyMultipartRequest;
+import byc.avt.avanteelender.model.DataPart;
 
 public final class GlobalVariables {
 
@@ -42,7 +44,8 @@ public final class GlobalVariables {
             "{1,50}" + //at least 1 character, max 50 character
             "$");
 
-    public static Map<String, String> perRegData = new Hashtable<>();
+    public static Map<String, String> perRegData = new HashMap<>();
+    public static Map<String, DataPart> perRegDataFile = new HashMap<>();
     public static boolean stPerPersonalData;
     public static boolean stPerWorkInfo;
     public static boolean stPerAddressData;

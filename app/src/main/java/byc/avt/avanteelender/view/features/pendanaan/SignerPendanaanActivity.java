@@ -126,7 +126,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
-                        f.showMessage("Pendanaan selesai");
+                        f.showMessage(getString(R.string.funding_done));
                         Intent intent = new Intent(SignerPendanaanActivity.this, MainActivity.class);
                         new Routes(SignerPendanaanActivity.this).moveOutIntent(intent);
                     }

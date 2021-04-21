@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,6 +29,9 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.VolleyMultipartRequest;
+import byc.avt.avanteelender.helper.VolleySingleton;
+import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.model.UserData;
 
@@ -50,6 +54,7 @@ public class AuthenticationRepository {
     }
 
     public MutableLiveData<JSONObject> getAccountData(final String uid, final String token, Context context) {
+
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/lender/dokumen", null,
@@ -280,12 +285,13 @@ public class AuthenticationRepository {
     public MutableLiveData<JSONObject> createPersonalDocument(final String uid, final String token, final Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
-                new Response.Listener<String>() {
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
+                new Response.Listener<NetworkResponse>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
                         try {
-                            result.setValue(new JSONObject(response));
+                            result.setValue(new JSONObject(resultResponse));
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Map<String,String> msg = new HashMap<>();
@@ -293,7 +299,7 @@ public class AuthenticationRepository {
                             msg.put("msg", context.getString(R.string.doc_not_valid));
                             result.setValue(new JSONObject(msg));
                         }
-                        Log.e("createPersonalDocResult", response);
+                        Log.e("createPersonalDocResult", resultResponse);
                     }
                 },
                 new Response.ErrorListener() {
@@ -319,21 +325,31 @@ public class AuthenticationRepository {
                 return params;
             }
 
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.perRegDataFile;
+                return params;
+            }
+
         };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-            }
-        });
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
+
+//        requestQueue.getCache().clear();
+//        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+//            @Override
+//            public int getCurrentTimeout() {
+//                return 60000;
+//            }
+//            @Override
+//            public int getCurrentRetryCount() {
+//                return 0;
+//            }
+//            @Override
+//            public void retry(VolleyError error) throws VolleyError {
+//            }
+//        });
+
         return result;
     }
 

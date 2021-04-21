@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.security.Signer;
+
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
@@ -47,7 +49,7 @@ public class SignersCheckActivity extends AppCompatActivity {
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
-    String doc_type = "", doc_token = "", privy_id = "";
+    String doc_type = "", doc_token = "", privy_id = "", title="", pg="";
     private WebView simpleWebView;
     ImageView img_back;
 
@@ -132,10 +134,12 @@ public class SignersCheckActivity extends AppCompatActivity {
                 }else{
                     doc_token = result.getString("docToken");
                     privy_id = result.getString("privyId");
-                    String page = SignerTemplate.inFramePrivyId(privy_id, doc_token);
+                    pg = ""+result.getInt("page");
+                    title = result.getString("title");
+                    String page = SignerTemplate.inFramePrivyId(privy_id, doc_token, title, pg);
                     Document doc = Jsoup.parse(String.valueOf(page));
                     String inFrameView = doc.toString();
-                    simpleWebView.loadDataWithBaseURL(null, inFrameView, "text/HTML", "UTF-8", null);
+                    simpleWebView.loadDataWithBaseURL(null, page, "text/HTML", "UTF-8", null);
                 }
 
             } catch (JSONException e) {
@@ -171,19 +175,26 @@ public class SignersCheckActivity extends AppCompatActivity {
         new AlertDialog.Builder(SignersCheckActivity.this)
                 .setTitle("Konfirmasi")
                 .setIcon(R.drawable.logo)
-                .setMessage(getString(R.string.finish_regis_first))
+                .setMessage(getString(R.string.signers_confirmation))
                 .setCancelable(false)
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Berikutnya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         confirmLogin();
                     }
                 })
-                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        logout();
+                    }
+                })
+                .setNeutralButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogs, int which) {
+                        dialogs.cancel();
                     }
                 })
                 .create()
@@ -212,7 +223,7 @@ public class SignersCheckActivity extends AppCompatActivity {
                     UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
                     prefManager.setUserData(ud);
                     if(verif == 1){
-                        if(res.isNull("doc")){
+                        if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
                             Log.e("Doc", "Aman");
                             if(res.isNull("privy_status")){
                                 Log.e("PrivyStatus", "Aman");
@@ -264,6 +275,29 @@ public class SignersCheckActivity extends AppCompatActivity {
                 dialog.cancel();
             }
             dialog.cancel();
+        }
+    };
+
+
+    public void logout() {
+        // LOGOUT: GET method to server through endpoint
+        dialog.show();
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
+        viewModel.getLogoutResult().observe(SignersCheckActivity.this, checkLogout);
+    }
+
+    private Observer<String> checkLogout = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("ok")) {
+                dialog.cancel();
+                Intent intent = new Intent(SignersCheckActivity.this, WalkthroughActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                new Routes(SignersCheckActivity.this).moveOutIntent(intent);
+            }else{
+                dialog.cancel();
+                new Fungsi().showMessage(result);
+            }
         }
     };
 

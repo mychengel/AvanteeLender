@@ -55,8 +55,10 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.helper.VolleyMultipartRequest;
 import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
+import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
@@ -98,6 +100,7 @@ public class DocumentsFragment extends Fragment {
     CheckBox cb_not_have_npwp;
     Button btn_next;
     String no_ktp = "", no_npwp = "";
+    byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null, ttd_byte = null;
 
     Bitmap bitmap, decoded_ktp, decoded_npwp, decoded_selfie, decoded_ttd;
     String str_ktp = "", str_npwp = "", str_selfie = "", str_ttd = "";
@@ -255,12 +258,16 @@ public class DocumentsFragment extends Fragment {
             public void onClick(View v) {
                 gv.stPerDocument = true;
                 gv.perRegData.put("no_ktp", no_ktp);
-                gv.perRegData.put("no_npwp", no_npwp);
-                gv.perRegData.put("ktp_img", str_ktp);
-                gv.perRegData.put("npwp_img", str_npwp);
-                gv.perRegData.put("selfie", str_selfie);
-                gv.perRegData.put("spesimen_ttd", str_ttd);
-                //Navigation.findNavController(view).navigate(R.id.action_ban);
+                if(is_not_have_npwp){
+                    gv.perRegData.put("no_npwp", "");
+                    gv.perRegData.put("npwp_img", "");
+                }else{
+                    gv.perRegData.put("no_npwp", no_npwp);
+                    gv.perRegDataFile.put("npwp_img", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));
+                }
+                gv.perRegDataFile.put("ktp_img", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+                gv.perRegDataFile.put("selfie", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
+                gv.perRegDataFile.put("spesimen_ttd", new DataPart("ttd.jpg", ttd_byte, "image/jpeg"));
                 createDocument();
             }
         });
@@ -507,6 +514,8 @@ public class DocumentsFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getData() != null) {
             Uri filePath = data.getData();
+
+            
             Log.e("UriPath", filePath.toString());
             try {
                 //mengambil gambar dari Gallery
@@ -517,21 +526,29 @@ public class DocumentsFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                 if(requestCode == PICK_KTP){
                     decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    ktp_byte = bytes.toByteArray();
+                    //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
                     str_ktp = f.getStringImage(decoded_ktp);
                     Log.e("str_ktp", str_ktp);
-                    txt_ktp.setText(filePath.getLastPathSegment()+".png");
+                    txt_ktp.setText(filePath.getLastPathSegment()+".jpg");
                 }else if(requestCode == PICK_NPWP){
                     decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    npwp_byte = bytes.toByteArray();
+                    //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                     str_npwp = f.getStringImage(decoded_npwp);
-                    txt_npwp.setText(filePath.getLastPathSegment()+".png");
+                    txt_npwp.setText(filePath.getLastPathSegment()+".jpg");
                 }else if(requestCode == PICK_SELFIE){
                     decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    selfie_byte = bytes.toByteArray();
+                    //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
                     str_selfie = f.getStringImage(decoded_selfie);
-                    txt_selfie.setText(filePath.getLastPathSegment()+".png");
+                    txt_selfie.setText(filePath.getLastPathSegment()+".jpg");
                 }else if(requestCode == PICK_TTD){
                     decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    ttd_byte = bytes.toByteArray();
+                    //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
                     str_ttd = f.getStringImage(decoded_ttd);
-                    txt_ttd.setText(filePath.getLastPathSegment()+".png");
+                    txt_ttd.setText(filePath.getLastPathSegment()+".jpg");
                 }
 
             } catch (IOException e) {
@@ -548,18 +565,27 @@ public class DocumentsFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                 if(requestCode == PICK_KTP_CAM){
                     decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    ktp_byte = bytes.toByteArray();
+                    //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
+                    Log.e("KTP Byte", ktp_byte+"");
                     str_ktp = f.getStringImage(decoded_ktp);
                     txt_ktp.setText(filePath.getLastPathSegment());
                 }else if(requestCode == PICK_NPWP_CAM){
                     decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    npwp_byte = bytes.toByteArray();
+                    //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                     str_npwp = f.getStringImage(decoded_npwp);
                     txt_npwp.setText(filePath.getLastPathSegment());
                 }else if(requestCode == PICK_SELFIE_CAM){
                     decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    selfie_byte = bytes.toByteArray();
+                    //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
                     str_selfie = f.getStringImage(decoded_selfie);
                     txt_selfie.setText(filePath.getLastPathSegment());
                 }else if(requestCode == PICK_TTD_CAM){
                     decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                    ttd_byte = bytes.toByteArray();
+                    //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
                     str_ttd = f.getStringImage(decoded_ttd);
                     txt_ttd.setText(filePath.getLastPathSegment());
                 }

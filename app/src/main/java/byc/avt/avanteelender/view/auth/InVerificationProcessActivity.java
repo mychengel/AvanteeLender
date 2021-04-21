@@ -45,7 +45,8 @@ public class InVerificationProcessActivity extends AppCompatActivity {
         if(msg.isEmpty()){
             txt_info.setText(getString(R.string.in_process_verification));
         }else{
-            txt_info.setText(msg);
+            //txt_info.setText(msg);
+            txt_info.setText(getString(R.string.in_process_verification));
         }
 
         btn_back = findViewById(R.id.btn_kembali_in_verification_process);

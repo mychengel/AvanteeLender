@@ -139,7 +139,7 @@ public class OTPDocActivity extends AppCompatActivity {
                     UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
                     prefManager.setUserData(ud);
                     if(verif == 1){
-                        if(res.isNull("doc") && res.isNull("swafoto")){
+                        if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
                             Log.e("Doc", "Aman");
                             if(res.isNull("privy_status")){
                                 Log.e("PrivyStatus", "Aman, sistem bermasalah tapi");
