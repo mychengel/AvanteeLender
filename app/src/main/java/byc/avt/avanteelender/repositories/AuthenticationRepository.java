@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
@@ -276,7 +277,7 @@ public class AuthenticationRepository {
 //        return msg;
 //    }
 
-    public MutableLiveData<JSONObject> createPersonalDocument(final String uid, final String token, Context context) {
+    public MutableLiveData<JSONObject> createPersonalDocument(final String uid, final String token, final Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
@@ -287,6 +288,10 @@ public class AuthenticationRepository {
                             result.setValue(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Map<String,String> msg = new HashMap<>();
+                            msg.put("code","400");
+                            msg.put("msg", context.getString(R.string.doc_not_valid));
+                            result.setValue(new JSONObject(msg));
                         }
                         Log.e("createPersonalDocResult", response);
                     }
@@ -295,6 +300,10 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        Map<String,String> msg = new HashMap<>();
+                        msg.put("code","400");
+                        msg.put("msg", context.getString(R.string.doc_not_valid));
+                        result.setValue(new JSONObject(msg));
                     }
                 }
         )
@@ -494,13 +503,13 @@ public class AuthenticationRepository {
     }
 
 
-    public MutableLiveData<String> sendOTPVerification(final String uid, final String token, Context context) {
+    public MutableLiveData<String> sendOTPVerification(final String type, final String uid, final String token, Context context) {
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         final MutableLiveData<Boolean> status = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         Map<String, String> params = new HashMap<>();
-        params.put("type", "verification");
+        params.put("type", type);
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"merchand/bulk/otp", parameters,
                 new Response.Listener<JSONObject>() {

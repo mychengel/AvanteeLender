@@ -412,4 +412,7 @@
     <string name="back_from_funding_process">Apakah Anda yakin mau keluar dari proses pendanaan?</string>
     <string name="system_in_trouble">Sistem sedang mengalami gangguan. Silahkan coba lagi nanti.</string>
     <string name="no_funding_ready">Belum ada pinjaman yang siap didanai</string>
+    <string name="min_invest">Minimum invest</string>
+    <string name="max_invest">Maksimum invest</string>
+    <string name="doc_not_valid">Terdapat pengisian dokumen yang tidak sesuai. Mohon melakukan pengisian dokumen ulang dan abaikan SMS yang diterima.</string>
 </resources>

@@ -87,8 +87,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return msg_out;
     }
 
-    public void sendOTPVerification(String uid, String token){
-        msg_otp_ver = authenticationRepository.sendOTPVerification(uid, token, getApplication());
+    public void sendOTPVerification(String uid, String token, String type){
+        msg_otp_ver = authenticationRepository.sendOTPVerification(type, uid, token, getApplication());
     }
 
     public LiveData<String> getOTPVerificationResult(){

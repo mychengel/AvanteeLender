@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserData ud = new UserData(email,password,uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
                     prefManager.setUserData(ud);
                     if(verif == 1){
-                        if(res.isNull("doc")){
+                        if(res.isNull("doc") && res.isNull("swafoto")){
                             Log.e("Doc", "Aman");
                             if(res.isNull("privy_status")){
                                 Log.e("PrivyStatus", "Aman");

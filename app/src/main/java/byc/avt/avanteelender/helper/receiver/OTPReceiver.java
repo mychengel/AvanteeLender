@@ -15,6 +15,7 @@ public class OTPReceiver extends BroadcastReceiver {
 
     private static OtpView otpView;
     private static String from;
+    public static boolean isReady = false;
 
     public void setEditText(OtpView editText, String from) {
         OTPReceiver.otpView = editText;
@@ -28,13 +29,21 @@ public class OTPReceiver extends BroadcastReceiver {
 
         for (SmsMessage sms : messages) {
             String message = sms.getMessageBody();
-            String otp = message.split(": ")[1];
-            otpView.setText(otp);
-            if(from.equalsIgnoreCase("verification")){
-                OTPActivity.btnVerify.setEnabled(true);
-            }else if(from.equalsIgnoreCase("document")){
-                OTPDocActivity.btnVerify.setEnabled(true);
-            }
+            if(message.contains("AVANTEE") && message.contains("KODE VERIFIKASI")){
+                if(isReady){
+                    String otp = message.split(": ")[1];
+                    otpView.setText(otp);
+                    if(from.equalsIgnoreCase("verification")){
+                        OTPActivity.btnVerify.setEnabled(true);
+                        isReady = false;
+                    }else if(from.equalsIgnoreCase("document")){
+                        OTPDocActivity.btnVerify.setEnabled(true);
+                        isReady = false;
+                    }
+                }else{}
+
+            }else{}
+
 
         }
     }

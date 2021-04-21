@@ -134,14 +134,14 @@ public class OTPActivity extends AppCompatActivity {
                     UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
                     prefManager.setUserData(ud);
                     if(verif == 1){
-                        if(res.isNull("doc")){
+                        if(res.isNull("doc") && res.isNull("swafoto")){
                             Log.e("Doc", "Aman, sistem bermasalah tapi");
-                            i = new Intent(OTPActivity.this, WalkthroughActivity.class);
+                            i = new Intent(OTPActivity.this, RegistrationFormActivity.class);
                         }else{
                             i = new Intent(OTPActivity.this, RegistrationFormActivity.class);
                         }
                     }else{
-                        i = new Intent(OTPActivity.this, WalkthroughActivity.class);
+                        i = new Intent(OTPActivity.this, OTPActivity.class);
                     }
 
                     //Routing
@@ -164,8 +164,9 @@ public class OTPActivity extends AppCompatActivity {
 
     public void sendOTPVerification() {
         // POST to server through endpoint
+        OTPReceiver.isReady = true;
         dialog.show();
-        viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken());
+        viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken(), "verification");
         viewModel.getOTPVerificationResult().observe(OTPActivity.this, sendSuccess);
     }
 

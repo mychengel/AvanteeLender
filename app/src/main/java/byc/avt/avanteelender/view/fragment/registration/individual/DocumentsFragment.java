@@ -54,7 +54,11 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.helper.receiver.OTPReceiver;
+import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
+import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
@@ -293,20 +297,43 @@ public class DocumentsFragment extends Fragment {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
+                    OTPReceiver.isReady = true;
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = jobRes.getString("messages");
                     Log.e("Respon per cr doc", jobRes.toString());
-                    f.showMessage(msg);
-                    startActivity(new Intent(getActivity(), OTPDocActivity.class));
-                    getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
-                    getActivity().finish();
+                    new Fungsi(getActivity()).showMessage(msg);
+                    dialog.cancel();
+                    Intent intent = new Intent(getActivity(), OTPDocActivity.class);
+                    new Routes(getActivity()).moveInFinish(intent);
                 }else{
-                    JSONObject jobRes = result.getJSONObject("result");
-                    Log.e("Respon per cr doc", jobRes.toString());
+                    OTPReceiver.isReady = false;
+                    String msg = result.getString("msg");
+                    Log.e("Respon per cr doc", msg);
+                    //f.showMessage(msg);
+                    dialog.cancel();
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Konfirmasi")
+                            .setIcon(R.drawable.logo)
+                            .setMessage(msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Baik, saya mengerti", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                    Intent intent = new Intent(getActivity(), RegistrationFormActivity.class);
+                                    new Routes(getActivity()).moveOutIntent(intent);
+                                }
+                            }).create().show();
                 }
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
+                String msg = getString(R.string.system_in_trouble);
+                Log.e("Respon per cr doc", msg);
+                new Fungsi(getActivity()).showMessage(msg);
+                dialog.cancel();
+                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
+                new Routes(getActivity()).moveOutIntent(intent);
             }
         }
     };

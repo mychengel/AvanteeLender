@@ -119,13 +119,12 @@
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/lbl_kelipatan_satu_juta_fr_sheet_danai"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_kelipatan_satu_juta_fr_sheet_danai" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_max_invest_fr_sheet_danai" />
 
     <RadioGroup
         android:id="@+id/rg_metode_fr_sheet_danai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -300,7 +299,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:text="@string/saldo_rdl"
         android:textColor="@color/darkO05"
@@ -321,12 +320,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_saldo_rdl_fr_sheet_danai" />
 
+    <TextView
+        android:id="@+id/txt_min_invest_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/min_invest"
+        android:textColor="@color/darkO05"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_kelipatan_satu_juta_fr_sheet_danai" />
+
+    <TextView
+        android:id="@+id/txt_max_invest_fr_sheet_danai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/max_invest"
+        android:textColor="@color/darkO05"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_min_invest_fr_sheet_danai" />
+
     <CheckBox
         android:id="@+id/cb_setuju_mendanai_fr_sheet_danai"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:button="@drawable/checkbox_selector"
         android:fontFamily="@font/ibm_plex_sans"

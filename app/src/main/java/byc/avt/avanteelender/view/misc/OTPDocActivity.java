@@ -75,7 +75,6 @@ public class OTPDocActivity extends AppCompatActivity {
         dialog = GlobalVariables.loadingDialog(OTPDocActivity.this);
         prefManager = PrefManager.getInstance(OTPDocActivity.this);
         btnVerify = findViewById(R.id.btn_verify_otp_doc);
-
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +82,9 @@ public class OTPDocActivity extends AppCompatActivity {
             }
         });
 
+        OTPReceiver.isReady = true;
+        new OTPReceiver().setEditText(otpView, "document");
+        setTimer();
     }
 
     public void verifyOTP() {
@@ -98,7 +100,7 @@ public class OTPDocActivity extends AppCompatActivity {
             String cek = result.split(": ")[0];
             String msg = result.split(": ")[1];
             if(cek.equalsIgnoreCase("success")){
-                //f.showMessage(msg);
+                dialog.cancel();
                 new ConfirmationSheetFragment(R.raw.registration_done_once, getString(R.string.register_complete), getString(R.string.registed_complete_message));
                 ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                 sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
@@ -110,6 +112,7 @@ public class OTPDocActivity extends AppCompatActivity {
                 }, 3000);
             }else{
                 f.showMessage(msg);
+                dialog.cancel();
             }
 
         }
@@ -136,11 +139,11 @@ public class OTPDocActivity extends AppCompatActivity {
                     UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
                     prefManager.setUserData(ud);
                     if(verif == 1){
-                        if(res.isNull("doc")){
+                        if(res.isNull("doc") && res.isNull("swafoto")){
                             Log.e("Doc", "Aman");
                             if(res.isNull("privy_status")){
                                 Log.e("PrivyStatus", "Aman, sistem bermasalah tapi");
-                                i = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
+                                i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
                             }else{
                                 msg = res.getJSONObject("privy_status").getString("msg");
                                 i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
@@ -150,7 +153,7 @@ public class OTPDocActivity extends AppCompatActivity {
                             i = new Intent(OTPDocActivity.this, RegistrationFormActivity.class);
                         }
                     }else{
-                        i = new Intent(OTPDocActivity.this, WalkthroughActivity.class);
+                        i = new Intent(OTPDocActivity.this, OTPActivity.class);
                     }
 
                     //Routing
@@ -173,7 +176,7 @@ public class OTPDocActivity extends AppCompatActivity {
     public void sendOTPVerification() {
         // POST to server through endpoint
         dialog.show();
-        viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken());
+        viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken(), "document");
         viewModel.getOTPVerificationResult().observe(OTPDocActivity.this, sendSuccess);
     }
 
