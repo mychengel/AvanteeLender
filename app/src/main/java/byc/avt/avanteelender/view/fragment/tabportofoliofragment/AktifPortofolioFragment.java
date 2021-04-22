@@ -79,9 +79,9 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_surat_kuasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                dialog.show();
-//                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-//                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+                dialog.show();
+                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
             }
         });
 
@@ -89,7 +89,9 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_perjanjian_kerja_sama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog.show();
+                viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
+                viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
             }
         });
 
@@ -106,6 +108,13 @@ public class AktifPortofolioFragment extends Fragment {
     }
 
     private Observer<String> showResultDownloadSuratKuasa = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            dialog.cancel();
+        }
+    };
+
+    private Observer<String> showResultDownloadSuratPerjanjian = new Observer<String>() {
         @Override
         public void onChanged(String result) {
             dialog.cancel();

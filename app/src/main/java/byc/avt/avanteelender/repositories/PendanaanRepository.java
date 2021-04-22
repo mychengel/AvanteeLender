@@ -31,8 +31,6 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Pendanaan;
-import byc.avt.avanteelender.model.PortofolioSelesai;
-import byc.avt.avanteelender.repositories.tabportofoliorepositories.SelesaiPortofolioRepository;
 
 public class PendanaanRepository {
 
@@ -402,8 +400,8 @@ public class PendanaanRepository {
             }
 
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<>();
+            protected Map<String, String> getParams(){
+                HashMap<String,String> params = new HashMap<>();
                 params.put("agreement_code", ""+code);
                 return params;
             }

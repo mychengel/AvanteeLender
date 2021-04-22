@@ -24,6 +24,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<PortofolioAktifDetail>> resultListDetail = new MutableLiveData<>();
     private MutableLiveData<String> resultOnTime = new MutableLiveData<>();
     private MutableLiveData<String> resultDownloadSuratKuasa = new MutableLiveData<>();
+    private MutableLiveData<String> resultDownloadSuratPerjanjian = new MutableLiveData<>();
 
     public AktifPortofolioViewModel(@NonNull Application application) {
         super(application);
@@ -60,5 +61,13 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
 
     public LiveData<String> getResultDownloadSuratKuasa(){
         return resultDownloadSuratKuasa;
+    }
+
+    public void downloadSuratPerjanjian(String uid, String token){
+        resultDownloadSuratPerjanjian = AktifPortofolioRepository.downloadSuratPerjanjian(uid, token, getApplication());
+    }
+
+    public LiveData<String> getResultDownloadSuratPerjanjian(){
+        return resultDownloadSuratPerjanjian;
     }
 }

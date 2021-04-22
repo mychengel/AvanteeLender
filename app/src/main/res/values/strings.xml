@@ -417,4 +417,6 @@
     <string name="doc_not_valid">Terdapat pengisian dokumen yang tidak sesuai. Mohon melakukan pengisian dokumen ulang dan abaikan SMS yang diterima.</string>
     <string name="signers_confirmation">Sebelum beralih ke halaman lain, pastikan tidak ada tahapan yang terlewat demi kelengkapan data. Mau kemana?</string>
     <string name="funding_done">Proses pendanaan selesai</string>
+    <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload (internalstorage/avantee/)</string>
+    <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload (internalstorage/avantee/)</string>
 </resources>

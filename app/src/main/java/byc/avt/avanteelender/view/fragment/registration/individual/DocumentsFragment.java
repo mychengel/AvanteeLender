@@ -1,8 +1,11 @@
 package byc.avt.avanteelender.view.fragment.registration.individual;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,7 +14,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -40,6 +45,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,10 +59,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.MultiPermissionRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.helper.VolleyMultipartRequest;
@@ -219,6 +231,7 @@ public class DocumentsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 str_ktp = "";
+                ktp_byte = null;
                 cekView();
                 cekDone();
             }
@@ -228,6 +241,7 @@ public class DocumentsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 str_npwp = "";
+                npwp_byte = null;
                 cekView();
                 cekDone();
             }
@@ -237,6 +251,7 @@ public class DocumentsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 str_selfie = "";
+                selfie_byte = null;
                 cekView();
                 cekDone();
             }
@@ -246,6 +261,7 @@ public class DocumentsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 str_ttd = "";
+                ttd_byte = null;
                 cekView();
                 cekDone();
             }
@@ -396,73 +412,91 @@ public class DocumentsFragment extends Fragment {
         btn_next.setEnabled(allisfilled);
     }
 
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Konfirmasi")
-                .setIcon(R.drawable.ic_document_photo_circle)
-                .setMessage("Metode pengambilan foto apa yang ingin digunakan?")
-                .setCancelable(true)
-                .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        int PICK_IMAGE_REQUEST = 0;
-                        if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
-                            PICK_IMAGE_REQUEST = PICK_KTP_CAM;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
-                            PICK_IMAGE_REQUEST = PICK_NPWP_CAM;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
-                            PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                            PICK_IMAGE_REQUEST = PICK_TTD_CAM;
+        int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
+        }else{
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Konfirmasi")
+                    .setIcon(R.drawable.ic_document_photo_circle)
+                    .setMessage("Metode pengambilan foto apa yang ingin digunakan?")
+                    .setCancelable(true)
+                    .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            int PICK_IMAGE_REQUEST = 0;
+                            if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
+                                PICK_IMAGE_REQUEST = PICK_KTP_CAM;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
+                                PICK_IMAGE_REQUEST = PICK_NPWP_CAM;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
+                                PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
+                                PICK_IMAGE_REQUEST = PICK_TTD_CAM;
+                            }
+                            dialogInterface.cancel();
+                            showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
                         }
-                        dialogInterface.cancel();
-                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                    }
-                })
+                    })
 //                .setPositiveButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_document_photo_circle))
-                .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int PICK_IMAGE_REQUEST = 0;
-                        if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
-                            PICK_IMAGE_REQUEST = PICK_KTP;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
-                            PICK_IMAGE_REQUEST = PICK_NPWP;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
-                            PICK_IMAGE_REQUEST = PICK_SELFIE;
-                        }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                            PICK_IMAGE_REQUEST = PICK_TTD;
+                    .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int PICK_IMAGE_REQUEST = 0;
+                            if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
+                                PICK_IMAGE_REQUEST = PICK_KTP;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
+                                PICK_IMAGE_REQUEST = PICK_NPWP;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
+                                PICK_IMAGE_REQUEST = PICK_SELFIE;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
+                                PICK_IMAGE_REQUEST = PICK_TTD;
+                            }
+                            dialog.cancel();
+                            showGallery(PICK_IMAGE_REQUEST);
                         }
-                        dialog.cancel();
-                        showGallery(PICK_IMAGE_REQUEST);
-                    }
-                })
+                    })
 //                .setNegativeButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken))
-                .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogs, int which) {
-                        dialogs.cancel();
-                    }
-                })
-                .create()
-                .show();
+                    .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogs, int which) {
+                            dialogs.cancel();
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+
     }
 
     String imageFileName = "";
     private void showCameraCapture(int PICK_IMAGE_REQUEST, String PICK_IMAGE_TYPE) {
-        imageFileName = PICK_IMAGE_TYPE+".png";
+        imageFileName = PICK_IMAGE_TYPE+".jpg";
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), imageFileName);
-        File path = Environment.getExternalStorageDirectory();
-        File file = new File(path, imageFileName);
-        Uri imgUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
-        try {
-            /* Making sure the Pictures directory exist.*/
-            path.mkdir();
-            storageDir.createNewFile();
+        File folder = null;
+        File file = null;
+        try{
+            folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Log.e("Path Foto", file+"");
         }catch (Exception e) {
             e.printStackTrace();
         }
+
+        Uri imgUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
         cameraIntent.putExtra("return-data", true);
         cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
@@ -479,118 +513,88 @@ public class DocumentsFragment extends Fragment {
         startActivityForResult(chooser, PICK_IMAGE_REQUEST);
     }
 
-    private void showFileChooser(int PICK_IMAGE_REQUEST, String PICK_IMAGE_TYPE) {
-        //Camera
-        imageFileName = PICK_IMAGE_TYPE+".png";
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), imageFileName);
-        File path = Environment.getExternalStorageDirectory();
-        File file = new File(path, imageFileName);
-        Uri imgUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
-        try {
-            /* Making sure the Pictures directory exist.*/
-            path.mkdir();
-            storageDir.createNewFile();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        cameraIntent.putExtra("return-data", true);
-        cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-        cameraIntent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 256);
-        //cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-
-        //Gallery
-        Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        Intent chooser = Intent.createChooser(galleryIntent, "Select Picture");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
-        startActivityForResult(chooser, PICK_IMAGE_REQUEST);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && data.getData() != null) {
-            Uri filePath = data.getData();
+        if(resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri filePath = data.getData();
+                Log.e("UriPath", filePath.toString());
+                try {
+                    //mengambil gambar dari Gallery
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                    // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
+                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                    if (requestCode == PICK_KTP) {
+                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        ktp_byte = bytes.toByteArray();
+                        //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
+                        str_ktp = f.getStringImage(decoded_ktp);
+                        Log.e("str_ktp", str_ktp);
+                        txt_ktp.setText(filePath.getLastPathSegment() + ".jpg");
+                    } else if (requestCode == PICK_NPWP) {
+                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        npwp_byte = bytes.toByteArray();
+                        //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
+                        str_npwp = f.getStringImage(decoded_npwp);
+                        txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
+                    } else if (requestCode == PICK_SELFIE) {
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        selfie_byte = bytes.toByteArray();
+                        //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
+                    } else if (requestCode == PICK_TTD) {
+                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        ttd_byte = bytes.toByteArray();
+                        //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
+                        str_ttd = f.getStringImage(decoded_ttd);
+                        txt_ttd.setText(filePath.getLastPathSegment() + ".jpg");
+                    }
 
-            
-            Log.e("UriPath", filePath.toString());
-            try {
-                //mengambil gambar dari Gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
-                bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                if(requestCode == PICK_KTP){
-                    decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    ktp_byte = bytes.toByteArray();
-                    //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
-                    str_ktp = f.getStringImage(decoded_ktp);
-                    Log.e("str_ktp", str_ktp);
-                    txt_ktp.setText(filePath.getLastPathSegment()+".jpg");
-                }else if(requestCode == PICK_NPWP){
-                    decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    npwp_byte = bytes.toByteArray();
-                    //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
-                    str_npwp = f.getStringImage(decoded_npwp);
-                    txt_npwp.setText(filePath.getLastPathSegment()+".jpg");
-                }else if(requestCode == PICK_SELFIE){
-                    decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    selfie_byte = bytes.toByteArray();
-                    //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
-                    str_selfie = f.getStringImage(decoded_selfie);
-                    txt_selfie.setText(filePath.getLastPathSegment()+".jpg");
-                }else if(requestCode == PICK_TTD){
-                    decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    ttd_byte = bytes.toByteArray();
-                    //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
-                    str_ttd = f.getStringImage(decoded_ttd);
-                    txt_ttd.setText(filePath.getLastPathSegment()+".jpg");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            File path = Environment.getExternalStorageDirectory();
-            File file = new File(path, imageFileName);
-            Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                if(requestCode == PICK_KTP_CAM){
-                    decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    ktp_byte = bytes.toByteArray();
-                    //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
-                    Log.e("KTP Byte", ktp_byte+"");
-                    str_ktp = f.getStringImage(decoded_ktp);
-                    txt_ktp.setText(filePath.getLastPathSegment());
-                }else if(requestCode == PICK_NPWP_CAM){
-                    decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    npwp_byte = bytes.toByteArray();
-                    //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
-                    str_npwp = f.getStringImage(decoded_npwp);
-                    txt_npwp.setText(filePath.getLastPathSegment());
-                }else if(requestCode == PICK_SELFIE_CAM){
-                    decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    selfie_byte = bytes.toByteArray();
-                    //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
-                    str_selfie = f.getStringImage(decoded_selfie);
-                    txt_selfie.setText(filePath.getLastPathSegment());
-                }else if(requestCode == PICK_TTD_CAM){
-                    decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                    ttd_byte = bytes.toByteArray();
-                    //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
-                    str_ttd = f.getStringImage(decoded_ttd);
-                    txt_ttd.setText(filePath.getLastPathSegment());
+            } else {
+                File path = Environment.getExternalStorageDirectory();
+                File file = new File(path, "/avantee/"+imageFileName);
+                Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                    if (requestCode == PICK_KTP_CAM) {
+                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        ktp_byte = bytes.toByteArray();
+                        //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
+                        Log.e("KTP Byte", ktp_byte + "");
+                        str_ktp = f.getStringImage(decoded_ktp);
+                        txt_ktp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == PICK_NPWP_CAM) {
+                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        npwp_byte = bytes.toByteArray();
+                        //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
+                        str_npwp = f.getStringImage(decoded_npwp);
+                        txt_npwp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        selfie_byte = bytes.toByteArray();
+                        //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == PICK_TTD_CAM) {
+                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        ttd_byte = bytes.toByteArray();
+                        //ttd_byte = f.getFileDataFromBitmap(getActivity(), decoded_ttd);
+                        str_ttd = f.getStringImage(decoded_ttd);
+                        txt_ttd.setText(filePath.getLastPathSegment());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         cekView();
@@ -641,6 +645,30 @@ public class DocumentsFragment extends Fragment {
             txt_ttd.setText(getString(R.string.take_photo_of_spesimenttd));
             img_cancelttd.setVisibility(View.GONE);
         }
+    }
+
+    private void requestMultiPermission() {
+        Dexter.withContext(getActivity())
+                .withPermissions(
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                    }
+                }).check();
     }
 
 }

@@ -2,6 +2,7 @@ package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
+import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
@@ -65,17 +67,28 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
-                                String filename = "AvanteeSuratKuasa.pdf";
-//                                ContextWrapper contextWrapper = new ContextWrapper(context);
-//                                File directory = contextWrapper.getDir(context.getFilesDir().getName(), Context.MODE_PRIVATE);
-//                                File file =  new File(directory,filename);
+                                String filename = "SuratKuasa.pdf";
+                                File folder = null;
+                                File file = null;
+                                try{
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
+                                    }
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    Log.e("PathSuratKuasa", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 FileOutputStream outputStream;
-                                outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-                                //outputStream = new FileOutputStream(new File(context.getFilesDir(),filename));
+                                outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
                                 outputStream.close();
 
-                                Toast.makeText(context, "Download selesai.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, context.getString(R.string.surat_kuasa_downloaded), Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -101,47 +114,65 @@ public class AktifPortofolioRepository {
         return result;
     }
 
-    public MutableLiveData<String> downloadSuratKuasax(final String uid, final String token, final Context context) {
+    public MutableLiveData<String> downloadSuratPerjanjian(final String uid, final String token, final Context context) {
         final MutableLiveData<String> result = new MutableLiveData<>();
-        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/portofolio/download_suratkuasa",
-                new Response.Listener<String>() {
+        String myurl = url+"internal/portofolio/download_suratperjanjian";
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
+                new Response.Listener<byte[]>() {
                     @Override
-                    public void onResponse(String response) {
-                        Document doc = Jsoup.parse(String.valueOf(response));
-                        result.setValue(response.toString());
-                        Log.e("DownloadSuratKuasa", response.toString());
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+                                result.setValue(response.toString());
+                                Log.e("ResponSuratPerjanjian", response.toString());
+                                String filename = "SuratPerjanjian.pdf";
+                                File folder = null;
+                                File file = null;
+                                try{
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
+                                    }
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    Log.e("PathSuratPerjanjian", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                FileOutputStream outputStream;
+                                outputStream = new FileOutputStream(file, true);
+                                outputStream.write(response);
+                                outputStream.close();
+
+                                Toast.makeText(context, context.getString(R.string.surat_perjanjian_downloaded), Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", error.toString());
-                    }
-                }
-        )
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }, null)
         {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS_IN(uid, token);
             }
         };
-        requestQueue.getCache().clear();
-        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 60000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return 0;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-            }
-        });
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        mRequestQueue.add(request);
         return result;
     }
+
 
     public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
