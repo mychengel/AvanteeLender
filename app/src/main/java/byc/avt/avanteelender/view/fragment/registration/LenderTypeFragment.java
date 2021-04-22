@@ -61,6 +61,7 @@ public class LenderTypeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 gv.insRegData.put("tipe_investor", "institusi");
+                Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_lenderTypeFragment_to_companyDataFragment);
             }
         });
     }

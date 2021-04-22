@@ -121,8 +121,17 @@ public class RegistrationFormActivity extends AppCompatActivity {
                         linStep.setVisibility(View.VISIBLE);
                         setStep(1,0,0,0,0);
                         break;
+                    case R.id.companyDataFragment:
+                        TermSheetFragment.read = false;
+                        linStep.setVisibility(View.VISIBLE);
+                        setStep(1,0,0,0,0);
+                        break;
 
                     case R.id.workInfoFragment:
+                        linStep.setVisibility(View.VISIBLE);
+                        setStep(2,1,0,0,0);
+                        break;
+                    case R.id.narahubungFragment:
                         linStep.setVisibility(View.VISIBLE);
                         setStep(2,1,0,0,0);
                         break;
@@ -131,13 +140,25 @@ public class RegistrationFormActivity extends AppCompatActivity {
                         linStep.setVisibility(View.VISIBLE);
                         setStep(2,2,1,0,0);
                         break;
+                    case R.id.companyAddressFragment:
+                        linStep.setVisibility(View.VISIBLE);
+                        setStep(2,2,1,0,0);
+                        break;
 
                     case R.id.bankInfoFragment:
                         linStep.setVisibility(View.VISIBLE);
                         setStep(2,2,2,1,0);
                         break;
+                    case R.id.companyBankFragment:
+                        linStep.setVisibility(View.VISIBLE);
+                        setStep(2,2,2,1,0);
+                        break;
 
                     case R.id.documentsFragment:
+                        linStep.setVisibility(View.VISIBLE);
+                        setStep(2,2,2,2,1);
+                        break;
+                    case R.id.companyDocumentsFragment:
                         linStep.setVisibility(View.VISIBLE);
                         setStep(2,2,2,2,1);
                         break;

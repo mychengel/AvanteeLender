@@ -45,7 +45,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
     private RecyclerView rv;
     TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_is_ontime;
     ImageView img_mark;
-    CardView cv_pb, cv_nom;
+    CardView cv_pb, cv_nom, cv_download_surat_kuasa_pemberi_dana, cv_download_agreement_penerima_dana;
 
     private String loan_no = "", funding_id = "";
 
@@ -75,6 +75,8 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         img_mark = findViewById(R.id.img_mark_port_aktif_det);
         cv_pb = findViewById(R.id.cv_pb_received_port_aktif_det);
         cv_nom = findViewById(R.id.cv_nom_received_port_aktif_det);
+        cv_download_surat_kuasa_pemberi_dana = findViewById(R.id.cv_download_surat_kuasa_pemberi_dana_port_aktif_det);
+        cv_download_agreement_penerima_dana = findViewById(R.id.cv_download_agreement_penerima_dana_port_aktif_det);
         rv = findViewById(R.id.rv_port_aktif_det);
 
         Intent intent = getIntent();
@@ -121,17 +123,41 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         }else{
         }
 
-        img_kontrak = findViewById(R.id.img_kontrak_port_aktif_det);
-        img_kontrak.setOnClickListener(new View.OnClickListener() {
+        cv_download_surat_kuasa_pemberi_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.show();
+                viewModel.downloadSuratKuasaLoan(prefManager.getUid(), prefManager.getToken(), loan_no);
+                viewModel.getResultDownloadSuratKuasaLoan().observe(PortofolioAktifDetailActivity.this, showResultDownloadSuratKuasaLoan);
+            }
+        });
 
+        cv_download_agreement_penerima_dana.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+                viewModel.downloadAgreementFunding(prefManager.getUid(), prefManager.getToken(), funding_id);
+                viewModel.getResultDownloadAgreementFunding().observe(PortofolioAktifDetailActivity.this, showResultDownloadAgreementFunding);
             }
         });
 
         loadData();
 
     }
+
+    private Observer<String> showResultDownloadSuratKuasaLoan = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            dialog.cancel();
+        }
+    };
+
+    private Observer<String> showResultDownloadAgreementFunding = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            dialog.cancel();
+        }
+    };
 
     private void loadData() {
         dialog.show();

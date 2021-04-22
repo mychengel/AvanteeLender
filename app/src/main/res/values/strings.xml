@@ -419,4 +419,5 @@
     <string name="funding_done">Proses pendanaan selesai</string>
     <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload (internalstorage/avantee/)</string>
     <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload (internalstorage/avantee/)</string>
+    <string name="agreement">Agreement</string>
 </resources>

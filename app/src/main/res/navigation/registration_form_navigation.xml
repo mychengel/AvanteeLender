@@ -35,6 +35,13 @@
             app:exitAnim="@anim/exit"
             app:popEnterAnim="@anim/left_to_right"
             app:popExitAnim="@anim/right_to_left" />
+        <action
+            android:id="@+id/action_lenderTypeFragment_to_companyDataFragment"
+            app:destination="@id/companyDataFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
     </fragment>
     <fragment
         android:id="@+id/personalDataFragment"
@@ -93,4 +100,61 @@
         android:name="byc.avt.avanteelender.view.fragment.registration.individual.DocumentsFragment"
         android:label="@string/essential_document"
         tools:layout="@layout/fragment_documents" />
+    <fragment
+        android:id="@+id/companyDataFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyDataFragment"
+        android:label="fragment_company_data"
+        tools:layout="@layout/fragment_company_data" >
+        <action
+            android:id="@+id/action_companyDataFragment_to_narahubungFragment"
+            app:destination="@id/narahubungFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/narahubungFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.institution.NarahubungFragment"
+        android:label="fragment_narahubung"
+        tools:layout="@layout/fragment_narahubung" >
+        <action
+            android:id="@+id/action_narahubungFragment_to_companyAddressFragment"
+            app:destination="@id/companyAddressFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyAddressFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyAddressFragment"
+        android:label="fragment_company_address"
+        tools:layout="@layout/fragment_company_address" >
+        <action
+            android:id="@+id/action_companyAddressFragment_to_companyBankFragment"
+            app:destination="@id/companyBankFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyBankFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyBankFragment"
+        android:label="fragment_company_bank"
+        tools:layout="@layout/fragment_company_bank" >
+        <action
+            android:id="@+id/action_companyBankFragment_to_companyDocumentsFragment"
+            app:destination="@id/companyDocumentsFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/left_to_right"
+            app:popExitAnim="@anim/right_to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyDocumentsFragment"
+        android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyDocumentsFragment"
+        android:label="fragment_company_documents"
+        tools:layout="@layout/fragment_company_documents" />
 </navigation>

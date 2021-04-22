@@ -51,9 +51,6 @@ import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PersonalDataFragment extends Fragment {
 
     public PersonalDataFragment() {

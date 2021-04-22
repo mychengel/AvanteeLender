@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
@@ -88,7 +89,7 @@ public class AktifPortofolioRepository {
                                 outputStream.write(response);
                                 outputStream.close();
 
-                                Toast.makeText(context, context.getString(R.string.surat_kuasa_downloaded), Toast.LENGTH_LONG).show();
+                                new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -147,7 +148,7 @@ public class AktifPortofolioRepository {
                                 outputStream.write(response);
                                 outputStream.close();
 
-                                Toast.makeText(context, context.getString(R.string.surat_perjanjian_downloaded), Toast.LENGTH_LONG).show();
+                                new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -173,6 +174,123 @@ public class AktifPortofolioRepository {
         return result;
     }
 
+    public MutableLiveData<String> downloadSuratKuasaLoan(final String loan_no, final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        String myurl = url+"internal/portofolio/suratkuasa/"+loan_no;
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+                                result.setValue(response.toString());
+                                Log.e("SuratKuasaLoan", response.toString());
+                                String filename = loan_no+"_SuratKuasa.pdf";
+                                File folder = null;
+                                File file = null;
+                                try{
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
+                                    }
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    Log.e("PathSKLoan", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                FileOutputStream outputStream;
+                                outputStream = new FileOutputStream(file, true);
+                                outputStream.write(response);
+                                outputStream.close();
+
+                                new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }, null)
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        mRequestQueue.add(request);
+        return result;
+    }
+
+    public MutableLiveData<String> downloadAgreementFunding(final String funding_id, final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        String myurl = url+"internal/portofolio/agreement/"+funding_id;
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+                                result.setValue(response.toString());
+                                Log.e("AgreementFunding", response.toString());
+                                String filename = funding_id+"_Agreement.pdf";
+                                File folder = null;
+                                File file = null;
+                                try{
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
+                                    }
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    Log.e("PathAgreementFunding", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                FileOutputStream outputStream;
+                                outputStream = new FileOutputStream(file, true);
+                                outputStream.write(response);
+                                outputStream.close();
+
+                                new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }, null)
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        mRequestQueue.add(request);
+        return result;
+    }
 
     public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();

@@ -162,8 +162,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }else{
                                 msg = res.getJSONObject("privy_status").getString("msg");
-                                //i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
-                                i = new Intent(LoginActivity.this, RegistrationFormActivity.class);
+                                //i = new Intent(LoginActivity.this, RegistrationFormActivity.class);
+                                i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
                                 i.putExtra("info", msg);
                                 //f.showMessage(msg);
                             }

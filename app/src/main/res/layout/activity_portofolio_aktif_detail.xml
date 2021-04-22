@@ -21,19 +21,113 @@
         app:titleTextAppearance="@style/ToolbarTheme"
         app:titleTextColor="@color/dark">
 
-        <ImageView
-            android:id="@+id/img_kontrak_port_aktif_det"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/img"
-            android:foreground="@drawable/selectable_curve"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:id="@+id/lin_btn_download_port_aktif_det"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_kontrak" />
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv_sum_port_aktif">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_download_surat_kuasa_pemberi_dana_port_aktif_det"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:foreground="@drawable/selectable_curve"
+                app:cardCornerRadius="48dp"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
+                        android:contentDescription="@string/img"
+                        android:src="@drawable/ic_document_green_24px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:text="@string/surat_kuasa"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_download_agreement_penerima_dana_port_aktif_det"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:foreground="@drawable/selectable_curve"
+                app:cardCornerRadius="48dp"
+                app:cardElevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView3x"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="6dp"
+                        android:contentDescription="@string/img"
+                        android:src="@drawable/ic_document_green_24px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView2x"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:text="@string/agreement"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3x"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -69,7 +163,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/ibm_plex_sans_medium"
-        android:maxLines="1"
+        android:maxLines="2"
         android:text="@string/txtnull"
         android:textColor="@color/dark"
         android:textSize="19sp"
