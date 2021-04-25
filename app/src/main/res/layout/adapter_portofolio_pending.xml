@@ -135,6 +135,7 @@
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/sudah_dibayar"
                 android:textColor="@color/dark"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_tenor_adp_port_pending"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txt_tenor_adp_port_pending" />
@@ -145,6 +146,7 @@
                 android:layout_height="18dp"
                 android:layout_marginEnd="4dp"
                 android:contentDescription="@string/img"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/lbl_sudah_dibayar_adp_port_pending"
                 app:layout_constraintEnd_toStartOf="@+id/lbl_sudah_dibayar_adp_port_pending"
                 app:layout_constraintTop_toTopOf="@+id/lbl_sudah_dibayar_adp_port_pending"

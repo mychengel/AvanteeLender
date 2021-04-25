@@ -92,6 +92,7 @@ public class ResendEmailVerifActivity extends AppCompatActivity {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
+                    dialog.cancel();
                     JSONObject job = result.getJSONObject("result");
                     String msg = job.getString("messages");
                     new ConfirmationSheetFragment(R.raw.email_sent_once, getString(R.string.email_terkirim), msg);

@@ -265,7 +265,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     JSONObject job = result.getJSONObject("result");
                     JSONObject terms_job = job.getJSONObject("syaratketentuan");
                     String terms = terms_job.getString("content_text");
-                    String terms_final = f.htmlToStr(terms);
+                    String terms_final = f.htmlToStr(terms).toString();
                     TermSheetFragment.text = terms_final;
                     TermSheetFragment termFragment = TermSheetFragment.getInstance();
                     termFragment.setCancelable(false);

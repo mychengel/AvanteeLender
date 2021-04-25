@@ -182,9 +182,11 @@ public class SettingAccountActivity extends AppCompatActivity {
                                     //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
                                     if (resource.getConstantState() == null) {
                                         img_pp.setImageResource(R.drawable.ic_iconuser);
+                                        txt_inisial.setVisibility(View.VISIBLE);
                                     }else{
                                         Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
                                         img_pp.setImageDrawable(newdrawable);
+                                        txt_inisial.setVisibility(View.GONE);
                                     }
                                 }
                             });

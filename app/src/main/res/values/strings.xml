@@ -46,7 +46,7 @@
     <string name="register_complete">Pendaftaran selesai</string>
     <string name="registed_complete_message">Mohon menunggu proses verifikasi akun oleh tim kami.</string>
     <string name="resend_email_title">Kirim ulang email verifikasi</string>
-    <string name="resend_email_failed">Kirim ulang email gagal. Silahkan coba kembali.</string>
+    <string name="resend_email_failed">Pengiriman tautan kirim ulang email verifikasi gagal, silahkan cek kembali email yang Anda isikan.</string>
     <string name="resend_email_desc">Masukkan alamat email Anda dan kami akan mengirimkan ulang email berisi tautan untuk memverifikasi akun Anda.</string>
     <string name="not_have_npwp">Saya belum mempunyai NPWP</string>
 
@@ -370,6 +370,7 @@
     <string name="confirmation">Konfirmasi</string>
     <string name="withdrawal_nominal">Nominal penarikan</string>
     <string name="withdrawal_fee">Biaya penarikan</string>
+    <string name="withdrawal_admin_fee">Penarikan dana akan dikenakan biaya administrasi</string>
     <string name="withdrawal_success">Penarikan dana berhasil</string>
     <string name="withdrawal_in_process">Penarikan dana sedang diproses</string>
     <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Silahkan menunggu hingga dana ditransfer ke rekening bank Anda.</string>
@@ -417,7 +418,10 @@
     <string name="doc_not_valid">Terdapat pengisian dokumen yang tidak sesuai. Mohon melakukan pengisian dokumen ulang dan abaikan SMS yang diterima.</string>
     <string name="signers_confirmation">Sebelum beralih ke halaman lain, pastikan tidak ada tahapan yang terlewat demi kelengkapan data. Mau kemana?</string>
     <string name="funding_done">Proses pendanaan selesai</string>
-    <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload (internalstorage/avantee/)</string>
-    <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload (internalstorage/avantee/)</string>
+    <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload pada internal storage HP Anda di dalam folder avantee</string>
+    <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload pada internal storage HP Anda di dalam folder avantee</string>
     <string name="agreement">Agreement</string>
+    <string name="download_failed">Download dokumen gagal, silahkan coba beberapa saat lagi.</string>
+    <string name="document_info">Informasi dokumen</string>
+    <string name="owner_name_same_as_name">Nama pemilik rekening sama dengan nama</string>
 </resources>

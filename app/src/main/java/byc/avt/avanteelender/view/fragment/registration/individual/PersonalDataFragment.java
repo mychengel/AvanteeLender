@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -383,7 +384,7 @@ public class PersonalDataFragment extends Fragment {
                     JSONObject job = result.getJSONObject("result");
                     JSONObject terms_job = job.getJSONObject("syaratketentuan");
                     String terms = terms_job.getString("content_text");
-                    String terms_final = f.htmlToStr(terms);
+                    String terms_final = f.htmlToStr(terms).toString();
                     TermSheetFragment.text = terms_final;
                     TermSheetFragment termFragment = TermSheetFragment.getInstance();
                     termFragment.setCancelable(false);

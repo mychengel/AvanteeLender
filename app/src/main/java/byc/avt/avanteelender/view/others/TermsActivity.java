@@ -7,12 +7,21 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.Objects;
 
@@ -20,6 +29,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.features.topup.TopupInstructionActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class TermsActivity extends AppCompatActivity {
@@ -30,6 +40,7 @@ public class TermsActivity extends AppCompatActivity {
     TextView txt_content;
     private Dialog dialog;
     private AuthenticationViewModel viewModel;
+    private WebView simpleWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +54,21 @@ public class TermsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         prefManager = PrefManager.getInstance(TermsActivity.this);
-        txt_content = findViewById(R.id.content_terms);
+        simpleWebView = findViewById(R.id.wv_terms);
+        simpleWebView.setNestedScrollingEnabled(true);
+        simpleWebView.setVerticalScrollBarEnabled(true);
+        simpleWebView.requestFocus();
+        simpleWebView.getSettings().setDomStorageEnabled(true);
+        simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
+        simpleWebView.getSettings().setJavaScriptEnabled(true);
+        simpleWebView.setWebViewClient(new TermsActivity.MyWebViewClient());
+        simpleWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         loadData();
     }
 
@@ -60,18 +85,45 @@ public class TermsActivity extends AppCompatActivity {
                 if(result.getInt("code") == 200){
                     JSONObject job = result.getJSONObject("result");
                     JSONObject terms_job = job.getJSONObject("syaratketentuan");
-                    String terms = terms_job.getString("content_text");
-                    String terms_final = f.htmlToStr(terms);
-                    txt_content.setText(terms_final);
+                    //String terms = "<![CDATA["+terms_job.getString("content_text")+"]]>";
+                    String terms = "<!doctype html>\n" +
+                            "    <html lang=\"en-US\">"+terms_job.getString("content_text")+"</html>";
+                    Spanned terms_final = f.htmlToStr(terms);
+                    dialog.cancel();
+                    simpleWebView.loadDataWithBaseURL(null, terms, "text/HTML", "UTF-8", null);
+                    //txt_content.setText(terms_final);
                 }else{
+                    dialog.cancel();
                     f.showMessage(getString(R.string.failed_load_info));
                 }
-                dialog.cancel();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     };
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+            //dialog.show();
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url); // load the url
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+            dialog.cancel();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

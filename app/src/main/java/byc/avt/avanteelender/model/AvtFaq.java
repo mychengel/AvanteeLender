@@ -2,37 +2,38 @@ package byc.avt.avanteelender.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Spanned;
 
-public class AvtFaq implements Parcelable {
+public class AvtFaq {
 
-    private String title;
+    private Spanned title;
     private String content;
 
     public AvtFaq(){}
 
-    public AvtFaq(String title, String content) {
+    public AvtFaq(Spanned title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    protected AvtFaq(Parcel in) {
-        title = in.readString();
-        content = in.readString();
-    }
+//    protected AvtFaq(Parcel in) {
+//        title = in.readString();
+//        content = in.readString();
+//    }
 
-    public static final Creator<AvtFaq> CREATOR = new Creator<AvtFaq>() {
-        @Override
-        public AvtFaq createFromParcel(Parcel in) {
-            return new AvtFaq(in);
-        }
+//    public static final Creator<AvtFaq> CREATOR = new Creator<AvtFaq>() {
+//        @Override
+//        public AvtFaq createFromParcel(Parcel in) {
+//            return new AvtFaq(in);
+//        }
+//
+//        @Override
+//        public AvtFaq[] newArray(int size) {
+//            return new AvtFaq[size];
+//        }
+//    };
 
-        @Override
-        public AvtFaq[] newArray(int size) {
-            return new AvtFaq[size];
-        }
-    };
-
-    public String getTitle() {
+    public Spanned getTitle() {
         return title;
     }
 
@@ -40,14 +41,14 @@ public class AvtFaq implements Parcelable {
         return content;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(content);
-    }
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeString(title);
+//        parcel.writeString(content);
+//    }
 }

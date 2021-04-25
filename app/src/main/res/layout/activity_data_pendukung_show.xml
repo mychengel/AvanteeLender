@@ -32,7 +32,7 @@
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                app:title="@string/essential_document"
+                app:title="@string/document_info"
                 app:titleTextColor="@color/dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -375,6 +375,9 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        Map<String,String> msg = new HashMap<>();
+                        msg.put("code","400");
+                        result.setValue(new JSONObject(msg));
                     }
                 }
         )
@@ -833,6 +836,7 @@ public class AuthenticationRepository {
                     @Override
                     public void onResponse(JSONObject response) {
                         result.setValue(response);
+                        Log.e("SettingData", response.toString());
                     }
                 },
                 new Response.ErrorListener() {

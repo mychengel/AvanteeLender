@@ -70,7 +70,7 @@ public class FaqActivity extends AppCompatActivity {
                     JSONObject job = result.getJSONObject("result");
                     JSONArray faq_jar = job.getJSONArray("faq");
                     for(int i = 0; i < faq_jar.length(); i++){
-                        AvtFaq faq = new AvtFaq(f.htmlToStr(faq_jar.getJSONObject(i).getString("faq")), f.htmlToStr(faq_jar.getJSONObject(i).getString("content_text")));
+                        AvtFaq faq = new AvtFaq(f.htmlToStr(faq_jar.getJSONObject(i).getString("faq")), faq_jar.getJSONObject(i).getString("content_text"));
                         list.add(faq);
                     }
                     rv_faq.setLayoutManager(new LinearLayoutManager(FaqActivity.this));

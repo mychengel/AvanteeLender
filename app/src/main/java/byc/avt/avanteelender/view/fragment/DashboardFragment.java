@@ -114,7 +114,7 @@ public class DashboardFragment extends Fragment {
         txt_nom_pending_port = view.findViewById(R.id.txt_nom_pending_port_fr_dashboard);
         txt_tot_pending = view.findViewById(R.id.txt_tot_pending_port_fr_dashboard);
         String letter = String.valueOf(prefManager.getName().charAt(0));
-        TextView txt_initial = view.findViewById(R.id.txt_initial_fr_dashboard);
+        final TextView txt_initial = view.findViewById(R.id.txt_initial_fr_dashboard);
         txt_initial.setText(letter);
         Glide.with(this).load(prefManager.getAvatar())
             .into(new SimpleTarget<Drawable>() {
@@ -124,9 +124,11 @@ public class DashboardFragment extends Fragment {
                     //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
                     if (resource.getConstantState() == null) {
                         pp_icon.setImageResource(R.drawable.ic_iconuser);
+                        txt_initial.setVisibility(View.VISIBLE);
                     }else{
                         Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
                         pp_icon.setImageDrawable(newdrawable);
+                        txt_initial.setVisibility(View.GONE);
                     }
                 }
             });

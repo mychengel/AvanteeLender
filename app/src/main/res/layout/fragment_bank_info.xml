@@ -47,18 +47,36 @@
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/cb_owner_name_same_as_name_fr_bank_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:button="@drawable/checkbox_selector"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:maxLines="2"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingBottom="2dp"
+                android:text="@string/owner_name_same_as_name"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_bank_name_fr_bank_info"
+                app:useMaterialThemeColors="false" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_bank_owner_name_fr_bank_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_bank_name_fr_bank_info">
+                app:layout_constraintTop_toBottomOf="@+id/cb_owner_name_same_as_name_fr_bank_info">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

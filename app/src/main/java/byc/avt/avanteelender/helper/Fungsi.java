@@ -12,10 +12,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.Html;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.AlignmentSpan;
 import android.util.Base64;
 import android.view.Gravity;
@@ -64,11 +66,15 @@ public class Fungsi {
         Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
     }
 
-    public String htmlToStr(String msg){
-        String hsl = "";
+    public Spanned htmlToStr(String msg){
+        Spanned hsl;
         msg = msg.replace("\n", " ");
         msg = msg.replace("\t", " ");
-        hsl = Html.fromHtml(msg).toString();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            hsl = Html.fromHtml(msg,  Html.FROM_HTML_MODE_LEGACY);
+        }else{
+            hsl = Html.fromHtml(msg);
+        }
         return hsl;
     }
 

@@ -90,8 +90,11 @@ public class AktifPortofolioRepository {
                                 outputStream.close();
 
                                 new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                            }else{
+                                result.setValue(context.getString(R.string.download_failed));
                             }
                         } catch (Exception e) {
+                            result.setValue(context.getString(R.string.download_failed));
                             // TODO Auto-generated catch block
                             Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
                             e.printStackTrace();
@@ -102,6 +105,7 @@ public class AktifPortofolioRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                result.setValue(context.getString(R.string.download_failed));
             }
         }, null)
         {
@@ -149,9 +153,12 @@ public class AktifPortofolioRepository {
                                 outputStream.close();
 
                                 new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                            }else{
+                                result.setValue(context.getString(R.string.download_failed));
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
+                            result.setValue(context.getString(R.string.download_failed));
                             Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
                             e.printStackTrace();
                         }
@@ -161,6 +168,7 @@ public class AktifPortofolioRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                result.setValue(context.getString(R.string.download_failed));
             }
         }, null)
         {
@@ -208,9 +216,12 @@ public class AktifPortofolioRepository {
                                 outputStream.close();
 
                                 new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                            }else{
+                                result.setValue(context.getString(R.string.download_failed));
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
+                            result.setValue(context.getString(R.string.download_failed));
                             Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
                             e.printStackTrace();
                         }
@@ -220,6 +231,7 @@ public class AktifPortofolioRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                result.setValue(context.getString(R.string.download_failed));
             }
         }, null)
         {
@@ -267,9 +279,12 @@ public class AktifPortofolioRepository {
                                 outputStream.close();
 
                                 new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                            }else{
+                                result.setValue(context.getString(R.string.download_failed));
                             }
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
+                            result.setValue(context.getString(R.string.download_failed));
                             Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
                             e.printStackTrace();
                         }
@@ -279,6 +294,7 @@ public class AktifPortofolioRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                result.setValue(context.getString(R.string.download_failed));
             }
         }, null)
         {

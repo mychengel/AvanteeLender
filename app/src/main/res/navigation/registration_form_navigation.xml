@@ -98,7 +98,7 @@
     <fragment
         android:id="@+id/documentsFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.individual.DocumentsFragment"
-        android:label="@string/essential_document"
+        android:label="@string/document_info"
         tools:layout="@layout/fragment_documents" />
     <fragment
         android:id="@+id/companyDataFragment"

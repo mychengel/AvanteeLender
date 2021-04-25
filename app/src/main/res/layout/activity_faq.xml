@@ -17,6 +17,7 @@
             android:id="@+id/collapsing_tb_faq"
             android:layout_width="match_parent"
             android:layout_height="96dp"
+            android:background="@color/white"
             android:fitsSystemWindows="true"
             android:theme="@style/ToolbarTheme"
             app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
@@ -32,6 +33,7 @@
                 android:id="@+id/toolbar_faq"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
                 android:elevation="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
@@ -55,15 +57,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cons_faq"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="24dp">
+            android:layout_height="wrap_content"
+            android:paddingBottom="48dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_faq"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

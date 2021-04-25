@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -61,6 +63,7 @@ public class BankInfoFragment extends Fragment {
     TextInputLayout txtBank, txtAccountName, txtAccountNumber, txtAvgTrans;
     String bank="", accountName="", accountNumber="", avgTrans="";
     String SUMBER_DANA_LAIN = "GAJI";
+    CheckBox cb_owner_name_same_as_name;
 
     List<Object> listBank = new ArrayList<>(); List<Object> listBankID = new ArrayList<>();
     List<Object> listAvgTrans = new ArrayList<>(); List<Object> listAvgTransID = new ArrayList<>();
@@ -75,6 +78,7 @@ public class BankInfoFragment extends Fragment {
 
         gv.stPerDocument = false;
 
+        cb_owner_name_same_as_name = view.findViewById(R.id.cb_owner_name_same_as_name_fr_bank_info);
         auto_bank = view.findViewById(R.id.auto_bank_name_fr_bank_info);
         auto_avg_trans = view.findViewById(R.id.auto_avg_transaction_fr_bank_info);
         txtBank = view.findViewById(R.id.edit_bank_name_fr_bank_info);
@@ -89,6 +93,17 @@ public class BankInfoFragment extends Fragment {
             public void onClick(View v) {
                 confirmNext(v);
                 //Navigation.findNavController(v).navigate(R.id.action_bankInfoFragment_to_documentsFragment);
+            }
+        });
+
+        cb_owner_name_same_as_name.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    txtAccountName.getEditText().setText(gv.perRegData.get("nama"));
+                }else{
+                    txtAccountName.getEditText().setText("");
+                }
             }
         });
 

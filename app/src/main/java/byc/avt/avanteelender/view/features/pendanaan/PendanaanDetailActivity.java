@@ -247,7 +247,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             try {
                                 String str_edit = res.getJSONObject("risk_information").getString("risk_disclaimer");
-                                String risk_info = f.htmlToStr(str_edit);
+                                String risk_info = f.htmlToStr(str_edit).toString();
                                 new RiskInfoSheetFragment(risk_info);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -261,7 +261,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             try {
-                                new HistoriPinjamanSheetFragment(res.getJSONObject("borrower_information").getString("paid_off_frequency")+"%",res.getJSONObject("borrower_information").getString("late_frequency")+"%",f.toNumb(res.getJSONObject("borrower_information").getString("funding_process")),f.toNumb(res.getJSONObject("borrower_information").getString("current_loan")), f.toNumb(res.getJSONObject("borrower_information").getString("loan_paid_off")));
+                                new HistoriPinjamanSheetFragment(res.getJSONObject("borrower_information").getString("paid_off_frequency")+" unit",res.getJSONObject("borrower_information").getString("late_frequency")+" unit",f.toNumb(res.getJSONObject("borrower_information").getString("funding_process")),f.toNumb(res.getJSONObject("borrower_information").getString("current_loan")), f.toNumb(res.getJSONObject("borrower_information").getString("loan_paid_off")));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

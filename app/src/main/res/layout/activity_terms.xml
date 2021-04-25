@@ -1,76 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coor_terms"
+    android:id="@+id/cons_terms"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_terms"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_terms"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ToolbarTheme">
+        android:background="@color/white"
+        android:elevation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/term_and_condition"
+        app:titleTextAppearance="@style/ToolbarTheme.Collapsed"
+        app:titleTextColor="@color/dark" />
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_tb_terms"
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ToolbarTheme"
-            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
-            app:expandedTitleMargin="16dp"
-            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
+    <WebView
+        android:id="@+id/wv_terms"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layerType="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_terms">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_terms"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:elevation="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin"
-                app:title="@string/term_and_condition"
-                app:titleTextAppearance="@style/ToolbarTheme"
-                app:titleTextColor="@color/dark" />
+    </WebView>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_sv_terms"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cons_terms"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="24dp">
-
-            <TextView
-                android:id="@+id/content_terms"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/txtnull"
-                android:textColor="@color/darkO05"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
