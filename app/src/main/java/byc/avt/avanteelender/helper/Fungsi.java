@@ -66,6 +66,14 @@ public class Fungsi {
         Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
     }
 
+    public void showMessageLong(String msg) {
+        Spannable centeredText = new SpannableString(msg);
+        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                0, msg.length() - 1,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        Toast.makeText(ctx, centeredText, Toast.LENGTH_LONG).show();
+    }
+
     public Spanned htmlToStr(String msg){
         Spanned hsl;
         msg = msg.replace("\n", " ");

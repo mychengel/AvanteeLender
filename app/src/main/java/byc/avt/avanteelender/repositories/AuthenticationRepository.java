@@ -193,95 +193,6 @@ public class AuthenticationRepository {
     }
 
 
-//    public MutableLiveData<String> login(final String email, final String password, Context context) {
-//        prefManager = PrefManager.getInstance(context);
-//        final MutableLiveData<String> msg = new MutableLiveData<>();
-//        final MutableLiveData<Boolean> status = new MutableLiveData<>();
-//        requestQueue = Volley.newRequestQueue(context, new HurlStack());
-//        Map<String, String> params = new HashMap<>();
-//        params.put("password", password);
-//        params.put("email", email);
-//        JSONObject parameters = new JSONObject(params);
-//        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/signin", parameters,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Log.e("LoginResp", response.toString());
-//                        int code = 0; //jika kembaliannya dalam string
-//                        String token = "";
-//                        boolean status = false;
-//                        JSONObject res;
-//                        try {
-//                            code = response.getInt("code");
-//                            status = response.getBoolean("status");
-//                            if(code == 200 & status == true){
-//                                res = response.getJSONObject("result");
-//                                int avantee_verif = res.getInt("avantee_verif");
-//                                if(avantee_verif == 1){
-//                                    token = response.getString("token");
-//                                    String uid = res.getString("uid");
-//                                    int type = res.getInt("type");
-//                                    String client_type = res.getString("client_type");
-//                                    String avatar = res.getString("avatar");
-//                                    String name = res.getString("name");
-//                                    UserData ud = new UserData(email,password,uid,type,client_type,avatar,name,avantee_verif,token,0);
-//                                    prefManager.setUserData(ud);
-//                                    msg.setValue("success");
-//                                }else if(avantee_verif == 0){
-//                                    token = response.getString("token");
-//                                    String uid = res.getString("uid");
-//                                    int type = res.getInt("type");
-//                                    String client_type = res.getString("client_type");
-//                                    String avatar = res.getString("avatar");
-//                                    String name = res.getString("name");
-//                                    UserData ud = new UserData(email,password,uid,type,client_type,avatar,name,avantee_verif,token,0);
-//                                    prefManager.setUserData(ud);
-//                                    msg.setValue("not_verified");
-//                                }else{
-//                                    msg.setValue("failed2");
-//                                }
-//
-//                            }else{
-//                                msg.setValue("failed");
-//                                Log.e("Login Response", "Email atau password tidak sesuai");
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.e("Volley", error.toString());
-//                    }
-//                }
-//        )
-//
-//        {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                return GlobalVariables.API_ACCESS();
-//            }
-//        };
-//        requestQueue.getCache().clear();
-//        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-//            @Override
-//            public int getCurrentTimeout() {
-//                return 60000;
-//            }
-//            @Override
-//            public int getCurrentRetryCount() {
-//                return 0;
-//            }
-//            @Override
-//            public void retry(VolleyError error) throws VolleyError {
-//            }
-//        });
-//
-//        return msg;
-//    }
-
     public MutableLiveData<JSONObject> createPersonalDocument(final String uid, final String token, final Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -521,8 +432,57 @@ public class AuthenticationRepository {
         return result;
     }
 
+    public MutableLiveData<JSONObject> changePassword(final String oldPass, final String newPass, final String uid, final String token, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Map<String, String> params = new HashMap<>();
+        params.put("settings-current-password", oldPass);
+        params.put("settings-new-password", newPass);
+        params.put("settings-repeat-password", newPass);
+        JSONObject parameters = new JSONObject(params);
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/profile/changepassword", parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        result.setValue(response);
+                        Log.e("changePassResult", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,String> msg = new HashMap<>();
+                        msg.put("code","400");
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
 
-    public MutableLiveData<String> sendOTPVerification(final String type, final String uid, final String token, Context context) {
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<String> sendOTPVerification(final String type, final String uid, final String token, final Context context) {
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         final MutableLiveData<Boolean> status = new MutableLiveData<>();
@@ -555,6 +515,7 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        msg.setValue("failed: " + context.getString(R.string.failed));
                     }
                 }
         )
@@ -584,7 +545,7 @@ public class AuthenticationRepository {
         return msg;
     }
 
-    public MutableLiveData<String> verifyOTP(final String uid, final String token, final String otpCode, Context context) {
+    public MutableLiveData<String> verifyOTP(final String uid, final String token, final String otpCode, final Context context) {
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -618,6 +579,7 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        msg.setValue("failed: " + context.getString(R.string.failed));
                     }
                 }
         )
@@ -647,7 +609,7 @@ public class AuthenticationRepository {
         return msg;
     }
 
-    public MutableLiveData<String> verifyOTPDoc(final String uid, final String token, final String otpCode, Context context) {
+    public MutableLiveData<String> verifyOTPDoc(final String uid, final String token, final String otpCode, final Context context) {
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -681,6 +643,129 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        msg.setValue("failed: " + context.getString(R.string.failed));
+                    }
+                }
+        )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return msg;
+    }
+
+    public MutableLiveData<String> verifyOTPSettings(final String uid, final String token, final String type, final String otpCode, final Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Map<String, String> params = new HashMap<>();
+        params.put("type", type);
+        params.put("verifikasi_code", otpCode);
+        JSONObject parameters = new JSONObject(params);
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/profile/verification", parameters,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        int code = 0; //jika kembaliannya dalam string
+                        boolean status = false;
+                        String resp = "";
+                        try {
+                            code = response.getInt("code");
+                            status = response.getBoolean("status");
+                            resp = response.getString("msg");
+                            if(code == 200 & status == true){
+                                msg.setValue("success: " + resp);
+                            }else{
+                                msg.setValue("failed: " + resp);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            msg.setValue("failed: " + context.getString(R.string.failed));
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        msg.setValue("failed: " + context.getString(R.string.failed));
+                    }
+                }
+        )
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+
+        return msg;
+    }
+
+    public MutableLiveData<String> resendOTPSettings(final String uid, final String token, final String type, final Context context) {
+        prefManager = PrefManager.getInstance(context);
+        final MutableLiveData<String> msg = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"profile/resendotp/"+type, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        boolean status = false;
+                        String resp = "";
+                        try {
+                            status = response.getBoolean("status");
+                            resp = response.getString("msg");
+                            if(status == true){
+                                msg.setValue("success: " + resp);
+                            }else{
+                                msg.setValue("failed: " + resp);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            msg.setValue("failed: " + context.getString(R.string.failed));
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        msg.setValue("failed: " + context.getString(R.string.failed));
                     }
                 }
         )

@@ -185,6 +185,7 @@ public class OTPDocActivity extends AppCompatActivity {
         public void onChanged(String result) {
             f.showMessage(result);
             dialog.cancel();
+            OTPReceiver.isReady = true;
             new OTPReceiver().setEditText(otpView, "document");
             setTimer();
         }
@@ -252,7 +253,7 @@ public class OTPDocActivity extends AppCompatActivity {
                 new Routes(OTPDocActivity.this).moveOutIntent(intent);
             }else{
                 dialog.cancel();
-                new Fungsi().showMessage(result);
+                new Fungsi(OTPDocActivity.this).showMessage(result);
             }
         }
     };

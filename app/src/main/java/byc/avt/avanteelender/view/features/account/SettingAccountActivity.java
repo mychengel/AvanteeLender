@@ -32,6 +32,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.view.others.RiskInfoActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -96,7 +97,8 @@ public class SettingAccountActivity extends AppCompatActivity {
         cv_change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SettingAccountActivity.this, ChangePasswordActivity.class);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -105,8 +107,7 @@ public class SettingAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SettingAccountActivity.this, PersonalDataShowActivity.class);
                 intent.putExtra("jobPersonalData", jobDataPribadi.toString());
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -115,8 +116,7 @@ public class SettingAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SettingAccountActivity.this, WorkInfoShowActivity.class);
                 intent.putExtra("jobWorkInfo", jobDataPekerjaan.toString());
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -126,8 +126,7 @@ public class SettingAccountActivity extends AppCompatActivity {
                 Intent intent = new Intent(SettingAccountActivity.this, AddressDataShowActivity.class);
                 intent.putExtra("jobAddressDataKTP", jobDataAlamatKTP.toString());
                 intent.putExtra("jobAddressDataDomicile", jobDataAlamatDomisili.toString());
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -136,8 +135,7 @@ public class SettingAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SettingAccountActivity.this, BankInfoShowActivity.class);
                 intent.putExtra("jobBankInfo", jobDataRekBank.toString());
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -147,8 +145,7 @@ public class SettingAccountActivity extends AppCompatActivity {
                 Intent intent = new Intent(SettingAccountActivity.this, DataPendukungShowActivity.class);
                 intent.putExtra("jobEssDocument", jobDataDokumenPendukung.toString());
                 intent.putExtra("jobDataPribadi", jobDataPribadi.toString());
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -199,7 +196,7 @@ public class SettingAccountActivity extends AppCompatActivity {
                 e.printStackTrace();
                 setDisabled();
                 dialog.cancel();
-                f.showMessage(getString(R.string.failed_exc_data));
+                new Fungsi(SettingAccountActivity.this).showMessageLong(getString(R.string.failed_exc_data));
             }
         }
     };

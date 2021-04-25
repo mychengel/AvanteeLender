@@ -24,11 +24,13 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp_doc = new MutableLiveData<>();
-    private MutableLiveData<String> msg_check_surat_kuasa = new MutableLiveData<>();
+    private MutableLiveData<String> msg_ver_otp_settings = new MutableLiveData<>();
+    private MutableLiveData<String> msg_resend_ver_otp_settings = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSettingDataNoAuth = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResetPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultChangePassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
@@ -111,6 +113,22 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return msg_ver_otp_doc;
     }
 
+    public void verifyOTPSettings(String uid, String token, String otpCode, String type){
+        msg_ver_otp_settings = authenticationRepository.verifyOTPSettings(uid, token, type, otpCode, getApplication());
+    }
+
+    public LiveData<String> getVerifyOTPSettingsResult(){
+        return msg_ver_otp_settings;
+    }
+
+    public void resendOTPSettings(String uid, String token, String type){
+        msg_resend_ver_otp_settings = authenticationRepository.resendOTPSettings(uid, token, type, getApplication());
+    }
+
+    public LiveData<String> getResendOTPSettingsResult(){
+        return msg_resend_ver_otp_settings;
+    }
+
     public void getSettingData(String uid, String token){
         resultSettingData = authenticationRepository.getSettingData(uid, token, getApplication());
     }
@@ -133,6 +151,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultSetNewPassword(){
         return resultSetNewPassword;
+    }
+
+    public void setChangePassword(String oldPass, String newPass, String uid, String token){
+        resultChangePassword = authenticationRepository.changePassword(oldPass, newPass, uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultChangePassword(){
+        return resultChangePassword;
     }
 
     public void setResendEmail(String email){

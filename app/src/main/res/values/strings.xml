@@ -55,6 +55,8 @@
     <string name="remember_me">Ingat saya</string>
     <string name="forgot_password">Lupa kata sandi?</string>
     <string name="login_as_lender">Masuk sebagai pemberi dana</string>
+    <string name="update_pass_done">Berhasil ubah password</string>
+    <string name="lets_login_again">Silahkan masuk dengan password baru Anda.</string>
 
     <!-- TODO: Authentication Forgot Password -->
     <string name="reset_password">Atur ulang kata sandi</string>
@@ -64,6 +66,7 @@
     <string name="reset_failed">Pengiriman tautan atur ulang kata sandi gagal, silahkan cek kembali email yang Anda isikan</string>
     <string name="reset_message">Klik tautan dalam SMS tersebut untuk mengatur ulang kata sandi Anda.</string>
     <string name="set_new_pass_failed">Atur ulang kata sandi gagal. Silahkan coba beberapa saat lagi.</string>
+    <string name="change_pass_failed">Ubah kata sandi gagal. Pastikan password saat ini sudah benar.</string>
 
     <!-- TODO: New User Get Started Screen -->
     <string name="welcome_message">Selamat bergabung menjadi\npemberi dana di Avantee</string>
@@ -341,6 +344,8 @@
     <string name="norek">No rek.</string>
     <string name="rdl">RDL</string>
     <string name="penarikan_dana_status_pending">Penarikan dana berstatus pending</string>
+    <string name="update_profile_done">Berhasil mengubah profil</string>
+    <string name="failed">Gagal memproses</string>
     <string name="failed_load_data">Gagal memuat data</string>
     <string name="failed_load_doc">Gagal memuat dokumen</string>
     <string name="failed_load_info">Gagal memuat informasi</string>
@@ -424,4 +429,8 @@
     <string name="download_failed">Download dokumen gagal, silahkan coba beberapa saat lagi.</string>
     <string name="document_info">Informasi dokumen</string>
     <string name="owner_name_same_as_name">Nama pemilik rekening sama dengan nama</string>
+    <string name="change_pass_desc">Silahkan masukkan kata sandi lama, lalu ganti dengan kata sandi Anda.</string>
+    <string name="old_pass">Kata sandi lama</string>
+    <string name="pass_must_same">Kata sandi harus sama!</string>
+    <string name="retype_new_pass">Ulangi kata sandi baru</string>
 </resources>

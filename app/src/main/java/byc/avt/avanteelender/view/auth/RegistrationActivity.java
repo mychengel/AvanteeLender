@@ -201,7 +201,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (rePassword.equals(password)){
                     editConfirmPassword.setError(null);
                 } else {
-                    editConfirmPassword.setError("Kata sandi harus sama!");
+                    editConfirmPassword.setError(getString(R.string.pass_must_same));
                 }
             }else{
                 editPassword.setError(getString(R.string.pass_terms));

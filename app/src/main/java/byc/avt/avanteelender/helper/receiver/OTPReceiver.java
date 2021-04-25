@@ -10,6 +10,7 @@ import com.mukesh.OtpView;
 
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
+import byc.avt.avanteelender.view.misc.OTPSettingsActivity;
 
 public class OTPReceiver extends BroadcastReceiver {
 
@@ -38,6 +39,9 @@ public class OTPReceiver extends BroadcastReceiver {
                         isReady = false;
                     }else if(from.equalsIgnoreCase("document")){
                         OTPDocActivity.btnVerify.setEnabled(true);
+                        isReady = false;
+                    }else if(from.equalsIgnoreCase("settings")){
+                        OTPSettingsActivity.btnVerify.setEnabled(true);
                         isReady = false;
                     }
                 }else{}
