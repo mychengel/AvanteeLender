@@ -206,8 +206,6 @@ public class WorkInfoFragment extends Fragment {
         companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
         companyNumber = Objects.requireNonNull(txtCompanyNumber.getEditText().getText().toString().trim());
         companyAddress = Objects.requireNonNull(txtCompanyAddress.getEditText().getText().toString().trim());
-//        companyDistrict = Objects.requireNonNull(txtCompanyDistrict.getEditText().getText().toString().trim());
-//        companyUrban = Objects.requireNonNull(txtCompanyUrban.getEditText().getText().toString().trim());
         companyRT = Objects.requireNonNull(txtCompanyRT.getEditText().getText().toString().trim());
         companyRW = Objects.requireNonNull(txtCompanyRW.getEditText().getText().toString().trim());
         companyPostalCode = Objects.requireNonNull(txtCompanyPostalCode.getEditText().getText().toString().trim());

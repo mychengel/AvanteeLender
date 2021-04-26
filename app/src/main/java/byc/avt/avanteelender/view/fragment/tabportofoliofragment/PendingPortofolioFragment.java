@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -30,10 +31,13 @@ import java.util.ArrayList;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.adapter.PortofolioPendingAdapter;
+import byc.avt.avanteelender.helper.EndlessRecyclerOnScrollListener;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.model.PortofolioPending;
+import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.PendingPortofolioViewModel;
 
 public class PendingPortofolioFragment extends Fragment {
@@ -46,6 +50,7 @@ public class PendingPortofolioFragment extends Fragment {
     long tot_nom_pending = 0, tot_est_bunga_diterima = 0;
     private RecyclerView rv;
     ConstraintLayout cons, cons_lottie;
+    ProgressBar prog_bar;
 
     public static PendingPortofolioFragment newInstance() {
         return new PendingPortofolioFragment();
@@ -71,7 +76,7 @@ public class PendingPortofolioFragment extends Fragment {
         cons = v.findViewById(R.id.cons_port_pending);
         cons.setVisibility(View.INVISIBLE);
         rv = v.findViewById(R.id.rv_port_pending);
-        //f.showMessage("Portofolio PENDING");
+        prog_bar = v.findViewById(R.id.progressBar_port_pending);
         loadData();
     }
 
@@ -79,7 +84,7 @@ public class PendingPortofolioFragment extends Fragment {
         dialog.show();
         viewModel.portofolioPendingHeader(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultHeader().observe(getActivity(), showDataHeader);
-        viewModel.portofolioPendingList(prefManager.getUid(), prefManager.getToken());
+        viewModel.portofolioPendingList(prefManager.getUid(), prefManager.getToken(), "1");
         viewModel.getResultList().observe(getActivity(), showDataList);
     }
 
@@ -97,7 +102,6 @@ public class PendingPortofolioFragment extends Fragment {
                 if(rows.length()==0){
                 }else{
                     for(int i = 0; i < rows.length(); i++){
-                        double bunga;
                         tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getLong("estimasi_bunga_per_loan");
                         tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getLong("nominal");
                     }
@@ -121,14 +125,49 @@ public class PendingPortofolioFragment extends Fragment {
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.VISIBLE);
             }else{
+                results = result;
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.GONE);
-                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                PortofolioPendingAdapter portofolioPendingAdapter = new PortofolioPendingAdapter(getActivity());
-                portofolioPendingAdapter.setListPortofolioPending(result);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                rv.setLayoutManager(linearLayoutManager);
+                portofolioPendingAdapter = new PortofolioPendingAdapter(getActivity());
+                portofolioPendingAdapter.setListPortofolioPending(results);
                 rv.setAdapter(portofolioPendingAdapter);
+                rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+                    @Override
+                    public void onLoadMore(int current_page) {
+                        loadMorePortPending(""+current_page);
+                    }
+                });
+                rv.smoothScrollToPosition(results.size());
             }
 
+        }
+    };
+
+    ArrayList<PortofolioPending> results = new ArrayList<>();
+    PortofolioPendingAdapter portofolioPendingAdapter;
+    public void loadMorePortPending(String page) {
+        // POST to server through endpoint
+        //new Fungsi(getActivity()).showMessage(page);
+        prog_bar.setVisibility(View.VISIBLE);
+        viewModel.portofolioPendingList(prefManager.getUid(), prefManager.getToken(), page);
+        viewModel.getResultList().observe(getActivity(), showMorePortPending);
+    }
+
+    private Observer<ArrayList<PortofolioPending>> showMorePortPending = new Observer<ArrayList<PortofolioPending>>() {
+        @Override
+        public void onChanged(final ArrayList<PortofolioPending> result) {
+            for(int i = 0; i < result.size(); i++){
+                results.add(result.get(i));
+                portofolioPendingAdapter.notifyDataSetChanged();
+                tot_est_bunga_diterima = tot_est_bunga_diterima + Long.parseLong(result.get(i).getEst_bunga());
+                tot_nom_pending = tot_nom_pending + Long.parseLong(result.get(i).getNominal());
+            }
+            prog_bar.setVisibility(View.GONE);
+            txt_est_bunga_diterima.setText(f.toNumb(""+tot_est_bunga_diterima));
+            txt_tot_nom_pending.setText(f.toNumb(""+(tot_nom_pending)));
+            rv.smoothScrollToPosition(results.size());
         }
     };
 

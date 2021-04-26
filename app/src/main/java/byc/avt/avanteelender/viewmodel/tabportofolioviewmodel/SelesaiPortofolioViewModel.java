@@ -35,8 +35,8 @@ public class SelesaiPortofolioViewModel extends AndroidViewModel {
         return resultHeader;
     }
 
-    public void portofolioCloseList(String uid, String token){
-        resultList = selesaiPortofolioRepository.portofolioCloseList(uid, token, getApplication());
+    public void portofolioCloseList(String uid, String token, String page){
+        resultList = selesaiPortofolioRepository.portofolioCloseList(page, uid, token, getApplication());
     }
 
     public LiveData<ArrayList<PortofolioSelesai>> getResultList(){

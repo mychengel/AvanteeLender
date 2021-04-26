@@ -146,6 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:checked="true"
                     android:text="@string/yes"
                     android:textSize="15sp" />
 
@@ -287,7 +288,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_state_selector"
-                android:enabled="false"
                 android:letterSpacing="0.01"
                 android:text="@string/next"
                 android:textAllCaps="false"

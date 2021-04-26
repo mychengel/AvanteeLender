@@ -12,11 +12,12 @@ public class PortofolioPending implements Parcelable {
     private String tenor;
     private String interest;
     private String nominal;
+    private String est_bunga;
     private String is_paid;
 
     public PortofolioPending(){}
 
-    public PortofolioPending(String loan_type, String loan_rating, String loan_no, String est_pengembalian_date, String tenor, String interest, String nominal, String is_paid) {
+    public PortofolioPending(String loan_type, String loan_rating, String loan_no, String est_pengembalian_date, String tenor, String interest, String nominal, String est_bunga, String is_paid) {
         this.loan_type = loan_type;
         this.loan_rating = loan_rating;
         this.loan_no = loan_no;
@@ -24,6 +25,7 @@ public class PortofolioPending implements Parcelable {
         this.tenor = tenor;
         this.interest = interest;
         this.nominal = nominal;
+        this.est_bunga = est_bunga;
         this.is_paid = is_paid;
     }
 
@@ -35,6 +37,7 @@ public class PortofolioPending implements Parcelable {
         tenor = in.readString();
         interest = in.readString();
         nominal = in.readString();
+        est_bunga = in.readString();
         is_paid = in.readString();
     }
 
@@ -78,6 +81,10 @@ public class PortofolioPending implements Parcelable {
         return nominal;
     }
 
+    public String getEst_bunga() {
+        return est_bunga;
+    }
+
     public String getIs_paid() {
         return is_paid;
     }
@@ -96,6 +103,7 @@ public class PortofolioPending implements Parcelable {
         parcel.writeString(tenor);
         parcel.writeString(interest);
         parcel.writeString(nominal);
+        parcel.writeString(est_bunga);
         parcel.writeString(is_paid);
     }
 }

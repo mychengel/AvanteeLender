@@ -122,6 +122,9 @@
     <string name="address_same_as_akta">Alamat sama dengan akta</string>
     <string name="take_narahubung_ktp_photo">Ambil foto KTP narahubung</string>
     <string name="take_narahubung_npwp_photo">Ambil foto NPWP narahubung</string>
+    <string name="bith_date_narahubung">Tanggal lahir narahubung</string>
+    <string name="email_not_valid">Email tidak valid</string>
+    <string name="phone_not_valid">No. handphone tidak valid</string>
 
 
     <!-- TODO: New User Form Part 1 -->
@@ -457,4 +460,9 @@
     <string name="old_pass">Kata sandi lama</string>
     <string name="pass_must_same">Kata sandi harus sama!</string>
     <string name="retype_new_pass">Ulangi kata sandi baru</string>
+    <string name="save_change">Simpan perubahan</string>
+    <string name="take_ava_photo">Ambil foto avatar</string>
+    <string name="change_phone_number">Saya akan ganti no. handphone</string>
+    <string name="new_no_hp">No. handphone baru</string>
+    <string name="update_profile_failed">Update profile gagal, silahkan coba lagi</string>
 </resources>

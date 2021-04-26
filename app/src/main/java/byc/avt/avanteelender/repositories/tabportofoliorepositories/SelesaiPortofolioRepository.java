@@ -85,11 +85,17 @@ public class SelesaiPortofolioRepository {
         return result;
     }
 
-    public MutableLiveData<ArrayList<PortofolioSelesai>> portofolioCloseList(final String uid, final String token, final Context context) {
+    public MutableLiveData<ArrayList<PortofolioSelesai>> portofolioCloseList(final String page, final String uid, final String token, final Context context) {
         final MutableLiveData<ArrayList<PortofolioSelesai>> result = new MutableLiveData<>();
         final ArrayList<PortofolioSelesai> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/close", null,
+        String pg = "";
+        if(page.equalsIgnoreCase("1")){
+            pg = "";
+        }else{
+            pg = "?page="+page;
+        }
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/close"+pg, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

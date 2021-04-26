@@ -191,41 +191,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-//    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
-//        @Override
-//        public void onChanged(JSONObject result) {
-//            if(result.equals("success")) {
-//                dialog.cancel();
-//                if(prefManager.getName().equalsIgnoreCase("null") || prefManager.getName() == null || prefManager.getName() == "null"){
-//                    ///isi di sini untuk memulai pendaftaran registrasi form
-//                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
-//                    //startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    startActivity(new Intent(LoginActivity.this, RegistrationFormActivity.class));
-//                    overridePendingTransition(R.anim.enter, R.anim.exit);
-//                    finish();
-//                }else if(!prefManager.getName().equalsIgnoreCase("null")){
-//                    //startActivity(new Intent(LoginActivity.this, SignersCheckActivity.class));
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    f.showMessage("Selamat datang "+prefManager.getName()+".");
-//                    overridePendingTransition(R.anim.enter, R.anim.exit);
-//                    finish();
-//                }
-//            }else if(result.equals("failed")){
-//                dialog.cancel();
-//                f.showMessage("Email atau password tidak sesuai, silahkan coba lagi.");
-//            }else if(result.equals("failed2")){
-//                dialog.cancel();
-//                f.showMessage("Login gagal, silahkan coba lagi");
-//            }else if(result.equals("not_verified")){
-//                dialog.cancel();
-//                startActivity(new Intent(LoginActivity.this, OTPActivity.class));
-//                overridePendingTransition(R.anim.enter, R.anim.exit);
-//                finish();
-//            }
-//            dialog.cancel();
-//        }
-//    };
-
     boolean emailisvalid = false;
     public void cekEmail(String mail){
         if(TextUtils.isEmpty(mail)){

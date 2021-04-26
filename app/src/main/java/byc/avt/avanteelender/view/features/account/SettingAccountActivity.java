@@ -91,6 +91,8 @@ public class SettingAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(f.clickAnim());
+                Intent intent = new Intent(SettingAccountActivity.this, UpdateAvaActivity.class);
+                new Routes(SettingAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -235,5 +237,11 @@ public class SettingAccountActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //loadData();
     }
 }

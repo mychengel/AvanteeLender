@@ -145,13 +145,13 @@ public class RegistrationActivity extends AppCompatActivity {
     boolean emailisvalid = false;
     public void cekEmail(String mail){
         if(TextUtils.isEmpty(mail)){
-            editEmail.setError("Field email harus diisi!");
+            editEmail.setError(getString(R.string.cannotnull));
         }else{
             emailisvalid = Patterns.EMAIL_ADDRESS.matcher(mail).matches();
             if(emailisvalid){
                 editEmail.setError(null);
             }else{
-                editEmail.setError("Email tidak valid!");
+                editEmail.setError(getString(R.string.email_not_valid));
             }
         }
     }
@@ -159,16 +159,16 @@ public class RegistrationActivity extends AppCompatActivity {
     boolean phoneisvalid = false;
     public void cekPhone(String phone){
         if(TextUtils.isEmpty(phone)){
-            editPhoneNumber.setError("Field No. handphone harus diisi!");
+            editPhoneNumber.setError(getString(R.string.cannotnull));
         }else if(phone.length() < 6 || phone.length() > 14){
-            editPhoneNumber.setError("No. handphone tidak valid!");
+            editPhoneNumber.setError(getString(R.string.phone_not_valid));
             phoneisvalid = false;
         }else{
             phoneisvalid = Patterns.PHONE.matcher(phone).matches();
             if(phoneisvalid){
                 editPhoneNumber.setError(null);
             }else{
-                editPhoneNumber.setError("No. handphone tidak valid!");
+                editPhoneNumber.setError(getString(R.string.phone_not_valid));
             }
         }
     }

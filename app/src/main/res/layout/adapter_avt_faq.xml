@@ -49,7 +49,7 @@
                 android:maxLines="4"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toStartOf="@+id/img_expand_adp_faq"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

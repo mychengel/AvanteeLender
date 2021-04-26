@@ -71,7 +71,7 @@
                         app:layout_constraintTop_toTopOf="@+id/img_take_ktp_fr_com_doc" />
 
                     <ImageView
-                        android:id="@+id/img_cancel_take_ktp_fr_document"
+                        android:id="@+id/img_cancel_take_ktp_fr_com_doc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -163,7 +163,7 @@
                             app:layout_constraintTop_toTopOf="@+id/img_take_npwp_fr_com_doc" />
 
                         <ImageView
-                            android:id="@+id/img_cancel_take_npwp_fr_document"
+                            android:id="@+id/img_cancel_take_npwp_fr_com_doc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"

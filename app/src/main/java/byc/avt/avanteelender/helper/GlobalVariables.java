@@ -24,6 +24,7 @@ public final class GlobalVariables {
     public static final String IMG_URL = "https://avantee.co.id:8444/assets/images/";
     public static final int BIAYA_PENARIKAN = 6000;
     public static String LENDER_CODE;
+    public static String NO_HP;
     public static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
             "(?=.*[0-9])" +         //at least has 1 number
             "(?=.*[a-z])" +         //at least has 1 lower case letter
@@ -53,6 +54,15 @@ public final class GlobalVariables {
     public static boolean stPerDocument;
 
     public static Map<String, String> insRegData = new HashMap<>();
+    public static Map<String, DataPart> insRegDataFile = new HashMap<>();
+    public static boolean stInsCompanyData;
+    public static boolean stInsNarahubung;
+    public static boolean stInsCompanyAddress;
+    public static boolean stInsBankInfo;
+    public static boolean stInsDocument;
+
+    public static Map<String, String> profileData = new HashMap<>();
+    public static Map<String, DataPart> profileDataFile = new HashMap<>();
 
     public static Map<String, String> API_ACCESS(){
         //final String basicAuth = "Basic " + Base64.encodeToString("Av@nTe3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);

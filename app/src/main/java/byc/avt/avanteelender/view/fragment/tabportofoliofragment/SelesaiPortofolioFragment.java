@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -28,10 +29,13 @@ import java.util.ArrayList;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.adapter.HistoryTrxAdapter;
+import byc.avt.avanteelender.adapter.PortofolioPendingAdapter;
 import byc.avt.avanteelender.adapter.PortofolioSelesaiAdapter;
+import byc.avt.avanteelender.helper.EndlessRecyclerOnScrollListener;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.model.PortofolioPending;
 import byc.avt.avanteelender.model.PortofolioSelesai;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.SelesaiPortofolioViewModel;
 
@@ -45,6 +49,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     long tot_pb_selesai = 0, tot_nom_selesai = 0;
     private RecyclerView rv;
     ConstraintLayout cons, cons_lottie;
+    ProgressBar prog_bar;
 
     public static SelesaiPortofolioFragment newInstance() {
         return new SelesaiPortofolioFragment();
@@ -70,7 +75,7 @@ public class SelesaiPortofolioFragment extends Fragment {
         cons_lottie = v.findViewById(R.id.cons_lottie_port_selesai);
         cons = v.findViewById(R.id.cons_port_selesai);
         cons.setVisibility(View.INVISIBLE);
-        //f.showMessage("Portofolio SELESAI");
+        prog_bar = v.findViewById(R.id.progressBar_port_selesai);
         loadData();
     }
 
@@ -78,7 +83,7 @@ public class SelesaiPortofolioFragment extends Fragment {
         dialog.show();
         viewModel.portofolioCloseHeader(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultHeader().observe(getActivity(), showDataHeader);
-        viewModel.portofolioCloseList(prefManager.getUid(), prefManager.getToken());
+        viewModel.portofolioCloseList(prefManager.getUid(), prefManager.getToken(), "1");
         viewModel.getResultList().observe(getActivity(), showDataList);
     }
 
@@ -111,6 +116,8 @@ public class SelesaiPortofolioFragment extends Fragment {
         }
     };
 
+    ArrayList<PortofolioSelesai> results = new ArrayList<>();
+    PortofolioSelesaiAdapter portofolioSelesaiAdapter;
     private Observer<ArrayList<PortofolioSelesai>> showDataList = new Observer<ArrayList<PortofolioSelesai>>() {
         @Override
         public void onChanged(ArrayList<PortofolioSelesai> result) {
@@ -119,14 +126,47 @@ public class SelesaiPortofolioFragment extends Fragment {
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.VISIBLE);
             }else{
+                results = result;
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.GONE);
-                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                PortofolioSelesaiAdapter portofolioSelesaiAdapter = new PortofolioSelesaiAdapter(getActivity());
-                portofolioSelesaiAdapter.setListPortofolioSelesai(result);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                rv.setLayoutManager(linearLayoutManager);
+                portofolioSelesaiAdapter = new PortofolioSelesaiAdapter(getActivity());
+                portofolioSelesaiAdapter.setListPortofolioSelesai(results);
                 rv.setAdapter(portofolioSelesaiAdapter);
+                rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+                    @Override
+                    public void onLoadMore(int current_page) {
+                        loadMorePortSelesai(""+current_page);
+                    }
+                });
+                rv.smoothScrollToPosition(results.size());
             }
 
+        }
+    };
+
+    public void loadMorePortSelesai(String page) {
+        // POST to server through endpoint
+        //new Fungsi(getActivity()).showMessage(page);
+        prog_bar.setVisibility(View.VISIBLE);
+        viewModel.portofolioCloseList(prefManager.getUid(), prefManager.getToken(), page);
+        viewModel.getResultList().observe(getActivity(), showMorePortSelesai);
+    }
+
+    private Observer<ArrayList<PortofolioSelesai>> showMorePortSelesai = new Observer<ArrayList<PortofolioSelesai>>() {
+        @Override
+        public void onChanged(final ArrayList<PortofolioSelesai> result) {
+            for(int i = 0; i < result.size(); i++){
+                results.add(result.get(i));
+                portofolioSelesaiAdapter.notifyDataSetChanged();
+                tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(result.get(i).getPayment_amount());
+                tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(result.get(i).getNominal());
+            }
+            prog_bar.setVisibility(View.GONE);
+            txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
+            txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
+            rv.smoothScrollToPosition(results.size());
         }
     };
 

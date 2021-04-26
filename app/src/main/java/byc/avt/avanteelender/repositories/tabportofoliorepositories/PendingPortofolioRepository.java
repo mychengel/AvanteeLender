@@ -83,11 +83,17 @@ public class PendingPortofolioRepository {
         return result;
     }
 
-    public MutableLiveData<ArrayList<PortofolioPending>> portofolioPendingList(final String uid, final String token, final Context context) {
+    public MutableLiveData<ArrayList<PortofolioPending>> portofolioPendingList(final String page, final String uid, final String token, final Context context) {
         final MutableLiveData<ArrayList<PortofolioPending>> result = new MutableLiveData<>();
         final ArrayList<PortofolioPending> list = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/pending", null,
+        String pg = "";
+        if(page.equalsIgnoreCase("1")){
+            pg = "";
+        }else{
+            pg = "?page="+page;
+        }
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/pending"+pg, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -104,7 +110,7 @@ public class PendingPortofolioRepository {
                                     PortofolioPending ps = new PortofolioPending(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"),
                                             rows.getJSONObject(i).getString("tanggal_pengembalian"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
                                             rows.getJSONObject(i).getString("invest_bunga"), rows.getJSONObject(i).getString("nominal"),
-                                            rows.getJSONObject(i).getString("status"));
+                                            ""+rows.getJSONObject(i).getLong("estimasi_bunga_per_loan"), rows.getJSONObject(i).getString("status"));
                                     list.add(ps);
                                 }
                                 result.setValue(list);

@@ -246,20 +246,136 @@ public class AuthenticationRepository {
 
         VolleySingleton.getInstance(context).addToRequestQueue(jor);
 
-//        requestQueue.getCache().clear();
-//        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
-//            @Override
-//            public int getCurrentTimeout() {
-//                return 60000;
-//            }
-//            @Override
-//            public int getCurrentRetryCount() {
-//                return 0;
-//            }
-//            @Override
-//            public void retry(VolleyError error) throws VolleyError {
-//            }
-//        });
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> createInstitutionDocument(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
+                        try {
+                            JSONObject resp = new JSONObject(resultResponse);
+                            if(resp.getInt("code") == 200){
+                                result.setValue(resp);
+                            }else{
+                                Map<String,String> msg = new HashMap<>();
+                                msg.put("code","400");
+                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                result.setValue(new JSONObject(msg));
+                            }
+
+                        } catch (JSONException e) {
+                            if(resultResponse.contains("\"code\":200,\"status\":true")){
+                                String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokument Sukses, Kode verifikasi telah dikirim melalui SMS ke telepon anda.\"}}";
+                                try {
+                                    result.setValue(new JSONObject(resp));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+                            }else{
+                                e.printStackTrace();
+                                Map<String,String> msg = new HashMap<>();
+                                msg.put("code","400");
+                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                result.setValue(new JSONObject(msg));
+                            }
+                        }
+                        Log.e("createInsDocResult", resultResponse);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,String> msg = new HashMap<>();
+                        msg.put("code","400");
+                        msg.put("msg", context.getString(R.string.doc_not_valid));
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = GlobalVariables.insRegData;
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.insRegDataFile;
+                return params;
+            }
+
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
+
+        return result;
+    }
+
+
+    public MutableLiveData<JSONObject> updateProfile(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"internal/profile/update",
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
+                        try {
+                            result.setValue(new JSONObject(resultResponse));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("status",false);
+                            msg.put("msg", context.getString(R.string.update_profile_failed));
+                            result.setValue(new JSONObject(msg));
+                        }
+                        Log.e("createPersonalDocResult", resultResponse);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("status",false);
+                        msg.put("msg", context.getString(R.string.update_profile_failed));
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = GlobalVariables.profileData;
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.profileDataFile;
+                return params;
+            }
+
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
 
         return result;
     }

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieDrawable;
 import com.mukesh.OtpView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -31,6 +35,11 @@ import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
+import byc.avt.avanteelender.model.UserData;
+import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
+import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
+import byc.avt.avanteelender.view.auth.SignersCheckActivity;
 import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
@@ -112,7 +121,8 @@ public class OTPSettingsActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(type.equalsIgnoreCase("profile")){
-                            new Routes(OTPSettingsActivity.this).moveOut();
+                            //new Routes(OTPSettingsActivity.this).moveOut();
+                            confirmLogin();
                         }else if(type.equalsIgnoreCase("password")){
                             logout();
                         }
@@ -193,6 +203,85 @@ public class OTPSettingsActivity extends AppCompatActivity {
                 dialog.cancel();
                 new Fungsi(OTPSettingsActivity.this).showMessage(result);
             }
+        }
+    };
+
+
+    ///////////
+    public void confirmLogin() {
+        // POST to server through endpoint
+        dialog.show();
+        viewModel.login(prefManager.getEmail(), prefManager.getPassword());
+        viewModel.getLoginResult().observe(OTPSettingsActivity.this, checkSuccess);
+    }
+
+    private Observer<JSONObject> checkSuccess = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            JSONObject res;
+            String msg = "";
+            try {
+                if (result.getInt("code") == 200 && result.getBoolean("status") == true) {
+                    Intent i = null;
+                    String token = result.getString("token");
+                    res = result.getJSONObject("result");
+                    String uid = res.getString("uid");
+                    int verif = res.getInt("avantee_verif");
+                    UserData ud = new UserData(prefManager.getEmail(),prefManager.getPassword(),uid,res.getInt("type"),res.getString("client_type"),res.getString("avatar"),res.getString("name"),verif,token,0);
+                    prefManager.setUserData(ud);
+                    if(verif == 1){
+                        if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
+                            Log.e("Doc", "Aman");
+                            if(res.isNull("privy_status")){
+                                Log.e("PrivyStatus", "Aman");
+                                if(res.isNull("suratkuasa")){
+                                    Log.e("TTDSuratKuasa", "Aman");
+                                    if(res.isNull("suratperjanjian")){
+                                        // Masuk DASHBOARD
+                                        Log.e("TTDSuratPK", "Aman");
+                                        i = new Intent(OTPSettingsActivity.this, MainActivity.class);
+                                    }else{
+                                        msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                        f.showMessage(msg);
+                                        i = new Intent(OTPSettingsActivity.this, SignersCheckActivity.class);
+                                        i.putExtra("doc_type", "Surat Perjanjian");
+                                        //diarahkan untuk ttd surat perjanjian kerja sama
+                                    }
+                                }else{
+                                    msg = res.getJSONObject("suratkuasa").getString("msg");
+                                    f.showMessage(msg);
+                                    i = new Intent(OTPSettingsActivity.this, SignersCheckActivity.class);
+                                    i.putExtra("doc_type", "Surat Kuasa");
+                                    //diarahkan untuk ttd surat kuasa
+                                }
+                            }else{
+                                msg = res.getJSONObject("privy_status").getString("msg");
+                                //i = new Intent(OTPSettingsActivity.this, MainActivity.class);
+                                i = new Intent(OTPSettingsActivity.this, InVerificationProcessActivity.class);
+                                i.putExtra("info", msg);
+                                //f.showMessage(msg);
+                            }
+                        }else{
+                            i = new Intent(OTPSettingsActivity.this, RegistrationFormActivity.class);
+                        }
+                    }else{
+                        i = new Intent(OTPSettingsActivity.this, OTPActivity.class);
+                    }
+
+                    //Routing
+                    new Routes(OTPSettingsActivity.this).moveInFinish(i);
+                    dialog.cancel();
+                }else{
+                    res = result.getJSONObject("result");
+                    msg = res.getString("message");
+                    f.showMessage(msg);
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                dialog.cancel();
+            }
+            dialog.cancel();
         }
     };
 

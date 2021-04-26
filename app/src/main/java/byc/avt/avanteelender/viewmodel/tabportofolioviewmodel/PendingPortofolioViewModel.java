@@ -34,8 +34,8 @@ public class PendingPortofolioViewModel extends AndroidViewModel {
         return resultHeader;
     }
 
-    public void portofolioPendingList(String uid, String token){
-        resultList = PendingPortofolioRepository.portofolioPendingList(uid, token, getApplication());
+    public void portofolioPendingList(String uid, String token, String page){
+        resultList = PendingPortofolioRepository.portofolioPendingList(page, uid, token, getApplication());
     }
 
     public LiveData<ArrayList<PortofolioPending>> getResultList(){

@@ -295,6 +295,7 @@ public class DashboardFragment extends Fragment {
             }else{
                 txt_code.setText(result.get(0).getUser_code());
                 GlobalVariables.LENDER_CODE = result.get(0).getUser_code();
+                GlobalVariables.NO_HP = result.get(0).getNo_handphone();
                 headerdone = true;
             }
             cekDone();

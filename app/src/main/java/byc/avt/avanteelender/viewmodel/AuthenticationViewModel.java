@@ -33,8 +33,10 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultChangePassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultCreateInstitutionDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSigner = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultUpdateProfile = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -183,5 +185,21 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultCreatePersonalDoc(){
         return resultCreatePersonalDoc;
+    }
+
+    public void createInstitutionDoc(String uid, String token){
+        resultCreateInstitutionDoc = authenticationRepository.createInstitutionDocument(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultCreateInstitutionDoc(){
+        return resultCreateInstitutionDoc;
+    }
+
+    public void updateProfile(String uid, String token){
+        resultUpdateProfile = authenticationRepository.updateProfile(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultUpdateProfile(){
+        return resultUpdateProfile;
     }
 }
