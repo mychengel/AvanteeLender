@@ -51,12 +51,19 @@
             android:windowSoftInputMode="adjustPan|adjustResize"></activity>
         <activity android:name=".view.auth.InVerificationProcessActivity" />
         <activity android:name=".view.features.pendanaan.SignerPendanaanActivity" />
-        <activity android:name=".view.features.pendanaan.ViewKontrakPendanaanActivity" />
-        <activity android:name=".view.auth.SignersCheckActivity" />
+        <activity android:name=".view.features.pendanaan.ViewKontrakPendanaanActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.auth.SignersCheckActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.misc.OTPDocActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -75,7 +82,8 @@
         <activity
             android:name=".view.auth.SetNewPasswordActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -93,57 +101,99 @@
         <activity
             android:name=".view.others.BlogDetailActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".adapter.BlogAdapter"
             tools:ignore="Instantiatable" />
         <activity
             android:name=".view.features.account.DataPendukungShowActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.features.account.AddressDataShowActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.features.account.BankInfoShowActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.features.account.WorkInfoShowActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.features.account.PersonalDataShowActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.features.account.SettingAccountActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.sheet.WithdrawalConfirmationSheetFragment"
-            tools:ignore="Instantiatable" />
-        <activity android:name=".view.auth.ForgotPasswordActivity" />
-        <activity android:name=".view.features.penarikan.PenarikanDanaActivity" />
-        <activity android:name=".view.features.topup.TopupInstructionActivity" />
+            tools:ignore="Instantiatable,LockedOrientationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.auth.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.features.penarikan.PenarikanDanaActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.features.topup.TopupInstructionActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".adapter.PortofolioAktifDetailAdapter"
             tools:ignore="Instantiatable" />
-        <activity android:name=".view.others.FactsheetActivity" />
-        <activity android:name=".view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity" />
+        <activity android:name=".view.others.FactsheetActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".adapter.AvtFaqAdapter"
             tools:ignore="Instantiatable" />
-        <activity android:name=".view.others.FaqActivity" />
-        <activity android:name=".view.others.TermsActivity" />
-        <activity android:name=".view.others.RiskInfoActivity" />
-        <activity android:name=".view.features.historitransaksi.HistoriTransaksiListActivity" />
-        <activity android:name=".view.features.pendanaan.PendanaanDetailActivity" />
+        <activity android:name=".view.others.FaqActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.others.TermsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.others.RiskInfoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.features.historitransaksi.HistoriTransaksiListActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        <activity android:name=".view.features.pendanaan.PendanaanDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".adapter.PendanaanAdapter"
             tools:ignore="Instantiatable" />
-        <activity android:name=".view.features.pendanaan.PendanaanActivity" />
+        <activity android:name=".view.features.pendanaan.PendanaanActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".adapter.PortofolioPendingAdapter"
             tools:ignore="Instantiatable" />
@@ -156,35 +206,45 @@
         <activity
             android:name=".adapter.HistoryTrxAdapter"
             tools:ignore="Instantiatable" />
-        <activity android:name=".view.others.SettingActivity" />
+        <activity android:name=".view.others.SettingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.misc.OTPActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.auth.RegistrationFormActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            />
         <activity
             android:name=".view.auth.RegistrationVerifyEmailActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.auth.LoginActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.auth.RegistrationActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".intro.WalkthroughActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".view.MainActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity
             android:name=".intro.SplashActivity"
             android:label="@string/app_name"

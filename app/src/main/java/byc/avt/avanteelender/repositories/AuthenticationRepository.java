@@ -435,6 +435,8 @@ public class AuthenticationRepository {
     public MutableLiveData<JSONObject> changePassword(final String oldPass, final String newPass, final String uid, final String token, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Log.e("newpass", newPass);
+        Log.e("oldpass", oldPass);
         Map<String, String> params = new HashMap<>();
         params.put("settings-current-password", oldPass);
         params.put("settings-new-password", newPass);
@@ -675,16 +677,20 @@ public class AuthenticationRepository {
 
     public MutableLiveData<String> verifyOTPSettings(final String uid, final String token, final String type, final String otpCode, final Context context) {
         prefManager = PrefManager.getInstance(context);
+        Log.e("type", type);
+        Log.e("otpCode", otpCode);
+        Long code = Long.parseLong(otpCode);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("type", type);
-        params.put("verifikasi_code", otpCode);
+        params.put("verifikasi_code", code);
         JSONObject parameters = new JSONObject(params);
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"internal/profile/verification", parameters,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("VerifySettings", response.toString());
                         int code = 0; //jika kembaliannya dalam string
                         boolean status = false;
                         String resp = "";
@@ -741,7 +747,7 @@ public class AuthenticationRepository {
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<String> msg = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, url+"profile/resendotp/"+type, null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/profile/resendotp/"+type, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

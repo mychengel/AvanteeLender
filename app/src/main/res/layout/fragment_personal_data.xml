@@ -42,7 +42,6 @@
                     android:inputType="textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

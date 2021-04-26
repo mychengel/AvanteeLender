@@ -50,10 +50,10 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/lightest_neutral"
                     android:hint="@string/address"
-                    android:inputType="text|none"
+                    android:inputType="none|textMultiLine|text"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -314,10 +314,10 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="wrap_content"
                         android:background="@color/lightest_neutral"
                         android:hint="@string/address"
-                        android:inputType="text|none"
+                        android:inputType="none|textMultiLine|text"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp" />
                 </com.google.android.material.textfield.TextInputLayout>

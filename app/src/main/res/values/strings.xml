@@ -100,6 +100,30 @@
     <string name="institute_lender">Pemberi dana institusi</string>
     <string name="institute_desc">Perusahaan, lembaga, atau institusi yang berbadan hukum, termasuk lembaga yang mengelola dana seperti asuransi, dana pensiun, multifinance, dll.</string>
 
+    <!-- TODO: Institution's Form -->
+    <string name="company_data">Data perusahaan</string>
+    <string name="narahubung_data">Data narahubung</string>
+    <string name="company_type">Tipe perusahaan</string>
+    <string name="company_establishment">Tahun pendirian</string>
+    <string name="business_field">Bidang usaha</string>
+    <string name="company_is_online_based">Perusahaan berbasis online?</string>
+    <string name="company_income">Pendapatan perusahaan</string>
+    <string name="company_phone">No. telepon perusahaan</string>
+    <string name="company_fax">No. fax perusahaan (opsional)</string>
+    <string name="company_desc">Deskripsi perusahaan</string>
+    <string name="narahubung_name">Nama narahubung</string>
+    <string name="narahubung_phone">No. Telepon narahubung</string>
+    <string name="narahubung_position">Jabatan narahubung</string>
+    <string name="narahubung_email">Email narahubung</string>
+    <string name="narahubung_ktp">No. KTP narahubung</string>
+    <string name="name_same_as_narahubung">Nama sama dengan nama narahubung</string>
+    <string name="address_based_akta">Alamat perusahaan sesuai akta</string>
+    <string name="address_based_operasional">Alamat operasional perusahaan</string>
+    <string name="address_same_as_akta">Alamat sama dengan akta</string>
+    <string name="take_narahubung_ktp_photo">Ambil foto KTP narahubung</string>
+    <string name="take_narahubung_npwp_photo">Ambil foto NPWP narahubung</string>
+
+
     <!-- TODO: New User Form Part 1 -->
     <string name="personal_data">Data pribadi</string>
     <string name="full_name">Nama lengkap</string>

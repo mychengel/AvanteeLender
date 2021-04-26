@@ -67,12 +67,13 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/lightest_neutral"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:paddingStart="0dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    android:scrollbars="vertical" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

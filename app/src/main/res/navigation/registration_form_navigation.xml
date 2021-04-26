@@ -103,7 +103,7 @@
     <fragment
         android:id="@+id/companyDataFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyDataFragment"
-        android:label="fragment_company_data"
+        android:label="@string/company_data"
         tools:layout="@layout/fragment_company_data" >
         <action
             android:id="@+id/action_companyDataFragment_to_narahubungFragment"
@@ -116,7 +116,7 @@
     <fragment
         android:id="@+id/narahubungFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.institution.NarahubungFragment"
-        android:label="fragment_narahubung"
+        android:label="@string/narahubung_data"
         tools:layout="@layout/fragment_narahubung" >
         <action
             android:id="@+id/action_narahubungFragment_to_companyAddressFragment"
@@ -129,7 +129,7 @@
     <fragment
         android:id="@+id/companyAddressFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyAddressFragment"
-        android:label="fragment_company_address"
+        android:label="@string/addresses"
         tools:layout="@layout/fragment_company_address" >
         <action
             android:id="@+id/action_companyAddressFragment_to_companyBankFragment"
@@ -142,7 +142,7 @@
     <fragment
         android:id="@+id/companyBankFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyBankFragment"
-        android:label="fragment_company_bank"
+        android:label="@string/bank_info"
         tools:layout="@layout/fragment_company_bank" >
         <action
             android:id="@+id/action_companyBankFragment_to_companyDocumentsFragment"
@@ -155,6 +155,6 @@
     <fragment
         android:id="@+id/companyDocumentsFragment"
         android:name="byc.avt.avanteelender.view.fragment.registration.institution.CompanyDocumentsFragment"
-        android:label="fragment_company_documents"
+        android:label="@string/document_info"
         tools:layout="@layout/fragment_company_documents" />
 </navigation>

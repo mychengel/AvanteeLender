@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layerType="software"
+        android:layerType="none"
         app:layout_constraintBottom_toTopOf="@+id/btn_setuju_view_kontrak_pendanaan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
