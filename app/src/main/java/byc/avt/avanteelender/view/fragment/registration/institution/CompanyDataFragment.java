@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,11 @@ import java.util.List;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.sheet.TermSheetFragment;
+import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 public class CompanyDataFragment extends Fragment {
@@ -50,6 +54,7 @@ public class CompanyDataFragment extends Fragment {
     private RadioButton radButtonIsOnlineBased;
 
     private MasterDataViewModel viewModel;
+    private AuthenticationViewModel viewModel2;
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
@@ -69,6 +74,7 @@ public class CompanyDataFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MasterDataViewModel.class);
+        viewModel2 = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
@@ -328,6 +334,38 @@ public class CompanyDataFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    };
+
+
+    private void loadTermsAndCondition() {
+        dialog.show();
+        viewModel2.getSettingDataNoAuth();
+        viewModel2.getResultSettingDataNoAuth().observe(getActivity(), showSettingData);
+    }
+
+    private Observer<JSONObject> showSettingData = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject job = result.getJSONObject("result");
+                    JSONObject terms_job = job.getJSONObject("syaratketentuan");
+                    String terms = terms_job.getString("content_text");
+                    Spanned terms_final = new Fungsi().htmlToStr(terms);
+                    TermSheetFragment.text = terms_final.toString();
+                    TermSheetFragment termFragment = TermSheetFragment.getInstance();
+                    termFragment.setCancelable(false);
+                    termFragment.show(getActivity().getSupportFragmentManager(), termFragment.getTag());
+                }else{
+                    new Fungsi().showMessage(getString(R.string.failed_load_info));
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                dialog.cancel();
+            }
+            dialog.cancel();
         }
     };
 

@@ -55,12 +55,18 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
     @Override
     public void onBindViewHolder(@NonNull final PortofolioAktifAdapter.CardViewViewHolder holder, int position) {
         final PortofolioAktif ps = getListPortofolioAktif().get(position);
-        if(ps.getIs_on_time().equalsIgnoreCase("0")){
-            holder.txt_is_ontime.setText("Tepat waktu");
-            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_24));
+        if(ps.getIs_on_time().equalsIgnoreCase("1")){
+            holder.txt_is_ontime.setVisibility(View.GONE);
+            holder.img_ontime.setVisibility(View.GONE);
+//            holder.txt_is_ontime.setText("Tepat waktu");
+//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_24));
         }else{
-            holder.txt_is_ontime.setText("Terlambat");
-            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_late_24));
+            holder.txt_is_ontime.setVisibility(View.GONE);
+            holder.img_ontime.setVisibility(View.GONE);
+//            holder.txt_is_ontime.setVisibility(View.VISIBLE);
+//            holder.img_ontime.setVisibility(View.VISIBLE);
+//            holder.txt_is_ontime.setText("Terlambat");
+//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_late_24));
         }
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());

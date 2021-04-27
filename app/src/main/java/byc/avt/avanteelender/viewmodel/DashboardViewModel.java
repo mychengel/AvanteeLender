@@ -26,6 +26,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<Header>> resultHeader = new MutableLiveData<>();
     private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrx = new MutableLiveData<>();
     private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrxList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<HistoryTrx>> resultHistoryTrxListFilter = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDashboard = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultWallet = new MutableLiveData<>();
     private MutableLiveData<String> totActivePort = new MutableLiveData<>();
@@ -70,6 +71,14 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public LiveData<ArrayList<HistoryTrx>> getResultHistoryTrxList(){
         return resultHistoryTrxList;
+    }
+
+    public void getHistoryTrxListFilter(String uid, String token, String page, long start, long end, String status){
+        resultHistoryTrxListFilter = dashboardRepository.getHistoryTrxListFilter(start, end, status, page, uid, token, getApplication());
+    }
+
+    public LiveData<ArrayList<HistoryTrx>> getResultHistoryTrxListFilter(){
+        return resultHistoryTrxListFilter;
     }
 
     public void getDashboard(String uid, String token){

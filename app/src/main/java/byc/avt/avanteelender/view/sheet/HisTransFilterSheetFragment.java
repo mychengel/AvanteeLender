@@ -2,31 +2,28 @@ package byc.avt.avanteelender.view.sheet;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 
 public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
 
     private static HisTransFilterSheetFragment instance;
     RadioGroup rg_periode, rg_status, rg_type;
     RadioButton rb_periode, rb_status, rb_type;
-    RadioButton rb_90s, rb_pof, rb_berhasil, rb_pending, rb_pembayaran, rb_penarikan;
+    RadioButton rb_90s, rb_all, rb_pof, rb_berhasil, rb_pending, rb_pembayaran, rb_penarikan;
     Button btn_terapkan, btn_reset;
-    boolean m90s = true, mPof = false, mBerhasil = true, mPending = false, mPembayaran = true, mPenarikan = false;
+    boolean m90s = true, mAll = true, mPof = false, mBerhasil = true, mPending = false, mPembayaran = true, mPenarikan = false;
     AutoCompleteTextView date_start, date_end;
     LinearLayout lin_pof;
 
@@ -47,7 +44,7 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         rg_periode = view.findViewById(R.id.rad_group_pof_fr_sheet_filter_his_trans);
         rg_status = view.findViewById(R.id.rad_group_status_fr_sheet_filter_his_trans);
         rg_type = view.findViewById(R.id.rad_group_type_fr_sheet_filter_his_trans);
-        rb_90s = view.findViewById(R.id.rad_last90_pof_fr_sheet_filter_his_trans);
+        rb_all = view.findViewById(R.id.rad_all_pof_fr_sheet_filter_his_trans);
         rb_pof = view.findViewById(R.id.rad_range_pof_fr_sheet_filter_his_trans);
         rb_berhasil = view.findViewById(R.id.rad_berhasil_fr_sheet_filter_his_trans);
         rb_pending = view.findViewById(R.id.rad_pending_fr_sheet_filter_his_trans);
@@ -61,7 +58,9 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                rb_all.setChecked(true);
+                rb_berhasil.setChecked(false);
+                rb_pending.setChecked(false);
             }
         });
 
@@ -70,10 +69,10 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 rb_periode = view.findViewById(selectedId);
-                if(rb_periode.getText().equals("90 hari terakhir")){
-                    m90s = true; mPof = false;
+                if(rb_periode.getText().equals("Semuanya")){
+                    mAll = true; mPof = false;
                 }else{
-                    m90s = false; mPof = true;
+                    mAll = false; mPof = true;
                 }
 
                 if(mPof){
@@ -116,7 +115,10 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         btn_terapkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+//                HistoriTransaksiListActivity.start = 0;
+//                HistoriTransaksiListActivity.end = 0;
+//                HistoriTransaksiListActivity.status = "1";
+//                new HistoriTransaksiListActivity().filterRun();
             }
         });
         return view;

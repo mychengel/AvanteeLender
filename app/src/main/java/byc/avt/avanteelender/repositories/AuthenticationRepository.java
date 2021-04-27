@@ -205,10 +205,20 @@ public class AuthenticationRepository {
                             result.setValue(new JSONObject(resultResponse));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Map<String,String> msg = new HashMap<>();
-                            msg.put("code","400");
-                            msg.put("msg", context.getString(R.string.doc_not_valid));
-                            result.setValue(new JSONObject(msg));
+                            if(resultResponse.contains("\"code\":200,\"status\":true")){
+                                String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokument Sukses, Kode verifikasi telah dikirim melalui SMS ke telepon anda.\"}}";
+                                try {
+                                    result.setValue(new JSONObject(resp));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+                            }else{
+                                e.printStackTrace();
+                                Map<String,String> msg = new HashMap<>();
+                                msg.put("code","400");
+                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                result.setValue(new JSONObject(msg));
+                            }
                         }
                         Log.e("createPersonalDocResult", resultResponse);
                     }

@@ -83,19 +83,19 @@ public class CompanyDocumentsFragment extends Fragment {
     GlobalVariables gv;
     Fungsi f = new Fungsi(getActivity());
     TextInputLayout edit_npwp;
-    TextView txt_ktp, txt_npwp;
-    CardView cv_ktp, cv_npwp;
+    TextView txt_ktp, txt_npwp, txt_selfie;
+    CardView cv_ktp, cv_npwp, cv_selfie;
     LinearLayout lin_npwp;
-    ImageView img_ktp, img_cancelktp, img_npwp, img_cancelnpwp;
+    ImageView img_ktp, img_cancelktp, img_npwp, img_cancelnpwp, img_selfie, img_cancelselfie;
     boolean is_not_have_npwp = false;
     CheckBox cb_not_have_npwp;
     String no_npwp = "";
-    byte[] ktp_byte = null, npwp_byte = null;
+    byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null;
 
-    Bitmap bitmap, decoded_ktp, decoded_npwp;
-    String str_ktp = "", str_npwp = "";
-    int PICK_KTP = 1, PICK_NPWP = 2, PICK_KTP_CAM = 3, PICK_NPWP_CAM = 4;
-    String PICK_TYPE_KTP = "insktp", PICK_TYPE_NPWP = "insnpwp";
+    Bitmap bitmap, decoded_ktp, decoded_npwp, decoded_selfie;
+    String str_ktp = "", str_npwp = "", str_selfie = "";
+    int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_KTP_CAM = 4, PICK_NPWP_CAM = 5, PICK_SELFIE_CAM = 6;
+    String PICK_TYPE_KTP = "insktp", PICK_TYPE_NPWP = "insnpwp", PICK_TYPE_SELFIE = "insselfie";
     int BITMAP_SIZE = 60, MAX_SIZE = 512;
 
     @Override
@@ -106,13 +106,17 @@ public class CompanyDocumentsFragment extends Fragment {
         dialog = GlobalVariables.loadingDialog(requireActivity());
         cv_ktp = view.findViewById(R.id.cv_take_ktp_fr_com_doc);
         cv_npwp = view.findViewById(R.id.cv_take_npwp_fr_com_doc);
+        cv_selfie = view.findViewById(R.id.cv_take_selfie_fr_com_doc);
         edit_npwp = view.findViewById(R.id.edit_npwp_number_fr_com_doc);
         txt_ktp = view.findViewById(R.id.txt_take_ktp_fr_com_doc);
         txt_npwp = view.findViewById(R.id.txt_take_npwp_fr_com_doc);
+        txt_selfie = view.findViewById(R.id.txt_take_selfie_fr_com_doc);
         img_ktp = view.findViewById(R.id.img_take_ktp_fr_com_doc);
         img_cancelktp = view.findViewById(R.id.img_cancel_take_ktp_fr_com_doc);
         img_npwp = view.findViewById(R.id.img_take_npwp_fr_com_doc);
         img_cancelnpwp = view.findViewById(R.id.img_cancel_take_npwp_fr_com_doc);
+        img_selfie = view.findViewById(R.id.img_take_selfie_fr_com_doc);
+        img_cancelselfie = view.findViewById(R.id.img_cancel_take_selfie_fr_com_doc);
         lin_npwp = view.findViewById(R.id.lin_npwp_fr_com_doc);
 
         edit_npwp.getEditText().addTextChangedListener(new TextWatcher() {
@@ -148,6 +152,14 @@ public class CompanyDocumentsFragment extends Fragment {
             }
         });
 
+        cv_selfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(str_selfie.equalsIgnoreCase("")){
+                    chooseFileConfirmation(PICK_TYPE_SELFIE);
+                }
+            }
+        });
 
         img_cancelktp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +181,16 @@ public class CompanyDocumentsFragment extends Fragment {
             }
         });
 
+        img_cancelselfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                str_selfie = "";
+                selfie_byte = null;
+                cekView();
+                cekDone();
+            }
+        });
+
         btn_next = view.findViewById(R.id.btn_next_fr_com_doc);
         btn_next.setEnabled(false);
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +199,7 @@ public class CompanyDocumentsFragment extends Fragment {
                 gv.stInsDocument = true;
                 gv.insRegData.put("no_npwp", no_npwp);
                 gv.insRegDataFile.put("npwp", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));
-                gv.insRegDataFile.put("ktp", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+                gv.insRegDataFile.put("selfie_img", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
                 createDocument();
             }
         });
@@ -255,6 +277,12 @@ public class CompanyDocumentsFragment extends Fragment {
         }
     };
 
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
         int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -273,6 +301,8 @@ public class CompanyDocumentsFragment extends Fragment {
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
                                 PICK_IMAGE_REQUEST = PICK_NPWP_CAM;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
+                                PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
                             }
                             dialogInterface.cancel();
                             showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
@@ -286,6 +316,8 @@ public class CompanyDocumentsFragment extends Fragment {
                                 PICK_IMAGE_REQUEST = PICK_KTP;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
                                 PICK_IMAGE_REQUEST = PICK_NPWP;
+                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
+                                PICK_IMAGE_REQUEST = PICK_SELFIE;
                             }
                             dialog.cancel();
                             showGallery(PICK_IMAGE_REQUEST);
@@ -367,6 +399,12 @@ public class CompanyDocumentsFragment extends Fragment {
                         //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
+                    } else if (requestCode == PICK_SELFIE) {
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        selfie_byte = bytes.toByteArray();
+                        //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
                     }
 
                 } catch (IOException e) {
@@ -394,6 +432,12 @@ public class CompanyDocumentsFragment extends Fragment {
                         //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        selfie_byte = bytes.toByteArray();
+                        //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -423,19 +467,13 @@ public class CompanyDocumentsFragment extends Fragment {
 
     boolean allisfilled = false;
     private void cekDone(){
-        if(!str_ktp.isEmpty() && npwpisvalid && !str_npwp.isEmpty()){
+        if(!str_ktp.isEmpty() && npwpisvalid && !str_npwp.isEmpty() && !str_selfie.isEmpty()){
             allisfilled = true;
         }else{
             allisfilled = false;
         }
         btn_next.setEnabled(allisfilled);
     }
-
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
-    };
 
     private void cekView(){
         if(!str_ktp.equalsIgnoreCase("")){
@@ -458,6 +496,17 @@ public class CompanyDocumentsFragment extends Fragment {
             img_npwp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
             txt_npwp.setText(getString(R.string.take_narahubung_npwp_photo));
             img_cancelnpwp.setVisibility(View.GONE);
+        }
+
+        if(!str_selfie.equalsIgnoreCase("")){
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken));
+            img_cancelselfie.setVisibility(View.VISIBLE);
+        }else{
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
+            txt_selfie.setText(getString(R.string.take_narahubung_selfie_photo));
+            img_cancelselfie.setVisibility(View.GONE);
         }
     }
 }

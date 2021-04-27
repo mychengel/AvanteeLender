@@ -194,7 +194,7 @@
         android:textColor="@color/darkO05"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/txt_loan_code_port_aktif_det"
-        app:layout_constraintTop_toBottomOf="@+id/img_mark_port_aktif_det" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_loan_code_port_aktif_det" />
 
     <TextView
         android:id="@+id/lbl_tenor_port_aktif_det"

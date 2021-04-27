@@ -54,14 +54,16 @@
 
             <TextView
                 android:id="@+id/lbl_filter_text_his_trx_list"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
-                android:text="@string/sembilanpuluh_day_left"
+                android:text="@string/semuanya"
                 android:textColor="@color/dark"
                 android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

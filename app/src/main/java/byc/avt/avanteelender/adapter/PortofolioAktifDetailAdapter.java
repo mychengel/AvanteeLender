@@ -74,14 +74,20 @@ public class PortofolioAktifDetailAdapter extends RecyclerView.Adapter<Portofoli
             }
         });
 
+        String next_payment = pad.getDate_payment();
+        int selisih = new Fungsi(context).selisihHari(next_payment);
+
         holder.lbl_period.setText(pad.getPeriode());
         if((pad.getDate_actualtrans() != "null") && (pad.getStatus().equalsIgnoreCase("Lancar"))){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_paid));
             holder.lbl_period.setVisibility(View.GONE);
-        }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null")){
+        }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null") && (selisih > 0)){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_bg_round_white));
             holder.lbl_period.setVisibility(View.VISIBLE);
         }else if((pad.getDate_actualtrans() != "null") && (pad.getStatus() == "null" || pad.getStatus().equalsIgnoreCase("Tidak Lancar") || pad.getStatus().equalsIgnoreCase("Macet"))){
+            holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_paid_late));
+            holder.lbl_period.setVisibility(View.GONE);
+        }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null") && pad.getActual_payment().equalsIgnoreCase("0") && (selisih < 0)){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_unpaid));
             holder.lbl_period.setVisibility(View.GONE);
         }

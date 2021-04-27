@@ -49,8 +49,8 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
         return resultListDetail;
     }
 
-    public void portofolioAktifList(String uid, String token){
-        resultList = AktifPortofolioRepository.portofolioAktifList(uid, token, getApplication());
+    public void portofolioAktifList(String uid, String token, String page){
+        resultList = AktifPortofolioRepository.portofolioAktifList(page, uid, token, getApplication());
     }
 
     public LiveData<ArrayList<PortofolioAktif>> getResultList(){

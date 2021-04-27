@@ -91,11 +91,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbl_periode_fr_sheet_filter_his_trans">
 
                 <RadioButton
-                    android:id="@+id/rad_last90_pof_fr_sheet_filter_his_trans"
+                    android:id="@+id/rad_all_pof_fr_sheet_filter_his_trans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/sembilanpuluh_day_left"
+                    android:text="@string/semuanya"
                     android:textSize="15sp" />
 
                 <RadioButton
@@ -181,7 +181,6 @@
                     android:id="@+id/rad_berhasil_fr_sheet_filter_his_trans"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:text="@string/berhasil"
                     android:textSize="15sp" />
 
@@ -215,6 +214,7 @@
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/trans_type"
                 android:textSize="18sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/div2_fr_sheet_filter_his_trans" />
@@ -226,6 +226,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbl_type_fr_sheet_filter_his_trans">

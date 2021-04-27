@@ -3,12 +3,15 @@ package byc.avt.avanteelender.view.misc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -38,6 +41,7 @@ import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
 import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
+import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class OTPActivity extends AppCompatActivity {
@@ -72,8 +76,8 @@ public class OTPActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         dialog = GlobalVariables.loadingDialog(OTPActivity.this);
         prefManager = PrefManager.getInstance(OTPActivity.this);
-        btnVerify = findViewById(R.id.btn_verify_otp);
 
+        btnVerify = findViewById(R.id.btn_verify_otp);
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,11 +85,27 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
+        checkPermission();
         sendOTPVerification();
 
         if (getIntent().getParcelableExtra(NEW_USER) != null) {
             user = getIntent().getParcelableExtra(NEW_USER);
             tvSendTo.setText(getString(R.string.otp_desc) + user.getNo_handphone());
+        }
+    }
+
+    private static String[] PERMISSIONS_SMS = {
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_PHONE_STATE,
+    };
+
+    private void checkPermission(){
+        final int permission = ActivityCompat.checkSelfPermission(OTPActivity.this, Manifest.permission.READ_SMS);
+        final int permission2 = ActivityCompat.checkSelfPermission(OTPActivity.this, Manifest.permission.READ_PHONE_STATE);
+        if (permission != PackageManager.PERMISSION_GRANTED ||permission2 != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(OTPActivity.this, PERMISSIONS_SMS, 1);
+        }else{
         }
     }
 

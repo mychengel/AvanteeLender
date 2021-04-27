@@ -76,10 +76,12 @@ public class Fungsi {
 
     public Spanned htmlToStr(String msg){
         Spanned hsl;
+        //msg = msg.replace("<li>", "\n");
+        //msg = msg.replace("<\li>", " ");
         msg = msg.replace("\n", " ");
         msg = msg.replace("\t", " ");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            hsl = Html.fromHtml(msg,  Html.FROM_HTML_MODE_LEGACY);
+            hsl = Html.fromHtml(msg,  Html.FROM_HTML_OPTION_USE_CSS_COLORS);
         }else{
             hsl = Html.fromHtml(msg);
         }

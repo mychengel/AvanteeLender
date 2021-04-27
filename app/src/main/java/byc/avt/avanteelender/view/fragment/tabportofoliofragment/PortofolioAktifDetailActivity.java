@@ -4,14 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +49,6 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
     TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_is_ontime;
     ImageView img_mark;
     CardView cv_pb, cv_nom, cv_download_surat_kuasa_pemberi_dana, cv_download_agreement_penerima_dana;
-
     private String loan_no = "", funding_id = "";
 
     @Override
@@ -126,6 +128,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         cv_download_surat_kuasa_pemberi_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkPermission();
                 dialog.show();
                 viewModel.downloadSuratKuasaLoan(prefManager.getUid(), prefManager.getToken(), loan_no);
                 viewModel.getResultDownloadSuratKuasaLoan().observe(PortofolioAktifDetailActivity.this, showResultDownloadSuratKuasaLoan);
@@ -135,6 +138,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         cv_download_agreement_penerima_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkPermission();
                 dialog.show();
                 viewModel.downloadAgreementFunding(prefManager.getUid(), prefManager.getToken(), funding_id);
                 viewModel.getResultDownloadAgreementFunding().observe(PortofolioAktifDetailActivity.this, showResultDownloadAgreementFunding);
@@ -143,6 +147,25 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
 
         loadData();
 
+    }
+
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+
+    private void checkPermission(){
+        final int permission = ActivityCompat.checkSelfPermission(PortofolioAktifDetailActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(PortofolioAktifDetailActivity.this, PERMISSIONS_STORAGE, 1);
+        }else{
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     private Observer<String> showResultDownloadSuratKuasaLoan = new Observer<String>() {

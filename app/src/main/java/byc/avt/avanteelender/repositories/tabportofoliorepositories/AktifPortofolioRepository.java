@@ -349,15 +349,27 @@ public class AktifPortofolioRepository {
         return result;
     }
 
-    public MutableLiveData<ArrayList<PortofolioAktif>> portofolioAktifList(final String uid, final String token, final Context context) {
+    public MutableLiveData<ArrayList<PortofolioAktif>> portofolioAktifList(final String page, final String uid, final String token, final Context context) {
         final MutableLiveData<ArrayList<PortofolioAktif>> result = new MutableLiveData<>();
+        final MutableLiveData<String> isOnTime = new MutableLiveData<>();
         final ArrayList<PortofolioAktif> list = new ArrayList<>();
+        String pg = "";
+        if(page.equalsIgnoreCase("1")){
+            pg = "";
+        }else{
+            pg = "?page="+page;
+        }
+
+
+        final PortofolioAktif[] pa = new PortofolioAktif[1];
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active", null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active"+pg, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.e("Aktif PORT LOAD", response.toString());
                         final JSONArray rows;
+                        final String[] is_on_time = new String[1];
                         try {
                             rows = response.getJSONArray("rows");
                             final int maxRows = rows.length()-1;
@@ -373,7 +385,7 @@ public class AktifPortofolioRepository {
                                             new Response.Listener<JSONObject>() {
                                                 @Override
                                                 public void onResponse(JSONObject response) {
-                                                    // Log.e("Aktif PORT DETAILS", response.toString());
+                                                     Log.e("Aktif PORT DETAILS", response.toString());
                                                     JSONArray rows2;
                                                     int tot = 0;
                                                     try {
@@ -381,34 +393,32 @@ public class AktifPortofolioRepository {
                                                         if(rows2.length()==0){
                                                             //result.setValue(list);
                                                         }else{
+                                                            //String is_on_time = "0";
                                                             for(int j = 0; j < rows2.length(); j++){
                                                                 String delay_details="", status="";
+                                                                String next_payment = rows2.getJSONObject(j).getString("next_payment");
+                                                                int selisih = new Fungsi(context).selisihHari(next_payment);
+                                                                String actual_date = rows2.getJSONObject(j).getString("actual_transaction_date");
+                                                                String actual_payment = rows2.getJSONObject(j).getString("actual_payment");
                                                                 delay_details = rows2.getJSONObject(j).getString("delay_details");
                                                                 status = rows2.getJSONObject(j).getString("status");
-                                                                if(status.equalsIgnoreCase(null) || status.equalsIgnoreCase("null") ){
-                                                                    tot = tot + 0;
-                                                                }else{
+                                                                if((status.equalsIgnoreCase(null) || status.equalsIgnoreCase("null")) &&
+                                                                        (actual_date.equalsIgnoreCase(null) || actual_date.equalsIgnoreCase("null")) &&
+                                                                    actual_payment.equalsIgnoreCase("0") && (selisih < 0)){
                                                                     tot = tot + 1;
+                                                                }else{
+                                                                    tot = tot + 0;
                                                                 }
                                                             }
 
-                                                            String is_on_time = "0";
+                                                            is_on_time[0] = "0";
                                                             if(tot > 0){
-                                                                is_on_time = "1";
+                                                                is_on_time[0] = "0";
+                                                                //isOnTime.postValue("0");
                                                             }else{
-                                                                is_on_time = "0";
+                                                                is_on_time[0] = "1";
+                                                                //isOnTime.postValue("1");
                                                             }
-                                                            String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
-                                                            String loan_type = rows.getJSONObject(finalI).getString("loan_type");
-                                                            PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"), rows.getJSONObject(finalI).getString("funding_id"),
-                                                                    rows.getJSONObject(finalI).getString("dokumen_kontrak"), rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
-                                                                    rows.getJSONObject(finalI).getString("remaining_period"), is_on_time,
-                                                                    rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));
-                                                            list.add(pa);
-                                                            result.setValue(list);
-//                                                            if(finalI == maxRows){
-//                                                                result.setValue(list);
-//                                                            }else{}
 
                                                         }
 
@@ -444,9 +454,16 @@ public class AktifPortofolioRepository {
                                         public void retry(VolleyError error) throws VolleyError {
                                         }
                                     });
-
+                                    //result.setValue(list);
+                                    String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
+                                    String loan_type = rows.getJSONObject(finalI).getString("loan_type");
+                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"), rows.getJSONObject(finalI).getString("funding_id"),
+                                            rows.getJSONObject(finalI).getString("dokumen_kontrak"), rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
+                                            rows.getJSONObject(finalI).getString("remaining_period"), "0",
+                                            rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));
+                                    list.add(pa);
                                 }
-                                //result.setValue(list);
+                                result.setValue(list);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

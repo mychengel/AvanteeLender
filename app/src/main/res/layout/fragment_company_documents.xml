@@ -178,6 +178,68 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_take_selfie_fr_com_doc"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:foreground="@drawable/selectable_square"
+                app:cardBackgroundColor="@color/lightest_neutral"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lin_npwp_fr_com_doc">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_cv_take_selfie_fr_com_doc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_take_selfie_fr_com_doc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:contentDescription="@string/img"
+                        android:src="@drawable/ic_take_picture"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_take_selfie_fr_com_doc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="none"
+                        android:scrollHorizontally="false"
+                        android:maxLines="2"
+                        android:text="@string/take_narahubung_selfie_photo"
+                        android:textColor="@color/darkO05"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_take_selfie_fr_com_doc"
+                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_selfie_fr_com_doc"
+                        app:layout_constraintStart_toEndOf="@+id/img_take_selfie_fr_com_doc"
+                        app:layout_constraintTop_toTopOf="@+id/img_take_selfie_fr_com_doc" />
+
+                    <ImageView
+                        android:id="@+id/img_cancel_take_selfie_fr_com_doc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:contentDescription="@string/img"
+                        android:foreground="@drawable/selectable_curve"
+                        android:src="@drawable/ic_cancel_24px"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/btn_next_fr_com_doc"
                 style="?android:attr/borderlessButtonStyle"
@@ -196,7 +258,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lin_npwp_fr_com_doc" />
+                app:layout_constraintTop_toBottomOf="@+id/cv_take_selfie_fr_com_doc" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

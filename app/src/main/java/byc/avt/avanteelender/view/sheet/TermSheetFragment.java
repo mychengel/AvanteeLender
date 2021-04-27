@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,8 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
     CheckBox cbAgree;
     TextView txt_content;
     NestedScrollView nestedSv;
-    public static String text = "-";
+    //public static Spanned text;
+    public static String text;
     public static Boolean read = false; //variable untuk get status checked
 
     @Override

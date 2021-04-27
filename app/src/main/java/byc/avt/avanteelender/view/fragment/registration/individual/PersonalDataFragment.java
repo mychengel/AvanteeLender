@@ -384,8 +384,8 @@ public class PersonalDataFragment extends Fragment {
                     JSONObject job = result.getJSONObject("result");
                     JSONObject terms_job = job.getJSONObject("syaratketentuan");
                     String terms = terms_job.getString("content_text");
-                    String terms_final = f.htmlToStr(terms).toString();
-                    TermSheetFragment.text = terms_final;
+                    Spanned terms_final = f.htmlToStr(terms);
+                    TermSheetFragment.text = terms_final.toString();
                     TermSheetFragment termFragment = TermSheetFragment.getInstance();
                     termFragment.setCancelable(false);
                     termFragment.show(getActivity().getSupportFragmentManager(), termFragment.getTag());

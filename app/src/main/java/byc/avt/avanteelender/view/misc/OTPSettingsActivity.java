@@ -3,12 +3,15 @@ package byc.avt.avanteelender.view.misc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -95,9 +98,26 @@ public class OTPSettingsActivity extends AppCompatActivity {
             desc_msg = getString(R.string.lets_login_again);
         }
 
+        checkPermission();
+
         OTPReceiver.isReady = true;
         new OTPReceiver().setEditText(otpView, "settings");
         setTimer();
+    }
+
+    private static String[] PERMISSIONS_SMS = {
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_PHONE_STATE,
+    };
+
+    private void checkPermission(){
+        final int permission = ActivityCompat.checkSelfPermission(OTPSettingsActivity.this, Manifest.permission.READ_SMS);
+        final int permission2 = ActivityCompat.checkSelfPermission(OTPSettingsActivity.this, Manifest.permission.READ_PHONE_STATE);
+        if (permission != PackageManager.PERMISSION_GRANTED ||permission2 != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(OTPSettingsActivity.this, PERMISSIONS_SMS, 1);
+        }else{
+        }
     }
 
     public void verifyOTP() {
@@ -258,7 +278,7 @@ public class OTPSettingsActivity extends AppCompatActivity {
                                 msg = res.getJSONObject("privy_status").getString("msg");
                                 //i = new Intent(OTPSettingsActivity.this, MainActivity.class);
                                 i = new Intent(OTPSettingsActivity.this, InVerificationProcessActivity.class);
-                                i.putExtra("info", msg);
+                                //i.putExtra("info", msg);
                                 //f.showMessage(msg);
                             }
                         }else{

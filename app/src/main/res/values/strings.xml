@@ -122,6 +122,7 @@
     <string name="address_same_as_akta">Alamat sama dengan akta</string>
     <string name="take_narahubung_ktp_photo">Ambil foto KTP narahubung</string>
     <string name="take_narahubung_npwp_photo">Ambil foto NPWP narahubung</string>
+    <string name="take_narahubung_selfie_photo">Ambil foto selfie narahubung</string>
     <string name="bith_date_narahubung">Tanggal lahir narahubung</string>
     <string name="email_not_valid">Email tidak valid</string>
     <string name="phone_not_valid">No. handphone tidak valid</string>
@@ -465,4 +466,5 @@
     <string name="change_phone_number">Saya akan ganti no. handphone</string>
     <string name="new_no_hp">No. handphone baru</string>
     <string name="update_profile_failed">Update profile gagal, silahkan coba lagi</string>
+    <string name="semuanya">Semuanya</string>
 </resources>

@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public CheckBox checkAgree;
     private AuthenticationViewModel viewModel;
     private String phoneNumber = "", password = "", rePassword = "", email = "", refId = "";
-    public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
+    //public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
     private Dialog dialog;
 
     @Override
@@ -67,7 +68,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editConfirmPassword = findViewById(R.id.edit_re_password_daftar);
         editRefId = findViewById(R.id.edit_ref_id_daftar);
         btnRegister = findViewById(R.id.btn_daftar);
-        checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
+        //checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
         viewModel = new ViewModelProvider(RegistrationActivity.this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
         Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
@@ -111,35 +112,35 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    readTerm = true;
-                    cekDone();
-                }else{
-                    readTerm = false;
-                    cekDone();
-                }
-
-//                boolean isread = TermSheetFragment.read;
-//                if (isChecked) {
-//                    if(isread){
-//                        checkAgree.setChecked(true);
-//                        readTerm = true;
-//                        cekDone();
-//                    }else{
-//                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
-//                        termFragment.show(getSupportFragmentManager(), termFragment.getTag());
-//                        checkAgree.setChecked(false);
-//                    }
-//                } else {
-//                    checkAgree.setChecked(false);
+//        checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    readTerm = true;
+//                    cekDone();
+//                }else{
 //                    readTerm = false;
 //                    cekDone();
 //                }
-            }
-        });
+//
+////                boolean isread = TermSheetFragment.read;
+////                if (isChecked) {
+////                    if(isread){
+////                        checkAgree.setChecked(true);
+////                        readTerm = true;
+////                        cekDone();
+////                    }else{
+////                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
+////                        termFragment.show(getSupportFragmentManager(), termFragment.getTag());
+////                        checkAgree.setChecked(false);
+////                    }
+////                } else {
+////                    checkAgree.setChecked(false);
+////                    readTerm = false;
+////                    cekDone();
+////                }
+//            }
+//        });
     }
 
     boolean emailisvalid = false;
@@ -180,7 +181,8 @@ public class RegistrationActivity extends AppCompatActivity {
         }else{
             allisfilled = false;
         }
-        btnRegister.setEnabled(readTerm && allisfilled);
+        //btnRegister.setEnabled(readTerm && allisfilled);
+        btnRegister.setEnabled(allisfilled);
     }
 
     boolean passisvalid = false;
@@ -265,8 +267,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     JSONObject job = result.getJSONObject("result");
                     JSONObject terms_job = job.getJSONObject("syaratketentuan");
                     String terms = terms_job.getString("content_text");
-                    String terms_final = f.htmlToStr(terms).toString();
-                    TermSheetFragment.text = terms_final;
+                    Spanned terms_final = f.htmlToStr(terms);
+                    TermSheetFragment.text = terms_final.toString();
                     TermSheetFragment termFragment = TermSheetFragment.getInstance();
                     termFragment.setCancelable(false);
                     termFragment.show(getSupportFragmentManager(), termFragment.getTag());

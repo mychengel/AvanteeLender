@@ -411,7 +411,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                 msg = res.getJSONObject("privy_status").getString("msg");
                                 //i = new Intent(UpdateAvaActivity.this, MainActivity.class);
                                 i = new Intent(UpdateAvaActivity.this, InVerificationProcessActivity.class);
-                                i.putExtra("info", msg);
+                                //i.putExtra("info", msg);
                                 //f.showMessage(msg);
                             }
                         }else{
