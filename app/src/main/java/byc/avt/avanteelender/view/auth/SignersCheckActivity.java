@@ -109,11 +109,22 @@ public class SignersCheckActivity extends AppCompatActivity {
                     viewModel.getSigners(prefManager.getUid(), prefManager.getToken(), docToken);
                     viewModel.getSignerResult().observe(SignersCheckActivity.this, showSignerResult);
                 }else{
-                    f.showMessage(result.getJSONObject("result").getString("message"));
+                    f.showMessageLong(result.getString("message"));
                     dialog.cancel();
-                    Intent i = new Intent(SignersCheckActivity.this, WalkthroughActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    new Routes(SignersCheckActivity.this).moveOutIntent(i);
+                    new AlertDialog.Builder(SignersCheckActivity.this)
+                            .setTitle("Informasi")
+                            .setIcon(R.drawable.logo)
+                            .setMessage(getString(R.string.privy_doc_undefined))
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                    logout();
+                                }
+                            })
+                            .create()
+                            .show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

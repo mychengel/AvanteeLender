@@ -40,10 +40,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -59,6 +62,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import byc.avt.avanteelender.R;
@@ -103,7 +108,8 @@ public class DocumentsFragment extends Fragment {
     private Dialog dialog;
     GlobalVariables gv;
     Fungsi f = new Fungsi(getActivity());
-    TextInputLayout edit_ktp, edit_npwp;
+    TextInputLayout edit_ktp, edit_npwp, edit_tgl_npwp;
+    EditText edittext_tgl_npwp;
     TextView txt_ktp, txt_npwp, txt_selfie, txt_ttd;
     CardView cv_ktp, cv_npwp, cv_selfie, cv_ttd;
     LinearLayout lin_npwp;
@@ -111,7 +117,7 @@ public class DocumentsFragment extends Fragment {
     boolean is_not_have_npwp = false;
     CheckBox cb_not_have_npwp;
     Button btn_next;
-    String no_ktp = "", no_npwp = "";
+    String no_ktp = "", no_npwp = "", tgl_npwp = "";
     byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null, ttd_byte = null;
 
     Bitmap bitmap, decoded_ktp, decoded_npwp, decoded_selfie, decoded_ttd;
@@ -127,6 +133,8 @@ public class DocumentsFragment extends Fragment {
         viewModel2 = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
+        edit_tgl_npwp = view.findViewById(R.id.edit_npwp_date_fr_documents);
+        edittext_tgl_npwp = view.findViewById(R.id.editText_npwp_date_fr_documents);
         cv_ktp = view.findViewById(R.id.cv_take_ktp_fr_documents);
         cv_npwp = view.findViewById(R.id.cv_take_npwp_fr_documents);
         cv_selfie = view.findViewById(R.id.cv_take_selfie_fr_documents);
@@ -188,6 +196,26 @@ public class DocumentsFragment extends Fragment {
                 no_npwp = edit_npwp.getEditText().getText().toString().trim();
                 cekNPWP(no_npwp);
                 cekDone();
+            }
+        });
+
+        edittext_tgl_npwp.setFocusable(false);
+        edittext_tgl_npwp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+                builder.setTitleText("Pilih tanggal NPWP");
+                builder.setSelection(Calendar.getInstance().getTimeInMillis());
+                MaterialDatePicker picker = builder.build();
+                picker.show(getActivity().getSupportFragmentManager(),"NPWP");
+                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        tgl_npwp = sdf.format(selection);
+                        edittext_tgl_npwp.setText(tgl_npwp);
+                    }
+                });
             }
         });
 
@@ -275,9 +303,12 @@ public class DocumentsFragment extends Fragment {
                 gv.stPerDocument = true;
                 gv.perRegData.put("no_ktp", no_ktp);
                 if(is_not_have_npwp){
-                    gv.perRegData.put("no_npwp", "");
-                    gv.perRegData.put("npwp_img", "");
+                    gv.perRegData.put("miliki_npwp", "0");
+//                    gv.perRegData.put("no_npwp", "-");
+//                    gv.perRegData.put("npwp_img", null);
                 }else{
+                    gv.perRegData.put("miliki_npwp", "1");
+                    gv.perRegData.put("tanggal_pendaftaran_npwp", tgl_npwp);
                     gv.perRegData.put("no_npwp", no_npwp);
                     gv.perRegDataFile.put("npwp_img", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));
                 }

@@ -204,6 +204,7 @@ public class AuthenticationRepository {
                         try {
                             result.setValue(new JSONObject(resultResponse));
                         } catch (JSONException e) {
+                            Log.e("ERRORNYA", resultResponse);
                             e.printStackTrace();
                             if(resultResponse.contains("\"code\":200,\"status\":true")){
                                 String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokument Sukses, Kode verifikasi telah dikirim melalui SMS ke telepon anda.\"}}";
@@ -461,6 +462,10 @@ public class AuthenticationRepository {
                             result.setValue(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("code","400");
+                            msg.put("status",false);
+                            result.setValue(new JSONObject(msg));
                         }
                         Log.e("resetPassResult", response);
                     }
@@ -469,6 +474,10 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code","400");
+                        msg.put("status",false);
+                        result.setValue(new JSONObject(msg));
                     }
                 }
         )
@@ -503,6 +512,68 @@ public class AuthenticationRepository {
         return result;
     }
 
+    public MutableLiveData<JSONObject> emailVerification(final String key, Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        Log.e("MyAuthKey", key);
+        final StringRequest jor = new StringRequest(Request.Method.GET, url+"internal/confirm/yes/"+key,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            result.setValue(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("code","400");
+                            msg.put("status",false);
+                            result.setValue(new JSONObject(msg));
+                        }
+                        Log.e("setNewPassResult", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code","400");
+                        msg.put("status",false);
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS();
+            }
+
+//            @Override
+//            protected Map<String,String> getParams(){
+//                Map<String,String> params = new HashMap<>();
+//                params.put("authkey", key);
+//                return params;
+//            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
     public MutableLiveData<JSONObject> setNewPassword(final String newPass, final String key, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -515,6 +586,10 @@ public class AuthenticationRepository {
                             result.setValue(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("code","400");
+                            msg.put("status",false);
+                            result.setValue(new JSONObject(msg));
                         }
                         Log.e("setNewPassResult", response);
                     }
@@ -523,6 +598,10 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code","400");
+                        msg.put("status",false);
+                        result.setValue(new JSONObject(msg));
                     }
                 }
         )
@@ -580,8 +659,9 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        Map<String,String> msg = new HashMap<>();
+                        Map<String,Object> msg = new HashMap<>();
                         msg.put("code","400");
+                        msg.put("status",false);
                         result.setValue(new JSONObject(msg));
                     }
                 }
@@ -636,6 +716,7 @@ public class AuthenticationRepository {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            msg.setValue("failed");
                         }
                     }
                 },

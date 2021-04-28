@@ -32,6 +32,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultSetNewPassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultChangePassword = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultEmailVerif = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreateInstitutionDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
@@ -153,6 +154,14 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultSetNewPassword(){
         return resultSetNewPassword;
+    }
+
+    public void emailVerif(String key){
+        resultEmailVerif = authenticationRepository.emailVerification(key, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultEmailVerif(){
+        return resultEmailVerif;
     }
 
     public void setChangePassword(String oldPass, String newPass, String uid, String token){

@@ -7,13 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 
 public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
@@ -23,9 +31,10 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
     RadioButton rb_periode, rb_status, rb_type;
     RadioButton rb_90s, rb_all, rb_pof, rb_berhasil, rb_pending, rb_pembayaran, rb_penarikan;
     Button btn_terapkan, btn_reset;
-    boolean m90s = true, mAll = true, mPof = false, mBerhasil = true, mPending = false, mPembayaran = true, mPenarikan = false;
+    static boolean m90s = true, mAll = true, mPof = false, mBerhasil = true, mPending = false, mPembayaran = true, mPenarikan = false;
     AutoCompleteTextView date_start, date_end;
     LinearLayout lin_pof;
+    static String dateStart = "", dateEnd = "", status = "";
 
     public HisTransFilterSheetFragment() {
     }
@@ -55,12 +64,57 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         btn_reset = view.findViewById(R.id.btn_reset_fr_sheet_filter_his_trans);
         btn_terapkan = view.findViewById(R.id.btn_terapkan_fr_sheet_filter_his_trans);
 
+        date_start.setFocusable(false);
+        date_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+                builder.setTitleText("Tanggal batas awal");
+                builder.setSelection(Calendar.getInstance().getTimeInMillis());
+                MaterialDatePicker picker = builder.build();
+                picker.show(getActivity().getSupportFragmentManager(),"start");
+                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        dateStart = sdf.format(selection);
+                        date_start.setText(dateStart);
+                    }
+                });
+            }
+        });
+
+        date_end.setFocusable(false);
+        date_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+                builder.setTitleText("Tanggal batas awal");
+                builder.setSelection(Calendar.getInstance().getTimeInMillis());
+                MaterialDatePicker picker = builder.build();
+                picker.show(getActivity().getSupportFragmentManager(),"start");
+                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        dateEnd = sdf.format(selection);
+                        date_end.setText(dateEnd);
+                    }
+                });
+            }
+        });
+
         btn_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 rb_all.setChecked(true);
                 rb_berhasil.setChecked(false);
                 rb_pending.setChecked(false);
+                mAll = true;
+                mPof = false;
+                status = "";
+                dateStart = "";
+                dateEnd = "";
             }
         });
 
@@ -89,38 +143,78 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 rb_status = view.findViewById(selectedId);
                 if(rb_status.getText().equals("Berhasil")){
-
+                    status = "1";
                 }else{
-
+                    status = "0";
                 }
 
             }
         });
 
-        rg_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                rb_type = view.findViewById(selectedId);
-                if(rb_type.getText().equals("Pembayaran")){
-
-                }else{
-
-                }
-
-            }
-        });
+//        rg_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                int selectedId = radioGroup.getCheckedRadioButtonId();
+//                rb_type = view.findViewById(selectedId);
+//                if(rb_type.getText().equals("Pembayaran")){
+//
+//                }else{
+//
+//                }
+//            }
+//        });
 
 
         btn_terapkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                HistoriTransaksiListActivity.start = 0;
-//                HistoriTransaksiListActivity.end = 0;
-//                HistoriTransaksiListActivity.status = "1";
-//                new HistoriTransaksiListActivity().filterRun();
+                if(mPof){
+                    if(dateStart.isEmpty() || dateEnd.isEmpty()){
+                        new Fungsi(getActivity()).showMessage(getString(R.string.pof_cannot_null));
+                    }else{
+                        HistoriTransaksiListActivity.filterRun(dateStart, dateEnd, status);
+                        instance.dismiss();
+                    }
+                }else{
+                    dateStart = "";
+                    dateEnd = "";
+                    HistoriTransaksiListActivity.filterRun(dateStart, dateEnd, status);
+                    instance.dismiss();
+                }
+
             }
         });
+
+        loadAwal();
         return view;
+    }
+
+     public void loadAwal(){
+        if(status.isEmpty()){
+            rb_berhasil.setChecked(false);
+            rb_pending.setChecked(false);
+        }else{
+            if(status.equals("1")){
+                rb_berhasil.setChecked(true);
+                rb_pending.setChecked(false);
+            }else{
+                rb_berhasil.setChecked(false);
+                rb_pending.setChecked(true);
+            }
+        }
+
+        if(dateStart.isEmpty() && dateEnd.isEmpty()){
+            rb_all.setChecked(true);
+            rb_pof.setChecked(false);
+            lin_pof.setVisibility(View.GONE);
+            date_start.setText("");
+            date_end.setText("");
+        }else{
+            rb_all.setChecked(false);
+            rb_pof.setChecked(true);
+            lin_pof.setVisibility(View.VISIBLE);
+            date_start.setText(dateStart);
+            date_end.setText(dateEnd);
+        }
     }
 }

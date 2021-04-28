@@ -467,4 +467,10 @@
     <string name="new_no_hp">No. handphone baru</string>
     <string name="update_profile_failed">Update profile gagal, silahkan coba lagi</string>
     <string name="semuanya">Semuanya</string>
+    <string name="pof_cannot_null">Batas awal dan akhir periode waktu harus diisi semua!</string>
+    <string name="npwp_date">Tanggal pendaftaran npwp</string>
+    <string name="email_verified">Selamat! Email Anda telah terverifikasi, silahkan lanjutkan sebagai pemberi dana.</string>
+    <string name="verify_expired">Tautan verifikasi email Anda sudah tidak berlaku atau expired, silahkan kirim ulang tautan melalui fitur pada halaman masuk aplikasi.</string>
+    <string name="all_trx">Semua transaksi</string>
+    <string name="privy_doc_undefined">Terdapat kesalahan pada sistem penandatanganan dokumen digital, silahkan hubungi tim support kami untuk informasi lebih lanjut.</string>
 </resources>
