@@ -69,6 +69,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     String investType="";
     Context ctx;
     Fungsi f;
+    int lastCursorPosition;
 
     public DanaiSheetFragment() {
     }
@@ -155,7 +156,8 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         edit_nominal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                current = nominal_show;
+                lastCursorPosition = edit_nominal.getSelectionStart();
             }
 
             @Override
@@ -191,10 +193,17 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                         }
                     }
 
-                    current = nominal_show;
+                    //current = nominal_show;
                     edit_nominal.setText(nominal_show);
                     edit_nominal.setSelection(nominal_show.length());
                     edit_nominal.addTextChangedListener(this);
+
+                    if (lastCursorPosition != current.length() && lastCursorPosition != -1) {
+                        int lengthDelta = nominal_show.length() - current.length();
+                        int newCursorOffset = Math.max(0, Math.min(nominal_show.length(), lastCursorPosition + lengthDelta));
+                        edit_nominal.setSelection(newCursorOffset);
+                    }
+
                     cekDone();
                 }
             }

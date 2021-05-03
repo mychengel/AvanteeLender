@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
@@ -201,6 +202,7 @@ public class AuthenticationRepository {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         String resultResponse = new String(response.data);
+                        //new Fungsi(context).showMessageLong(resultResponse);
                         try {
                             result.setValue(new JSONObject(resultResponse));
                         } catch (JSONException e) {
@@ -215,8 +217,8 @@ public class AuthenticationRepository {
                                 }
                             }else{
                                 e.printStackTrace();
-                                Map<String,String> msg = new HashMap<>();
-                                msg.put("code","400");
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",400);
                                 msg.put("msg", context.getString(R.string.doc_not_valid));
                                 result.setValue(new JSONObject(msg));
                             }
@@ -228,8 +230,8 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        Map<String,String> msg = new HashMap<>();
-                        msg.put("code","400");
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
                         msg.put("msg", context.getString(R.string.doc_not_valid));
                         result.setValue(new JSONObject(msg));
                     }
@@ -273,8 +275,8 @@ public class AuthenticationRepository {
                             if(resp.getInt("code") == 200){
                                 result.setValue(resp);
                             }else{
-                                Map<String,String> msg = new HashMap<>();
-                                msg.put("code","400");
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",400);
                                 msg.put("msg", context.getString(R.string.doc_not_valid));
                                 result.setValue(new JSONObject(msg));
                             }
@@ -289,8 +291,8 @@ public class AuthenticationRepository {
                                 }
                             }else{
                                 e.printStackTrace();
-                                Map<String,String> msg = new HashMap<>();
-                                msg.put("code","400");
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",400);
                                 msg.put("msg", context.getString(R.string.doc_not_valid));
                                 result.setValue(new JSONObject(msg));
                             }
@@ -302,8 +304,8 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        Map<String,String> msg = new HashMap<>();
-                        msg.put("code","400");
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
                         msg.put("msg", context.getString(R.string.doc_not_valid));
                         result.setValue(new JSONObject(msg));
                     }
@@ -402,8 +404,8 @@ public class AuthenticationRepository {
                             result.setValue(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Map<String,String> msg = new HashMap<>();
-                            msg.put("code","400");
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("code",400);
                             result.setValue(new JSONObject(msg));
                         }
                         Log.e("resetPassResult", response);
@@ -413,8 +415,8 @@ public class AuthenticationRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        Map<String,String> msg = new HashMap<>();
-                        msg.put("code","400");
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
                         result.setValue(new JSONObject(msg));
                     }
                 }
@@ -450,7 +452,6 @@ public class AuthenticationRepository {
         return result;
     }
 
-
     public MutableLiveData<JSONObject> resetPassword(final String email, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -463,7 +464,7 @@ public class AuthenticationRepository {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Map<String,Object> msg = new HashMap<>();
-                            msg.put("code","400");
+                            msg.put("code",400);
                             msg.put("status",false);
                             result.setValue(new JSONObject(msg));
                         }
@@ -475,7 +476,7 @@ public class AuthenticationRepository {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
                         Map<String,Object> msg = new HashMap<>();
-                        msg.put("code","400");
+                        msg.put("code",400);
                         msg.put("status",false);
                         result.setValue(new JSONObject(msg));
                     }
@@ -525,7 +526,7 @@ public class AuthenticationRepository {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Map<String,Object> msg = new HashMap<>();
-                            msg.put("code","400");
+                            msg.put("code",400);
                             msg.put("status",false);
                             result.setValue(new JSONObject(msg));
                         }
@@ -537,7 +538,7 @@ public class AuthenticationRepository {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
                         Map<String,Object> msg = new HashMap<>();
-                        msg.put("code","400");
+                        msg.put("code",400);
                         msg.put("status",false);
                         result.setValue(new JSONObject(msg));
                     }
@@ -587,7 +588,7 @@ public class AuthenticationRepository {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Map<String,Object> msg = new HashMap<>();
-                            msg.put("code","400");
+                            msg.put("code",400);
                             msg.put("status",false);
                             result.setValue(new JSONObject(msg));
                         }
@@ -599,7 +600,7 @@ public class AuthenticationRepository {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
                         Map<String,Object> msg = new HashMap<>();
-                        msg.put("code","400");
+                        msg.put("code",400);
                         msg.put("status",false);
                         result.setValue(new JSONObject(msg));
                     }
@@ -660,7 +661,7 @@ public class AuthenticationRepository {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
                         Map<String,Object> msg = new HashMap<>();
-                        msg.put("code","400");
+                        msg.put("code",400);
                         msg.put("status",false);
                         result.setValue(new JSONObject(msg));
                     }

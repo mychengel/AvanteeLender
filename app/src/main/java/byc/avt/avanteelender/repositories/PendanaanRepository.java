@@ -340,8 +340,8 @@ public class PendanaanRepository {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
-                        Map<String,String> msg = new HashMap<>();
-                        msg.put("code","400");
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
                         new Fungsi(context).showMessage(context.getString(R.string.system_in_trouble));
                         result.setValue(new JSONObject(msg));
                     }

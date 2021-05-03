@@ -78,6 +78,7 @@ import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
+import byc.avt.avanteelender.view.auth.SignersCheckActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
@@ -161,6 +162,9 @@ public class DocumentsFragment extends Fragment {
                 if(b){
                     lin_npwp.setVisibility(View.GONE);
                     is_not_have_npwp = true;
+//                    gv.perRegDataFile.remove("npwp_img");
+//                    gv.perRegData.remove("no_npwp");
+//                    gv.perRegData.remove("tanggal_pendaftaran_npwp");
                 }else{
                     lin_npwp.setVisibility(View.VISIBLE);
                     is_not_have_npwp = false;
@@ -304,7 +308,8 @@ public class DocumentsFragment extends Fragment {
                 gv.perRegData.put("no_ktp", no_ktp);
                 if(is_not_have_npwp){
                     gv.perRegData.put("miliki_npwp", "0");
-//                    gv.perRegData.put("no_npwp", "-");
+//                    gv.perRegData.put("tanggal_pendaftaran_npwp", "");
+//                    gv.perRegData.put("no_npwp", "");
 //                    gv.perRegData.put("npwp_img", null);
                 }else{
                     gv.perRegData.put("miliki_npwp", "1");
@@ -316,6 +321,8 @@ public class DocumentsFragment extends Fragment {
                 gv.perRegDataFile.put("selfie", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
                 gv.perRegDataFile.put("spesimen_ttd", new DataPart("ttd.jpg", ttd_byte, "image/jpeg"));
                 createDocument();
+                Log.e("Data-Object", gv.perRegData.toString());
+                Log.e("Data-File", gv.perRegDataFile.toString());
             }
         });
     }
@@ -386,8 +393,7 @@ public class DocumentsFragment extends Fragment {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(getActivity()).showMessage(msg);
                 dialog.cancel();
-                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
-                new Routes(getActivity()).moveOutIntent(intent);
+                logout();
             }
         }
     };
@@ -677,5 +683,27 @@ public class DocumentsFragment extends Fragment {
             img_cancelttd.setVisibility(View.GONE);
         }
     }
+
+    public void logout() {
+        // LOGOUT: GET method to server through endpoint
+        dialog.show();
+        viewModel2.logout(prefManager.getUid(), prefManager.getToken());
+        viewModel2.getLogoutResult().observe(getActivity(), checkLogout);
+    }
+
+    private Observer<String> checkLogout = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("ok")) {
+                dialog.cancel();
+                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                new Routes(getActivity()).moveOutIntent(intent);
+            }else{
+                dialog.cancel();
+                new Fungsi().showMessage(result);
+            }
+        }
+    };
 
 }

@@ -210,7 +210,7 @@
                     android:layout_height="56dp"
                     android:background="@color/lightest_neutral"
                     android:hint="@string/company_name"
-                    android:inputType="text|none"
+                    android:inputType="none|textPersonName|text"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>

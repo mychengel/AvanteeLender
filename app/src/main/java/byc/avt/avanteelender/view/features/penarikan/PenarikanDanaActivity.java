@@ -51,6 +51,7 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     String nominal_tarik_show="", current="";
     long ewallet = 0, maxTarik = 0;
     String namaBank="", noRek="", vaNo="", namaPemilikBank="";
+    int lastCursorPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,8 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         edit_nominal.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                current = nominal_tarik_show;
+                lastCursorPosition = edit_nominal.getSelectionStart();
             }
 
             @Override
@@ -107,10 +109,16 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                         }
                     }
 
-                    current = nominal_tarik_show;
+                    //current = nominal_tarik_show;
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
                     edit_nominal.addTextChangedListener(this);
+
+                    if (lastCursorPosition != current.length() && lastCursorPosition != -1) {
+                        int lengthDelta = nominal_tarik_show.length() - current.length();
+                        int newCursorOffset = Math.max(0, Math.min(nominal_tarik_show.length(), lastCursorPosition + lengthDelta));
+                        edit_nominal.setSelection(newCursorOffset);
+                    }
                     cekDone();
                 }
             }
