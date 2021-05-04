@@ -52,6 +52,9 @@ public final class GlobalVariables {
     public static boolean stPerAddressData;
     public static boolean stPerBankInfo;
     public static boolean stPerDocument;
+    ///UPDATE
+    public static Map<String, String> perEditData = new HashMap<>();
+    public static Map<String, DataPart> perEditDataFile = new HashMap<>();
 
     public static Map<String, String> insRegData = new HashMap<>();
     public static Map<String, DataPart> insRegDataFile = new HashMap<>();
@@ -60,6 +63,9 @@ public final class GlobalVariables {
     public static boolean stInsCompanyAddress;
     public static boolean stInsBankInfo;
     public static boolean stInsDocument;
+    ///UPDATE
+    public static Map<String, String> insEditData = new HashMap<>();
+    public static Map<String, DataPart> insEditDataFile = new HashMap<>();
 
     public static Map<String, String> profileData = new HashMap<>();
     public static Map<String, DataPart> profileDataFile = new HashMap<>();

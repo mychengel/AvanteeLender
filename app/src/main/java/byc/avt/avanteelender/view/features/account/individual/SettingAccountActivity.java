@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.features.account;
+package byc.avt.avanteelender.view.features.account.individual;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,8 +33,6 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.view.others.RiskInfoActivity;
-import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class SettingAccountActivity extends AppCompatActivity {
@@ -82,10 +80,26 @@ public class SettingAccountActivity extends AppCompatActivity {
         cv_essential_doc = findViewById(R.id.cv_data_dokumen_pendukung_setting_account);
         img_pp = findViewById(R.id.img_pp_setting_account);
 
-        txt_name.setText(prefManager.getName());
-        txt_inisial.setText(prefManager.getName().substring(0,1));
+        //txt_name.setText(prefManager.getName());
+//        txt_inisial.setText(prefManager.getName().substring(0,1));
         txt_code.setText(gv.LENDER_CODE);
         txt_email.setText(prefManager.getEmail());
+
+        Glide.with(SettingAccountActivity.this).load(prefManager.getAvatar())
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
+                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
+                        if (resource.getConstantState() == null) {
+                            img_pp.setImageResource(R.drawable.ic_iconuser);
+                            txt_inisial.setVisibility(View.VISIBLE);
+                        }else{
+                            Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                            img_pp.setImageDrawable(newdrawable);
+                            txt_inisial.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
         img_pp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,27 +182,14 @@ public class SettingAccountActivity extends AppCompatActivity {
                     setEnabled();
                     JSONObject job = result.getJSONObject("result");
                     jobDataPribadi = job.getJSONObject("data_pribadi");
+                    txt_name.setText(jobDataPribadi.getString("name"));
+                    txt_inisial.setText(jobDataPribadi.getString("name").substring(0,1));
+                    prefManager.setName(jobDataPribadi.getString("name"));
                     jobDataPekerjaan = job.getJSONObject("data_pekerjaan");
                     jobDataAlamatKTP = job.getJSONObject("alamat_ktp");
                     jobDataAlamatDomisili = job.getJSONObject("alamat_tempat_tinggal");
                     jobDataRekBank = job.getJSONObject("informasi_rekening");
                     jobDataDokumenPendukung = job.getJSONObject("informasi_dokumen");
-                    Glide.with(SettingAccountActivity.this).load(prefManager.getAvatar())
-                            .into(new SimpleTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
-                                    Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-                                    //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
-                                    if (resource.getConstantState() == null) {
-                                        img_pp.setImageResource(R.drawable.ic_iconuser);
-                                        txt_inisial.setVisibility(View.VISIBLE);
-                                    }else{
-                                        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
-                                        img_pp.setImageDrawable(newdrawable);
-                                        txt_inisial.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
                     Log.e("jobDataPribadi", jobDataPribadi.toString());
                 }else{
                     f.showMessage(getString(R.string.failed_load_info));
@@ -242,6 +243,6 @@ public class SettingAccountActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //loadData();
+        loadData();
     }
 }

@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.features.account;
+package byc.avt.avanteelender.view.features.account.individual;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +51,6 @@ import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
-import byc.avt.avanteelender.view.auth.ForgotPasswordActivity;
 import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.auth.SignersCheckActivity;

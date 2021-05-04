@@ -59,7 +59,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:text="@string/male"
                     android:textSize="15sp" />
 
@@ -121,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:text="@string/female"
                     android:textSize="15sp" />
             </RadioGroup>
@@ -133,9 +133,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:enabled="false"
-                app:errorEnabled="true"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +149,7 @@
                     android:inputType="textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +160,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +177,7 @@
                     android:inputType="date|textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -188,7 +188,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -205,7 +205,7 @@
                     android:inputType="none"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -216,8 +216,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
-                android:enabled="false"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -233,7 +233,7 @@
                     android:inputType="none"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -244,8 +244,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
-                android:enabled="false"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -261,7 +261,7 @@
                     android:inputType="none"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -272,8 +272,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
-                android:enabled="false"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -289,7 +289,7 @@
                     android:inputType="none"
                     android:paddingStart="8dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -299,8 +299,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
-                android:enabled="false"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -315,7 +315,7 @@
                     android:inputType="textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -325,8 +325,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:enabled="true"
                 android:textColorHint="@color/colorPrimary"
-                android:enabled="false"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -341,9 +341,28 @@
                     android:inputType="text|number"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:textColor="@color/dark"/>
+                    android:textColor="@color/dark" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_save_fr_personal_data_show"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="184dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_state_selector"
+                android:letterSpacing="0.01"
+                android:text="@string/save_change"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_homenumber_fr_personal_data_show" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

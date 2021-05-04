@@ -262,6 +262,133 @@ public class AuthenticationRepository {
         return result;
     }
 
+    public MutableLiveData<JSONObject> updatePersonalDocumentx(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final StringRequest jor = new StringRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            result.setValue(new JSONObject(response));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Map<String,Object> msg = new HashMap<>();
+                            msg.put("code",400);
+                            result.setValue(new JSONObject(msg));
+                        }
+                        Log.e("updateDocResult", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String, String> params = GlobalVariables.perEditData;
+                return params;
+            }
+
+        };
+        requestQueue.getCache().clear();
+        requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 60000;
+            }
+            @Override
+            public int getCurrentRetryCount() {
+                return 0;
+            }
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+            }
+        });
+        return result;
+    }
+
+
+    public MutableLiveData<JSONObject> updatePersonalDocument(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
+                        //new Fungsi(context).showMessageLong(resultResponse);
+                        try {
+                            result.setValue(new JSONObject(resultResponse));
+                        } catch (JSONException e) {
+                            Log.e("ERRORNYA", resultResponse);
+                            e.printStackTrace();
+                            if(resultResponse.contains("\"code\":200,\"status\":true")){
+                                String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokumen berhasil diupdate.\"}}";
+                                try {
+                                    result.setValue(new JSONObject(resp));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+                            }else{
+                                e.printStackTrace();
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",400);
+                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                result.setValue(new JSONObject(msg));
+                            }
+                        }
+                        Log.e("updatePersonalDocResult", resultResponse);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
+                        msg.put("msg", context.getString(R.string.doc_not_valid));
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = GlobalVariables.perEditData;
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.perEditDataFile;
+                return params;
+            }
+
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
+
+        return result;
+    }
+
     public MutableLiveData<JSONObject> createInstitutionDocument(final String uid, final String token, final Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -326,6 +453,74 @@ public class AuthenticationRepository {
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = GlobalVariables.insRegDataFile;
+                return params;
+            }
+
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
+
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> updateInstitusiDocument(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"internal/lender/dokumen/create",
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
+                        //new Fungsi(context).showMessageLong(resultResponse);
+                        try {
+                            result.setValue(new JSONObject(resultResponse));
+                        } catch (JSONException e) {
+                            Log.e("ERRORNYA", resultResponse);
+                            e.printStackTrace();
+                            if(resultResponse.contains("\"code\":200,\"status\":true")){
+                                String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokumen berhasil diupdate.\"}}";
+                                try {
+                                    result.setValue(new JSONObject(resp));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+                            }else{
+                                e.printStackTrace();
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",400);
+                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                result.setValue(new JSONObject(msg));
+                            }
+                        }
+                        Log.e("updateInsDocResult", resultResponse);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",400);
+                        msg.put("msg", context.getString(R.string.doc_not_valid));
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = GlobalVariables.insEditData;
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.insEditDataFile;
                 return params;
             }
 

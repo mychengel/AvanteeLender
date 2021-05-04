@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.features.account;
+package byc.avt.avanteelender.view.features.account.individual;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,8 +18,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +28,6 @@ import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
-import byc.avt.avanteelender.view.others.BlogDetailActivity;
 
 public class DataPendukungShowActivity extends AppCompatActivity {
 
@@ -38,6 +35,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     private Toolbar toolbar;
     JSONObject job, job2;
     TextView txt_no_ktp, txt_no_npwp;
+    TextInputLayout edit_ktp, edit_npwp, edit_tgl_npwp;
     ImageView img_ktp, img_npwp, img_selfie, img_spesimen_ttd;
 
     @Override

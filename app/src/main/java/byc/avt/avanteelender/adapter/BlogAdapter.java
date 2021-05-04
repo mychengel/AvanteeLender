@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
@@ -34,9 +30,6 @@ import java.util.ArrayList;
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.model.Blog;
-import byc.avt.avanteelender.view.features.account.DataPendukungShowActivity;
-import byc.avt.avanteelender.view.features.account.SettingAccountActivity;
-import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 import byc.avt.avanteelender.view.others.BlogDetailActivity;
 
 public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.CardViewViewHolder>{

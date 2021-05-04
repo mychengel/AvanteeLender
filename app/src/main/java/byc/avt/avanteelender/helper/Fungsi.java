@@ -183,6 +183,12 @@ public class Fungsi {
         return hsl;
     }
 
+    public String dateStd(String date){
+        String hsl = "";
+        hsl = date.substring(8,10)+"-"+date.substring(5,7)+"-"+date.substring(0,4);
+        return hsl;
+    }
+
     public int selisihHari(String date){
         Calendar cNow = Calendar.getInstance();
         Date currentTime = cNow.getTime();

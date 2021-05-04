@@ -11,7 +11,7 @@
         android:id="@+id/wv_signer_pendanaan"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layerType="software"
+        android:layerType="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

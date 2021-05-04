@@ -2,18 +2,18 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coor_bank_info_show"
+    android:id="@+id/coor_ins_narahubung_show"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_bank_info_show"
+        android:id="@+id/appbar_ins_narahubung_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_tb_bank_info_show"
+            android:id="@+id/collapsing_tb_ins_narahubung_show"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:fitsSystemWindows="true"
@@ -25,14 +25,14 @@
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_bank_info_show"
+                android:id="@+id/toolbar_ins_narahubung_show"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                app:title="@string/bank_info"
+                app:title="@string/narahubung_data"
                 app:titleTextColor="@color/dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -40,21 +40,21 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_sv_bank_info_show_show"
+        android:id="@+id/nested_sv_ins_narahubung_show"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cons_bank_info_show_show"
+            android:id="@+id/cons_ins_narahubung_show"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="8dp">
 
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_bank_name_fr_bank_info_show"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:id="@+id/edit_name_ins_narahubung_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -66,60 +66,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_bank_name_fr_bank_info_show"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/bank_name"
-                    android:inputType="none"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <CheckBox
-                android:id="@+id/cb_owner_name_same_as_name_fr_bank_info_show"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:button="@drawable/checkbox_selector"
-                android:fontFamily="@font/ibm_plex_sans"
-                android:maxLines="2"
-                android:paddingStart="8dp"
-                android:paddingLeft="8dp"
-                android:paddingBottom="2dp"
-                android:text="@string/owner_name_same_as_name"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_bank_name_fr_bank_info_show"
-                app:useMaterialThemeColors="false" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_bank_owner_name_fr_bank_info_show"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cb_owner_name_same_as_name_fr_bank_info_show">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:background="@color/lightest_neutral"
-                    android:hint="@string/account_name"
-                    android:inputType="text|textPersonName"
+                    android:hint="@string/narahubung_name"
+                    android:inputType="textPersonName"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_bank_account_number_fr_bank_info_show"
+                android:id="@+id/edit_birth_date_ins_narahubung_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -129,46 +87,113 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_bank_owner_name_fr_bank_info_show">
+                app:layout_constraintTop_toBottomOf="@+id/edit_name_ins_narahubung_show">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_birthdate_ins_narahubung_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/bith_date_narahubung"
+                    android:inputType="date|textPersonName"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_position_ins_narahubung_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_birth_date_ins_narahubung_show">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:background="@color/lightest_neutral"
-                    android:hint="@string/account_number"
+                    android:hint="@string/narahubung_position"
+                    android:inputType="textPersonName"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_phone_ins_narahubung_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_position_ins_narahubung_show">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/narahubung_phone"
+                    android:inputType="phone"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_email_ins_narahubung_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_phone_ins_narahubung_show">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/narahubung_email"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_ins_narahubung_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_email_ins_narahubung_show">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/narahubung_ktp"
                     android:inputType="text|number"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_avg_transaction_fr_bank_info_show"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:errorEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_bank_account_number_fr_bank_info_show">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_avg_transaction_fr_bank_info_show"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/avg_transaction"
-                    android:inputType="none"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="0dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
             <Button
-                android:id="@+id/btn_save_fr_bank_info_show"
+                android:id="@+id/btn_save_ins_narahubung_show"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="184dp"
                 android:layout_height="50dp"
@@ -177,6 +202,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_state_selector"
+                android:enabled="true"
                 android:letterSpacing="0.01"
                 android:text="@string/save_change"
                 android:textAllCaps="false"
@@ -184,7 +210,8 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_avg_transaction_fr_bank_info_show" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_ins_narahubung_show" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

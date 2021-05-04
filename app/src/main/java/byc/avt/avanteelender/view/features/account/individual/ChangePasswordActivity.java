@@ -1,4 +1,4 @@
-package byc.avt.avanteelender.view.features.account;
+package byc.avt.avanteelender.view.features.account.individual;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -27,11 +26,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.intro.WalkthroughActivity;
-import byc.avt.avanteelender.view.auth.ForgotPasswordActivity;
-import byc.avt.avanteelender.view.auth.SetNewPasswordActivity;
 import byc.avt.avanteelender.view.misc.OTPSettingsActivity;
-import byc.avt.avanteelender.view.sheet.ConfirmationSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class ChangePasswordActivity extends AppCompatActivity {

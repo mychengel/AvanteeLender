@@ -585,6 +585,7 @@ public class WorkInfoFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
     };
 

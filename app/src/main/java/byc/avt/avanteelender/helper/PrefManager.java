@@ -92,6 +92,11 @@ public class PrefManager {
         return avatar;
     }
 
+    public String getClientType(){
+        String type = userPref.getString("client_type","-");
+        return type;
+    }
+
     public long getExpiredTime(){
         long exp = userPref.getLong("expired_time",0);
         return exp;
@@ -113,6 +118,11 @@ public class PrefManager {
         userEditor.putInt("avantee_verif", ud.getAvantee_verif());
         userEditor.putString("token", ud.getToken());
         userEditor.putLong("expired_time", ud.getExpired_time());
+        userEditor.commit();
+    }
+
+    public void setName(String name){
+        userEditor.putString("name", name);
         userEditor.commit();
     }
 

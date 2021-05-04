@@ -34,7 +34,9 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultResendEmail = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultEmailVerif = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreatePersonalDoc = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultUpdatePersonalDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultCreateInstitutionDoc = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultUpdateInstitutionDoc = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSigner = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultUpdateProfile = new MutableLiveData<>();
@@ -196,12 +198,28 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return resultCreatePersonalDoc;
     }
 
+    public void updatePersonalDoc(String uid, String token){
+        resultUpdatePersonalDoc = authenticationRepository.updatePersonalDocument(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultUpdatePersonalDoc(){
+        return resultUpdatePersonalDoc;
+    }
+
     public void createInstitutionDoc(String uid, String token){
         resultCreateInstitutionDoc = authenticationRepository.createInstitutionDocument(uid, token, getApplication());
     }
 
     public LiveData<JSONObject> getResultCreateInstitutionDoc(){
         return resultCreateInstitutionDoc;
+    }
+
+    public void updateInstitutionDoc(String uid, String token){
+        resultUpdateInstitutionDoc = authenticationRepository.updateInstitusiDocument(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultUpdateInstitutionDoc(){
+        return resultUpdateInstitutionDoc;
     }
 
     public void updateProfile(String uid, String token){
