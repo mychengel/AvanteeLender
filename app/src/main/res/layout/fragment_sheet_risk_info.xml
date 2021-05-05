@@ -5,7 +5,8 @@
     android:id="@+id/cons_fr_sheet_risk_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp"
+    android:background="@color/white"
+    android:paddingBottom="8dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -32,15 +33,28 @@
         android:fontFamily="@font/ibm_plex_sans_medium"
         android:text="@string/risk_info"
         android:textColor="@color/dark"
-        android:textSize="30sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_handle_fr_sheet_risk_info" />
+
+    <WebView
+        android:id="@+id/wv_fr_sheet_risk_info"
+        android:layout_width="0dp"
+        android:layout_height="550dp"
+        android:layerType="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_risk_info_fr_sheet_risk_info">
+
+    </WebView>
 
     <ScrollView
         android:id="@+id/sv_fr_sheet_risk_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

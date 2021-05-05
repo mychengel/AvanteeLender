@@ -186,6 +186,7 @@ public class DashboardFragment extends Fragment {
         btn_histori_trx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HistoriTransaksiListActivity.filter_text = "Semua transaksi";
                 Intent intent = new Intent(getActivity(), HistoriTransaksiListActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);

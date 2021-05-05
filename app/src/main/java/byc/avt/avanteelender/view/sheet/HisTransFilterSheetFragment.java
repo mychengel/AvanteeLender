@@ -77,8 +77,9 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                         dateStart = sdf.format(selection);
-                        date_start.setText(dateStart);
+                        date_start.setText(sdf2.format(selection));
                     }
                 });
             }
@@ -89,7 +90,7 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-                builder.setTitleText("Tanggal batas awal");
+                builder.setTitleText("Tanggal batas akhir");
                 builder.setSelection(Calendar.getInstance().getTimeInMillis());
                 MaterialDatePicker picker = builder.build();
                 picker.show(getActivity().getSupportFragmentManager(),"start");
@@ -97,8 +98,9 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                         dateEnd = sdf.format(selection);
-                        date_end.setText(dateEnd);
+                        date_end.setText(sdf2.format(selection));
                     }
                 });
             }
@@ -115,6 +117,7 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 status = "";
                 dateStart = "";
                 dateEnd = "";
+                HistoriTransaksiListActivity.filterRun(dateStart, dateEnd, status);
             }
         });
 

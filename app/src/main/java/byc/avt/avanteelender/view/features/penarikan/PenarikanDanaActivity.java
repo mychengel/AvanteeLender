@@ -46,7 +46,7 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     private TextView txt_saldo_tersedia, txt_info_max_tarik;
     ImageView imgPlus, imgMinus;
     EditText edit_nominal;
-    long nominal_tarik_int = 20000;
+    long nominal_tarik_int = 0;
     int biaya_penarikan = 0;
     String nominal_tarik_show="", current="";
     long ewallet = 0, maxTarik = 0;
@@ -163,25 +163,24 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
                 }else{
-                    if((nominal_tarik_int - 1) >= 20000){
-                        long nom_mod = nominal_tarik_int % 1000000;
-//                        if(nom_mod == 0){
-//                            nominal_tarik_int = nominal_tarik_int - 1000000;
-//                        }else{
-//                            nominal_tarik_int = nominal_tarik_int - nom_mod;
-//                        }
-                        nominal_tarik_int = nominal_tarik_int - 1;
-                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
-                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-                        edit_nominal.setText(nominal_tarik_show);
-                        edit_nominal.setSelection(nominal_tarik_show.length());
-                    }else{
-                        nominal_tarik_int = 20000;
-                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
-                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-                        edit_nominal.setText(nominal_tarik_show);
-                        edit_nominal.setSelection(nominal_tarik_show.length());
-                    }
+                    nominal_tarik_int = nominal_tarik_int - 1;
+                    nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
+                    nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
+                    edit_nominal.setText(nominal_tarik_show);
+                    edit_nominal.setSelection(nominal_tarik_show.length());
+//                    if((nominal_tarik_int - 1) >= 20000){
+//                        nominal_tarik_int = nominal_tarik_int - 1;
+//                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
+//                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
+//                        edit_nominal.setText(nominal_tarik_show);
+//                        edit_nominal.setSelection(nominal_tarik_show.length());
+//                    }else{
+//                        nominal_tarik_int = 20000;
+//                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
+//                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
+//                        edit_nominal.setText(nominal_tarik_show);
+//                        edit_nominal.setSelection(nominal_tarik_show.length());
+//                    }
                 }
                 cekDone();
             }
@@ -191,14 +190,19 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nominal_tarik_int >= 20000 && nominal_tarik_int < 500000000){
-                    biaya_penarikan = 2900;
-                }else if(nominal_tarik_int >= 500000000){
-                    biaya_penarikan = 35000;
+                if(nominal_tarik_int < 20000){
+                    f.showMessageLong(getString(R.string.min_withdrawal));
+                }else{
+                    if(nominal_tarik_int >= 20000 && nominal_tarik_int < 500000000){
+                        biaya_penarikan = 2900;
+                    }else if(nominal_tarik_int >= 500000000){
+                        biaya_penarikan = 35000;
+                    }
+                    new WithdrawalConfirmationSheetFragment((long) nominal_tarik_int, biaya_penarikan, namaBank, noRek, namaPemilikBank, vaNo);
+                    WithdrawalConfirmationSheetFragment withdrawalConfirmationSheetFragment = WithdrawalConfirmationSheetFragment.getInstance();
+                    withdrawalConfirmationSheetFragment.show(getSupportFragmentManager(), withdrawalConfirmationSheetFragment.getTag());
                 }
-                new WithdrawalConfirmationSheetFragment((long) nominal_tarik_int, biaya_penarikan, namaBank, noRek, namaPemilikBank, vaNo);
-                WithdrawalConfirmationSheetFragment withdrawalConfirmationSheetFragment = WithdrawalConfirmationSheetFragment.getInstance();
-                withdrawalConfirmationSheetFragment.show(getSupportFragmentManager(), withdrawalConfirmationSheetFragment.getTag());
+
             }
         });
 
@@ -206,7 +210,8 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     }
 
     private void cekDone(){
-        if(nominal_tarik_int >= 20000 && nominal_tarik_int <= ewallet){
+        //if(nominal_tarik_int >= 20000 && nominal_tarik_int <= ewallet){
+        if(nominal_tarik_int <= ewallet){
             btn_next.setEnabled(true);
         }else {
             btn_next.setEnabled(false);
@@ -241,7 +246,8 @@ public class PenarikanDanaActivity extends AppCompatActivity {
 //                    info2 = getString(R.string.info_penarikan_dana_maks_2_below500jt);
 //                    btn_next.setEnabled(true);
 //                }
-                txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+info2);
+                //txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+info2);
+                txt_info_max_tarik.setText(getString(R.string.min_withdrawal)+" "+info2);
                 JSONObject job = result.getJSONObject("info_ewallet");
                 vaNo = job.getString("va_no");
                 namaBank = job.getString("bank_name");

@@ -202,7 +202,7 @@ public class AktifPortofolioFragment extends Fragment {
                         loadMorePortAktif(""+current_page);
                     }
                 });
-                rv.smoothScrollToPosition(results.size());
+                //rv.smoothScrollToPosition(results.size());
             }
             dialog.cancel();
         }
@@ -227,7 +227,7 @@ public class AktifPortofolioFragment extends Fragment {
             }
             prog_bar.setVisibility(View.GONE);
             txt_tot_pinjaman_terlambat.setText(tot_pinjaman_terlambat+" pinjaman");
-            rv.smoothScrollToPosition(results.size());
+            //rv.smoothScrollToPosition(results.size());
         }
     };
 

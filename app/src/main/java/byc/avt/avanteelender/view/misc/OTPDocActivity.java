@@ -217,7 +217,7 @@ public class OTPDocActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             sendOTPVerification();
-            btnVerify.setEnabled(false);
+            //btnVerify.setEnabled(false);
             OTPDocActivity.this.setTimer();
         }
     };

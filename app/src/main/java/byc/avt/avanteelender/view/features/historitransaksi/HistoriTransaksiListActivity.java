@@ -169,7 +169,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
             }else{
                 rv_his_trx_list.setVisibility(View.INVISIBLE);
                 rv_his_trx_filter.setVisibility(View.VISIBLE);
-                filter_text = "Transaksi dari " + start + " s/d " + end;
+                filter_text = "Transaksi dari " + f.dateStd(start) + " s/d " + f.dateStd(end);
                 for(int a = 0; a < results_tmp.size(); a++){
                     if((f.millisFromDate(start) <= f.millisFromDate(results_tmp.get(a).getTrx_date()))
                             && (f.millisFromDate(end) >= f.millisFromDate(results_tmp.get(a).getTrx_date()))){
@@ -192,7 +192,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
                     }else{}
                 }
             }else{
-                filter_text = filter_text + " dari " + start + " s/d " + end;
+                filter_text = filter_text + " dari " + f.dateStd(start) + " s/d " + f.dateStd(end);
                 for(int a = 0; a < results_tmp.size(); a++){
                     if(results_tmp.get(a).getStatus().equals(status) && (f.millisFromDate(start) <= f.millisFromDate(results_tmp.get(a).getTrx_date()))
                     && (f.millisFromDate(end) >= f.millisFromDate(results_tmp.get(a).getTrx_date()))){

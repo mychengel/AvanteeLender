@@ -58,7 +58,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     Button btn_next;
     boolean mSaldo = true, mTfBank = false;
     ImageView img_plus, img_minus;
-    TextView txt_saldo_va, txt_saldo_rdl, txt_total_saldo, txt_min_invest, txt_max_invest;
+    TextView txt_saldo_va, txt_saldo_rdl, txt_total_saldo, txt_min_invest, txt_max_invest, txt_kelipatan;
     EditText edit_nominal;
     public static JSONObject job;
     CheckBox cb_agree;
@@ -107,6 +107,8 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(getActivity());
         viewModel = new ViewModelProvider(getActivity()).get(PendanaanViewModel.class);
+        txt_kelipatan = view.findViewById(R.id.lbl_kelipatan_satu_juta_fr_sheet_danai);
+        txt_kelipatan.setText("Kelipatan "+f.toNumb(""+multiplesFunding));
         txt_total_saldo = view.findViewById(R.id.txt_saldo_fr_sheet_danai);
         txt_total_saldo.setText(f.toNumb(""+totalSaldo));
         txt_saldo_va = view.findViewById(R.id.txt_saldo_va_fr_sheet_danai);
@@ -184,7 +186,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             if(totalSaldo >= maxInvest){
                                 nominal = maxInvest;
                             }else{
-                                nominal = totalSaldo - (totalSaldo % 1000000);
+                                nominal = totalSaldo - (totalSaldo % multiplesFunding);
                             }
 
                             nominal_show = f.toNumb(""+nominal);
@@ -224,24 +226,32 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             nominal_show = nominal_show.substring(2, nominal_show.length());
                             edit_nominal.setText(nominal_show);
                         }else{
-                            if((nominal + 1000000) <= maxInvest){
-                                nominal = nominal - (nominal % 1000000) + 1000000;
+                            if((nominal + multiplesFunding) <= maxInvest){
+                                nominal = nominal - (nominal % multiplesFunding) + multiplesFunding;
                                 nominal_show = f.toNumb(""+nominal);
                                 nominal_show = nominal_show.substring(2, nominal_show.length());
                                 edit_nominal.setText(nominal_show);
                                 edit_nominal.setSelection(nominal_show.length());
                             }else{
+                                nominal = maxInvest;
+                                nominal_show = f.toNumb(""+nominal);
+                                nominal_show = nominal_show.substring(2, nominal_show.length());
+                                edit_nominal.setText(nominal_show);
                             }
                         }
                     }else{
-                        if((nominal + 1000000) <= totalSaldo){
-                            if((nominal + 1000000) <= maxInvest){
-                                nominal = nominal - (nominal % 1000000) + 1000000;
+                        if((nominal + multiplesFunding) <= totalSaldo){
+                            if((nominal + multiplesFunding) <= maxInvest){
+                                nominal = nominal - (nominal % multiplesFunding) + multiplesFunding;
                                 nominal_show = f.toNumb(""+nominal);
                                 nominal_show = nominal_show.substring(2, nominal_show.length());
                                 edit_nominal.setText(nominal_show);
                                 edit_nominal.setSelection(nominal_show.length());
                             }else{
+                                nominal = maxInvest;
+                                nominal_show = f.toNumb(""+nominal);
+                                nominal_show = nominal_show.substring(2, nominal_show.length());
+                                edit_nominal.setText(nominal_show);
                             }
                         }else{
                         }
@@ -265,14 +275,14 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             nominal_show = nominal_show.substring(2, nominal_show.length());
                             edit_nominal.setText(nominal_show);
                         }else{
-                            if((nominal - 1000000) >= minInvest){
-                                nominal = nominal - (nominal % 1000000) - 1000000;
+                            if((nominal - multiplesFunding) >= minInvest){
+                                nominal = nominal - (nominal % multiplesFunding) - multiplesFunding;
                                 nominal_show = f.toNumb(""+nominal);
                                 nominal_show = nominal_show.substring(2, nominal_show.length());
                                 edit_nominal.setText(nominal_show);
                                 edit_nominal.setSelection(nominal_show.length());
                             }else{
-                                nominal = nominal - (nominal % 1000000);
+                                nominal = nominal - (nominal % multiplesFunding);
                                 nominal_show = f.toNumb(""+nominal);
                                 nominal_show = nominal_show.substring(2, nominal_show.length());
                                 edit_nominal.setText(nominal_show);
@@ -280,14 +290,14 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             }
                         }
                     }else{
-                        if((nominal - 1000000) >= minInvest){
-                            nominal = nominal - (nominal % 1000000) - 1000000;
+                        if((nominal - multiplesFunding) >= minInvest){
+                            nominal = nominal - (nominal % multiplesFunding) - multiplesFunding;
                             nominal_show = f.toNumb(""+nominal);
                             nominal_show = nominal_show.substring(2, nominal_show.length());
                             edit_nominal.setText(nominal_show);
                             edit_nominal.setSelection(nominal_show.length());
                         }else{
-                            nominal = nominal - (nominal % 1000000);
+                            nominal = nominal - (nominal % multiplesFunding);
                             nominal_show = f.toNumb(""+nominal);
                             nominal_show = nominal_show.substring(2, nominal_show.length());
                             edit_nominal.setText(nominal_show);
@@ -409,7 +419,8 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
 
     public void cekDone(){
         cb_agree.setText(getString(R.string.saya_setuju_mendanai)+" "+f.toNumb(""+nominal));
-        if((nominal % 1000000 == 0) && (nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
+        //if((nominal % multiplesFunding == 0) && (nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
+        if((nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
             isNomValid = true;
         }else{
             isNomValid = false;

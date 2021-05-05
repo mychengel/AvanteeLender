@@ -403,7 +403,7 @@
     <string name="confirmation">Konfirmasi</string>
     <string name="withdrawal_nominal">Nominal penarikan</string>
     <string name="withdrawal_fee">Biaya penarikan</string>
-    <string name="withdrawal_admin_fee">Penarikan dana akan dikenakan biaya administrasi</string>
+    <string name="withdrawal_admin_fee">Setiap penarikan dana akan dikenai biaya administrasi.</string>
     <string name="withdrawal_success">Penarikan dana berhasil</string>
     <string name="withdrawal_in_process">Penarikan dana sedang diproses</string>
     <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Silahkan menunggu hingga dana ditransfer ke rekening bank Anda.</string>
@@ -475,5 +475,6 @@
     <string name="email_verified">Selamat! Email Anda telah terverifikasi, silahkan lanjutkan sebagai pemberi dana.</string>
     <string name="verify_expired">Tautan verifikasi email Anda sudah tidak berlaku atau expired, silahkan kirim ulang tautan melalui fitur pada halaman masuk aplikasi.</string>
     <string name="all_trx">Semua transaksi</string>
+    <string name="min_withdrawal">Dana minimum penarikan adalah Rp20.000.</string>
     <string name="privy_doc_undefined">Terdapat kesalahan pada sistem penandatanganan dokumen digital, silahkan hubungi tim support kami untuk informasi lebih lanjut.</string>
 </resources>

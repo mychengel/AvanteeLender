@@ -87,7 +87,7 @@ public class PortofolioAktifDetailAdapter extends RecyclerView.Adapter<Portofoli
         }else if((pad.getDate_actualtrans() != "null") && (pad.getStatus() == "null" || pad.getStatus().equalsIgnoreCase("Tidak Lancar") || pad.getStatus().equalsIgnoreCase("Macet"))){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_paid_late));
             holder.lbl_period.setVisibility(View.GONE);
-        }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null") && pad.getActual_payment().equalsIgnoreCase("0") && (selisih < 0)){
+        }else if((pad.getDate_actualtrans() == "null") && (pad.getStatus() == "null") && pad.getActual_payment().equalsIgnoreCase("0") && (selisih <= 0)){
             holder.img_flag.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_schedule_num_unpaid));
             holder.lbl_period.setVisibility(View.GONE);
         }
