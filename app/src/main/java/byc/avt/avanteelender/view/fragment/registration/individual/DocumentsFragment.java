@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -513,24 +514,40 @@ public class DocumentsFragment extends Fragment {
 
     }
 
+    String currentPhotoPath = "";
     String imageFileName = "";
     private void showCameraCapture(int PICK_IMAGE_REQUEST, String PICK_IMAGE_TYPE) {
         imageFileName = PICK_IMAGE_TYPE+".jpg";
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File folder = null;
+        File storageDir = null;
         File file = null;
-        try{
-            folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-            if (!folder.exists()) {
-                folder.mkdirs();
+        if(Build.VERSION.SDK_INT >= 29){
+            try {
+                storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                file = File.createTempFile(
+                        "ava",  /* prefix */
+                        ".jpg",         /* suffix */
+                        storageDir     /* directory */
+                );
+                currentPhotoPath = file.getAbsolutePath();
+                Log.e("takePhoto", currentPhotoPath);
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
-            if (!file.exists()) {
-                file.createNewFile();
+        }else{
+            try{
+                storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                if (!storageDir.exists()) {
+                    storageDir.mkdirs();
+                }
+                file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                Log.e("Path Foto", file+"");
+            }catch (Exception e) {
+                e.printStackTrace();
             }
-            Log.e("Path Foto", file+"");
-        }catch (Exception e) {
-            e.printStackTrace();
         }
 
         Uri imgUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
@@ -539,6 +556,7 @@ public class DocumentsFragment extends Fragment {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         cameraIntent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 512);
         cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        cameraIntent.putExtra(MediaStore.Images.Media.IS_PENDING, 1);
         startActivityForResult(cameraIntent, PICK_IMAGE_REQUEST);
     }
 
@@ -595,8 +613,17 @@ public class DocumentsFragment extends Fragment {
                     e.printStackTrace();
                 }
             } else {
-                File path = Environment.getExternalStorageDirectory();
-                File file = new File(path, "/avantee/"+imageFileName);
+
+                File path = null;
+                File file = null;
+                if(Build.VERSION.SDK_INT >=29){
+                    path = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    file = new File(currentPhotoPath);
+                }else{
+                    path = Environment.getExternalStorageDirectory();
+                    file = new File(path, "/avantee/"+imageFileName);
+                }
+
                 Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);

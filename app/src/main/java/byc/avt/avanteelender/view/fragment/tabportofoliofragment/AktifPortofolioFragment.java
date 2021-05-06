@@ -185,12 +185,6 @@ public class AktifPortofolioFragment extends Fragment {
             }else{
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.GONE);
-                for(int i=0; i < result.size(); i++){
-                    if(result.get(i).getIs_on_time().equalsIgnoreCase("0")){
-                        tot_pinjaman_terlambat = tot_pinjaman_terlambat +1;
-                    }else{}
-                }
-                txt_tot_pinjaman_terlambat.setText(tot_pinjaman_terlambat+" pinjaman");
                 linearLayoutManager = new LinearLayoutManager(getActivity());
                 rv.setLayoutManager(linearLayoutManager);
                 portofolioAktifAdapter = new PortofolioAktifAdapter(getActivity());
@@ -221,12 +215,8 @@ public class AktifPortofolioFragment extends Fragment {
             for(int i = 0; i < result.size(); i++){
                 results.add(result.get(i));
                 portofolioAktifAdapter.notifyDataSetChanged();
-                if(result.get(i).getIs_on_time().equalsIgnoreCase("0")){
-                    tot_pinjaman_terlambat = tot_pinjaman_terlambat +1;
-                }else{}
             }
             prog_bar.setVisibility(View.GONE);
-            txt_tot_pinjaman_terlambat.setText(tot_pinjaman_terlambat+" pinjaman");
             //rv.smoothScrollToPosition(results.size());
         }
     };

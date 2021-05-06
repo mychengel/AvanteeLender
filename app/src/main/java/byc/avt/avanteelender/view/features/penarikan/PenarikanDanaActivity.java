@@ -228,8 +228,8 @@ public class PenarikanDanaActivity extends AppCompatActivity {
         @Override
         public void onChanged(JSONObject result) {
             try {
-                maxTarik = 0;
                 ewallet = result.getLong("ewallet");
+                maxTarik = ewallet;
                 txt_saldo_tersedia.setText(f.toNumb(""+ewallet));
                 String info2 = "";
                 info2 = getString(R.string.withdrawal_admin_fee);
@@ -247,7 +247,9 @@ public class PenarikanDanaActivity extends AppCompatActivity {
 //                    btn_next.setEnabled(true);
 //                }
                 //txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+info2);
-                txt_info_max_tarik.setText(getString(R.string.min_withdrawal)+" "+info2);
+                txt_info_max_tarik.setText("- "+getString(R.string.min_withdrawal)+"\n"
+                        +"- "+getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+".\n"
+                        +"- "+info2);
                 JSONObject job = result.getJSONObject("info_ewallet");
                 vaNo = job.getString("va_no");
                 namaBank = job.getString("bank_name");

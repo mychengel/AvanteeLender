@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
@@ -57,7 +60,7 @@ public class WorkInfoFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
-    Button btn_next;
+    Button btn_save;
     AutoCompleteTextView auto_job, auto_jobField, auto_jobPosition, auto_experience, auto_income,
             auto_fundsSource, auto_companyProvince, auto_companyCity, auto_companyDistrict, auto_companyUrban;
     private RadioGroup radGroupIsOnlineBased;
@@ -69,6 +72,7 @@ public class WorkInfoFragment extends Fragment {
             companyName="", companyNumber="", fundsSource="", companyAddress="", companyProvince="",
             companyCity="", companyDistrict="", companyUrban="", companyRT="", companyRW="",
             companyPostalCode="";
+    boolean isOverPostal = false;
 
     List<Object> listJob = new ArrayList<>(); List<Object> listJobID = new ArrayList<>();
     List<Object> listJobField = new ArrayList<>(); List<Object> listJobFieldID = new ArrayList<>();
@@ -132,9 +136,25 @@ public class WorkInfoFragment extends Fragment {
                 }
             }
         });
-        btn_next = view.findViewById(R.id.btn_next_fr_work_info);
-        btn_next.setEnabled(true);
-        btn_next.setOnClickListener(new View.OnClickListener() {
+
+
+        txtCompanyPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                companyPostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        btn_save = view.findViewById(R.id.btn_next_fr_work_info);
+        btn_save.setEnabled(true);
+        btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 confirmNext(v);
@@ -143,6 +163,10 @@ public class WorkInfoFragment extends Fragment {
         });
 
         loadData();
+    }
+
+    public void cekPostal(){
+        if(companyPostalCode.length() > 5){txtCompanyPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtCompanyPostalCode.setError(null);}
     }
 
     public void clearMasterList(){
@@ -214,7 +238,7 @@ public class WorkInfoFragment extends Fragment {
                 && !companyName.isEmpty() && !income.isEmpty() && !fundsSource.isEmpty()
                 && !companyAddress.isEmpty() && !companyProvince.isEmpty() && !companyCity.isEmpty()
                 && !companyDistrict.isEmpty() && !companyUrban.isEmpty() && !companyRT.isEmpty()
-                && !companyRW.isEmpty() && !companyPostalCode.isEmpty()){
+                && !companyRW.isEmpty() && !companyPostalCode.isEmpty() && companyPostalCode.length() <= 5){
             gv.stPerWorkInfo = true;
             gv.perRegData.put("pekerjaan",job);
             gv.perRegData.put("bidang_pekerjaan",jobField);
@@ -273,7 +297,8 @@ public class WorkInfoFragment extends Fragment {
         if(companyUrban.isEmpty()){txtCompanyUrban.setError(getString(R.string.cannotnull));}else{txtCompanyUrban.setError(null);}
         if(companyRT.isEmpty()){txtCompanyRT.setError(getString(R.string.cannotnull));}else{txtCompanyRT.setError(null);}
         if(companyRW.isEmpty()){txtCompanyRW.setError(getString(R.string.cannotnull));}else{txtCompanyRW.setError(null);}
-        if(companyPostalCode.isEmpty()){txtCompanyPostalCode.setError(getString(R.string.cannotnull));}else{txtCompanyPostalCode.setError(null);}
+        if(companyPostalCode.isEmpty()){txtCompanyPostalCode.setError(getString(R.string.cannotnull));}else if(companyPostalCode.length() > 5){txtCompanyPostalCode.setError(getString(R.string.postal_code_max_char));}
+        else{txtCompanyPostalCode.setError(null);}
     }
 
     private Observer<JSONObject> showJob = new Observer<JSONObject>() {

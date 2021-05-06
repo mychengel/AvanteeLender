@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -51,7 +52,8 @@ public class BankInfoShowActivity extends AppCompatActivity {
     GlobalVariables gv;
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
-    Button btn_save;
+    Button btn_save, btn_edit;
+    boolean editIsOn = false;
 
     CheckBox cb_owner_name_same_as_name;
 
@@ -91,7 +93,7 @@ public class BankInfoShowActivity extends AppCompatActivity {
             txtAccountName.getEditText().setText(job.getString("bank_account"));
             name_tmp = job.getString("bank_account");
             txtAccountNumber.getEditText().setText(job.getString("bank_account_no"));
-            txtAvgTrans.getEditText().setText(job.getString("average_transaction").replaceAll("[lgt;&]", ""));
+            txtAvgTrans.getEditText().setText(job.getString("average_transaction").replaceAll("[lgt;&\\r\\n]", ""));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -118,8 +120,28 @@ public class BankInfoShowActivity extends AppCompatActivity {
             }
         });
 
+        btn_edit = findViewById(R.id.btn_ubah_fr_bank_info_show);
+        btn_edit.setEnabled(true);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editIsOn = !editIsOn;
+                editIsOn(editIsOn);
+            }
+        });
+
+        editIsOn(false);
         loadData();
 
+    }
+
+    public void editIsOn(boolean s){
+        txtBank.setEnabled(s);
+        txtAccountName.setEnabled(s);
+        txtAccountNumber.setEnabled(s);
+        txtAvgTrans.setEnabled(s);
+        cb_owner_name_same_as_name.setEnabled(s);
+        btn_save.setEnabled(s);
     }
 
     private void confirmNext(View v){
@@ -242,7 +264,7 @@ public class BankInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listAvgTrans.add(jar.getJSONObject(i).getString("name"));
                         listAvgTransID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("average_transaction"))){
+                        if(jar.getJSONObject(i).getString("name").contains(job.getString("average_transaction").replaceAll("[lgt;&\\r\\n]", ""))){
                             avgTrans = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data avg", avgTrans);

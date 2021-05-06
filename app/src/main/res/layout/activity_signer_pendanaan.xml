@@ -27,6 +27,7 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/img"
         android:foreground="@drawable/selectable_curve"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_cancel_24px" />

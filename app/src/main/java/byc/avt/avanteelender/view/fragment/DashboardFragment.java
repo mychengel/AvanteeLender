@@ -361,7 +361,7 @@ public class DashboardFragment extends Fragment {
             txt_nom_active_port.setText(f.toNumb(""+res.getLong("totalInves")));
             txt_nom_pending_port.setText(f.toNumb(""+res.getLong("totalPending")));
             txt_estimate_received_interest.setText(f.toNumb(""+totInterest));
-            //txt_late.setText(); //data diambil dari mana (?)
+            txt_late.setText(""+res.getLong("pinjamanTerlambat"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

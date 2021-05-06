@@ -455,7 +455,9 @@
     <string name="signers_confirmation">Sebelum beralih ke halaman lain, pastikan tidak ada tahapan yang terlewat demi kelengkapan data. Mau kemana?</string>
     <string name="funding_done">Proses pendanaan selesai</string>
     <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload pada internal storage HP Anda di dalam folder avantee</string>
+    <string name="surat_kuasa_downloaded_v29up">Surat Kuasa berhasil didownload pada internal storage HP Anda di dalam folder aplikasi (Android/data/byc.avt.avanteelender/files/Download)</string>
     <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload pada internal storage HP Anda di dalam folder avantee</string>
+    <string name="surat_perjanjian_downloaded_v29up">Surat Perjanjian Kerja Sama berhasil didownload pada internal storage HP Anda di dalam folder aplikasi (Android/data/byc.avt.avanteelender/files/Download)</string>
     <string name="agreement">Agreement</string>
     <string name="download_failed">Download dokumen gagal, silahkan coba beberapa saat lagi.</string>
     <string name="document_info">Informasi dokumen</string>
@@ -477,4 +479,6 @@
     <string name="all_trx">Semua transaksi</string>
     <string name="min_withdrawal">Dana minimum penarikan adalah Rp20.000.</string>
     <string name="privy_doc_undefined">Terdapat kesalahan pada sistem penandatanganan dokumen digital, silahkan hubungi tim support kami untuk informasi lebih lanjut.</string>
+    <string name="ubah">Ubah</string>
+    <string name="postal_code_max_char">Kode pos maksimum 5 karakter</string>
 </resources>

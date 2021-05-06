@@ -12,13 +12,13 @@ public class PortofolioAktif implements Parcelable {
     private String interest;
     private String tenor;
     private String sisa_tenor;
-    private String is_on_time;
+    private String status;
     private String angs_paid;
     private String angs_next;
 
     public PortofolioAktif(){};
 
-    public PortofolioAktif(String loan_type, String loan_rating, String loan_no, String funding_id, String kontrak, String interest, String tenor, String sisa_tenor, String is_on_time, String angs_paid, String angs_next) {
+    public PortofolioAktif(String loan_type, String loan_rating, String loan_no, String funding_id, String kontrak, String interest, String tenor, String sisa_tenor, String status, String angs_paid, String angs_next) {
         this.loan_type = loan_type;
         this.loan_rating = loan_rating;
         this.loan_no = loan_no;
@@ -27,7 +27,7 @@ public class PortofolioAktif implements Parcelable {
         this.interest = interest;
         this.tenor = tenor;
         this.sisa_tenor = sisa_tenor;
-        this.is_on_time = is_on_time;
+        this.status = status;
         this.angs_paid = angs_paid;
         this.angs_next = angs_next;
     }
@@ -41,7 +41,7 @@ public class PortofolioAktif implements Parcelable {
         interest = in.readString();
         tenor = in.readString();
         sisa_tenor = in.readString();
-        is_on_time = in.readString();
+        status = in.readString();
         angs_paid = in.readString();
         angs_next = in.readString();
     }
@@ -90,8 +90,8 @@ public class PortofolioAktif implements Parcelable {
         return sisa_tenor;
     }
 
-    public String getIs_on_time() {
-        return is_on_time;
+    public String getStatus() {
+        return status;
     }
 
     public String getAngs_paid() {
@@ -117,7 +117,7 @@ public class PortofolioAktif implements Parcelable {
         parcel.writeString(interest);
         parcel.writeString(tenor);
         parcel.writeString(sisa_tenor);
-        parcel.writeString(is_on_time);
+        parcel.writeString(status);
         parcel.writeString(angs_paid);
         parcel.writeString(angs_next);
     }

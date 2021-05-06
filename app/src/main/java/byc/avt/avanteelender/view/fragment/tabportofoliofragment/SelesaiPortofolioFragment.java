@@ -96,18 +96,20 @@ public class SelesaiPortofolioFragment extends Fragment {
             tot_nom_selesai = 0;
             try {
                 txt_tot_pinjaman_selesai.setText(result.getLong("total")+" pinjaman");
+                txt_tot_pb_selesai.setText(f.toNumb(""+result.getLong("total_pokok_plus_bunga")));
+                txt_tot_nom_selesai.setText(f.toNumb(""+result.getLong("total_portofolio_selesai")));
                 Log.e("pinjaman",result.getLong("total")+"");
-                rows = result.getJSONArray("rows");
-                Log.e("ROWS",rows.toString());
-                if(rows.length()==0){
-                }else{
-                    for(int i = 0; i < rows.length(); i++){
-                        tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
-                        tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
-                    }
-                }
-                txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
-                txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
+//                rows = result.getJSONArray("rows");
+//                Log.e("ROWS",rows.toString());
+//                if(rows.length()==0){
+//                }else{
+//                    for(int i = 0; i < rows.length(); i++){
+//                        tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
+//                        tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
+//                    }
+//                }
+//                txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
+//                txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -140,7 +142,7 @@ public class SelesaiPortofolioFragment extends Fragment {
                         loadMorePortSelesai(""+current_page);
                     }
                 });
-                rv.smoothScrollToPosition(results.size());
+                //rv.smoothScrollToPosition(results.size());
             }
 
         }
@@ -148,7 +150,6 @@ public class SelesaiPortofolioFragment extends Fragment {
 
     public void loadMorePortSelesai(String page) {
         // POST to server through endpoint
-        //new Fungsi(getActivity()).showMessage(page);
         prog_bar.setVisibility(View.VISIBLE);
         viewModel.portofolioCloseList(prefManager.getUid(), prefManager.getToken(), page);
         viewModel.getResultList().observe(getActivity(), showMorePortSelesai);
@@ -160,13 +161,9 @@ public class SelesaiPortofolioFragment extends Fragment {
             for(int i = 0; i < result.size(); i++){
                 results.add(result.get(i));
                 portofolioSelesaiAdapter.notifyDataSetChanged();
-                tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(result.get(i).getPayment_amount());
-                tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(result.get(i).getNominal());
             }
             prog_bar.setVisibility(View.GONE);
-            txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
-            txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
-            rv.smoothScrollToPosition(results.size());
+            //rv.smoothScrollToPosition(results.size());
         }
     };
 

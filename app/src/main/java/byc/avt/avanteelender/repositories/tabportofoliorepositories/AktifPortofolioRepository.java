@@ -2,6 +2,7 @@ package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -71,25 +73,43 @@ public class AktifPortofolioRepository {
                                 String filename = "SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
+                                if(Build.VERSION.SDK_INT >= 29){
+                                    try {
+                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+
+                                        File files = File.createTempFile(
+                                                "SuratKuasa",  /* prefix */
+                                                ".pdf",         /* suffix */
+                                                folder     /* directory */
+                                        );
+                                        String path = files.getAbsolutePath();
+                                        file = new File(path);
+                                        Log.e("FILEkuh", file+"");
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
                                     }
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                    if (!file.exists()) {
-                                        file.createNewFile();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                }else{
+                                    try{
+                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                        if (!folder.exists()) {
+                                            folder.mkdirs();
+                                        }
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                        if (!file.exists()) {
+                                            file.createNewFile();
+                                        }
+                                        Log.e("PathSuratKuasa", file+"");
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    Log.e("PathSuratKuasa", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                                 }
+
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
                                 outputStream.close();
-
-                                new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                             }else{
                                 result.setValue(context.getString(R.string.download_failed));
                             }
@@ -134,25 +154,41 @@ public class AktifPortofolioRepository {
                                 String filename = "SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
+                                if(Build.VERSION.SDK_INT >= 29){
+                                    try {
+                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                                        File files = File.createTempFile(
+                                                "SuratPerjanjian",  /* prefix */
+                                                ".pdf",         /* suffix */
+                                                folder     /* directory */
+                                        );
+                                        String path = files.getAbsolutePath();
+                                        file = new File(path);
+                                        Log.e("FILEkuh", file+"");
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
                                     }
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                    if (!file.exists()) {
-                                        file.createNewFile();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                }else{
+                                    try{
+                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                        if (!folder.exists()) {
+                                            folder.mkdirs();
+                                        }
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                        if (!file.exists()) {
+                                            file.createNewFile();
+                                        }
+                                        Log.e("PathSuratPerjanjian", file+"");
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    Log.e("PathSuratPerjanjian", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
                                 outputStream.close();
-
-                                new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                             }else{
                                 result.setValue(context.getString(R.string.download_failed));
                             }
@@ -197,25 +233,42 @@ public class AktifPortofolioRepository {
                                 String filename = loan_no+"_SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
+                                if(Build.VERSION.SDK_INT >= 29){
+                                    try {
+                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+
+                                        File files = File.createTempFile(
+                                                loan_no+"_SuratKuasa",  /* prefix */
+                                                ".pdf",         /* suffix */
+                                                folder     /* directory */
+                                        );
+                                        String path = files.getAbsolutePath();
+                                        file = new File(path);
+                                        Log.e("FILEkuh", file+"");
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
                                     }
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                    if (!file.exists()) {
-                                        file.createNewFile();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                }else{
+                                    try{
+                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                        if (!folder.exists()) {
+                                            folder.mkdirs();
+                                        }
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                        if (!file.exists()) {
+                                            file.createNewFile();
+                                        }
+                                        Log.e("LoanSuratKuasa", file+"");
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    Log.e("PathSKLoan", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
                                 outputStream.close();
-
-                                new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                             }else{
                                 result.setValue(context.getString(R.string.download_failed));
                             }
@@ -260,25 +313,41 @@ public class AktifPortofolioRepository {
                                 String filename = funding_id+"_Agreement.pdf";
                                 File folder = null;
                                 File file = null;
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
+                                if(Build.VERSION.SDK_INT >= 29){
+                                    try {
+                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                                        File files = File.createTempFile(
+                                                funding_id+"_Agreement",  /* prefix */
+                                                ".pdf",         /* suffix */
+                                                folder     /* directory */
+                                        );
+                                        String path = files.getAbsolutePath();
+                                        file = new File(path);
+                                        Log.e("FILEkuh", file+"");
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
                                     }
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                    if (!file.exists()) {
-                                        file.createNewFile();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                }else{
+                                    try{
+                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                                        if (!folder.exists()) {
+                                            folder.mkdirs();
+                                        }
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
+                                        if (!file.exists()) {
+                                            file.createNewFile();
+                                        }
+                                        Log.e("LoanSuratPerjanjian", file+"");
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    Log.e("PathAgreementFunding", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
+                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
                                 outputStream.close();
-
-                                new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                             }else{
                                 result.setValue(context.getString(R.string.download_failed));
                             }
@@ -377,90 +446,13 @@ public class AktifPortofolioRepository {
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    String loan_no="", funding_id="";
-                                    loan_no = rows.getJSONObject(i).getString("loan_no");
-                                    funding_id = rows.getJSONObject(i).getString("funding_id");
-                                    final int finalI = i;
-                                    final JsonObjectRequest jors = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active/detail?loan_no="+loan_no+"&funding="+funding_id, null,
-                                            new Response.Listener<JSONObject>() {
-                                                @Override
-                                                public void onResponse(JSONObject response) {
-                                                     Log.e("Aktif PORT DETAILS", response.toString());
-                                                    JSONArray rows2;
-                                                    int tot = 0;
-                                                    try {
-                                                        rows2 = response.getJSONArray("rows");
-                                                        if(rows2.length()==0){
-                                                            //result.setValue(list);
-                                                        }else{
-                                                            //String is_on_time = "0";
-                                                            for(int j = 0; j < rows2.length(); j++){
-                                                                String delay_details="", status="";
-                                                                String next_payment = rows2.getJSONObject(j).getString("next_payment");
-                                                                int selisih = new Fungsi(context).selisihHari(next_payment);
-                                                                String actual_date = rows2.getJSONObject(j).getString("actual_transaction_date");
-                                                                String actual_payment = rows2.getJSONObject(j).getString("actual_payment");
-                                                                delay_details = rows2.getJSONObject(j).getString("delay_details");
-                                                                status = rows2.getJSONObject(j).getString("status");
-                                                                if((status.equalsIgnoreCase(null) || status.equalsIgnoreCase("null")) &&
-                                                                        (actual_date.equalsIgnoreCase(null) || actual_date.equalsIgnoreCase("null")) &&
-                                                                    actual_payment.equalsIgnoreCase("0") && (selisih < 0)){
-                                                                    tot = tot + 1;
-                                                                }else{
-                                                                    tot = tot + 0;
-                                                                }
-                                                            }
-
-                                                            is_on_time[0] = "0";
-                                                            if(tot > 0){
-                                                                is_on_time[0] = "0";
-                                                                //isOnTime.postValue("0");
-                                                            }else{
-                                                                is_on_time[0] = "1";
-                                                                //isOnTime.postValue("1");
-                                                            }
-
-                                                        }
-
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            },
-                                            new Response.ErrorListener() {
-                                                @Override
-                                                public void onErrorResponse(VolleyError error) {
-                                                    Log.e("Volley", error.toString());
-                                                }
-                                            }
-                                    )
-                                    {
-                                        @Override
-                                        public Map<String, String> getHeaders() throws AuthFailureError {
-                                            return GlobalVariables.API_ACCESS_IN(uid, token);
-                                        }
-                                    };
-                                    requestQueue.getCache().clear();
-                                    requestQueue.add(jors).setRetryPolicy(new RetryPolicy() {
-                                        @Override
-                                        public int getCurrentTimeout() {
-                                            return 60000;
-                                        }
-                                        @Override
-                                        public int getCurrentRetryCount() {
-                                            return 0;
-                                        }
-                                        @Override
-                                        public void retry(VolleyError error) throws VolleyError {
-                                        }
-                                    });
                                     //result.setValue(list);
-                                    String loan_rating = rows.getJSONObject(finalI).getString("loan_rating");
-                                    String loan_type = rows.getJSONObject(finalI).getString("loan_type");
-                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(finalI).getString("loan_no"), rows.getJSONObject(finalI).getString("funding_id"),
-                                            rows.getJSONObject(finalI).getString("dokumen_kontrak"), rows.getJSONObject(finalI).getString("bunga_pinjaman_pa"), rows.getJSONObject(finalI).getString("jumlah_hari_pinjam"),
-                                            rows.getJSONObject(finalI).getString("remaining_period"), "0",
-                                            rows.getJSONObject(finalI).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(finalI).getString("total_angsuran_selanjutnya_per_loan"));
+                                    String loan_rating = rows.getJSONObject(i).getString("loan_rating");
+                                    String loan_type = rows.getJSONObject(i).getString("loan_type");
+                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"), rows.getJSONObject(i).getString("funding_id"),
+                                            rows.getJSONObject(i).getString("dokumen_kontrak"), rows.getJSONObject(i).getString("bunga_pinjaman_pa"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
+                                            rows.getJSONObject(i).getString("remaining_period"), rows.getJSONObject(i).getString("status_pembayaran"),
+                                            rows.getJSONObject(i).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(i).getString("total_angsuran_selanjutnya_per_loan"));
                                     list.add(pa);
                                 }
                                 result.setValue(list);

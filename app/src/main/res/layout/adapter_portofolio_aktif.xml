@@ -245,19 +245,11 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/tepat_waktu"
-                android:textColor="@color/dark"
+                android:textColor="@color/darkO05"
+                android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_sisatenor_adp_port_aktif"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/img_tepat_waktu_adp_port_aktif"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="2dp"
-                android:contentDescription="@string/img"
-                android:src="@drawable/ic_done_24"
-                app:layout_constraintBottom_toBottomOf="@+id/lbl_tepat_waktu_adp_port_aktif"
-                app:layout_constraintEnd_toStartOf="@+id/lbl_tepat_waktu_adp_port_aktif" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

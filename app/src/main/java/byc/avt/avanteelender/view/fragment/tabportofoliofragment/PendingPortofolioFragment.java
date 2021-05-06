@@ -96,19 +96,21 @@ public class PendingPortofolioFragment extends Fragment {
             tot_nom_pending = 0;
             try {
                 txt_tot_pinjaman_pending.setText(result.getLong("total")+" pinjaman");
+                txt_est_bunga_diterima.setText(f.toNumb(""+result.getLong("estimasi_total_bunga")));
+                txt_tot_nom_pending.setText(f.toNumb(""+result.getLong("total_portofolio_pending")));
                 Log.e("pinjaman",result.getLong("total")+"");
-                rows = result.getJSONArray("rows");
-                Log.e("ROWS",rows.toString());
-                if(rows.length()==0){
-                }else{
-                    for(int i = 0; i < rows.length(); i++){
-                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getLong("estimasi_bunga_per_loan");
-                        tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getLong("nominal");
-                    }
-                }
+//                rows = result.getJSONArray("rows");
+//                Log.e("ROWS",rows.toString());
+//                if(rows.length()==0){
+//                }else{
+//                    for(int i = 0; i < rows.length(); i++){
+//                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getLong("estimasi_bunga_per_loan");
+//                        tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getLong("nominal");
+//                    }
+//                }
 
-                txt_est_bunga_diterima.setText(f.toNumb(""+tot_est_bunga_diterima));
-                txt_tot_nom_pending.setText(f.toNumb(""+(tot_nom_pending)));
+//                txt_est_bunga_diterima.setText(f.toNumb(""+tot_est_bunga_diterima));
+//                txt_tot_nom_pending.setText(f.toNumb(""+(tot_nom_pending)));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -139,7 +141,7 @@ public class PendingPortofolioFragment extends Fragment {
                         loadMorePortPending(""+current_page);
                     }
                 });
-                rv.smoothScrollToPosition(results.size());
+                //rv.smoothScrollToPosition(results.size());
             }
 
         }
@@ -149,7 +151,6 @@ public class PendingPortofolioFragment extends Fragment {
     PortofolioPendingAdapter portofolioPendingAdapter;
     public void loadMorePortPending(String page) {
         // POST to server through endpoint
-        //new Fungsi(getActivity()).showMessage(page);
         prog_bar.setVisibility(View.VISIBLE);
         viewModel.portofolioPendingList(prefManager.getUid(), prefManager.getToken(), page);
         viewModel.getResultList().observe(getActivity(), showMorePortPending);
@@ -161,13 +162,9 @@ public class PendingPortofolioFragment extends Fragment {
             for(int i = 0; i < result.size(); i++){
                 results.add(result.get(i));
                 portofolioPendingAdapter.notifyDataSetChanged();
-                tot_est_bunga_diterima = tot_est_bunga_diterima + Long.parseLong(result.get(i).getEst_bunga());
-                tot_nom_pending = tot_nom_pending + Long.parseLong(result.get(i).getNominal());
             }
             prog_bar.setVisibility(View.GONE);
-            txt_est_bunga_diterima.setText(f.toNumb(""+tot_est_bunga_diterima));
-            txt_tot_nom_pending.setText(f.toNumb(""+(tot_nom_pending)));
-            rv.smoothScrollToPosition(results.size());
+            //rv.smoothScrollToPosition(results.size());
         }
     };
 

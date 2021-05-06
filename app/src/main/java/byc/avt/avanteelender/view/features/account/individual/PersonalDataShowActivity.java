@@ -66,7 +66,8 @@ public class PersonalDataShowActivity extends AppCompatActivity {
 
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
-    Button btn_save;
+    Button btn_save, btn_edit;
+    boolean editIsOn = false;
     AutoCompleteTextView auto_kewarganegaraan, auto_status, auto_religion, auto_education;
     String name="", gender="male", birthplace="", birthdate="", civil="", status="", religion="", education="", telprumah="", mothername="";
     List<Object> listCivil = new ArrayList<>();
@@ -178,6 +179,17 @@ public class PersonalDataShowActivity extends AppCompatActivity {
             }
         });
 
+        btn_edit = findViewById(R.id.btn_ubah_fr_personal_data_show);
+        btn_edit.setEnabled(true);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editIsOn = !editIsOn;
+                editIsOn(editIsOn);
+            }
+        });
+
+        editIsOn(false);
         loadData();
     }
 
@@ -257,6 +269,22 @@ public class PersonalDataShowActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void editIsOn(boolean s){
+        txtName.setEnabled(s);
+        txtBirthPlace.setEnabled(s);
+        txtBirthDate.setEnabled(s);
+        txtCivil.setEnabled(s);
+        txtStatus.setEnabled(s);
+        txtReligion.setEnabled(s);
+        txtEdu.setEnabled(s);
+        txtMotherName.setEnabled(s);
+        txtHomePhone.setEnabled(s);
+        for(int i = 0; i < radGroupGender.getChildCount(); i++){
+            ((RadioButton)radGroupGender.getChildAt(i)).setEnabled(s);
+        }
+        btn_save.setEnabled(s);
+    }
 
     public void loadData(){
         clearMasterList();

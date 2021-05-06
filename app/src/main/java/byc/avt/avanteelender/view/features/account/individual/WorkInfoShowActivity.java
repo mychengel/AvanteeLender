@@ -12,6 +12,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +59,8 @@ public class WorkInfoShowActivity extends AppCompatActivity {
 
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
-    Button btn_save;
+    Button btn_save, btn_edit;
+    boolean editIsOn = false;
     AutoCompleteTextView auto_job, auto_jobField, auto_jobPosition, auto_experience, auto_income,
             auto_fundsSource, auto_companyProvince, auto_companyCity, auto_companyDistrict, auto_companyUrban;
     String jobs="", jobField="", isOnlineBased="ya", jobPosition="", experience="", income="",
@@ -152,6 +155,20 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        txtCompanyPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                companyPostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         radGroupIsOnlineBased = findViewById(R.id.rad_group_is_online_based_fr_work_info_show);
         radGroupIsOnlineBased.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -174,8 +191,46 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             }
         });
 
+        btn_edit = findViewById(R.id.btn_ubah_fr_work_info_show);
+        btn_edit.setEnabled(true);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editIsOn = !editIsOn;
+                editIsOn(editIsOn);
+            }
+        });
+
+        editIsOn(false);
         loadData();
 
+    }
+
+    public void cekPostal(){
+        if(companyPostalCode.length() > 5){txtCompanyPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtCompanyPostalCode.setError(null);}
+    }
+
+    public void editIsOn(boolean s){
+        txtJob.setEnabled(s);
+        txtJobField.setEnabled(s);
+        txtJobPosition.setEnabled(s);
+        txtExperience.setEnabled(s);
+        txtIncome.setEnabled(s);
+        txtCompanyName.setEnabled(s);
+        txtCompanyNumber.setEnabled(s);
+        txtFundsSource.setEnabled(s);
+        txtCompanyAddress.setEnabled(s);
+        txtCompanyProvince.setEnabled(s);
+        txtCompanyCity.setEnabled(s);
+        txtCompanyDistrict.setEnabled(s);
+        txtCompanyUrban.setEnabled(s);
+        txtCompanyRT.setEnabled(s);
+        txtCompanyRW.setEnabled(s);
+        txtCompanyPostalCode.setEnabled(s);
+        for(int i = 0; i < radGroupIsOnlineBased.getChildCount(); i++){
+            ((RadioButton)radGroupIsOnlineBased.getChildAt(i)).setEnabled(s);
+        }
+        btn_save.setEnabled(s);
     }
 
     private void confirmNext(View v){
@@ -190,7 +245,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 && !companyName.isEmpty() && !income.isEmpty() && !fundsSource.isEmpty()
                 && !companyAddress.isEmpty() && !companyProvince.isEmpty() && !companyCity.isEmpty()
                 && !companyDistrict.isEmpty() && !companyUrban.isEmpty() && !companyRT.isEmpty()
-                && !companyRW.isEmpty() && !companyPostalCode.isEmpty()){
+                && !companyRW.isEmpty() && !companyPostalCode.isEmpty() && companyPostalCode.length() <= 5){
             gv.perEditData.put("event_name","data_pekerjaan");
             gv.perEditData.put("tipe_investor",prefManager.getClientType());
             gv.perEditData.put("pekerjaan",jobs);
@@ -254,6 +309,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 }else{
                     new Fungsi(WorkInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    cekError();
                     //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
@@ -262,6 +318,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(WorkInfoShowActivity.this).showMessage(msg);
                 dialog.cancel();
+                cekError();
                 //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
@@ -689,7 +746,8 @@ public class WorkInfoShowActivity extends AppCompatActivity {
         if(companyUrban.isEmpty()){txtCompanyUrban.setError(getString(R.string.cannotnull));}else{txtCompanyUrban.setError(null);}
         if(companyRT.isEmpty()){txtCompanyRT.setError(getString(R.string.cannotnull));}else{txtCompanyRT.setError(null);}
         if(companyRW.isEmpty()){txtCompanyRW.setError(getString(R.string.cannotnull));}else{txtCompanyRW.setError(null);}
-        if(companyPostalCode.isEmpty()){txtCompanyPostalCode.setError(getString(R.string.cannotnull));}else{txtCompanyPostalCode.setError(null);}
+        if(companyPostalCode.isEmpty()){txtCompanyPostalCode.setError(getString(R.string.cannotnull));}else if(companyPostalCode.length() > 5){txtCompanyPostalCode.setError(getString(R.string.postal_code_max_char));}
+        else{txtCompanyPostalCode.setError(null);}
     }
 
     @Override

@@ -55,18 +55,12 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
     @Override
     public void onBindViewHolder(@NonNull final PortofolioAktifAdapter.CardViewViewHolder holder, int position) {
         final PortofolioAktif ps = getListPortofolioAktif().get(position);
-        if(ps.getIs_on_time().equalsIgnoreCase("1")){
-            holder.txt_is_ontime.setVisibility(View.GONE);
-            holder.img_ontime.setVisibility(View.GONE);
-//            holder.txt_is_ontime.setText("Tepat waktu");
-//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_done_24));
+        holder.txt_status.setVisibility(View.VISIBLE);
+        holder.txt_status.setText(ps.getStatus());
+        if(ps.getStatus().equalsIgnoreCase("Terlambat")){
+            holder.txt_status.setTextColor(ContextCompat.getColor(context, R.color.pending));
         }else{
-            holder.txt_is_ontime.setVisibility(View.GONE);
-            holder.img_ontime.setVisibility(View.GONE);
-//            holder.txt_is_ontime.setVisibility(View.VISIBLE);
-//            holder.img_ontime.setVisibility(View.VISIBLE);
-//            holder.txt_is_ontime.setText("Terlambat");
-//            holder.img_ontime.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_late_24));
+            holder.txt_status.setTextColor(ContextCompat.getColor(context, R.color.darkO05));
         }
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());
@@ -116,7 +110,7 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
     }
 
     class CardViewViewHolder extends RecyclerView.ViewHolder{
-        TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_is_ontime;
+        TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_status;
         ImageView img_mark, img_ontime;
         Button btn_det;
         ConstraintLayout cons;
@@ -134,9 +128,9 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
             txt_angs_paid = itemView.findViewById(R.id.txt_angs_sudah_adp_port_aktif);
             txt_angs_next = itemView.findViewById(R.id.txt_angs_selanjutnya_adp_port_aktif);
             img_mark = itemView.findViewById(R.id.img_mark_adp_port_aktif);
-            img_ontime = itemView.findViewById(R.id.img_tepat_waktu_adp_port_aktif);
+            //img_ontime = itemView.findViewById(R.id.img_tepat_waktu_adp_port_aktif);
             //img_ontime.setVisibility(View.GONE);
-            txt_is_ontime = itemView.findViewById(R.id.lbl_tepat_waktu_adp_port_aktif);
+            txt_status = itemView.findViewById(R.id.lbl_tepat_waktu_adp_port_aktif);
             //txt_is_ontime.setVisibility(View.GONE);
             cons = itemView.findViewById(R.id.cons_adp_port_aktif);
         }

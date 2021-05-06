@@ -170,7 +170,7 @@
             <Button
                 android:id="@+id/btn_save_fr_bank_info_show"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="184dp"
+                android:layout_width="176dp"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="16dp"
@@ -185,6 +185,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_avg_transaction_fr_bank_info_show" />
+
+            <Button
+                android:id="@+id/btn_ubah_fr_bank_info_show"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/button_white"
+                android:letterSpacing="0.01"
+                android:text="@string/ubah"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_fr_bank_info_show"
+                app:layout_constraintTop_toTopOf="@+id/btn_save_fr_bank_info_show"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_save_fr_bank_info_show"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

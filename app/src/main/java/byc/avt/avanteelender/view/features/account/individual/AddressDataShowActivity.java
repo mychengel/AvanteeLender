@@ -12,6 +12,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -48,7 +51,8 @@ public class AddressDataShowActivity extends AppCompatActivity {
 
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
-    Button btn_save;
+    Button btn_save, btn_edit;
+    boolean editIsOn = false;
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
@@ -169,6 +173,34 @@ public class AddressDataShowActivity extends AppCompatActivity {
             }
         });
 
+        txtKtpPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ktpPostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        txtDomicilePostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                domicilePostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         btn_save = findViewById(R.id.btn_save_address_data_show);
         btn_save.setEnabled(true);
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -178,8 +210,47 @@ public class AddressDataShowActivity extends AppCompatActivity {
             }
         });
 
+        btn_edit = findViewById(R.id.btn_ubah_address_data_show);
+        btn_edit.setEnabled(true);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editIsOn = !editIsOn;
+                editIsOn(editIsOn);
+            }
+        });
+
+        editIsOn(false);
         loadData();
 
+    }
+
+    public void cekPostal(){
+        if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
+        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
+    }
+
+    public void editIsOn(boolean s){
+        txtKtpAddress.setEnabled(s);
+        txtKtpCountry.setEnabled(s);
+        txtKtpProvince.setEnabled(s);
+        txtKtpCity.setEnabled(s);
+        txtKtpDistrict.setEnabled(s);
+        txtKtpUrban.setEnabled(s);
+        txtKtpRT.setEnabled(s);
+        txtKtpRW.setEnabled(s);
+        txtKtpPostalCode.setEnabled(s);
+        txtDomicileAddress.setEnabled(s);
+        txtDomicileCountry.setEnabled(s);
+        txtDomicileProvince.setEnabled(s);
+        txtDomicileCity.setEnabled(s);
+        txtDomicileDistrict.setEnabled(s);
+        txtDomicileUrban.setEnabled(s);
+        txtDomicileRT.setEnabled(s);
+        txtDomicileRW.setEnabled(s);
+        txtDomicilePostalCode.setEnabled(s);
+        cb_domicile_same_as_ktp.setEnabled(s);
+        btn_save.setEnabled(s);
     }
 
     private void confirmNext(View v){
@@ -207,10 +278,10 @@ public class AddressDataShowActivity extends AppCompatActivity {
 
         if(!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
                 && !ktpDistrict.isEmpty() && !ktpUrban.isEmpty() && !ktpRT.isEmpty()
-                && !ktpRW.isEmpty() && !ktpPostalCode.isEmpty() && !domicileAddress.isEmpty()
+                && !ktpRW.isEmpty() && !ktpPostalCode.isEmpty() && ktpPostalCode.length() <= 5 && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
                 && !domicileDistrict.isEmpty() && !domicileUrban.isEmpty() && !domicileRT.isEmpty()
-                && !domicileRW.isEmpty() && !domicilePostalCode.isEmpty()){
+                && !domicileRW.isEmpty() && !domicilePostalCode.isEmpty() && domicilePostalCode.length() <= 5){
             gv.perEditData.put("event_name","data_alamat");
             gv.perEditData.put("tipe_investor",prefManager.getClientType());
             gv.perEditData.put("alamat_ktp",ktpAddress);
@@ -275,6 +346,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
                 }else{
                     new Fungsi(AddressDataShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    cekError();
                     //new Routes(AddressDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
@@ -283,6 +355,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(AddressDataShowActivity.this).showMessage(msg);
                 dialog.cancel();
+                cekError();
                 //new Routes(AddressDataShowActivity.this).moveOut();
             }
         }
@@ -720,7 +793,8 @@ public class AddressDataShowActivity extends AppCompatActivity {
         if(ktpUrban.isEmpty()){txtKtpUrban.setError(getString(R.string.cannotnull));}else{txtKtpUrban.setError(null);}
         if(ktpRT.isEmpty()){txtKtpRT.setError(getString(R.string.cannotnull));}else{txtKtpRT.setError(null);}
         if(ktpRW.isEmpty()){txtKtpRW.setError(getString(R.string.cannotnull));}else{txtKtpRW.setError(null);}
-        if(ktpPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}else{txtKtpPostalCode.setError(null);}
+        if(ktpPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}
+        else{txtKtpPostalCode.setError(null);}
         if(domicileAddress.isEmpty()){txtDomicileAddress.setError(getString(R.string.cannotnull));}else{txtDomicileAddress.setError(null);}
         if(domicileCountry.isEmpty()){txtDomicileCountry.setError(getString(R.string.cannotnull));}else{txtDomicileCountry.setError(null);}
         if(domicileProvince.isEmpty()){txtDomicileProvince.setError(getString(R.string.cannotnull));}else{txtDomicileProvince.setError(null);}
@@ -729,7 +803,8 @@ public class AddressDataShowActivity extends AppCompatActivity {
         if(domicileUrban.isEmpty()){txtDomicileUrban.setError(getString(R.string.cannotnull));}else{txtDomicileUrban.setError(null);}
         if(domicileRT.isEmpty()){txtDomicileRT.setError(getString(R.string.cannotnull));}else{txtDomicileRT.setError(null);}
         if(domicileRW.isEmpty()){txtDomicileRW.setError(getString(R.string.cannotnull));}else{txtDomicileRW.setError(null);}
-        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}else{txtDomicilePostalCode.setError(null);}
+        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}
+        else{txtDomicilePostalCode.setError(null);}
     }
 
     @Override

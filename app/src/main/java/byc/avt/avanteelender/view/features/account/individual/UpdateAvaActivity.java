@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -87,6 +88,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_ava);
+        gv.profileDataFile.clear();
         prefManager = PrefManager.getInstance(UpdateAvaActivity.this);
         toolbar = findViewById(R.id.tb_update_ava);
         setSupportActionBar(toolbar);
@@ -161,7 +163,8 @@ public class UpdateAvaActivity extends AppCompatActivity {
     private void confirmSave(){
         gv.profileData.put("handphone", noHp);
         if(str_ava.isEmpty()){
-            //gv.profileData.put("pic_user","");
+            //gv.profileData.put("pic_user",null);
+            //gv.profileDataFile.put("pic_user", null);
         }else{
             gv.profileDataFile.put("pic_user", new DataPart("ava.jpg", ava_byte, "image/jpeg"));
         }
@@ -274,37 +277,40 @@ public class UpdateAvaActivity extends AppCompatActivity {
         }
     }
 
-    String currentPhotoPath;
-
+    String currentPhotoPath = "";
     String imageFileName = "";
     private void showCameraCapture(int PICK_IMAGE_REQUEST, String PICK_IMAGE_TYPE) {
         imageFileName = PICK_IMAGE_TYPE+".jpg";
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File storageDir = null;
         File file = null;
-//        try{
-//            folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-//            if (!folder.exists()) {
-//                folder.mkdirs();
-//            }
-//            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
-//            if (!file.exists()) {
-//                file.createNewFile();
-//            }
-//            Log.e("Path Foto", file+"");
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        try {
-            storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            file = File.createTempFile(
-                    imageFileName,  /* prefix */
-                    "",         /* suffix */
-                    storageDir      /* directory */
-            );
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        if(Build.VERSION.SDK_INT >= 29){
+            try {
+                storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                file = File.createTempFile(
+                        "ava",  /* prefix */
+                        ".jpg",         /* suffix */
+                        storageDir     /* directory */
+                );
+                currentPhotoPath = file.getAbsolutePath();
+                Log.e("takePhoto", currentPhotoPath);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }else{
+            try{
+                storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
+                if (!storageDir.exists()) {
+                    storageDir.mkdirs();
+                }
+                file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                Log.e("Path Foto", file+"");
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -353,9 +359,16 @@ public class UpdateAvaActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                //File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                File path = Environment.getExternalStorageDirectory();
-                File file = new File(path, imageFileName);
+                File path = null;
+                File file = null;
+                if(Build.VERSION.SDK_INT >=29){
+                    path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    file = new File(currentPhotoPath);
+                }else{
+                    path = Environment.getExternalStorageDirectory();
+                    file = new File(path, "/avantee/"+imageFileName);
+                }
+
                 Uri filePath = FileProvider.getUriForFile(UpdateAvaActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
