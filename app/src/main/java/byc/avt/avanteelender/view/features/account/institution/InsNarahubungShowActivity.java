@@ -12,6 +12,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
@@ -40,7 +43,8 @@ import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 public class InsNarahubungShowActivity extends AppCompatActivity {
 
-    Button btn_save;
+    Button btn_save, btn_edit;
+    boolean editIsOn = false;
 
     Fungsi f = new Fungsi(InsNarahubungShowActivity.this);
     private MasterDataViewModel viewModel;
@@ -81,6 +85,21 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
         txtNoKtp = findViewById(R.id.edit_ktp_ins_narahubung_show);
         txtBirthDate = findViewById(R.id.edit_birth_date_ins_narahubung_show);
         editBirthDate = findViewById(R.id.editText_birthdate_ins_narahubung_show);
+
+        txtNoKtp.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                noKtp = txtNoKtp.getEditText().getText().toString().trim();
+                cekKTP(noKtp);
+                //cekDone();
+            }
+        });
 
         editBirthDate.setFocusable(false);
         editBirthDate.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +145,44 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        btn_edit = findViewById(R.id.btn_ubah_ins_narahubung_show);
+        btn_edit.setEnabled(true);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editIsOn = !editIsOn;
+                editIsOn(editIsOn);
+            }
+        });
+
+        editIsOn(false);
         //loadData();
+    }
+
+    public void editIsOn(boolean s){
+        txtName.setEnabled(s);
+        txtJabatan.setEnabled(s);
+        txtPhone.setEnabled(s);
+        txtEmail.setEnabled(s);
+        txtNoKtp.setEnabled(s);
+        txtBirthDate.setEnabled(s);
+        btn_save.setEnabled(s);
+    }
+
+    boolean ktpisvalid = false;
+    public void cekKTP(String ktp){
+        if(TextUtils.isEmpty(ktp)){
+            txtNoKtp.setError(getString(R.string.cannotnull));
+            ktpisvalid = false;
+        }else{
+            if(ktp.length() < 16){
+                txtNoKtp.setError(getString(R.string.min_digit_ktp));
+                ktpisvalid = false;
+            }else if(ktp.length() == 16){
+                txtNoKtp.setError(null);
+                ktpisvalid = true;
+            }
+        }
     }
 
     private void confirmNext(View v){
