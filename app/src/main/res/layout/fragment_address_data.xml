@@ -248,6 +248,7 @@
                     android:background="@color/lightest_neutral"
                     android:hint="@string/postal_code"
                     android:inputType="text|number"
+                    android:maxLength="5"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -504,6 +505,7 @@
                         android:background="@color/lightest_neutral"
                         android:hint="@string/postal_code"
                         android:inputType="text|number"
+                        android:maxLength="5"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp" />
                 </com.google.android.material.textfield.TextInputLayout>

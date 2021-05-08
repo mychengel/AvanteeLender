@@ -92,7 +92,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     TextView txt_ktp, txt_npwp, txt_selfie, txt_ttd;
     CardView cv_ktp, cv_npwp, cv_selfie, cv_ttd;
     LinearLayout lin_npwp;
-    boolean is_not_have_npwp = false;
+    boolean is_not_have_npwp = false, punya_npwp = false;
     Button btn_next;
     String no_ktp = "", no_npwp = "", tgl_npwp = "";
     byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null, ttd_byte = null;
@@ -145,7 +145,10 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 lin_npwp.setVisibility(View.GONE);
                 cb_not_have_npwp.setChecked(true);
                 is_not_have_npwp = true;
+                punya_npwp = false;
             }else{
+                punya_npwp = true;
+                cb_not_have_npwp.setChecked(false);
                 lin_npwp.setVisibility(View.VISIBLE);
                 no_npwp = job.getString("npwp_no");
                 is_not_have_npwp = false;
@@ -483,7 +486,12 @@ public class DataPendukungShowActivity extends AppCompatActivity {
         img_selfie.setEnabled(s);
         img_spesimen_ttd.setEnabled(s);
         lin_npwp.setEnabled(s);
-        cb_not_have_npwp.setEnabled(s);
+        if(punya_npwp){
+            cb_not_have_npwp.setEnabled(false);
+        }else{
+            cb_not_have_npwp.setEnabled(s);
+        }
+
         int elev = 0;
         if(s){
             elev = 8;
