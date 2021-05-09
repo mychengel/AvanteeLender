@@ -218,8 +218,8 @@ public class AuthenticationRepository {
                             }else{
                                 e.printStackTrace();
                                 Map<String,Object> msg = new HashMap<>();
-                                msg.put("code",400);
-                                msg.put("msg", context.getString(R.string.doc_not_valid));
+                                msg.put("code",900);
+                                msg.put("msg", context.getString(R.string.system_in_trouble));
                                 result.setValue(new JSONObject(msg));
                             }
                         }
@@ -231,8 +231,8 @@ public class AuthenticationRepository {
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", error.toString());
                         Map<String,Object> msg = new HashMap<>();
-                        msg.put("code",400);
-                        msg.put("msg", context.getString(R.string.doc_not_valid));
+                        msg.put("code",900);
+                        msg.put("msg", context.getString(R.string.system_in_trouble));
                         result.setValue(new JSONObject(msg));
                     }
                 }

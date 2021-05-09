@@ -98,7 +98,7 @@ public class PersonalDataFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
-        gv.stPerWorkInfo = false;
+        //gv.stPerWorkInfo = false;
         auto_kewarganegaraan = view.findViewById(R.id.auto_kewarganegaraan_fr_personal_data);
         auto_status = view.findViewById(R.id.auto_status_fr_personal_data);
         auto_religion = view.findViewById(R.id.auto_religion_fr_personal_data);
@@ -210,6 +210,9 @@ public class PersonalDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCivil.add(jar.getJSONObject(i).getString("name"));
                         listCivilID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(civil)){
+                            txtCivil.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCivil);
                     auto_kewarganegaraan.setAdapter(adapter);
@@ -240,6 +243,9 @@ public class PersonalDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listStatus.add(jar.getJSONObject(i).getString("name"));
                         listStatusID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(status)){
+                            txtStatus.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listStatus);
                     auto_status.setAdapter(adapter);
@@ -270,6 +276,9 @@ public class PersonalDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listReligion.add(jar.getJSONObject(i).getString("name"));
                         listReligionID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(religion)){
+                            txtReligion.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listReligion);
                     auto_religion.setAdapter(adapter);
@@ -300,6 +309,9 @@ public class PersonalDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listEdu.add(jar.getJSONObject(i).getString("name"));
                         listEduID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(education)){
+                            txtEdu.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listEdu);
                     auto_education.setAdapter(adapter);

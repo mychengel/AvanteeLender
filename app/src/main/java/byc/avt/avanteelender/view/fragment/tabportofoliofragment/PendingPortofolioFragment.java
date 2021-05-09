@@ -38,6 +38,7 @@ import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.model.PortofolioPending;
 import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
+import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.PendingPortofolioViewModel;
 
 public class PendingPortofolioFragment extends Fragment {
@@ -65,6 +66,7 @@ public class PendingPortofolioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        PortofolioFragment.index = 0;
         f = new Fungsi(requireActivity());
         viewModel = new ViewModelProvider(this).get(PendingPortofolioViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());

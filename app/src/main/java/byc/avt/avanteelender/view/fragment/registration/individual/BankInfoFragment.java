@@ -76,7 +76,7 @@ public class BankInfoFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
-        gv.stPerDocument = false;
+        //gv.stPerDocument = false;
 
         cb_owner_name_same_as_name = view.findViewById(R.id.cb_owner_name_same_as_name_fr_bank_info);
         auto_bank = view.findViewById(R.id.auto_bank_name_fr_bank_info);
@@ -174,6 +174,9 @@ public class BankInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listBank.add(jar.getJSONObject(i).getString("name"));
                         listBankID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(bank)){
+                            txtBank.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listBank);
                     auto_bank.setAdapter(adapter);
@@ -204,6 +207,9 @@ public class BankInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listAvgTrans.add(jar.getJSONObject(i).getString("name"));
                         listAvgTransID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(avgTrans)){
+                            txtAvgTrans.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listAvgTrans);
                     auto_avg_trans.setAdapter(adapter);

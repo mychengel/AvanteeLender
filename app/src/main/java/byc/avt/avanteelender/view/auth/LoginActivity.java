@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // Masuk DASHBOARD
                                         Log.e("TTDSuratPK", "Aman");
                                         i = new Intent(LoginActivity.this, MainActivity.class);
+                                        i.putExtra("dest", "1");
                                         f.showMessage("Selamat datang "+res.getString("name"));
                                     }else{
                                         msg = res.getJSONObject("suratperjanjian").getString("msg");

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ import byc.avt.avanteelender.model.Pendanaan;
 
 public class PendanaanAdapter extends RecyclerView.Adapter<PendanaanAdapter.CardViewViewHolder>{
 
-    AlphaAnimation klik = new AlphaAnimation(1F, 0.6F);
     Fungsi f = new Fungsi();
     private Context context;
     private ArrayList<Pendanaan> listPendanaan;

@@ -96,7 +96,7 @@ public class AddressDataFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
-        gv.stPerBankInfo = false;
+        //gv.stPerBankInfo = false;
 
         auto_ktpCountry = view.findViewById(R.id.auto_ktp_country_fr_address_data);
         auto_ktpProvince = view.findViewById(R.id.auto_ktp_province_fr_address_data);
@@ -134,6 +134,24 @@ public class AddressDataFragment extends Fragment {
                 if(b){
                     is_domicile_same_as_ktp = true;
                     lin_domicile_area.setVisibility(View.GONE);
+                    txtDomicileAddress.getEditText().setText(txtKtpAddress.getEditText().getText());
+                    txtDomicileCountry.getEditText().setText(txtKtpCountry.getEditText().getText());
+                    txtDomicileProvince.getEditText().setText(txtKtpProvince.getEditText().getText());
+                    txtDomicileCity.getEditText().setText(txtKtpCity.getEditText().getText());
+                    txtDomicileDistrict.getEditText().setText(txtKtpDistrict.getEditText().getText());
+                    txtDomicileUrban.getEditText().setText(txtKtpUrban.getEditText().getText());
+                    txtDomicileRT.getEditText().setText(txtKtpRT.getEditText().getText());
+                    txtDomicileRW.getEditText().setText(txtKtpRW.getEditText().getText());
+                    txtDomicilePostalCode.getEditText().setText(txtKtpPostalCode.getEditText().getText());
+                    domicileAddress = ktpAddress;
+                    domicileCountry = ktpCountry;
+                    domicileProvince = ktpProvince;
+                    domicileCity = ktpCity;
+                    domicileDistrict = ktpDistrict;
+                    domicileUrban = ktpUrban;
+                    domicileRT = ktpRT;
+                    domicileRW = ktpRW;
+                    domicilePostalCode = ktpPostalCode;
                 }else{
                     is_domicile_same_as_ktp = false;
                     lin_domicile_area.setVisibility(View.VISIBLE);
@@ -173,9 +191,7 @@ public class AddressDataFragment extends Fragment {
             ktpProvince = gv.perRegData.get("provinsi_ktp").toString();
             ktpCity = gv.perRegData.get("kota_ktp").toString();
             ktpDistrict = gv.perRegData.get("kecamatan_ktp").toString();
-            txtKtpDistrict.getEditText().setText(ktpDistrict);
             ktpUrban = gv.perRegData.get("kelurahan_ktp").toString();
-            txtKtpUrban.getEditText().setText(ktpUrban);
             ktpRT = gv.perRegData.get("rt_ktp").toString();
             txtKtpRT.getEditText().setText(ktpRT);
             ktpRW = gv.perRegData.get("rw_ktp").toString();
@@ -188,9 +204,7 @@ public class AddressDataFragment extends Fragment {
             domicileProvince = gv.perRegData.get("provinsi_tempat_tinggal").toString();
             domicileCity = gv.perRegData.get("kota_tempat_tinggal").toString();
             domicileDistrict = gv.perRegData.get("kecamatan_tempat_tinggal").toString();
-            txtDomicileDistrict.getEditText().setText(domicileDistrict);
             domicileUrban = gv.perRegData.get("kelurahan_tempat_tinggal").toString();
-            txtDomicileUrban.getEditText().setText(domicileUrban);
             domicileRT = gv.perRegData.get("rt_tempat_tinggal").toString();
             txtDomicileRT.getEditText().setText(domicileRT);
             domicileRW = gv.perRegData.get("rw_tempat_tinggal").toString();
@@ -317,6 +331,9 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCountryKTP.add(jar.getJSONObject(i).getString("name"));
                         listCountryIDKTP.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(ktpCountry)){
+                            txtKtpCountry.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCountryKTP);
                     auto_ktpCountry.setAdapter(adapter);
@@ -347,6 +364,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listProvinceKTP.add(jar.getJSONObject(i).getString("name"));
                         listProvinceIDKTP.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(ktpProvince)){
+                            txtKtpProvince.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getCity(prefManager.getUid(), prefManager.getToken(), ktpProvince);
+                            viewModel.getResultCity().observe(getActivity(), showCityKTP);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listProvinceKTP);
                     auto_ktpProvince.setAdapter(adapter);
@@ -381,6 +403,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCityKTP.add(jar.getJSONObject(i).getString("name"));
                         listCityIDKTP.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(ktpCity)){
+                            txtKtpCity.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getDistrict(prefManager.getUid(), prefManager.getToken(), ktpCity);
+                            viewModel.getResultDistrict().observe(getActivity(), showDistrictKTP);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCityKTP);
                     auto_ktpCity.setAdapter(adapter);
@@ -415,6 +442,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listDistrictKTP.add(jar.getJSONObject(i).getString("name"));
                         listDistrictIDKTP.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(ktpDistrict)){
+                            txtKtpDistrict.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getUrban(prefManager.getUid(), prefManager.getToken(), ktpDistrict);
+                            viewModel.getResultUrban().observe(getActivity(), showUrbanKTP);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listDistrictKTP);
                     auto_ktpDistrict.setAdapter(adapter);
@@ -449,6 +481,9 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listUrbanKTP.add(jar.getJSONObject(i).getString("name"));
                         listUrbanIDKTP.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(ktpUrban)){
+                            txtKtpUrban.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listUrbanKTP);
                     auto_ktpUrban.setAdapter(adapter);
@@ -479,6 +514,9 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCountryDomicile.add(jar.getJSONObject(i).getString("name"));
                         listCountryIDDomicile.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(domicileCountry)){
+                            txtDomicileCountry.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCountryDomicile);
                     auto_domicileCountry.setAdapter(adapter);
@@ -509,6 +547,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listProvinceDomicile.add(jar.getJSONObject(i).getString("name"));
                         listProvinceIDDomicile.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(domicileProvince)){
+                            txtDomicileProvince.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getCity(prefManager.getUid(), prefManager.getToken(), domicileProvince);
+                            viewModel.getResultCity().observe(getActivity(), showCityDom);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listProvinceDomicile);
                     auto_domicileProvince.setAdapter(adapter);
@@ -543,6 +586,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCityDomicile.add(jar.getJSONObject(i).getString("name"));
                         listCityIDDomicile.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(domicileCity)){
+                            txtDomicileCity.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getDistrict(prefManager.getUid(), prefManager.getToken(), domicileCity);
+                            viewModel.getResultDistrict().observe(getActivity(), showDistrictDom);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCityDomicile);
                     auto_domicileCity.setAdapter(adapter);
@@ -577,6 +625,11 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listDistrictDomicile.add(jar.getJSONObject(i).getString("name"));
                         listDistrictIDDomicile.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(domicileDistrict)){
+                            txtDomicileDistrict.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getUrban(prefManager.getUid(), prefManager.getToken(), domicileDistrict);
+                            viewModel.getResultUrban().observe(getActivity(), showUrbanDom);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listDistrictDomicile);
                     auto_domicileDistrict.setAdapter(adapter);
@@ -611,6 +664,9 @@ public class AddressDataFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listUrbanDomicile.add(jar.getJSONObject(i).getString("name"));
                         listUrbanIDDomicile.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(domicileUrban)){
+                            txtDomicileUrban.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listUrbanDomicile);
                     auto_domicileUrban.setAdapter(adapter);

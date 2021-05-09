@@ -37,6 +37,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioPending;
 import byc.avt.avanteelender.model.PortofolioSelesai;
+import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.SelesaiPortofolioViewModel;
 
 public class SelesaiPortofolioFragment extends Fragment {
@@ -64,6 +65,7 @@ public class SelesaiPortofolioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        PortofolioFragment.index = 0;
         f = new Fungsi(requireActivity());
         viewModel = new ViewModelProvider(this).get(SelesaiPortofolioViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());

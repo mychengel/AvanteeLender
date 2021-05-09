@@ -426,6 +426,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                         // Masuk DASHBOARD
                                         Log.e("TTDSuratPK", "Aman");
                                         i = new Intent(UpdateAvaActivity.this, MainActivity.class);
+                                        i.putExtra("dest","1");
                                     }else{
                                         msg = res.getJSONObject("suratperjanjian").getString("msg");
                                         f.showMessage(msg);

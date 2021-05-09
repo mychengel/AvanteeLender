@@ -93,7 +93,7 @@ public class WorkInfoFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
-        gv.stPerAddressData = false;
+        //gv.stPerAddressData = false;
 
         auto_job = view.findViewById(R.id.auto_job_fr_work_info);
         auto_jobField = view.findViewById(R.id.auto_job_field_fr_work_info);
@@ -311,6 +311,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJob.add(jar.getJSONObject(i).getString("name"));
                         listJobID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(job)){
+                            txtJob.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJob);
                     auto_job.setAdapter(adapter);
@@ -341,6 +344,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJobField.add(jar.getJSONObject(i).getString("name"));
                         listJobFieldID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(jobField)){
+                            txtJobField.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobField);
                     auto_jobField.setAdapter(adapter);
@@ -371,6 +377,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listJobPosition.add(jar.getJSONObject(i).getString("name"));
                         listJobPositionID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(jobPosition)){
+                            txtJobPosition.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listJobPosition);
                     auto_jobPosition.setAdapter(adapter);
@@ -401,6 +410,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listExperience.add(jar.getJSONObject(i).getString("name"));
                         listExperienceID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(experience)){
+                            txtExperience.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listExperience);
                     auto_experience.setAdapter(adapter);
@@ -431,6 +443,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listIncome.add(jar.getJSONObject(i).getString("name"));
                         listIncomeID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(income)){
+                            txtIncome.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listIncome);
                     auto_income.setAdapter(adapter);
@@ -461,6 +476,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listFundsSource.add(jar.getJSONObject(i).getString("name"));
                         listFundsSourceID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(fundsSource)){
+                            txtFundsSource.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listFundsSource);
                     auto_fundsSource.setAdapter(adapter);
@@ -491,6 +509,11 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listProvince.add(jar.getJSONObject(i).getString("name"));
                         listProvinceID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(companyProvince)){
+                            txtCompanyProvince.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                            viewModel.getCity(prefManager.getUid(), prefManager.getToken(), companyProvince);
+                            viewModel.getResultCity().observe(getActivity(), showCity);
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listProvince);
                     auto_companyProvince.setAdapter(adapter);
@@ -525,6 +548,11 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listCity.add(jar.getJSONObject(i).getString("name"));
                         listCityID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(companyCity)){
+                            viewModel.getDistrict(prefManager.getUid(), prefManager.getToken(), companyCity);
+                            viewModel.getResultDistrict().observe(getActivity(), showDistrict);
+                            txtCompanyCity.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listCity);
                     auto_companyCity.setAdapter(adapter);
@@ -559,6 +587,11 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listDistrict.add(jar.getJSONObject(i).getString("name"));
                         listDistrictID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(companyDistrict)){
+                            viewModel.getUrban(prefManager.getUid(), prefManager.getToken(), companyDistrict);
+                            viewModel.getResultUrban().observe(getActivity(), showUrban);
+                            txtCompanyDistrict.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listDistrict);
                     auto_companyDistrict.setAdapter(adapter);
@@ -593,6 +626,9 @@ public class WorkInfoFragment extends Fragment {
                     for(int i = 0; i < jar.length(); i++){
                         listUrban.add(jar.getJSONObject(i).getString("name"));
                         listUrbanID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(companyUrban)){
+                            txtCompanyUrban.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
                     }
                     ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, listUrban);
                     auto_companyUrban.setAdapter(adapter);

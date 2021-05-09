@@ -58,7 +58,7 @@ public class PendanaanActivity extends AppCompatActivity {
         img_tbk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(f.clickAnim());
+                //view.startAnimation(f.clickAnim());
                 TkbSheetFragment tkbFragment = TkbSheetFragment.getInstance();
                 tkbFragment.show(getSupportFragmentManager(), tkbFragment.getTag());
             }
@@ -92,7 +92,7 @@ public class PendanaanActivity extends AppCompatActivity {
                 ItemClickSupport.addTo(rv).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        v.startAnimation(f.clickAnim());
+                        //v.startAnimation(f.clickAnim());
                         Pendanaan pendanaan = result.get(position);
                         Intent i = new Intent(PendanaanActivity.this, PendanaanDetailActivity.class);
                         i.putExtra("loan_no", pendanaan.getLoan_no());

@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.here.oksse.OkSse;
+import com.here.oksse.ServerSentEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +41,11 @@ import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.features.pendanaan.SignerPendanaanActivity;
+import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SignersCheckActivity extends AppCompatActivity {
 
@@ -151,6 +156,48 @@ public class SignersCheckActivity extends AppCompatActivity {
                     Document doc = Jsoup.parse(String.valueOf(page));
                     String inFrameView = doc.toString();
                     simpleWebView.loadDataWithBaseURL(null, page, "text/HTML", "UTF-8", null);
+
+                    String url = GlobalVariables.BASE_URL+"internal/privy/sign_status/"+doc_token;
+                    Request request = new Request.Builder().url(url).build();
+                    OkSse okSse = new OkSse();
+                    ServerSentEvent sse = okSse.newServerSentEvent(request, new ServerSentEvent.Listener() {
+                        @Override
+                        public void onOpen(ServerSentEvent sse, Response response) {
+                        }
+                        @Override
+                        public void onMessage(ServerSentEvent sse, String id, String event, String message) {
+                            Log.e("SSE", message);
+                            try {
+                                JSONObject job = new JSONObject(message);
+                                String status = job.getString("sign");
+                                if(status.equalsIgnoreCase("Completed")){
+                                    confirmLogin();
+                                    sse.close();
+                                }else{}
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onComment(ServerSentEvent sse, String comment) {
+                        }
+                        @Override
+                        public boolean onRetryTime(ServerSentEvent sse, long milliseconds) {
+                            return false;
+                        }
+                        @Override
+                        public boolean onRetryError(ServerSentEvent sse, Throwable throwable, Response response) {
+                            return false;
+                        }
+                        @Override
+                        public void onClosed(ServerSentEvent sse) {
+                        }
+                        @Override
+                        public Request onPreRetry(ServerSentEvent sse, Request originalRequest) {
+                            return null;
+                        }
+                    });
+
                 }
 
             } catch (JSONException e) {
@@ -244,6 +291,7 @@ public class SignersCheckActivity extends AppCompatActivity {
                                         // Masuk DASHBOARD
                                         Log.e("TTDSuratPK", "Aman");
                                         i = new Intent(SignersCheckActivity.this, MainActivity.class);
+                                        i.putExtra("dest","1");
                                         f.showMessage("Selamat datang "+res.getString("name"));
                                     }else{
                                         msg = res.getJSONObject("suratperjanjian").getString("msg");

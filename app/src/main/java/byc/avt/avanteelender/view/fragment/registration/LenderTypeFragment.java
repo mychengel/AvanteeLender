@@ -46,10 +46,10 @@ public class LenderTypeFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         f = new Fungsi(getActivity());
-        gv.stPerPersonalData = false;
-        gv.perRegData.clear();
+        //gv.stPerPersonalData = false;
+        //gv.perRegData.clear();
         gv.perRegDataFile.clear();
-        gv.insRegData.clear();
+        //gv.insRegData.clear();
         gv.insRegDataFile.clear();
         cvIndividu = view.findViewById(R.id.cv_personal_fr_lender_type);
         cvInstitution = view.findViewById(R.id.cv_ins_fr_lender_type);

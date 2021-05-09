@@ -49,8 +49,20 @@ public class MainActivity extends AppCompatActivity {
         Log.e("expiredtoken", ""+prefManager.getExpiredTime());
         navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        if (savedInstanceState == null){
+//        if (savedInstanceState == null){
+//            navView.setSelectedItemId(R.id.navigation_dasbor);
+//        }
+
+        if(getIntent().getStringExtra("dest").equalsIgnoreCase("1")){
             navView.setSelectedItemId(R.id.navigation_dasbor);
+        }else{
+            String to = getIntent().getStringExtra("dest").split(":")[0];
+            String index = getIntent().getStringExtra("dest").split(":")[1];
+            if(to.equalsIgnoreCase("2")){
+                PortofolioFragment.index = Integer.parseInt(index);
+                navView.setSelectedItemId(R.id.navigation_portofolio);
+            }
+
         }
         disableShiftMode(navView);
     }
@@ -69,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_portofolio:
                     fragment = new PortofolioFragment();
                     loadFragment(fragment);
+                    //PortofolioFragment.index = 0;
                     return true;
                 case R.id.navigation_notifikasi:
                     fragment = new NotificationsFragment();
@@ -83,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_main, fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @SuppressLint("RestrictedAPI")

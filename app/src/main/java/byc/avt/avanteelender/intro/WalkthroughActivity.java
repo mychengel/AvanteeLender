@@ -140,6 +140,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         }else{
             new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali "+prefManager.getName());
             Intent intent = new Intent(WalkthroughActivity.this, MainActivity.class);
+            intent.putExtra("dest", "1");
             new Routes(WalkthroughActivity.this).moveInFinish(intent);
         }
 

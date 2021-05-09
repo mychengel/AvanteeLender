@@ -311,13 +311,19 @@
                             android:layout_weight="1"
                             android:background="@drawable/button_green"
                             android:contentDescription="@string/img"
-                            android:foreground="@drawable/ic_top_up_button"
+                            android:drawableLeft="@drawable/ic_top_up_white"
+
                             android:gravity="center|center_horizontal|center_vertical"
                             android:paddingStart="30dp"
                             android:paddingEnd="30dp"
+                            android:paddingBottom="0dp"
+                            android:paddingTop="0dp"
                             android:textAlignment="center"
                             android:textAllCaps="false"
-                            android:textColor="@color/white">
+                            android:textColor="@color/white"
+                            android:text="@string/topup"
+                            app:backgroundTint="@null"
+                            tools:targetApi="m">
 
                         </Button>
 
@@ -332,10 +338,16 @@
                             android:layout_weight="1"
                             android:background="@drawable/button_state_selector"
                             android:enabled="true"
-                            android:foreground="@drawable/ic_tarik_button"
                             android:textAlignment="center"
                             android:textAllCaps="false"
-                            android:textColor="@color/white" />
+                            android:drawableLeft="@drawable/ic_withdraw_white"
+                            android:paddingBottom="0dp"
+                            android:paddingTop="0dp"
+                            android:paddingStart="30dp"
+                            android:paddingEnd="30dp"
+                            android:text="@string/tarik"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@null"/>
 
                     </LinearLayout>
 

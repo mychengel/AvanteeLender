@@ -40,6 +40,7 @@ import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioPending;
+import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.SelesaiPortofolioViewModel;
@@ -70,6 +71,7 @@ public class AktifPortofolioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
+        PortofolioFragment.index = 0;
         viewModel = new ViewModelProvider(this).get(AktifPortofolioViewModel.class);
         f = new Fungsi(requireActivity());
         prefManager = PrefManager.getInstance(getActivity());

@@ -49,7 +49,7 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         f = new Fungsi(getActivity());
-        gv.perRegData.clear();
+        //gv.perRegData.clear();
         btn_begin = view.findViewById(R.id.btn_welcome_form_begin);
         btn_begin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -125,7 +125,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         }else{
         }
 
-        cv_download_surat_kuasa_pemberi_dana.setOnClickListener(new View.OnClickListener() {
+        cv_download_agreement_penerima_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkPermission();
@@ -135,7 +135,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             }
         });
 
-        cv_download_agreement_penerima_dana.setOnClickListener(new View.OnClickListener() {
+        cv_download_surat_kuasa_pemberi_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkPermission();

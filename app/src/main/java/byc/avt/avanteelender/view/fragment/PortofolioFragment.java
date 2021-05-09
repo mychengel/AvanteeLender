@@ -26,8 +26,11 @@ public class PortofolioFragment extends Fragment {
        return inflater.inflate(R.layout.fragment_portofolio, container, false);
     }
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    public static int index = 0;
+
+    public static TabLayout tabLayout;
+    public static ViewPager viewPager;
+    public static ViewPagerAdapter adapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -35,14 +38,12 @@ public class PortofolioFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tab_lay_fr_portfolio);
         viewPager = view.findViewById(R.id.vp_fr_portfolio);
         if (viewPager != null) {
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+            adapter = new ViewPagerAdapter(getChildFragmentManager());
             adapter.addFragment(new AktifPortofolioFragment(), getString(R.string.aktif));
             adapter.addFragment(new PendingPortofolioFragment(), getString(R.string.pending));
             adapter.addFragment(new SelesaiPortofolioFragment(), getString(R.string.selesai));
-            viewPager.setAdapter(adapter);
         }
-        assert viewPager != null;
-        tabLayout.setupWithViewPager(viewPager);
+        setTab(index);
 //        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //            @Override
 //            public void onPageScrolled(int i, float v, int i1) {
@@ -78,6 +79,13 @@ public class PortofolioFragment extends Fragment {
 //
 //            }
 //        });
+    }
+
+    public static void setTab(int i){
+        viewPager.setAdapter(adapter);
+        assert viewPager != null;
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.selectTab(tabLayout.getTabAt(i));
     }
 
 }
