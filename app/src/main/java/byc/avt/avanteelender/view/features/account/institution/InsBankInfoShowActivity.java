@@ -202,6 +202,7 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
         txtBank.setEnabled(s);
         txtAccountName.setEnabled(s);
         txtAccountNumber.setEnabled(s);
+        cb_owner_name_same_as_name.setEnabled(s);
         btn_save.setEnabled(s);
     }
 

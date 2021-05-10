@@ -13,10 +13,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -68,6 +72,8 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         date_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                final SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                 MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
                 builder.setTitleText("Tanggal batas awal");
                 builder.setSelection(Calendar.getInstance().getTimeInMillis());
@@ -76,8 +82,6 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                         dateStart = sdf.format(selection);
                         date_start.setText(sdf2.format(selection));
                     }
@@ -89,6 +93,8 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         date_end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                final SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                 MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
                 builder.setTitleText("Tanggal batas akhir");
                 builder.setSelection(Calendar.getInstance().getTimeInMillis());
@@ -97,8 +103,6 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
                         dateEnd = sdf.format(selection);
                         date_end.setText(sdf2.format(selection));
                     }

@@ -137,6 +137,7 @@ public class SignersCheckActivity extends AppCompatActivity {
         }
     };
 
+    ServerSentEvent sse;
     private Observer<JSONObject> showSignerResult = new Observer<JSONObject>() {
         @Override
         public void onChanged(JSONObject result) {
@@ -160,7 +161,7 @@ public class SignersCheckActivity extends AppCompatActivity {
                     String url = GlobalVariables.BASE_URL+"internal/privy/sign_status/"+doc_token;
                     Request request = new Request.Builder().url(url).build();
                     OkSse okSse = new OkSse();
-                    ServerSentEvent sse = okSse.newServerSentEvent(request, new ServerSentEvent.Listener() {
+                    sse = okSse.newServerSentEvent(request, new ServerSentEvent.Listener() {
                         @Override
                         public void onOpen(ServerSentEvent sse, Response response) {
                         }
@@ -171,8 +172,9 @@ public class SignersCheckActivity extends AppCompatActivity {
                                 JSONObject job = new JSONObject(message);
                                 String status = job.getString("sign");
                                 if(status.equalsIgnoreCase("Completed")){
-                                    confirmLogin();
                                     sse.close();
+                                    Intent intent = new Intent(SignersCheckActivity.this, AfterSignActivity.class);
+                                    new Routes(SignersCheckActivity.this).moveOutIntent(intent);
                                 }else{}
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -239,6 +241,7 @@ public class SignersCheckActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
+                        sse.close();
                         confirmLogin();
                     }
                 })
@@ -246,6 +249,7 @@ public class SignersCheckActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        sse.close();
                         logout();
                     }
                 })

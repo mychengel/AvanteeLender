@@ -252,35 +252,36 @@ public class OTPSettingsActivity extends AppCompatActivity {
                     if(verif == 1){
                         if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
                             Log.e("Doc", "Aman");
-                            if(res.isNull("privy_status")){
-                                Log.e("PrivyStatus", "Aman");
-                                if(res.isNull("suratkuasa")){
-                                    Log.e("TTDSuratKuasa", "Aman");
-                                    if(res.isNull("suratperjanjian")){
-                                        // Masuk DASHBOARD
-                                        Log.e("TTDSuratPK", "Aman");
-                                        i = new Intent(OTPSettingsActivity.this, MainActivity.class);
-                                        i.putExtra("dest", "1");
+                            if(res.isNull("doc_otp")){
+                                if(res.isNull("privy_status")){
+                                    Log.e("PrivyStatus", "Aman");
+                                    if(res.isNull("suratkuasa")){
+                                        Log.e("TTDSuratKuasa", "Aman");
+                                        if(res.isNull("suratperjanjian")){
+                                            // Masuk DASHBOARD
+                                            Log.e("TTDSuratPK", "Aman");
+                                            i = new Intent(OTPSettingsActivity.this, MainActivity.class);
+                                            i.putExtra("dest", "1");
+                                        }else{
+                                            msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                            f.showMessage(msg);
+                                            i = new Intent(OTPSettingsActivity.this, SignersCheckActivity.class);
+                                            i.putExtra("doc_type", "Surat Perjanjian");
+                                            //diarahkan untuk ttd surat perjanjian kerja sama
+                                        }
                                     }else{
-                                        msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                        msg = res.getJSONObject("suratkuasa").getString("msg");
                                         f.showMessage(msg);
                                         i = new Intent(OTPSettingsActivity.this, SignersCheckActivity.class);
-                                        i.putExtra("doc_type", "Surat Perjanjian");
-                                        //diarahkan untuk ttd surat perjanjian kerja sama
+                                        i.putExtra("doc_type", "Surat Kuasa");
+                                        //diarahkan untuk ttd surat kuasa
                                     }
                                 }else{
-                                    msg = res.getJSONObject("suratkuasa").getString("msg");
-                                    f.showMessage(msg);
-                                    i = new Intent(OTPSettingsActivity.this, SignersCheckActivity.class);
-                                    i.putExtra("doc_type", "Surat Kuasa");
-                                    //diarahkan untuk ttd surat kuasa
+                                    i = new Intent(OTPSettingsActivity.this, InVerificationProcessActivity.class);
                                 }
                             }else{
-                                msg = res.getJSONObject("privy_status").getString("msg");
-                                //i = new Intent(OTPSettingsActivity.this, MainActivity.class);
-                                i = new Intent(OTPSettingsActivity.this, InVerificationProcessActivity.class);
-                                //i.putExtra("info", msg);
-                                //f.showMessage(msg);
+                                i = new Intent(OTPSettingsActivity.this, OTPDocActivity.class);
+                                i.putExtra("from", "doc");
                             }
                         }else{
                             i = new Intent(OTPSettingsActivity.this, RegistrationFormActivity.class);

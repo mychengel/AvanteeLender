@@ -21,6 +21,7 @@ import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
+import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class AfterSignActivity extends AppCompatActivity {
@@ -40,9 +41,9 @@ public class AfterSignActivity extends AppCompatActivity {
         prefManager = PrefManager.getInstance(AfterSignActivity.this);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
 
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        Uri data = intent.getData();
+//        Intent intent = getIntent();
+//        String action = intent.getAction();
+//        Uri data = intent.getData();
         //Log.e("IntentURIParams", data.getLastPathSegment());
         //strData = data.getLastPathSegment();
         email = prefManager.getEmail();
@@ -76,34 +77,40 @@ public class AfterSignActivity extends AppCompatActivity {
                     if(verif == 1){
                         if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
                             Log.e("Doc", "Aman");
-                            if(res.isNull("privy_status")){
-                                Log.e("PrivyStatus", "Aman");
-                                if(res.isNull("suratkuasa")){
-                                    Log.e("TTDSuratKuasa", "Aman");
-                                    if(res.isNull("suratperjanjian")){
-                                        // Masuk DASHBOARD
-                                        Log.e("TTDSuratPK", "Aman");
-                                        i = new Intent(AfterSignActivity.this, MainActivity.class);
-                                        f.showMessage("Selamat datang "+res.getString("name"));
+                            if(res.isNull("doc_otp")){
+                                if(res.isNull("privy_status")){
+                                    Log.e("PrivyStatus", "Aman");
+                                    if(res.isNull("suratkuasa")){
+                                        Log.e("TTDSuratKuasa", "Aman");
+                                        if(res.isNull("suratperjanjian")){
+                                            // Masuk DASHBOARD
+                                            Log.e("TTDSuratPK", "Aman");
+                                            i = new Intent(AfterSignActivity.this, MainActivity.class);
+                                            i.putExtra("dest","1");
+                                            f.showMessage("Selamat datang "+res.getString("name"));
+                                        }else{
+                                            msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                            f.showMessage(msg);
+                                            i = new Intent(AfterSignActivity.this, SignersCheckActivity.class);
+                                            i.putExtra("doc_type", "Surat Perjanjian");
+                                            //diarahkan untuk ttd surat perjanjian kerja sama
+                                        }
                                     }else{
-                                        msg = res.getJSONObject("suratperjanjian").getString("msg");
+                                        msg = res.getJSONObject("suratkuasa").getString("msg");
                                         f.showMessage(msg);
                                         i = new Intent(AfterSignActivity.this, SignersCheckActivity.class);
-                                        i.putExtra("doc_type", "Surat Perjanjian");
-                                        //diarahkan untuk ttd surat perjanjian kerja sama
+                                        i.putExtra("doc_type", "Surat Kuasa");
+                                        //diarahkan untuk ttd surat kuasa
                                     }
                                 }else{
-                                    msg = res.getJSONObject("suratkuasa").getString("msg");
-                                    f.showMessage(msg);
-                                    i = new Intent(AfterSignActivity.this, SignersCheckActivity.class);
-                                    i.putExtra("doc_type", "Surat Kuasa");
-                                    //diarahkan untuk ttd surat kuasa
+                                    msg = res.getJSONObject("privy_status").getString("msg");
+                                    i = new Intent(AfterSignActivity.this, InVerificationProcessActivity.class);
+                                    i.putExtra("info", msg);
+                                    //f.showMessage(msg);
                                 }
                             }else{
-                                msg = res.getJSONObject("privy_status").getString("msg");
-                                i = new Intent(AfterSignActivity.this, InVerificationProcessActivity.class);
-                                i.putExtra("info", msg);
-                                //f.showMessage(msg);
+                                i = new Intent(AfterSignActivity.this, OTPDocActivity.class);
+                                i.putExtra("from", "login");
                             }
                         }else{
                             i = new Intent(AfterSignActivity.this, RegistrationFormActivity.class);

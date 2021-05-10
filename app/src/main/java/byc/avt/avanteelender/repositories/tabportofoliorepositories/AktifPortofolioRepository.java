@@ -2,11 +2,13 @@ package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -40,6 +42,7 @@ import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioAktifDetail;
+import byc.avt.avanteelender.view.auth.SignersCheckActivity;
 
 public class AktifPortofolioRepository {
 
@@ -68,7 +71,7 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                result.setValue(response.toString());
+                                //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
                                 String filename = "SuratKuasa.pdf";
                                 File folder = null;
@@ -88,7 +91,8 @@ public class AktifPortofolioRepository {
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
                                 }else{
                                     try{
                                         folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
@@ -103,7 +107,8 @@ public class AktifPortofolioRepository {
                                     }catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                                 }
 
                                 FileOutputStream outputStream;
@@ -149,7 +154,7 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                result.setValue(response.toString());
+                                //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
                                 String filename = "SuratPerjanjian.pdf";
                                 File folder = null;
@@ -168,7 +173,8 @@ public class AktifPortofolioRepository {
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
                                 }else{
                                     try{
                                         folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
@@ -183,7 +189,8 @@ public class AktifPortofolioRepository {
                                     }catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -228,7 +235,7 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                result.setValue(response.toString());
+                                //result.setValue(response.toString());
                                 Log.e("SuratKuasaLoan", response.toString());
                                 String filename = loan_no+"_Agreement.pdf";
                                 File folder = null;
@@ -248,7 +255,8 @@ public class AktifPortofolioRepository {
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
                                 }else{
                                     try{
                                         folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
@@ -263,7 +271,8 @@ public class AktifPortofolioRepository {
                                     }catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -308,7 +317,7 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                result.setValue(response.toString());
+                                //result.setValue(response.toString());
                                 Log.e("Kuasa", response.toString());
                                 String filename = funding_id+"_SuratKuasa.pdf";
                                 File folder = null;
@@ -327,7 +336,8 @@ public class AktifPortofolioRepository {
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
                                 }else{
                                     try{
                                         folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
@@ -342,7 +352,8 @@ public class AktifPortofolioRepository {
                                     }catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded));
+                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
                                 }
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);

@@ -28,7 +28,7 @@ public class SignerTemplate {
                 "fixed: false" +
                 "}" +
                 "}).on('after-sign', (data) => {" +
-                "location.href = 'https://avantee.co.id:8444/'" +
+                "location.href = ''" +
                 "})" +
                 "</script>" +
                 "</body>" +

@@ -48,7 +48,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/txtnull"
                 android:textColor="@color/dark"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.142"
@@ -64,7 +64,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="16dp"
                 android:text="@string/txtnull"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@+id/txt_name_tb_fr_dashboard"
                 app:layout_constraintStart_toStartOf="@+id/txt_name_tb_fr_dashboard"
                 app:layout_constraintTop_toBottomOf="@+id/txt_name_tb_fr_dashboard" />

@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -140,6 +142,19 @@ public class AktifPortofolioFragment extends Fragment {
         @Override
         public void onChanged(String result) {
             dialog.cancel();
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Konfirmasi")
+                    .setIcon(R.drawable.logo)
+                    .setMessage(result)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .create()
+                    .show();
         }
     };
 
@@ -147,6 +162,19 @@ public class AktifPortofolioFragment extends Fragment {
         @Override
         public void onChanged(String result) {
             dialog.cancel();
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Konfirmasi")
+                    .setIcon(R.drawable.logo)
+                    .setMessage(result)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .create()
+                    .show();
         }
     };
 

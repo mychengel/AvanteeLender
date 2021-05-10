@@ -45,6 +45,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
     String doc_token = "";
     private WebView simpleWebView;
     ImageView img_back;
+    ServerSentEvent sse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
         String url = GlobalVariables.BASE_URL+"internal/privy/sign_status/"+doc_token;
         Request request = new Request.Builder().url(url).build();
         OkSse okSse = new OkSse();
-        ServerSentEvent sse = okSse.newServerSentEvent(request, new ServerSentEvent.Listener() {
+        sse = okSse.newServerSentEvent(request, new ServerSentEvent.Listener() {
             @Override
             public void onOpen(ServerSentEvent sse, Response response) {
             }
@@ -100,10 +101,6 @@ public class SignerPendanaanActivity extends AppCompatActivity {
                         intent.putExtra("dest", "2:1");
                         new Routes(SignerPendanaanActivity.this).moveOutIntent(intent);
                         sse.close();
-//                        MainActivity ma = new MainActivity();
-//                        ma.navView.setSelectedItemId(R.id.navigation_portofolio);
-//                        PortofolioFragment.index = 1;
-//                        new Routes(SignerPendanaanActivity.this).moveOut();
                     }else{}
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -153,17 +150,6 @@ public class SignerPendanaanActivity extends AppCompatActivity {
         }
     };
 
-    private Observer<String> signStatusResult = new Observer<String>() {
-        @Override
-        public void onChanged(String result) {
-            if(result.isEmpty()){
-                dialog.cancel();
-            }else{
-                dialog.cancel();
-            }
-        }
-    };
-
     private class MyWebViewClient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -197,6 +183,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
+                        sse.close();
                         f.showMessage(getString(R.string.funding_done));
                         Intent intent = new Intent(SignerPendanaanActivity.this, MainActivity.class);
                         new Routes(SignerPendanaanActivity.this).moveOutIntent(intent);

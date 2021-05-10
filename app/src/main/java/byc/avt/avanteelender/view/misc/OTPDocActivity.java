@@ -87,6 +87,12 @@ public class OTPDocActivity extends AppCompatActivity {
 
         checkPermission();
 
+        String from = getIntent().getStringExtra("from");
+        if(from.equalsIgnoreCase("login")){
+            sendOTPVerification();
+        }else{
+        }
+
         OTPReceiver.isReady = true;
         new OTPReceiver().setEditText(otpView, "document");
         setTimer();
@@ -161,13 +167,18 @@ public class OTPDocActivity extends AppCompatActivity {
                     if(verif == 1){
                         if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
                             Log.e("Doc", "Aman");
-                            if(res.isNull("privy_status")){
-                                Log.e("PrivyStatus", "Aman, sistem bermasalah tapi");
-                                i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
+                            if(res.isNull("doc_otp")){
+                                if(res.isNull("privy_status")){
+                                    Log.e("PrivyStatus", "Aman, sistem bermasalah tapi");
+                                    i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
+                                }else{
+                                    msg = res.getJSONObject("privy_status").getString("msg");
+                                    i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
+                                    //i.putExtra("info", msg);
+                                }
                             }else{
-                                msg = res.getJSONObject("privy_status").getString("msg");
-                                i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
-                                //i.putExtra("info", msg);
+                                i = new Intent(OTPDocActivity.this, OTPDocActivity.class);
+                                i.putExtra("from", "doc");
                             }
                         }else{
                             i = new Intent(OTPDocActivity.this, RegistrationFormActivity.class);
