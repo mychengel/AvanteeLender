@@ -152,9 +152,9 @@ public class SettingInsAccountActivity extends AppCompatActivity {
         cv_bank_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(SettingInsAccountActivity.this, BankInfoShowActivity.class);
-//                intent.putExtra("jobBankInfo", jobDataRekBank.toString());
-//                new Routes(SettingInsAccountActivity.this).moveIn(intent);
+                Intent intent = new Intent(SettingInsAccountActivity.this, InsBankInfoShowActivity.class);
+                intent.putExtra("jobBankInfo", jobDataRekBank.toString());
+                new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }
         });
 
