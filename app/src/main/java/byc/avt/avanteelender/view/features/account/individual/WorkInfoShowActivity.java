@@ -131,7 +131,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 isOnlineBased = "ya";
             }else{
                 radButtonIsOnlineBased = findViewById(R.id.rad_no_fr_work_info_show);
-                isOnlineBased = "tidak";
+                isOnlineBased = "Tidak";
             }
             radButtonIsOnlineBased.setChecked(true);
             txtJob.getEditText().setText(job.getString("client_job"));
@@ -178,7 +178,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 if(radButtonIsOnlineBased.getText().equals("Ya")){
                     isOnlineBased = "ya";
                 }else{
-                    isOnlineBased = "tidak";
+                    isOnlineBased = "Tidak";
                 }
             }
         });

@@ -46,9 +46,9 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
     JSONObject job;
     private PrefManager prefManager;
     private Dialog dialog;
+    GlobalVariables gv;
     AutoCompleteTextView auto_bank, auto_avg_trans;
     TextInputLayout txtBank, txtAccountName, txtAccountNumber;
-    GlobalVariables gv;
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
     Button btn_save, btn_edit;
@@ -267,8 +267,7 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(InsBankInfoShowActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -276,7 +275,6 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(InsBankInfoShowActivity.this).moveOut();
     }
 }

@@ -133,9 +133,9 @@ public class SettingInsAccountActivity extends AppCompatActivity {
         cv_company_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(SettingInsAccountActivity.this, WorkInfoShowActivity.class);
-//                intent.putExtra("jobWorkInfo", jobDataPekerjaan.toString());
-//                new Routes(SettingInsAccountActivity.this).moveIn(intent);
+                Intent intent = new Intent(SettingInsAccountActivity.this, InsCompanyShowActivity.class);
+                intent.putExtra("jobCompanyInfo", jobDataPerusahaan.toString());
+                new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }
         });
 

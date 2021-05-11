@@ -49,16 +49,15 @@ public class CompanyDataFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_company_data, container, false);
     }
 
-    Button btn_next;
-    private RadioGroup radGroupIsOnlineBased;
-    private RadioButton radButtonIsOnlineBased;
-
     private MasterDataViewModel viewModel;
     private AuthenticationViewModel viewModel2;
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
 
+    Button btn_next;
+    private RadioGroup radGroupIsOnlineBased;
+    private RadioButton radButtonIsOnlineBased;
     AutoCompleteTextView auto_company_type, auto_business_field, auto_income,
             auto_funds_source;
     TextInputLayout txtCompanyName, txtCompanyType, txtBusinessField, txtYearEst, txtIncome,
@@ -104,7 +103,7 @@ public class CompanyDataFragment extends Fragment {
                 if(radButtonIsOnlineBased.getText().equals("Ya")){
                     isOnlineBased = "ya";
                 }else{
-                    isOnlineBased = "tidak";
+                    isOnlineBased = "Tidak";
                 }
             }
         });
