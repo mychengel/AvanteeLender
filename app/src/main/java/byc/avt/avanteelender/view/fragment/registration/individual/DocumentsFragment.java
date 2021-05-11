@@ -366,6 +366,7 @@ public class DocumentsFragment extends Fragment {
                     new Fungsi(getActivity()).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(getActivity(), OTPDocActivity.class);
+                    intent.putExtra("from", "doc");
                     new Routes(getActivity()).moveInFinish(intent);
                 }else if(result.getInt("code") == 400){
                     OTPReceiver.isReady = false;
