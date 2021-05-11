@@ -810,8 +810,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            new Routes(AddressDataShowActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -819,7 +818,6 @@ public class AddressDataShowActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+        new Routes(AddressDataShowActivity.this).moveOut();
     }
 }

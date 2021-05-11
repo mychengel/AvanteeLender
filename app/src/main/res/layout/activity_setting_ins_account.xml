@@ -385,7 +385,7 @@
                             android:layout_marginStart="16dp"
                             android:fontFamily="@font/ibm_plex_sans"
                             android:letterSpacing="0.01"
-                            android:text="@string/essential_document"
+                            android:text="@string/document_info"
                             android:textColor="@color/dark"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="@+id/imageDataDokumen"

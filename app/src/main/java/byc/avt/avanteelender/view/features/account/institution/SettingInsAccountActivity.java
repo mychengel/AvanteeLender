@@ -142,10 +142,10 @@ public class SettingInsAccountActivity extends AppCompatActivity {
         cv_address_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(SettingInsAccountActivity.this, AddressDataShowActivity.class);
-//                intent.putExtra("jobAddressDataKTP", jobDataAlamatKTP.toString());
-//                intent.putExtra("jobAddressDataDomicile", jobDataAlamatDomisili.toString());
-//                new Routes(SettingInsAccountActivity.this).moveIn(intent);
+                Intent intent = new Intent(SettingInsAccountActivity.this, InsAddressDataActivity.class);
+                intent.putExtra("jobAddressDataAkta", jobDataAlamatAkta.toString());
+                intent.putExtra("jobAddressDataOperasional", jobDataAlamatOperasional.toString());
+                new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }
         });
 
@@ -161,10 +161,10 @@ public class SettingInsAccountActivity extends AppCompatActivity {
         cv_essential_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(SettingInsAccountActivity.this, DataPendukungShowActivity.class);
-//                intent.putExtra("jobEssDocument", jobDataDokumenPendukung.toString());
-//                intent.putExtra("jobDataPribadi", jobDataPribadi.toString());
-//                new Routes(SettingInsAccountActivity.this).moveIn(intent);
+                Intent intent = new Intent(SettingInsAccountActivity.this, InsDataPendukungShowActivity.class);
+                intent.putExtra("jobDocument", jobDataDokumenPendukung.toString());
+                intent.putExtra("jobNarahubungData", jobDataNarahubung.toString());
+                new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }
         });
 

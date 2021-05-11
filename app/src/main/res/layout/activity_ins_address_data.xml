@@ -1,9 +1,498 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coor_ins_address_data"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.features.account.institution.InsAddressDataActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_ins_address_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tb_ins_address_data"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ToolbarTheme.Expanded"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
+            app:expandedTitleMargin="16dp"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_ins_address_data"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:title="@string/addresses"
+                app:titleTextColor="@color/dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_sv_ins_ins_address_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_ins_ins_address_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/lbl_on_ktp_ins_address_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/address_based_akta"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_address_ins_address_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_on_ktp_ins_address_data">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/address"
+                    android:inputType="none|textMultiLine|text"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_country_ins_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_address_ins_address_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_country_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/country"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_province_ins_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_country_ins_address_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_province_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/province"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_city_ins_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_province_ins_address_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_city_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/city"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_kecamatan_ins_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_city_ins_address_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_kecamatan_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/sub_district"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_kelurahan_ins_address_data"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_kecamatan_ins_address_data">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_ktp_kelurahan_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/urban"
+                    android:inputType="none"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_ktp_kodepos_ins_address_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_kelurahan_ins_address_data">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@color/lightest_neutral"
+                    android:hint="@string/postal_code"
+                    android:inputType="text|number"
+                    android:maxLength="5"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--section alamat operasional-->
+
+
+            <TextView
+                android:id="@+id/lbl_on_domicile_ins_address_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/address_based_operasional"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_kodepos_ins_address_data" />
+
+            <CheckBox
+                android:id="@+id/cb_domicile_same_as_ktp_ins_address_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:button="@drawable/checkbox_selector"
+                android:fontFamily="@font/ibm_plex_sans"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingBottom="2dp"
+                android:text="@string/address_same_as_akta"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_on_domicile_ins_address_data"
+                app:useMaterialThemeColors="false" />
+
+
+            <LinearLayout
+                android:id="@+id/lin_domicile_ins_address_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_domicile_same_as_ktp_ins_address_data">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_address_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/lightest_neutral"
+                        android:hint="@string/address"
+                        android:inputType="none|textMultiLine|text"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_country_ins_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_country_ins_address_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/country"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_province_ins_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_province_ins_address_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/province"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_city_ins_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_city_ins_address_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/city"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_kecamatan_ins_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_kecamatan_ins_address_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/sub_district"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_kelurahan_ins_address_data"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_domicile_kelurahan_ins_address_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/urban"
+                        android:inputType="none"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_domicile_kodepos_ins_address_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@color/lightest_neutral"
+                        android:hint="@string/postal_code"
+                        android:inputType="text|number"
+                        android:maxLength="5"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_save_ins_address_data"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="176dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_state_selector"
+                android:letterSpacing="0.01"
+                android:text="@string/save_change"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lin_domicile_ins_address_data" />
+
+            <Button
+                android:id="@+id/btn_ubah_ins_address_data"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/button_white"
+                android:letterSpacing="0.01"
+                android:text="@string/ubah"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_ins_address_data"
+                app:layout_constraintTop_toTopOf="@+id/btn_save_ins_address_data"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_save_ins_address_data"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

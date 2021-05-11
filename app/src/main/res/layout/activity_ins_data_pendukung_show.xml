@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coor_ins_data_pendukung_show"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.features.account.institution.InsDataPendukungShowActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_ins_data_pendukung_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tb_ins_data_pendukung_show"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ToolbarTheme.Expanded"
+            app:collapsedTitleTextAppearance="@style/ToolbarTheme.Collapsed"
+            app:expandedTitleMargin="16dp"
+            app:expandedTitleTextAppearance="@style/ToolbarTheme.Expanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollInterpolator="@android:anim/decelerate_interpolator">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_ins_data_pendukung_show"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:title="@string/document_info"
+                app:titleTextColor="@color/dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_sv_ins_data_pendukung_show_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_ins_data_pendukung_show_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp">
+
+
+            <Button
+                android:id="@+id/btn_save_ins_data_pendukung_show"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="176dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_state_selector"
+                android:letterSpacing="0.01"
+                android:text="@string/save_change"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_ubah_ins_data_pendukung_show"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/button_white"
+                android:letterSpacing="0.01"
+                android:text="@string/ubah"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_ins_data_pendukung_show"
+                app:layout_constraintTop_toTopOf="@+id/btn_save_ins_data_pendukung_show"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_save_ins_data_pendukung_show"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
