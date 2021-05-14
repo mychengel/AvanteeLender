@@ -75,10 +75,9 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     Fungsi f = new Fungsi(DataPendukungShowActivity.this);
     private Toolbar toolbar;
     JSONObject job, job2;
-    TextView txt_no_ktp, txt_no_npwp;
     TextInputLayout edit_ktp, edit_npwp, edit_tgl_npwp;
     ImageView img_ktp, img_npwp, img_selfie, img_spesimen_ttd;
-    LinearLayout linDoc;
+    ImageView img_ktp_indi, img_npwp_indi, img_selfie_indi, img_spesimen_ttd_indi;
     CheckBox cb_not_have_npwp;
     Button btn_save, btn_edit;
     boolean editIsOn = false;
@@ -89,11 +88,9 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     private Dialog dialog;
     GlobalVariables gv;
     EditText edittext_tgl_npwp;
-    TextView txt_ktp, txt_npwp, txt_selfie, txt_ttd;
     CardView cv_ktp, cv_npwp, cv_selfie, cv_ttd;
     LinearLayout lin_npwp;
     boolean is_not_have_npwp = false, punya_npwp = false;
-    Button btn_next;
     String no_ktp = "", no_npwp = "", tgl_npwp = "";
     byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null, ttd_byte = null;
 
@@ -126,12 +123,16 @@ public class DataPendukungShowActivity extends AppCompatActivity {
         cv_selfie = findViewById(R.id.cv_img_selfie_ess_document_show);
         cv_ttd = findViewById(R.id.cv_img_ttd_ess_document_show);
         cb_not_have_npwp = findViewById(R.id.cb_not_have_npwp_ess_document_show);
-        //txt_no_npwp = findViewById(R.id.txt_no_npwp_ess_document_show);
         img_ktp = findViewById(R.id.img_ktp_ess_document_show);
         img_npwp = findViewById(R.id.img_npwp_ess_document_show);
         img_selfie = findViewById(R.id.img_selfie_ess_document_show);
         img_spesimen_ttd = findViewById(R.id.img_ttd_ess_document_show);
         lin_npwp = findViewById(R.id.lin_npwp_ess_document_show);
+
+        img_ktp_indi = findViewById(R.id.img_ktp_indi_ess_document_show);
+        img_npwp_indi = findViewById(R.id.img_npwp_indi_ess_document_show);
+        img_selfie_indi = findViewById(R.id.img_selfie_indi_ess_document_show);
+        img_spesimen_ttd_indi = findViewById(R.id.img_ttd_indi_ess_document_show);
 
         Intent i = getIntent();
         try {
@@ -154,7 +155,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 is_not_have_npwp = false;
                 cekNPWP(no_npwp);
                 edit_tgl_npwp.getEditText().setText(f.dateStd(job.getString("tanggal_daftar_npwp")));
-                tgl_npwp = job.getString("tanggal_daftar_npwp");
+                tgl_npwp = f.dateStd(job.getString("tanggal_daftar_npwp"));
                 Glide.with(DataPendukungShowActivity.this).load(job.getString("npwp_img"))
                         .placeholder(R.drawable.ic_baseline_no_photography_24)
                         .error(R.drawable.ic_baseline_no_photography_24)
@@ -168,7 +169,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             }
                             @Override
                             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                img_npwp.setScaleType(ImageView.ScaleType.FIT_XY);
+                                img_npwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                 return false;
                             }
                         })
@@ -188,7 +189,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            img_ktp.setScaleType(ImageView.ScaleType.FIT_XY);
+                            img_ktp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -207,7 +208,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            img_selfie.setScaleType(ImageView.ScaleType.FIT_XY);
+                            img_selfie.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -226,7 +227,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            img_spesimen_ttd.setScaleType(ImageView.ScaleType.FIT_XY);
+                            img_spesimen_ttd.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -478,6 +479,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     }
 
     public void editIsOn(boolean s){
+
         edit_ktp.setEnabled(s);
         edit_npwp.setEnabled(s);
         edit_tgl_npwp.setEnabled(s);
@@ -495,8 +497,16 @@ public class DataPendukungShowActivity extends AppCompatActivity {
         int elev = 0;
         if(s){
             elev = 8;
+            img_ktp_indi.setVisibility(View.VISIBLE);
+            img_npwp_indi.setVisibility(View.VISIBLE);
+            img_selfie_indi.setVisibility(View.VISIBLE);
+            img_spesimen_ttd_indi.setVisibility(View.VISIBLE);
         }else{
             elev = 0;
+            img_ktp_indi.setVisibility(View.GONE);
+            img_npwp_indi.setVisibility(View.GONE);
+            img_selfie_indi.setVisibility(View.GONE);
+            img_spesimen_ttd_indi.setVisibility(View.GONE);
         }
         cv_ktp.setCardElevation(elev);
         cv_ktp.setEnabled(s);
@@ -516,6 +526,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
             Manifest.permission.CAMERA
     };
 
+    int PICK_IMAGE_REQUEST = 0;
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
         int permission = ActivityCompat.checkSelfPermission(DataPendukungShowActivity.this, Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -529,7 +540,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int PICK_IMAGE_REQUEST = 0;
                             if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
@@ -540,7 +550,19 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                                 PICK_IMAGE_REQUEST = PICK_TTD_CAM;
                             }
                             dialogInterface.cancel();
-                            showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                            new AlertDialog.Builder(DataPendukungShowActivity.this)
+                                .setTitle("Pemberitahuan")
+                                .setIcon(R.drawable.ic_document_photo_circle)
+                                .setMessage(getString(R.string.req_doc))
+                                .setCancelable(true)
+                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                    }
+                                })
+                                .create()
+                                .show();
                         }
                     })
 //                .setPositiveButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_document_photo_circle))
@@ -691,6 +713,11 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    if(Build.VERSION.SDK_INT >=29){
+                        bitmap = f.getRotateImage(currentPhotoPath, bitmap);
+                    }else{
+                        bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
+                    }
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {

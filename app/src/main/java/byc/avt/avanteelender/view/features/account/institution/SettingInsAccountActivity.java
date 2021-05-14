@@ -87,12 +87,13 @@ public class SettingInsAccountActivity extends AppCompatActivity {
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
-                        Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
+                        final Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
                         if (resource.getConstantState() == null) {
                             img_pp.setImageResource(R.drawable.ic_iconuser);
                             txt_inisial.setVisibility(View.VISIBLE);
                         }else{
-                            Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                            //Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                            Drawable newdrawable = new BitmapDrawable(getResources(), bitmap);
                             img_pp.setImageDrawable(newdrawable);
                             txt_inisial.setVisibility(View.GONE);
                         }
@@ -107,7 +108,7 @@ public class SettingInsAccountActivity extends AppCompatActivity {
         img_pp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(f.clickAnim());
+                //view.startAnimation(f.clickAnim());
                 Intent intent = new Intent(SettingInsAccountActivity.this, UpdateAvaActivity.class);
                 new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }

@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view.features.historitransaksi;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,7 +48,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
     public static RecyclerView rv_his_trx_list, rv_his_trx_filter;
     static DashboardViewModel viewModel;
     public static TextView lbl_no_trx, txt_filter_text;
-    private Button btn_filter;
+    static Button btn_filter;
     public static ProgressBar prog_bar;
     public static boolean filter_is_active = false;
     public static String filter_text = "Semua transaksi";
@@ -166,6 +167,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
                 rv_his_trx_filter.setVisibility(View.GONE);
                 filter_text = "Semua transaksi (" + results.size() + ")";
                 txt_filter_text.setText(filter_text);
+                btn_filter.setBackgroundResource(R.drawable.bg_white_ripple_border);
             }else{
                 rv_his_trx_list.setVisibility(View.INVISIBLE);
                 rv_his_trx_filter.setVisibility(View.VISIBLE);
@@ -177,6 +179,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
                     }else{}
                 }
                 txt_filter_text.setText(filter_text + " (" + results_filter.size() + ")");
+                btn_filter.setBackgroundResource(R.drawable.bg_greentrans_ripple_border);
             }
         }else{
             if(status.equals("0")){
@@ -203,6 +206,8 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
             rv_his_trx_list.setVisibility(View.INVISIBLE);
             rv_his_trx_filter.setVisibility(View.VISIBLE);
             txt_filter_text.setText(filter_text + " (" + results_filter.size() + ")");
+            btn_filter.setBackgroundResource(R.drawable.bg_greentrans_ripple_border);
+
         }
 
 

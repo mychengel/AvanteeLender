@@ -26,22 +26,55 @@
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="4dp">
 
-            <ImageView
-                android:id="@+id/img_pp_tb_fr_dashboard"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/img"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_pp_tb_fr_dashboard"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_iconuser" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_cv_img_pp_tb_fr_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_pp_tb_fr_dashboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/img"
+                        android:foreground="@drawable/selectable_curve"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/ic_iconuser" />
+
+                    <TextView
+                        android:id="@+id/txt_initial_fr_dashboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="@string/txt_initial"
+                        android:textColor="@color/bars_light"
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_pp_tb_fr_dashboard"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/txt_name_tb_fr_dashboard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/ibm_plex_sans_semi_bold"
                 android:maxLines="1"
                 android:paddingStart="8dp"
@@ -52,8 +85,8 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.142"
-                app:layout_constraintStart_toEndOf="@+id/img_pp_tb_fr_dashboard"
-                app:layout_constraintTop_toTopOf="@+id/img_pp_tb_fr_dashboard" />
+                app:layout_constraintStart_toEndOf="@+id/cv_img_pp_tb_fr_dashboard"
+                app:layout_constraintTop_toTopOf="@+id/cv_img_pp_tb_fr_dashboard" />
 
             <TextView
                 android:id="@+id/txt_code_tb_fr_dashboard"
@@ -68,19 +101,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/txt_name_tb_fr_dashboard"
                 app:layout_constraintStart_toStartOf="@+id/txt_name_tb_fr_dashboard"
                 app:layout_constraintTop_toBottomOf="@+id/txt_name_tb_fr_dashboard" />
-
-            <TextView
-                android:id="@+id/txt_initial_fr_dashboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/txt_initial"
-                android:textColor="@color/bars_light"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_pp_tb_fr_dashboard"
-                app:layout_constraintEnd_toEndOf="@+id/img_pp_tb_fr_dashboard"
-                app:layout_constraintStart_toStartOf="@+id/img_pp_tb_fr_dashboard"
-                app:layout_constraintTop_toTopOf="@+id/img_pp_tb_fr_dashboard" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline7"

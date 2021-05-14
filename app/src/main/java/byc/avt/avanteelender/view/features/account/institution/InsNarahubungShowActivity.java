@@ -245,7 +245,13 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(InsNarahubungShowActivity.this).moveOut();
                 }else{
-                    new Fungsi(InsNarahubungShowActivity.this).showMessage(getString(R.string.failed_update_data));
+                    JSONObject obj = result.getJSONObject("result");
+                    String err = "";
+                    err = obj.toString().replaceAll("\"", "");
+                    err = err.replace("{", "");
+                    err = err.replace("}", "");
+                    new Fungsi(InsNarahubungShowActivity.this).showMessageLong(err);
+                    //new Fungsi(InsNarahubungShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
                     //new Routes(InsNarahubungShowActivity.this).moveOut();
                 }

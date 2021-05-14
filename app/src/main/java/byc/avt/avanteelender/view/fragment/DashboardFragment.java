@@ -45,9 +45,12 @@ import byc.avt.avanteelender.adapter.HistoryTrxAdapter;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.Header;
 import byc.avt.avanteelender.model.HistoryTrx;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.features.account.individual.UpdateAvaActivity;
+import byc.avt.avanteelender.view.features.account.institution.SettingInsAccountActivity;
 import byc.avt.avanteelender.view.features.historitransaksi.HistoriTransaksiListActivity;
 import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanActivity;
@@ -126,7 +129,8 @@ public class DashboardFragment extends Fragment {
                         pp_icon.setImageResource(R.drawable.ic_iconuser);
                         txt_initial.setVisibility(View.VISIBLE);
                     }else{
-                        Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                        //Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                        Drawable newdrawable = new BitmapDrawable(getResources(), bitmap);
                         pp_icon.setImageDrawable(newdrawable);
                         txt_initial.setVisibility(View.GONE);
                     }
@@ -200,6 +204,14 @@ public class DashboardFragment extends Fragment {
                 MainActivity ma = new MainActivity();
                 ma.navView.setSelectedItemId(R.id.navigation_notifikasi);
                 NotificationsFragment.index = 1;
+            }
+        });
+
+        pp_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UpdateAvaActivity.class);
+                new Routes(getActivity()).moveIn(intent);
             }
         });
     }

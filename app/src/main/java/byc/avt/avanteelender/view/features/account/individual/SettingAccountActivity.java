@@ -94,7 +94,8 @@ public class SettingAccountActivity extends AppCompatActivity {
                             img_pp.setImageResource(R.drawable.ic_iconuser);
                             txt_inisial.setVisibility(View.VISIBLE);
                         }else{
-                            Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
+                            //Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 164, 164, true));
+                            Drawable newdrawable = new BitmapDrawable(getResources(), bitmap);
                             img_pp.setImageDrawable(newdrawable);
                             txt_inisial.setVisibility(View.GONE);
                         }
@@ -104,7 +105,7 @@ public class SettingAccountActivity extends AppCompatActivity {
         img_pp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.startAnimation(f.clickAnim());
+                //view.startAnimation(f.clickAnim());
                 Intent intent = new Intent(SettingAccountActivity.this, UpdateAvaActivity.class);
                 new Routes(SettingAccountActivity.this).moveIn(intent);
             }

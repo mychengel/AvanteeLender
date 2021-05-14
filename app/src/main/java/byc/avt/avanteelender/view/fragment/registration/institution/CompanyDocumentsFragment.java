@@ -284,6 +284,7 @@ public class CompanyDocumentsFragment extends Fragment {
             Manifest.permission.CAMERA
     };
 
+    int PICK_IMAGE_REQUEST = 0;
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
         int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -297,7 +298,6 @@ public class CompanyDocumentsFragment extends Fragment {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int PICK_IMAGE_REQUEST = 0;
                             if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
@@ -306,7 +306,19 @@ public class CompanyDocumentsFragment extends Fragment {
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
                             }
                             dialogInterface.cancel();
-                            showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                            new AlertDialog.Builder(getActivity())
+                                .setTitle("Pemberitahuan")
+                                .setIcon(R.drawable.ic_document_photo_circle)
+                                .setMessage(getString(R.string.req_doc))
+                                .setCancelable(true)
+                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                    }
+                                })
+                                .create()
+                                .show();
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
@@ -442,6 +454,11 @@ public class CompanyDocumentsFragment extends Fragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    if(Build.VERSION.SDK_INT >=29){
+                        bitmap = f.getRotateImage(currentPhotoPath, bitmap);
+                    }else{
+                        bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
+                    }
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {

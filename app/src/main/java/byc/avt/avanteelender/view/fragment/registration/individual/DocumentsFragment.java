@@ -80,6 +80,7 @@ import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.auth.SignersCheckActivity;
+import byc.avt.avanteelender.view.features.account.individual.DataPendukungShowActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
@@ -473,6 +474,7 @@ public class DocumentsFragment extends Fragment {
             Manifest.permission.CAMERA
     };
 
+    int PICK_IMAGE_REQUEST = 0;
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
         int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -486,7 +488,6 @@ public class DocumentsFragment extends Fragment {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int PICK_IMAGE_REQUEST = 0;
                             if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
@@ -497,10 +498,21 @@ public class DocumentsFragment extends Fragment {
                                 PICK_IMAGE_REQUEST = PICK_TTD_CAM;
                             }
                             dialogInterface.cancel();
-                            showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                            new AlertDialog.Builder(getActivity())
+                                .setTitle("Pemberitahuan")
+                                .setIcon(R.drawable.ic_document_photo_circle)
+                                .setMessage(getString(R.string.req_doc))
+                                .setCancelable(true)
+                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                    }
+                                })
+                                .create()
+                                .show();
                         }
                     })
-//                .setPositiveButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_document_photo_circle))
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -518,7 +530,6 @@ public class DocumentsFragment extends Fragment {
                             showGallery(PICK_IMAGE_REQUEST);
                         }
                     })
-//                .setNegativeButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken))
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogs, int which) {
@@ -645,6 +656,11 @@ public class DocumentsFragment extends Fragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    if(Build.VERSION.SDK_INT >=29){
+                        bitmap = f.getRotateImage(currentPhotoPath, bitmap);
+                    }else{
+                        bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
+                    }
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {
