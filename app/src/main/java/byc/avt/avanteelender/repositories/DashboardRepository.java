@@ -116,15 +116,19 @@ public class DashboardRepository {
                                     for(int i = 0; i < rows.length(); i++){
                                         JSONObject obj = rows.getJSONObject(i);
                                         String nom = "0";
-                                        if(obj.getString("nominal_in").equals("0")){
-                                            nom = "- "+ new Fungsi(context).toNumb(obj.getString("nominal_out")) ;
+                                        if(obj.getString("trx_date") == null || obj.getString("trx_date").equalsIgnoreCase("null")){
                                         }else{
-                                            nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
+                                            if(obj.getString("nominal_in").equals("0")){
+                                                nom = "- "+ new Fungsi(context).toNumb(obj.getString("nominal_out")) ;
+                                            }else{
+                                                nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
+                                            }
+                                            if(i < 3){
+                                                HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
+                                                list.add(historyTrx);
+                                            }
                                         }
-                                        if(i < 3){
-                                            HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
-                                            list.add(historyTrx);
-                                        }
+
                                     }
                                 }
                             }else{
@@ -195,13 +199,17 @@ public class DashboardRepository {
                                     for(int i = 0; i < rows.length(); i++){
                                         JSONObject obj = rows.getJSONObject(i);
                                         String nom = "0";
-                                        if(obj.getString("nominal_in").equals("0")){
-                                            nom = "- "+ new Fungsi(context).toNumb(obj.getString("nominal_out")) ;
+                                        if(obj.getString("trx_date") == null || obj.getString("trx_date").equalsIgnoreCase("null")){
                                         }else{
-                                            nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
+                                            if(obj.getString("nominal_in").equals("0")){
+                                                nom = "- "+ new Fungsi(context).toNumb(obj.getString("nominal_out")) ;
+                                            }else{
+                                                nom = "+ "+ new Fungsi(context).toNumb(obj.getString("nominal_in")) ;
+                                            }
+                                            HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
+                                            list.add(historyTrx);
                                         }
-                                        HistoryTrx historyTrx = new HistoryTrx(obj.getString("description"), obj.getString("trx_date"), nom, obj.getString("approved_status"));
-                                        list.add(historyTrx);
+
                                     }
                                 }
                             }else{
