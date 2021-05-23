@@ -56,7 +56,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cons_nested_sv_fr_term"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".view.sheet.TermSheetFragment">
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="200dp"
+                android:layout_marginBottom="128dp"
                 android:fontFamily="@font/ibm_plex_sans"
                 android:hyphenationFrequency="none"
                 android:text="@string/txtnull"

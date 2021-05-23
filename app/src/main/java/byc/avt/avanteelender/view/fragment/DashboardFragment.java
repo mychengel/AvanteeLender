@@ -203,7 +203,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 MainActivity ma = new MainActivity();
                 ma.navView.setSelectedItemId(R.id.navigation_notifikasi);
-                NotificationsFragment.index = 1;
+                //NotificationsFragment.index = 1;
             }
         });
 

@@ -30,6 +30,7 @@ import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.fragment.DashboardFragment;
 import byc.avt.avanteelender.view.fragment.NotificationsFragment;
+import byc.avt.avanteelender.view.fragment.PenawaranFragment;
 import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -84,10 +85,15 @@ public class MainActivity extends AppCompatActivity {
                     //PortofolioFragment.index = 0;
                     return true;
                 case R.id.navigation_notifikasi:
-                    fragment = new NotificationsFragment();
+                    fragment = new PenawaranFragment();
                     loadFragment(fragment);
-                    NotificationsFragment.index = 0;
+                    //NotificationsFragment.index = 0;
                     return true;
+//                case R.id.navigation_notifikasi:
+//                    fragment = new NotificationsFragment();
+//                    loadFragment(fragment);
+//                    NotificationsFragment.index = 0;
+//                    return true;
             }
             return false;
         }

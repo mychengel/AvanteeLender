@@ -483,4 +483,5 @@
     <string name="postal_code_max_char">Kode pos maksimum 5 karakter</string>
     <string name="req_ava">Pengambilan foto disarankan menggunakan rasio layar 1:1 (persegi) dengan orientasi kamera landscape maupun portrait.</string>
     <string name="req_doc">Pengambilan foto disarankan menggunakan rasio layar 4:3 (persegi panjang) dengan orientasi kamera landscape.</string>
+    <string name="nav_penawaran">Penawaran</string>
 </resources>

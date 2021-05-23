@@ -553,7 +553,7 @@ public class DocumentsFragment extends Fragment {
             try {
                 storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 file = File.createTempFile(
-                        "ava",  /* prefix */
+                        PICK_IMAGE_TYPE,  /* prefix */
                         ".jpg",         /* suffix */
                         storageDir     /* directory */
                 );
