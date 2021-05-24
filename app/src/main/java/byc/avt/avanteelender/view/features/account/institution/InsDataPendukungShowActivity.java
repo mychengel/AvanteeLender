@@ -513,33 +513,19 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File storageDir = null;
         File file = null;
-        if(Build.VERSION.SDK_INT >= 29){
-            try {
-                storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                file = File.createTempFile(
-                        PICK_IMAGE_TYPE,  /* prefix */
-                        ".jpg",         /* suffix */
-                        storageDir     /* directory */
-                );
-                currentPhotoPath = file.getAbsolutePath();
-                Log.e("takePhoto", currentPhotoPath);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+
+        try{
+            storageDir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"/avantee/");
+            if (!storageDir.exists()) {
+                storageDir.mkdirs();
             }
-        }else{
-            try{
-                storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                if (!storageDir.exists()) {
-                    storageDir.mkdirs();
-                }
-                file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                Log.e("Path Foto", file+"");
-            }catch (Exception e) {
-                e.printStackTrace();
+            file = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/avantee/", imageFileName);
+            if (!file.exists()) {
+                file.createNewFile();
             }
+            Log.e("Path Foto", file+"");
+        }catch (Exception e) {
+            e.printStackTrace();
         }
 
         Uri imgUri = FileProvider.getUriForFile(InsDataPendukungShowActivity.this, getApplicationContext().getPackageName()+".fileprovider", file);
@@ -578,24 +564,18 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_ktp.setImageBitmap(decoded_ktp);
                         ktp_byte = bytes.toByteArray();
-                        //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
-                        //txt_ktp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_NPWP) {
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_npwp.setImageBitmap(decoded_npwp);
                         npwp_byte = bytes.toByteArray();
-                        //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                         str_npwp = f.getStringImage(decoded_npwp);
-                        //txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_SELFIE) {
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_selfie.setImageBitmap(decoded_selfie);
                         selfie_byte = bytes.toByteArray();
-                        //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
                         str_selfie = f.getStringImage(decoded_selfie);
-                        //txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
                     }
 
                 } catch (IOException e) {
@@ -605,47 +585,32 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
 
                 File path = null;
                 File file = null;
-                if(Build.VERSION.SDK_INT >=29){
-                    path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                    file = new File(currentPhotoPath);
-                }else{
-                    path = Environment.getExternalStorageDirectory();
-                    file = new File(path, "/avantee/"+imageFileName);
-                }
+                path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                file = new File(path, "/avantee/" + imageFileName);
 
                 Uri filePath = FileProvider.getUriForFile(InsDataPendukungShowActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    if(Build.VERSION.SDK_INT >=29){
-                        bitmap = f.getRotateImage(currentPhotoPath, bitmap);
-                    }else{
-                        bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
-                    }
+                    bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_ktp.setImageBitmap(decoded_ktp);
                         ktp_byte = bytes.toByteArray();
-                        //ktp_byte = f.getFileDataFromBitmap(getActivity(), decoded_ktp);
                         Log.e("KTP Byte", ktp_byte + "");
                         str_ktp = f.getStringImage(decoded_ktp);
-                        //txt_ktp.setText(filePath.getLastPathSegment());
                     } else if (requestCode == PICK_NPWP_CAM) {
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_npwp.setImageBitmap(decoded_npwp);
                         npwp_byte = bytes.toByteArray();
-                        //npwp_byte = f.getFileDataFromBitmap(getActivity(), decoded_npwp);
                         str_npwp = f.getStringImage(decoded_npwp);
-                        //txt_npwp.setText(filePath.getLastPathSegment());
                     } else if (requestCode == PICK_SELFIE_CAM) {
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_selfie.setImageBitmap(decoded_selfie);
                         selfie_byte = bytes.toByteArray();
-                        //selfie_byte = f.getFileDataFromBitmap(getActivity(), decoded_selfie);
                         str_selfie = f.getStringImage(decoded_selfie);
-                        //txt_selfie.setText(filePath.getLastPathSegment());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

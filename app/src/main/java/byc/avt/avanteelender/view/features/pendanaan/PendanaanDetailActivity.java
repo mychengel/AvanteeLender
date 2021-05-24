@@ -246,8 +246,9 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             try {
-                                String str_edit = res.getJSONObject("risk_information").getString("risk_disclaimer");
-                                new RiskInfoSheetFragment(str_edit);
+                                String str_disclaimer = res.getJSONObject("risk_information").getString("risk_disclaimer");
+                                String str_risk_desc = res.getJSONObject("risk_information").getString("risk_information");
+                                new RiskInfoSheetFragment(str_risk_desc, str_disclaimer);
                                 //String risk_info = f.htmlToStr(str_edit).toString();
 //                                new RiskInfoSheetFragment(risk_info);
                             } catch (JSONException e) {

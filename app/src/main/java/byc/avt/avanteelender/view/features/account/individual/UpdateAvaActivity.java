@@ -299,35 +299,20 @@ public class UpdateAvaActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File storageDir = null;
         File file = null;
-        if(Build.VERSION.SDK_INT >= 29){
-            try {
-                storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                file = File.createTempFile(
-                        "ava",  /* prefix */
-                        ".jpg",         /* suffix */
-                        storageDir     /* directory */
-                );
-                currentPhotoPath = file.getAbsolutePath();
-                Log.e("takePhoto", currentPhotoPath);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }else{
-            try{
-                storageDir = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                if (!storageDir.exists()) {
-                    storageDir.mkdirs();
-                }
-                file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", imageFileName);
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                Log.e("Path Foto", file+"");
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
+        try{
+            storageDir = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"/avantee/");
+            if (!storageDir.exists()) {
+                storageDir.mkdirs();
+            }
+            file = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/avantee/", imageFileName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Log.e("Path Foto", file+"");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Uri imgUri = FileProvider.getUriForFile(UpdateAvaActivity.this, getApplicationContext().getPackageName()+".fileprovider", file);
         cameraIntent.putExtra("return-data", true);
@@ -364,7 +349,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                     if (requestCode == PICK_AVA) {
                         decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ava_byte = bytes.toByteArray();
-                        //img_ava.setImageBitmap(decoded_ava);
                         str_ava = f.getStringImage(decoded_ava);
                         Log.e("str_ava", str_ava);
                         txt_ava.setText(filePath.getLastPathSegment() + ".jpg");
@@ -376,31 +360,21 @@ public class UpdateAvaActivity extends AppCompatActivity {
             } else {
                 File path = null;
                 File file = null;
-                if(Build.VERSION.SDK_INT >=29){
-                    path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                    file = new File(currentPhotoPath);
-                }else{
-                    path = Environment.getExternalStorageDirectory();
-                    file = new File(path, "/avantee/"+imageFileName);
-                }
+
+                path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                file = new File(path, "/avantee/"+imageFileName);
 
                 Uri filePath = FileProvider.getUriForFile(UpdateAvaActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    //bitmap = f.getCroppedBitmapSquare(bitmap);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    if(Build.VERSION.SDK_INT >=29){
-                        bitmap = f.getRotateImage(currentPhotoPath, bitmap);
-                    }else{
-                        bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
-                    }
+
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_AVA_CAM) {
                         decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ava_byte = bytes.toByteArray();
                         Log.e("AVA Byte", ava_byte + "");
-                        //img_ava.setImageBitmap(decoded_ava);
                         str_ava = f.getStringImage(decoded_ava);
                         txt_ava.setText(filePath.getLastPathSegment());
                     }

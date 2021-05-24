@@ -22,14 +22,17 @@ public class RiskInfoSheetFragment extends BottomSheetDialogFragment {
 
     private static RiskInfoSheetFragment instance;
     public static String risk_info;
+    public static String risk_disclaimer;
+    public String result;
 
     TextView txt_risk_info;
 
     public RiskInfoSheetFragment() {
     }
 
-    public RiskInfoSheetFragment(String risk_info){
+    public RiskInfoSheetFragment(String risk_info, String risk_disclaimer){
         this.risk_info = risk_info;
+        this.risk_disclaimer = risk_disclaimer;
     }
 
     public static RiskInfoSheetFragment getInstance() {
@@ -64,7 +67,13 @@ public class RiskInfoSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        simpleWebView.loadDataWithBaseURL(null, risk_info, "text/HTML", "UTF-8", null);
+        result = "<br>" +
+                "<h3>Deskripsi Risiko</h3>" +
+                risk_info + "<br><br>" +
+                "<h3><i>Disclaimer</i> Risiko</h3>" +
+                risk_disclaimer + "<br>";
+
+        simpleWebView.loadDataWithBaseURL(null, result, "text/HTML", "UTF-8", null);
 
         return view;
     }

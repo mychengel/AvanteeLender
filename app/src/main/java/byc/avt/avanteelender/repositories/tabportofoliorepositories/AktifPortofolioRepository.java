@@ -76,40 +76,21 @@ public class AktifPortofolioRepository {
                                 String filename = "SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
-                                if(Build.VERSION.SDK_INT >= 29){
-                                    try {
-                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 
-                                        File files = File.createTempFile(
-                                                "SuratKuasa",  /* prefix */
-                                                ".pdf",         /* suffix */
-                                                folder     /* directory */
-                                        );
-                                        String path = files.getAbsolutePath();
-                                        file = new File(path);
-                                        Log.e("FILEkuh", file+"");
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
+                                try{
+                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
                                     }
-                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
-                                }else{
-                                    try{
-                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                        if (!folder.exists()) {
-                                            folder.mkdirs();
-                                        }
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                        if (!file.exists()) {
-                                            file.createNewFile();
-                                        }
-                                        Log.e("PathSuratKuasa", file+"");
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
+                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
                                     }
-                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                                    Log.e("PathSuratKuasa", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+                                result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
 
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -159,39 +140,22 @@ public class AktifPortofolioRepository {
                                 String filename = "SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
-                                if(Build.VERSION.SDK_INT >= 29){
-                                    try {
-                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                                        File files = File.createTempFile(
-                                                "SuratPerjanjian",  /* prefix */
-                                                ".pdf",         /* suffix */
-                                                folder     /* directory */
-                                        );
-                                        String path = files.getAbsolutePath();
-                                        file = new File(path);
-                                        Log.e("FILEkuh", file+"");
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
+
+                                try{
+                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
                                     }
-                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
-                                }else{
-                                    try{
-                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                        if (!folder.exists()) {
-                                            folder.mkdirs();
-                                        }
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                        if (!file.exists()) {
-                                            file.createNewFile();
-                                        }
-                                        Log.e("PathSuratPerjanjian", file+"");
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
+                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
                                     }
-                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                                    Log.e("PathSuratPerjanjian", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
@@ -240,40 +204,22 @@ public class AktifPortofolioRepository {
                                 String filename = loan_no+"_Agreement.pdf";
                                 File folder = null;
                                 File file = null;
-                                if(Build.VERSION.SDK_INT >= 29){
-                                    try {
-                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 
-                                        File files = File.createTempFile(
-                                                loan_no+"_Agreement",  /* prefix */
-                                                ".pdf",         /* suffix */
-                                                folder     /* directory */
-                                        );
-                                        String path = files.getAbsolutePath();
-                                        file = new File(path);
-                                        Log.e("FILEkuh", file+"");
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
+                                try{
+                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
                                     }
-                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded_v29up));
-                                }else{
-                                    try{
-                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                        if (!folder.exists()) {
-                                            folder.mkdirs();
-                                        }
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                        if (!file.exists()) {
-                                            file.createNewFile();
-                                        }
-                                        Log.e("LoanAgreement", file+"");
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
+                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
                                     }
-                                    result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_perjanjian_downloaded));
+                                    Log.e("LoanAgreement", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);
@@ -322,39 +268,22 @@ public class AktifPortofolioRepository {
                                 String filename = funding_id+"_SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
-                                if(Build.VERSION.SDK_INT >= 29){
-                                    try {
-                                        folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                                        File files = File.createTempFile(
-                                                funding_id+"_SuratKuasa",  /* prefix */
-                                                ".pdf",         /* suffix */
-                                                folder     /* directory */
-                                        );
-                                        String path = files.getAbsolutePath();
-                                        file = new File(path);
-                                        Log.e("FILEkuh", file+"");
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
+
+                                try{
+                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
                                     }
-                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded_v29up));
-                                }else{
-                                    try{
-                                        folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/");
-                                        if (!folder.exists()) {
-                                            folder.mkdirs();
-                                        }
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/avantee/", filename);
-                                        if (!file.exists()) {
-                                            file.createNewFile();
-                                        }
-                                        Log.e("LoanSuratKuasa", file+"");
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
+                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
                                     }
-                                    result.setValue(context.getString(R.string.surat_kuasa_downloaded));
-                                    //new Fungsi(context).showMessage(context.getString(R.string.surat_kuasa_downloaded));
+                                    Log.e("LoanSuratKuasa", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+                                result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
+
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
                                 outputStream.write(response);

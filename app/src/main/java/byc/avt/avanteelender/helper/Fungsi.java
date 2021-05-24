@@ -162,7 +162,7 @@ public class Fungsi {
     public static Bitmap getRotateImage(String photoPath, Bitmap bitmap) throws IOException {
         ExifInterface ei = new ExifInterface(photoPath);
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED);
+                ExifInterface.ORIENTATION_NORMAL);
         Bitmap rotatedBitmap = null;
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
@@ -174,26 +174,22 @@ public class Fungsi {
             case ExifInterface.ORIENTATION_ROTATE_270:
                 rotatedBitmap = rotateImage(bitmap, 270);
                 break;
+            case ExifInterface.ORIENTATION_UNDEFINED:
+                rotatedBitmap = rotateImage(bitmap, 90);
+                break;
             case ExifInterface.ORIENTATION_NORMAL:
-            default:
                 rotatedBitmap = bitmap;
+                break;
         }
 
         return rotatedBitmap;
     }
-
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
-    }
-
-    public double hitungBunga(double bunga){
-        double hsl = 0.0;
-
-        return hsl;
     }
 
     public String toNumb(String numb){
