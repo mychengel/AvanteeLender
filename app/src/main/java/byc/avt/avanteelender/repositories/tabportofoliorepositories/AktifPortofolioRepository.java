@@ -73,7 +73,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
-                                String filename = "SuratKuasa.pdf";
+                                String filename = "u"+uid.substring(0,8)+"_SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
 
@@ -137,7 +137,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
-                                String filename = "SuratPerjanjian.pdf";
+                                String filename = "u"+uid.substring(0,8)+"_SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
 

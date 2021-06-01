@@ -86,6 +86,7 @@ public class AfterSignActivity extends AppCompatActivity {
                                             // Masuk DASHBOARD
                                             Log.e("TTDSuratPK", "Aman");
                                             i = new Intent(AfterSignActivity.this, MainActivity.class);
+                                            prefManager.setName(res.getString("name"));
                                             i.putExtra("dest","1");
                                             f.showMessage("Selamat datang "+res.getString("name"));
                                         }else{

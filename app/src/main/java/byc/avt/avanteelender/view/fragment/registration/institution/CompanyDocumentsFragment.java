@@ -432,7 +432,7 @@ public class CompanyDocumentsFragment extends Fragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
+                    bitmap = f.getRotateImage(bitmap);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {

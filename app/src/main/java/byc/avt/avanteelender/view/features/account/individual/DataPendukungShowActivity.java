@@ -686,7 +686,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    //bitmap = f.getRotateImage(file.getAbsolutePath(), bitmap);
+                    bitmap = f.getRotateImage(bitmap);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {

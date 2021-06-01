@@ -146,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if(res.isNull("suratperjanjian")){
                                             // Masuk DASHBOARD
                                             Log.e("TTDSuratPK", "Aman");
+                                            prefManager.setName(res.getString("name"));
                                             i = new Intent(LoginActivity.this, MainActivity.class);
                                             i.putExtra("dest", "1");
                                             f.showMessage("Selamat datang "+res.getString("name"));

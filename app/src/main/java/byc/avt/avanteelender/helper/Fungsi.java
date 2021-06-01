@@ -159,6 +159,17 @@ public class Fungsi {
         return output;
     }
 
+    public static Bitmap getRotateImage(Bitmap bitmap) throws IOException {
+        Bitmap rotatedBitmap = null;
+        if(Build.VERSION.SDK_INT > 26){
+            rotatedBitmap = bitmap;
+        }else{
+            rotatedBitmap = rotateImage(bitmap, 90);
+        }
+
+        return rotatedBitmap;
+    }
+
     public static Bitmap getRotateImage(String photoPath, Bitmap bitmap) throws IOException {
         ExifInterface ei = new ExifInterface(photoPath);
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
