@@ -123,7 +123,7 @@ public class AktifPortofolioFragment extends Fragment {
     };
 
     private void checkPermission(){
-        final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
         }else{

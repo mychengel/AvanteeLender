@@ -73,24 +73,26 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
-                                String filename = "u"+uid.substring(0,8)+"_SuratKuasa.pdf";
+                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
 
                                 try{
-                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }
-                                    Log.e("PathSuratKuasa", file+"");
+                                    Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                result.setValue(context.getString(R.string.surat_kuasa_downloaded));
 
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -137,24 +139,26 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
-                                String filename = "u"+uid.substring(0,8)+"_SuratPerjanjian.pdf";
+                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
 
                                 try{
-                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }
-                                    Log.e("PathSuratPerjanjian", file+"");
+                                    Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
 
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -206,19 +210,21 @@ public class AktifPortofolioRepository {
                                 File file = null;
 
                                 try{
-                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }
-                                    Log.e("LoanAgreement", file+"");
+                                    Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded_v29up));
+                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
 
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
@@ -270,19 +276,21 @@ public class AktifPortofolioRepository {
                                 File file = null;
 
                                 try{
-                                    folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
+                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }
-                                    Log.e("LoanSuratKuasa", file+"");
+                                    Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                result.setValue(context.getString(R.string.surat_kuasa_downloaded_v29up));
+                                result.setValue(context.getString(R.string.surat_kuasa_downloaded));
 
                                 FileOutputStream outputStream;
                                 outputStream = new FileOutputStream(file, true);
