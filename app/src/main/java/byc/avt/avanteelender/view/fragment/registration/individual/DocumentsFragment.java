@@ -373,7 +373,7 @@ public class DocumentsFragment extends Fragment {
                     OTPReceiver.isReady = false;
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = jobRes.toString();
-                    msg = msg.replaceAll("\",","\nTerkait ");
+                    msg = msg.replaceAll("\",","\n• ");
                     msg = msg.replaceAll("\"","");
                     msg = msg.replaceAll("_"," ");
                     msg = msg.replaceAll("\\{","");

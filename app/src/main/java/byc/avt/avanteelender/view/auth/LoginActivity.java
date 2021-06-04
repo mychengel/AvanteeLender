@@ -2,6 +2,7 @@ package byc.avt.avanteelender.view.auth;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
