@@ -382,7 +382,7 @@ public class DocumentsFragment extends Fragment {
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
-                            .setMessage(msg)
+                            .setMessage("• " + msg)
                             .setCancelable(false)
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override

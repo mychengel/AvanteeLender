@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -235,19 +236,34 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                 PICK_IMAGE_REQUEST = PICK_AVA_CAM;
                             }
                             dialogInterface.cancel();
-                            new AlertDialog.Builder(UpdateAvaActivity.this)
-                                .setTitle("Pemberitahuan")
-                                .setIcon(R.drawable.ic_document_photo_circle)
-                                .setMessage(getString(R.string.req_ava))
-                                .setCancelable(true)
-                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                                    }
-                                })
-                                .create()
-                                .show();
+
+                            final Dialog dialog = new Dialog(UpdateAvaActivity.this);
+                            LayoutInflater inflater = LayoutInflater.from(UpdateAvaActivity.this);
+                            View dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
+                            dialog.setContentView(dialogView);
+                            dialog.setCancelable(true);
+                            dialog.show();
+                            final Button btnNext = dialogView.findViewById(R.id.btn_next_dial_pfw);
+                            btnNext.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                }
+                            });
+
+//                            new AlertDialog.Builder(UpdateAvaActivity.this)
+//                                .setTitle("Pemberitahuan")
+//                                .setIcon(R.drawable.ic_document_photo_circle)
+//                                .setMessage(getString(R.string.req_ava))
+//                                .setCancelable(true)
+//                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+//                                    }
+//                                })
+//                                .create()
+//                                .show();
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {

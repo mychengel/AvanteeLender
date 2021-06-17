@@ -164,6 +164,7 @@ public class ViewKontrakPendanaanActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         Intent intent = new Intent(ViewKontrakPendanaanActivity.this, MainActivity.class);
+                        intent.putExtra("dest", "1");
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         new Routes(ViewKontrakPendanaanActivity.this).moveOutIntent(intent);
                     }

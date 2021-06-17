@@ -245,6 +245,27 @@ public class CompanyDocumentsFragment extends Fragment {
                     dialog.cancel();
                     Intent intent = new Intent(getActivity(), OTPDocActivity.class);
                     new Routes(getActivity()).moveInFinish(intent);
+                }else if(result.getInt("code") == 400){
+                    OTPReceiver.isReady = false;
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = jobRes.toString();
+                    msg = msg.replaceAll("\",","\n• ");
+                    msg = msg.replaceAll("\"","");
+                    msg = msg.replaceAll("_"," ");
+                    msg = msg.replaceAll("\\{","");
+                    msg = msg.replaceAll("\\}","");
+                    dialog.cancel();
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Pemberitahuan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                 }else{
                     OTPReceiver.isReady = false;
                     String msg = result.getString("msg");
@@ -252,7 +273,7 @@ public class CompanyDocumentsFragment extends Fragment {
                     //f.showMessage(msg);
                     dialog.cancel();
                     new AlertDialog.Builder(getActivity())
-                            .setTitle("Konfirmasi")
+                            .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
                             .setMessage(msg)
                             .setCancelable(false)

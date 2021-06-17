@@ -127,6 +127,8 @@ public class OTPDocActivity extends AppCompatActivity {
             String msg = result.split(": ")[1];
             if(cek.equalsIgnoreCase("success")){
                 dialog.cancel();
+                GlobalVariables.perRegData.clear();
+                GlobalVariables.insRegData.clear();
                 new ConfirmationSheetFragment(R.raw.registration_done_once, getString(R.string.register_complete), getString(R.string.registed_complete_message));
                 ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                 sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());

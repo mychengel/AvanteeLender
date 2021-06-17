@@ -186,6 +186,7 @@ public class SignerPendanaanActivity extends AppCompatActivity {
                         sse.close();
                         f.showMessage(getString(R.string.funding_done));
                         Intent intent = new Intent(SignerPendanaanActivity.this, MainActivity.class);
+                        intent.putExtra("dest", "1");
                         new Routes(SignerPendanaanActivity.this).moveOutIntent(intent);
                     }
                 })
