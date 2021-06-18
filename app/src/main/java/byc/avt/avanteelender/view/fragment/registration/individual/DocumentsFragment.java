@@ -493,29 +493,55 @@ public class DocumentsFragment extends Fragment {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            final Dialog dialog = new Dialog(getActivity());
+                            LayoutInflater inflater = LayoutInflater.from(getActivity());
+                            View dialogView = null;
+                            Button btnNext = null;
+
                             if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_ktp, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfk);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
                                 PICK_IMAGE_REQUEST = PICK_NPWP_CAM;
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_npwp, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfn);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_swafoto, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfs);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
                                 PICK_IMAGE_REQUEST = PICK_TTD_CAM;
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_ttd, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pft);
                             }
                             dialogInterface.cancel();
-                            new AlertDialog.Builder(getActivity())
-                                .setTitle("Pemberitahuan")
-                                .setIcon(R.drawable.ic_document_photo_circle)
-                                .setMessage(getString(R.string.req_doc))
-                                .setCancelable(true)
-                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                                    }
-                                })
-                                .create()
-                                .show();
+
+                            dialog.setContentView(dialogView);
+                            dialog.setCancelable(true);
+                            dialog.show();
+
+                            btnNext.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                    dialog.cancel();
+                                }
+                            });
+
+//                            new AlertDialog.Builder(getActivity())
+//                                .setTitle("Pemberitahuan")
+//                                .setIcon(R.drawable.ic_document_photo_circle)
+//                                .setMessage(getString(R.string.req_doc))
+//                                .setCancelable(true)
+//                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+//                                    }
+//                                })
+//                                .create()
+//                                .show();
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {

@@ -248,6 +248,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
+                                    dialog.cancel();
                                 }
                             });
 
