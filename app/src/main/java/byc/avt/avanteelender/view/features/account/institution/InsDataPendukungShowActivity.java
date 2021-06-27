@@ -107,6 +107,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         prefManager = PrefManager.getInstance(InsDataPendukungShowActivity.this);
         dialog = GlobalVariables.loadingDialog(InsDataPendukungShowActivity.this);
+        System.out.println();
 
         edit_ktp = findViewById(R.id.edit_ktp_number_ins_data_pendukung_show);
         edit_npwp = findViewById(R.id.edit_npwp_number_ins_data_pendukung_show);
@@ -452,7 +453,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final Dialog dialog = new Dialog(InsDataPendukungShowActivity.this);
+                            final Dialog mdialog = new Dialog(InsDataPendukungShowActivity.this);
                             LayoutInflater inflater = LayoutInflater.from(InsDataPendukungShowActivity.this);
                             View dialogView = null;
                             Button btnNext = null;
@@ -476,15 +477,15 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                             }
                             dialogInterface.cancel();
 
-                            dialog.setContentView(dialogView);
-                            dialog.setCancelable(true);
-                            dialog.show();
+                            mdialog.setContentView(dialogView);
+                            mdialog.setCancelable(true);
+                            mdialog.show();
 
                             btnNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                                    dialog.cancel();
+                                    mdialog.cancel();
                                 }
                             });
 

@@ -542,7 +542,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final Dialog dialog = new Dialog(DataPendukungShowActivity.this);
+                            final Dialog mdialog = new Dialog(DataPendukungShowActivity.this);
                             LayoutInflater inflater = LayoutInflater.from(DataPendukungShowActivity.this);
                             View dialogView = null;
                             Button btnNext = null;
@@ -566,15 +566,15 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             }
                             dialogInterface.cancel();
 
-                            dialog.setContentView(dialogView);
-                            dialog.setCancelable(true);
-                            dialog.show();
+                            mdialog.setContentView(dialogView);
+                            mdialog.setCancelable(true);
+                            mdialog.show();
 
                             btnNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                                    dialog.cancel();
+                                    mdialog.cancel();
                                 }
                             });
 
@@ -718,7 +718,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP_CAM) {
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_ktp.setImageBitmap(decoded_ktp);
+                        img_ktp.setImageBitmap(bitmap);
                         ktp_byte = bytes.toByteArray();
                         Log.e("KTP Byte", ktp_byte + "");
                         str_ktp = f.getStringImage(decoded_ktp);

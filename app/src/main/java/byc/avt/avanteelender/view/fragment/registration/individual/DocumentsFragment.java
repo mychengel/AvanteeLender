@@ -493,7 +493,7 @@ public class DocumentsFragment extends Fragment {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final Dialog dialog = new Dialog(getActivity());
+                            final Dialog mdialog = new Dialog(getActivity());
                             LayoutInflater inflater = LayoutInflater.from(getActivity());
                             View dialogView = null;
                             Button btnNext = null;
@@ -517,15 +517,15 @@ public class DocumentsFragment extends Fragment {
                             }
                             dialogInterface.cancel();
 
-                            dialog.setContentView(dialogView);
-                            dialog.setCancelable(true);
-                            dialog.show();
+                            mdialog.setContentView(dialogView);
+                            mdialog.setCancelable(true);
+                            mdialog.show();
 
                             btnNext.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-                                    dialog.cancel();
+                                    mdialog.cancel();
                                 }
                             });
 
@@ -670,7 +670,7 @@ public class DocumentsFragment extends Fragment {
                     if (requestCode == PICK_KTP_CAM) {
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ktp_byte = bytes.toByteArray();
-                        Log.e("KTP Byte", ktp_byte + "");
+                        //Log.e("KTP Byte", ktp_byte + "");
                         str_ktp = f.getStringImage(decoded_ktp);
                         txt_ktp.setText(filePath.getLastPathSegment());
                     } else if (requestCode == PICK_NPWP_CAM) {
