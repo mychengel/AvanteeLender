@@ -487,13 +487,13 @@
     <string name="take_photo">Ambil foto</string>
     <string name="tata_cara_foto">Silahkan ikuti panduan di bawah ini:</string>
     <string name="selfie_title">Panduan Foto Wajah</string>
-    <string name="selfie_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Pastikan wajah memenuhi 80% frame foto (closeup) tanpa ada yang terpotong dengan rasio screen 1:1.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).</string>
+    <string name="selfie_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).</string>
     <string name="swafoto_title">Panduan Foto Swafoto</string>
-    <string name="swafoto_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Pastikan wajah memenuhi 80% frame foto (closeup) tanpa ada yang terpotong dengan rasio screen 4:3.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).</string>
+    <string name="swafoto_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).</string>
     <string name="ktp_title">Panduan Foto KTP</string>
-    <string name="ktp_sop">• Pastikan foto e-KTP adalah asli dan bukan salinan. \n• Informasi pada e-KTP terlihat jelas (tidak buram) dan tidak ada yang terpotong. \n• Tidak ada pantulan cahaya maupun bayangan pada foto e-KTP. \n• Pastikan e-KTP memenuhi frame foto dengan rasio screen 4:3.</string>
+    <string name="ktp_sop">• Pastikan foto e-KTP adalah asli dan bukan salinan. \n• Pastikan e-KTP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan e-KTP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas.</string>
     <string name="npwptitle">Panduan Foto NPWP</string>
-    <string name="npwp_sop">• Pastikan foto NPWP adalah asli dan bukan salinan. \n• Informasi pada NPWP terlihat jelas (tidak buram) dan tidak ada yang terpotong. \n• Tidak ada pantulan cahaya maupun bayangan pada foto NPWP. \n• Pastikan NPWP memenuhi frame foto dengan rasio screen 4:3.</string>
+    <string name="npwp_sop">• Pastikan foto NPWP adalah asli dan bukan salinan. \n• Pastikan NPWP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan NPWP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas.</string>
     <string name="ttd_title">Panduan Foto Spesimen TTD</string>
-    <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Informasi pada spesimen terlihat jelas (tidak buram) dan tidak ada yang terpotong. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Pastikan spesimen memenuhi frame foto dengan rasio screen 4:3.</string>
+    <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Posisikan spesimen sesuai pada contoh gambar di atas.</string>
 </resources>
