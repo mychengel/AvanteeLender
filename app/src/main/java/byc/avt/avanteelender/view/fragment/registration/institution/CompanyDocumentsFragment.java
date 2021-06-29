@@ -476,26 +476,30 @@ public class CompanyDocumentsFragment extends Fragment {
                 Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    bitmap = f.getRotateImage(bitmap);
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                    if (requestCode == PICK_KTP_CAM) {
-                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        ktp_byte = bytes.toByteArray();
-                        Log.e("KTP Byte", ktp_byte + "");
-                        str_ktp = f.getStringImage(decoded_ktp);
-                        txt_ktp.setText(filePath.getLastPathSegment());
-                    } else if (requestCode == PICK_NPWP_CAM) {
-                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        npwp_byte = bytes.toByteArray();
-                        str_npwp = f.getStringImage(decoded_npwp);
-                        txt_npwp.setText(filePath.getLastPathSegment());
-                    } else if (requestCode == PICK_SELFIE_CAM) {
-                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        selfie_byte = bytes.toByteArray();
-                        str_selfie = f.getStringImage(decoded_selfie);
-                        txt_selfie.setText(filePath.getLastPathSegment());
+                    if(bitmap == null){
+                        f.showMessage(getString(R.string.bitmap_null));
+                    }else {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap = f.getRotateImage(bitmap);
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        if (requestCode == PICK_KTP_CAM) {
+                            decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            ktp_byte = bytes.toByteArray();
+                            Log.e("KTP Byte", ktp_byte + "");
+                            str_ktp = f.getStringImage(decoded_ktp);
+                            txt_ktp.setText(filePath.getLastPathSegment());
+                        } else if (requestCode == PICK_NPWP_CAM) {
+                            decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            npwp_byte = bytes.toByteArray();
+                            str_npwp = f.getStringImage(decoded_npwp);
+                            txt_npwp.setText(filePath.getLastPathSegment());
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            selfie_byte = bytes.toByteArray();
+                            str_selfie = f.getStringImage(decoded_selfie);
+                            txt_selfie.setText(filePath.getLastPathSegment());
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

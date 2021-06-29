@@ -384,16 +384,20 @@ public class UpdateAvaActivity extends AppCompatActivity {
                 Uri filePath = FileProvider.getUriForFile(UpdateAvaActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    bitmap = f.getRotateImage(bitmap);
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                    if (requestCode == PICK_AVA_CAM) {
-                        decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        ava_byte = bytes.toByteArray();
-                        Log.e("AVA Byte", ava_byte + "");
-                        str_ava = f.getStringImage(decoded_ava);
-                        txt_ava.setText(filePath.getLastPathSegment());
+                    if(bitmap == null){
+                        f.showMessage(getString(R.string.bitmap_null));
+                    }else {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap = f.getRotateImage(bitmap);
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        if (requestCode == PICK_AVA_CAM) {
+                            decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            ava_byte = bytes.toByteArray();
+                            Log.e("AVA Byte", ava_byte + "");
+                            str_ava = f.getStringImage(decoded_ava);
+                            txt_ava.setText(filePath.getLastPathSegment());
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -33,6 +33,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
@@ -73,7 +75,11 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa.pdf";
+//                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa.pdf";
+                                Calendar cNow = Calendar.getInstance();
+                                Date currentTime = cNow.getTime();
+                                long millisNow = currentTime.getTime();
+                                String filename = "avt"+millisNow+"_SuratKuasa.pdf";
                                 File folder = null;
                                 File file = null;
 
@@ -139,7 +145,11 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian.pdf";
+//                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian.pdf";
+                                Calendar cNow = Calendar.getInstance();
+                                Date currentTime = cNow.getTime();
+                                long millisNow = currentTime.getTime();
+                                String filename = "avt"+millisNow+"_SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
 

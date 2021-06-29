@@ -712,31 +712,35 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 Uri filePath = FileProvider.getUriForFile(DataPendukungShowActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                    bitmap = f.getRotateImage(bitmap);
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                    if (requestCode == PICK_KTP_CAM) {
-                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_ktp.setImageBitmap(bitmap);
-                        ktp_byte = bytes.toByteArray();
-                        Log.e("KTP Byte", ktp_byte + "");
-                        str_ktp = f.getStringImage(decoded_ktp);
-                    } else if (requestCode == PICK_NPWP_CAM) {
-                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_npwp.setImageBitmap(decoded_npwp);
-                        npwp_byte = bytes.toByteArray();
-                        str_npwp = f.getStringImage(decoded_npwp);
-                    } else if (requestCode == PICK_SELFIE_CAM) {
-                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_selfie.setImageBitmap(decoded_selfie);
-                        selfie_byte = bytes.toByteArray();
-                        str_selfie = f.getStringImage(decoded_selfie);
-                    } else if (requestCode == PICK_TTD_CAM) {
-                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_spesimen_ttd.setImageBitmap(decoded_ttd);
-                        ttd_byte = bytes.toByteArray();
-                        str_ttd = f.getStringImage(decoded_ttd);
+                    if(bitmap == null){
+                        f.showMessage(getString(R.string.bitmap_null));
+                    }else {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap = f.getRotateImage(bitmap);
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        if (requestCode == PICK_KTP_CAM) {
+                            decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            img_ktp.setImageBitmap(bitmap);
+                            ktp_byte = bytes.toByteArray();
+                            Log.e("KTP Byte", ktp_byte + "");
+                            str_ktp = f.getStringImage(decoded_ktp);
+                        } else if (requestCode == PICK_NPWP_CAM) {
+                            decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            img_npwp.setImageBitmap(decoded_npwp);
+                            npwp_byte = bytes.toByteArray();
+                            str_npwp = f.getStringImage(decoded_npwp);
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            img_selfie.setImageBitmap(decoded_selfie);
+                            selfie_byte = bytes.toByteArray();
+                            str_selfie = f.getStringImage(decoded_selfie);
+                        } else if (requestCode == PICK_TTD_CAM) {
+                            decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            img_spesimen_ttd.setImageBitmap(decoded_ttd);
+                            ttd_byte = bytes.toByteArray();
+                            str_ttd = f.getStringImage(decoded_ttd);
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
