@@ -162,18 +162,18 @@ public class Fungsi {
     public static Bitmap getRotateImage(Bitmap bitmap) throws IOException {
         Bitmap rotatedBitmap = null;
         if(Build.VERSION.SDK_INT > 26){
-//            rotatedBitmap = bitmap;
-            if(Build.VERSION.SDK_INT >= 30){
-                if(Build.BRAND.contains("SAMSUNG") || Build.BRAND.contains("Samsung") ||
-                    Build.BRAND.contains("GALAXY") || Build.BRAND.contains("Galaxy") ||
-                        Build.BRAND.contains("GT")){
-                    rotatedBitmap = rotateImage(bitmap, 90);
-                }else{
-                    rotatedBitmap = bitmap;
-                }
-            }else{
-                rotatedBitmap = bitmap;
-            }
+            rotatedBitmap = bitmap;
+//            if(Build.VERSION.SDK_INT >= 30){
+//                if(Build.BRAND.contains("SAMSUNG") || Build.BRAND.contains("Samsung") ||
+//                    Build.BRAND.contains("GALAXY") || Build.BRAND.contains("Galaxy") ||
+//                        Build.BRAND.contains("GT")){
+//                    rotatedBitmap = rotateImage(bitmap, 90);
+//                }else{
+//                    rotatedBitmap = bitmap;
+//                }
+//            }else{
+//                rotatedBitmap = bitmap;
+//            }
 //            if(Build.BRAND.contains("SAMSUNG") || Build.BRAND.contains("Samsung") ||
 //                    Build.BRAND.contains("XIAOMI") || Build.BRAND.contains("Xiaomi")){
 //                rotatedBitmap = rotateImage(bitmap, 90);
