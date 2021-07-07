@@ -62,19 +62,28 @@ public class Fungsi {
     }
 
     public void showMessage(String msg) {
-        Spannable centeredText = new SpannableString(msg);
-        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                0, msg.length() - 1,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
+        if(msg.equalsIgnoreCase("")){
+            Toast.makeText(ctx, "", Toast.LENGTH_SHORT).show();
+        }else{
+            Spannable centeredText = new SpannableString(msg);
+            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                    0, msg.length() - 1,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void showMessageLong(String msg) {
-        Spannable centeredText = new SpannableString(msg);
-        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-                0, msg.length() - 1,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        Toast.makeText(ctx, centeredText, Toast.LENGTH_LONG).show();
+        if(msg.equalsIgnoreCase("")){
+            Toast.makeText(ctx, "", Toast.LENGTH_SHORT).show();
+        }else{
+            Spannable centeredText = new SpannableString(msg);
+            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+                    0, msg.length() - 1,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            Toast.makeText(ctx, centeredText, Toast.LENGTH_LONG).show();
+        }
     }
 
     public Spanned htmlToStr(String msg){
@@ -162,24 +171,16 @@ public class Fungsi {
     public static Bitmap getRotateImage(Bitmap bitmap) throws IOException {
         Bitmap rotatedBitmap = null;
         if(Build.VERSION.SDK_INT > 26){
-            rotatedBitmap = bitmap;
-//            if(Build.VERSION.SDK_INT >= 30){
-//                if(Build.BRAND.contains("SAMSUNG") || Build.BRAND.contains("Samsung") ||
-//                    Build.BRAND.contains("GALAXY") || Build.BRAND.contains("Galaxy") ||
-//                        Build.BRAND.contains("GT")){
-//                    rotatedBitmap = rotateImage(bitmap, 90);
-//                }else{
-//                    rotatedBitmap = bitmap;
-//                }
-//            }else{
-//                rotatedBitmap = bitmap;
-//            }
-//            if(Build.BRAND.contains("SAMSUNG") || Build.BRAND.contains("Samsung") ||
-//                    Build.BRAND.contains("XIAOMI") || Build.BRAND.contains("Xiaomi")){
-//                rotatedBitmap = rotateImage(bitmap, 90);
-//            }else{
-//                rotatedBitmap = bitmap;
-//            }
+            //rotatedBitmap = bitmap;
+            if(Build.VERSION.SDK_INT >= 30){
+                if(Build.MODEL.contains("SM")){
+                    rotatedBitmap = rotateImage(bitmap, 90);
+                }else{
+                    rotatedBitmap = bitmap;
+                }
+            }else{
+                rotatedBitmap = bitmap;
+            }
         }else{
             rotatedBitmap = rotateImage(bitmap, 90);
         }
