@@ -3,8 +3,10 @@ package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -83,6 +85,11 @@ public class AktifPortofolioRepository {
                                 File folder = null;
                                 File file = null;
 
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                    Intent permissionIntent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                                    context.startActivity(permissionIntent);
+                                }
+
                                 try{
                                     //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
                                     folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
@@ -158,6 +165,11 @@ public class AktifPortofolioRepository {
 //                                String filename = "avt"+millisNow+"_SuratPerjanjian.pdf";
                                 File folder = null;
                                 File file = null;
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                    Intent permissionIntent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                                    context.startActivity(permissionIntent);
+                                }
 
                                 try{
                                     //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
