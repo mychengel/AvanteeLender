@@ -168,14 +168,17 @@ public class Fungsi {
         return output;
     }
 
-    public static Bitmap getRotateImage(Bitmap bitmap) throws IOException {
+    public static Bitmap getRotateImage(String photoPath, Bitmap bitmap) throws IOException {
         Bitmap rotatedBitmap = null;
+        ExifInterface ei = new ExifInterface(photoPath);
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL);
         if(Build.VERSION.SDK_INT > 26){
             //rotatedBitmap = bitmap;
 
             if(Build.VERSION.SDK_INT >= 30){
                 if(Build.MODEL.contains("SM")){
-                    if(bitmap.getWidth() > bitmap.getHeight()){
+                    if(orientation == ExifInterface.ORIENTATION_ROTATE_90 || orientation == ExifInterface.ORIENTATION_ROTATE_270){
                         rotatedBitmap = bitmap;
                     }else{
                         rotatedBitmap = rotateImage(bitmap, 90);
@@ -193,7 +196,7 @@ public class Fungsi {
         return rotatedBitmap;
     }
 
-    public static Bitmap getRotateImage(String photoPath, Bitmap bitmap) throws IOException {
+    public static Bitmap getRotateImage2(String photoPath, Bitmap bitmap) throws IOException {
         ExifInterface ei = new ExifInterface(photoPath);
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_NORMAL);

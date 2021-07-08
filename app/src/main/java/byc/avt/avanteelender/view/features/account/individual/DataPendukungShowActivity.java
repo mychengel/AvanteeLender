@@ -675,7 +675,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
                     // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
-                    //bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                    bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP) {
@@ -717,7 +717,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage(bitmap);
+                        bitmap = f.getRotateImage(filePath.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         if (requestCode == PICK_KTP_CAM) {

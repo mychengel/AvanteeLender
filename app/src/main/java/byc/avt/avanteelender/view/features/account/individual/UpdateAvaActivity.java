@@ -388,7 +388,8 @@ public class UpdateAvaActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage(bitmap);
+                        //bitmap = f.getRotateImage(bitmap);
+                        bitmap = f.getRotateImage(filePath.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         if (requestCode == PICK_AVA_CAM) {
