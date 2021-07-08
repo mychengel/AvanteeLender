@@ -673,6 +673,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 try {
                     //mengambil gambar dari Gallery
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
                     // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
                     //bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();

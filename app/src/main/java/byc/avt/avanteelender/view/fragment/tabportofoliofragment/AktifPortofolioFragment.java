@@ -11,7 +11,10 @@ import androidx.lifecycle.ViewModelProviders;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,12 +23,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,6 +65,7 @@ public class AktifPortofolioFragment extends Fragment {
     private CardView cv_download_surat_kuasa, cv_download_perjanjian_kerja_sama;
     ConstraintLayout cons, cons_lottie;
     ProgressBar prog_bar;
+    Boolean storageAccess = false;
 
     public static AktifPortofolioFragment newInstance() {
         return new AktifPortofolioFragment();
@@ -93,9 +100,20 @@ public class AktifPortofolioFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 checkPermission();
-                dialog.show();
-                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if(storageAccess){
+                        dialog.show();
+                        viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+                        viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+                    }else{
+                        checkPermission();
+                    }
+                }else{
+                    dialog.show();
+                    viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+                    viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+                }
+
 
 
             }
@@ -126,7 +144,48 @@ public class AktifPortofolioFragment extends Fragment {
         final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
+//            if (Build.VERSION.SDK_INT >= 30) {
+//                Intent permissionIntent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+//                requireActivity().startActivity(permissionIntent);
+//            }
         }else{
+            checkStorageAccess();
+        }
+    }
+
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s",requireActivity().getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(requireActivity(), "Berikan ijin terlebih dahulu untuk akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
         }
     }
 

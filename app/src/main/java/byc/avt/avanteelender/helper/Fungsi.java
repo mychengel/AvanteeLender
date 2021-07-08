@@ -172,9 +172,14 @@ public class Fungsi {
         Bitmap rotatedBitmap = null;
         if(Build.VERSION.SDK_INT > 26){
             //rotatedBitmap = bitmap;
+
             if(Build.VERSION.SDK_INT >= 30){
                 if(Build.MODEL.contains("SM")){
-                    rotatedBitmap = rotateImage(bitmap, 90);
+                    if(bitmap.getWidth() > bitmap.getHeight()){
+                        rotatedBitmap = bitmap;
+                    }else{
+                        rotatedBitmap = rotateImage(bitmap, 90);
+                    }
                 }else{
                     rotatedBitmap = bitmap;
                 }
