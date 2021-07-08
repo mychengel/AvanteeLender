@@ -113,9 +113,6 @@ public class AktifPortofolioFragment extends Fragment {
                     viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
                     viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
                 }
-
-
-
             }
         });
 
@@ -124,9 +121,20 @@ public class AktifPortofolioFragment extends Fragment {
             @Override
             public void onClick(View view) {
                     checkPermission();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if(storageAccess){
+                        dialog.show();
+                        viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
+                        viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
+                    }else{
+                        checkPermission();
+                    }
+                }else{
                     dialog.show();
                     viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
                     viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
+                }
+
 
 
             }

@@ -175,13 +175,12 @@ public class Fungsi {
                 ExifInterface.ORIENTATION_NORMAL);
         if(Build.VERSION.SDK_INT > 26){
             //rotatedBitmap = bitmap;
-
             if(Build.VERSION.SDK_INT >= 30){
                 if(Build.MODEL.contains("SM")){
                     if(orientation == ExifInterface.ORIENTATION_ROTATE_90 || orientation == ExifInterface.ORIENTATION_ROTATE_270){
-                        rotatedBitmap = bitmap;
-                    }else{
                         rotatedBitmap = rotateImage(bitmap, 90);
+                    }else{
+                        rotatedBitmap = bitmap;
                     }
                 }else{
                     rotatedBitmap = bitmap;
