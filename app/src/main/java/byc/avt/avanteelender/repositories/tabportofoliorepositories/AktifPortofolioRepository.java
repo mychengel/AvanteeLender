@@ -91,8 +91,14 @@ public class AktifPortofolioRepository {
                                     }
                                     //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
                                     file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
-                                    if (!file.exists()) {
+                                    if (!file.exists()){
                                         file.createNewFile();
+                                    }else{
+                                        if(file.delete()){
+                                            file.createNewFile();
+                                        }else{
+                                            file.createNewFile();
+                                        }
                                     }
                                     Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
@@ -163,6 +169,12 @@ public class AktifPortofolioRepository {
                                     file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     if (!file.exists()) {
                                         file.createNewFile();
+                                    }else{
+                                        if(file.delete()){
+                                            file.createNewFile();
+                                        }else{
+                                            file.createNewFile();
+                                        }
                                     }
                                     Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
