@@ -149,6 +149,7 @@ public class AktifPortofolioFragment extends Fragment {
     };
 
     private void checkPermission(){
+        checkStorageAccess();
         final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
@@ -157,7 +158,7 @@ public class AktifPortofolioFragment extends Fragment {
 //                requireActivity().startActivity(permissionIntent);
 //            }
         }else{
-            checkStorageAccess();
+
         }
     }
 
@@ -190,7 +191,7 @@ public class AktifPortofolioFragment extends Fragment {
                     storageAccess = true;
                 } else {
                     storageAccess = false;
-                    Toast.makeText(requireActivity(), "Berikan ijin terlebih dahulu untuk akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
                     checkStorageAccess();
                 }
             }

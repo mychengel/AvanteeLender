@@ -77,11 +77,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa.pdf";
-//                                Calendar cNow = Calendar.getInstance();
-//                                Date currentTime = cNow.getTime();
-//                                long millisNow = currentTime.getTime();
-//                                String filename = "avt"+millisNow+"_SuratKuasa.pdf";
+                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa";
                                 File folder = null;
                                 File file = null;
 
@@ -92,15 +88,22 @@ public class AktifPortofolioRepository {
                                         folder.mkdirs();
                                     }
                                     //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
-                                    if (!file.exists()){
-                                        file.createNewFile();
-                                    }else{
-                                        if(file.delete()){
-                                            file.createNewFile();
-                                        }else{
-                                            file.createNewFile();
+                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    int fCount = 0;
+                                    File[] files = folder.listFiles();
+                                    for (File filex : files) {
+                                        if (filex.getName().contains(filename)) {
+                                            fCount++;
                                         }
+                                    }
+                                    if(fCount == 0){
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
+                                    }else{
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
+                                    }
+
+                                    if (!file.exists()) {
+                                        file.createNewFile();
                                     }
                                     Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
@@ -153,11 +156,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian.pdf";
-//                                Calendar cNow = Calendar.getInstance();
-//                                Date currentTime = cNow.getTime();
-//                                long millisNow = currentTime.getTime();
-//                                String filename = "avt"+millisNow+"_SuratPerjanjian.pdf";
+                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian";
                                 File folder = null;
                                 File file = null;
 
@@ -168,16 +167,24 @@ public class AktifPortofolioRepository {
                                         folder.mkdirs();
                                     }
                                     //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
-                                    if (!file.exists()) {
-                                        file.createNewFile();
-                                    }else{
-                                        if(file.delete()){
-                                            file.createNewFile();
-                                        }else{
-                                            file.createNewFile();
+                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    int fCount = 0;
+                                    File[] files = folder.listFiles();
+                                    for (File filex : files) {
+                                        if (filex.getName().contains(filename)) {
+                                            fCount++;
                                         }
                                     }
+                                    if(fCount == 0){
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
+                                    }else{
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
+                                    }
+
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+
                                     Log.e("PathDoc", file+"");
                                 }catch (Exception e) {
                                     e.printStackTrace();
@@ -229,7 +236,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("SuratKuasaLoan", response.toString());
-                                String filename = loan_no+"_Agreement.pdf";
+                                String filename = loan_no+"_Agreement";
                                 File folder = null;
                                 File file = null;
 
@@ -240,7 +247,20 @@ public class AktifPortofolioRepository {
                                         folder.mkdirs();
                                     }
                                     //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    int fCount = 0;
+                                    File[] files = folder.listFiles();
+                                    for (File filex : files) {
+                                        if (filex.getName().contains(filename)) {
+                                            fCount++;
+                                        }
+                                    }
+                                    if(fCount == 0){
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
+                                    }else{
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
+                                    }
+
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }
@@ -295,7 +315,7 @@ public class AktifPortofolioRepository {
                             if (response!=null) {
                                 //result.setValue(response.toString());
                                 Log.e("Kuasa", response.toString());
-                                String filename = funding_id+"_SuratKuasa.pdf";
+                                String filename = funding_id+"_SuratKuasa";
                                 File folder = null;
                                 File file = null;
 
@@ -306,7 +326,20 @@ public class AktifPortofolioRepository {
                                         folder.mkdirs();
                                     }
                                     //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
+                                    int fCount = 0;
+                                    File[] files = folder.listFiles();
+                                    for (File filex : files) {
+                                        if (filex.getName().contains(filename)) {
+                                            fCount++;
+                                        }
+                                    }
+                                    if(fCount == 0){
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
+                                    }else{
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
+                                    }
+
                                     if (!file.exists()) {
                                         file.createNewFile();
                                     }

@@ -497,4 +497,5 @@
     <string name="ttd_title">Panduan Foto Spesimen TTD</string>
     <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Posisikan spesimen sesuai pada contoh gambar di atas.</string>
     <string name="bitmap_null">Terjadi kesalahan, silahkan coba lagi.</string>
+    <string name="rotate">Rotasikan</string>
 </resources>

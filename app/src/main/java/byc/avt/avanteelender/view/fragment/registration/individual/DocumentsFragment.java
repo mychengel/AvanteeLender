@@ -127,7 +127,7 @@ public class DocumentsFragment extends Fragment {
     String str_ktp = "", str_npwp = "", str_selfie = "", str_ttd = "";
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
     String PICK_TYPE_KTP = "ktp", PICK_TYPE_NPWP = "npwp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
-    int BITMAP_SIZE = 60, MAX_SIZE = 512;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640;
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -657,7 +657,6 @@ public class DocumentsFragment extends Fragment {
                     e.printStackTrace();
                 }
             } else {
-
                 File path = null;
                 File file = null;
                 path = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -670,14 +669,12 @@ public class DocumentsFragment extends Fragment {
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //bitmap = f.getRotateImage(bitmap);
-                        bitmap = f.getRotateImage(file.getPath(), bitmap);
+                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         if (requestCode == PICK_KTP_CAM) {
                             decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             ktp_byte = bytes.toByteArray();
-                            //Log.e("KTP Byte", ktp_byte + "");
                             str_ktp = f.getStringImage(decoded_ktp);
                             txt_ktp.setText(filePath.getLastPathSegment());
                         } else if (requestCode == PICK_NPWP_CAM) {

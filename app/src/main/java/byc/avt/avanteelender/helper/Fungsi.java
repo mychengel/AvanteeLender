@@ -71,7 +71,6 @@ public class Fungsi {
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             Toast.makeText(ctx, centeredText, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void showMessageLong(String msg) {
@@ -167,6 +166,10 @@ public class Fungsi {
         //return _bmp;
         return output;
     }
+    public static Bitmap rotateImage(Bitmap bitmap) throws IOException {
+        Bitmap rotatedBitmap = rotateImage(bitmap, 90);
+        return rotatedBitmap;
+    }
 
     public static Bitmap getRotateImage(String photoPath, Bitmap bitmap) throws IOException {
         Bitmap rotatedBitmap = null;
@@ -211,7 +214,7 @@ public class Fungsi {
                 rotatedBitmap = rotateImage(bitmap, 270);
                 break;
             case ExifInterface.ORIENTATION_UNDEFINED:
-                rotatedBitmap = rotateImage(bitmap, 90);
+                rotatedBitmap = bitmap;
                 break;
             case ExifInterface.ORIENTATION_NORMAL:
                 rotatedBitmap = bitmap;

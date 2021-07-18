@@ -1,5 +1,8 @@
 package byc.avt.avanteelender.view.fragment.registration;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,15 +14,19 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 
 /**
@@ -31,6 +38,42 @@ public class WelcomeFragment extends Fragment {
         // Required empty public constructor
     }
 
+    Boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", getActivity().getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(getActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +93,8 @@ public class WelcomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         f = new Fungsi(getActivity());
         //gv.perRegData.clear();
+        checkStorageAccess();
+
         btn_begin = view.findViewById(R.id.btn_welcome_form_begin);
         btn_begin.setOnClickListener(new View.OnClickListener() {
             @Override

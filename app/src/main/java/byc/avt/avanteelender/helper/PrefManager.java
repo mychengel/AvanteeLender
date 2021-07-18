@@ -7,8 +7,8 @@ import byc.avt.avanteelender.model.UserData;
 
 public class PrefManager {
 
-    private SharedPreferences pref, userPref, keyPref, docPref;
-    private SharedPreferences.Editor editor, userEditor, keyEditor, docEditor;
+    private SharedPreferences pref, userPref, keyPref, docPref, storagePref;
+    private SharedPreferences.Editor editor, userEditor, keyEditor, docEditor, storageEditor;
     private static PrefManager instance;
 
     // shared pref mode
@@ -19,6 +19,7 @@ public class PrefManager {
     private static final String PREF_USER = "user";
     private static final String PREF_KEYS = "keys";
     private static final String PREF_DOC = "doc";
+    private static final String PREF_STORAGE = "storage";
     private static final String PREF_PERSONAL_REG = "personalreg";
     private static final String PREF_INSTITUTION_REG = "institutionreg";
 
@@ -39,11 +40,24 @@ public class PrefManager {
         docPref = context.getSharedPreferences(PREF_DOC, PRIVATE_MODE);
         docEditor = docPref.edit();
 
+        storagePref = context.getSharedPreferences(PREF_STORAGE, PRIVATE_MODE);
+        storageEditor = storagePref.edit();
+
 //        perRegPref = context.getSharedPreferences(PREF_PERSONAL_REG, PRIVATE_MODE);
 //        perRegEditor = perRegPref.edit();
 //
 //        insRegPref = context.getSharedPreferences(PREF_INSTITUTION_REG, PRIVATE_MODE);
 //        insRegEditor = insRegPref.edit();
+    }
+
+    public void setStoragePermission(boolean value){
+        storageEditor.putBoolean("storage", value);
+        storageEditor.commit();
+    }
+
+    public boolean getStoragePermission(){
+        boolean value = storagePref.getBoolean("storage",false);
+        return value;
     }
 
     public static PrefManager getInstance(Context context) {

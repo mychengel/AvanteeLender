@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -34,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -85,6 +87,8 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
     String name="", birthdate="", jabatan="", phone="", email="";
     byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null;
 
+    Button btnr_ktp, btnr_npwp, btnr_selfie;
+    Bitmap bitmap_ktp, bitmap_npwp, bitmap_selfie;
     Bitmap bitmap, decoded_ktp, decoded_npwp, decoded_selfie;
     String str_ktp = "", str_npwp = "", str_selfie = "";
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
@@ -270,8 +274,16 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         });
 
         editIsOn(false);
-
+        checkStorageAccess();
+        cekButtonRotate();
     }
+
+    private void cekButtonRotate(){
+        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
+        if(bitmap_npwp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
+        if(bitmap_selfie != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
+    }
+
 
 
     private void confirmNext(View v){
@@ -651,9 +663,41 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }else if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(InsDataPendukungShowActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
         }
+        cekButtonRotate();
 //        cekView();
 //        cekDone();
+    }
+
+    Boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", InsDataPendukungShowActivity.this.getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
     }
 
     @Override

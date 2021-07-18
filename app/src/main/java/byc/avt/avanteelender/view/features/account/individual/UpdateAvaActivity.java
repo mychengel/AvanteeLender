@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -70,22 +72,22 @@ public class UpdateAvaActivity extends AppCompatActivity {
     Toolbar toolbar;
     GlobalVariables gv;
     private Dialog dialog;
-    private Button btn_simpan;
+    private Button btn_simpan, btn_rotate_ava;
     private TextInputLayout editNewPhone;
     private CheckBox cb;
     private LinearLayout lin;
     String noHp = "";
     boolean isChangeNoHp = false;
     TextView txt_ava;
-    ImageView img_ava, img_cancel_ava;
+    ImageView img_ava, img_ava_indi, img_cancel_ava;
 
     CardView cv_ava;
     byte[] ava_byte = null;
-    Bitmap bitmap, decoded_ava;
+    Bitmap bitmap, bitmap_ava, decoded_ava;
     String str_ava = "";
     int PICK_AVA = 1, PICK_AVA_CAM = 2;
     String PICK_TYPE_AVA = "ava";
-    int BITMAP_SIZE = 60, MAX_SIZE = 512;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,24 @@ public class UpdateAvaActivity extends AppCompatActivity {
         lin = findViewById(R.id.lin_update_no_hp_update_ava);
         txt_ava = findViewById(R.id.txt_take_ava_update_ava);
         img_ava = findViewById(R.id.img_take_ava_update_ava);
+        img_ava_indi = findViewById(R.id.img_ava_show_update_ava);
         img_cancel_ava = findViewById(R.id.img_cancel_take_ava_update_ava);
+
+        btn_rotate_ava = findViewById(R.id.btn_rotate_ava_update_ava);
+        btn_rotate_ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_ava = f.rotateImage(bitmap_ava);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    img_ava_indi.setImageBitmap(bitmap_ava);
+                    bitmap_ava.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    ava_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -160,7 +179,11 @@ public class UpdateAvaActivity extends AppCompatActivity {
                 }
             }
         });
+        cekButtonRotate();
+    }
 
+    private void cekButtonRotate(){
+        if(bitmap_ava != null){btn_rotate_ava.setVisibility(View.VISIBLE);}else{btn_rotate_ava.setVisibility(View.INVISIBLE);}
     }
 
     private void confirmSave(){
@@ -252,19 +275,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                 }
                             });
 
-//                            new AlertDialog.Builder(UpdateAvaActivity.this)
-//                                .setTitle("Pemberitahuan")
-//                                .setIcon(R.drawable.ic_document_photo_circle)
-//                                .setMessage(getString(R.string.req_ava))
-//                                .setCancelable(true)
-//                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-//                                    }
-//                                })
-//                                .create()
-//                                .show();
+
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
@@ -359,11 +370,13 @@ public class UpdateAvaActivity extends AppCompatActivity {
                 try {
                     //mengambil gambar dari Gallery
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                    // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
+                    // 640 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_AVA) {
+                        bitmap_ava = bitmap;
+                        img_ava_indi.setImageBitmap(bitmap_ava);
                         decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ava_byte = bytes.toByteArray();
                         str_ava = f.getStringImage(decoded_ava);
@@ -388,14 +401,14 @@ public class UpdateAvaActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //bitmap = f.getRotateImage(bitmap);
-                        bitmap = f.getRotateImage(file.getPath(), bitmap);
+                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         if (requestCode == PICK_AVA_CAM) {
+                            bitmap_ava = bitmap;
+                            img_ava_indi.setImageBitmap(bitmap_ava);
                             decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             ava_byte = bytes.toByteArray();
-                            Log.e("AVA Byte", ava_byte + "");
                             str_ava = f.getStringImage(decoded_ava);
                             txt_ava.setText(filePath.getLastPathSegment());
                         }
@@ -404,11 +417,42 @@ public class UpdateAvaActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }else if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(UpdateAvaActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
         }
+        cekButtonRotate();
         cekView();
         cekDone();
     }
 
+    Boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", UpdateAvaActivity.this.getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
+    }
 
     /////////////////
     public void confirmLogin() {
