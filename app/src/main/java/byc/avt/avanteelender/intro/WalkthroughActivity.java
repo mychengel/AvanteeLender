@@ -113,7 +113,7 @@ public class WalkthroughActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        requestMultiPermission();
+        //requestMultiPermission();
     }
 
     private void addBottomDots(int currentPage) {

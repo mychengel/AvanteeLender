@@ -109,6 +109,47 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_ktp_fr_documents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:cardBackgroundColor="@color/dark"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_take_ktp_fr_documents">
+
+                <Button
+                    android:id="@+id/btn_ktp_fr_documents"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|end"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_baseline_rotate_right_dark_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/img_ktp_fr_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:contentDescription="@string/img"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+            </androidx.cardview.widget.CardView>
+
             <CheckBox
                 android:id="@+id/cb_not_have_npwp_fr_documents"
                 android:layout_width="0dp"
@@ -125,7 +166,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_take_ktp_fr_documents"
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_ktp_fr_documents"
                 app:useMaterialThemeColors="false" />
 
             <LinearLayout
@@ -241,6 +282,49 @@
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_img_npwp_fr_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@color/dark"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cv_take_ktp_fr_documents">
+
+                    <Button
+                        android:id="@+id/btn_npwp_fr_documents"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="top|end"
+                        android:background="@android:color/transparent"
+                        android:elevation="0dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:icon="@drawable/ic_baseline_rotate_right_dark_24"
+                        app:iconGravity="textStart"
+                        app:iconTint="@android:color/white" />
+
+                    <ImageView
+                        android:id="@+id/img_npwp_fr_documents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="24dp"
+                        android:contentDescription="@string/img"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
@@ -306,6 +390,47 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_selfie_fr_documents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:cardBackgroundColor="@color/dark"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_take_selfie_fr_documents">
+
+                <Button
+                    android:id="@+id/btn_selfie_fr_documents"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|end"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_baseline_rotate_right_dark_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/img_selfie_fr_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:contentDescription="@string/img"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cv_take_ttd_fr_documents"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
@@ -317,7 +442,7 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_take_selfie_fr_documents">
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_selfie_fr_documents">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons_cv_take_ttd_fr_documents"
@@ -367,6 +492,47 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_ttd_fr_documents"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:cardBackgroundColor="@color/dark"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_take_ttd_fr_documents">
+
+                <Button
+                    android:id="@+id/btn_ttd_fr_documents"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|end"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_baseline_rotate_right_dark_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/img_ttd_fr_documents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:contentDescription="@string/img"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/btn_next_fr_documents"
                 style="?android:attr/borderlessButtonStyle"
@@ -385,7 +551,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_take_ttd_fr_documents" />
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_ttd_fr_documents" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

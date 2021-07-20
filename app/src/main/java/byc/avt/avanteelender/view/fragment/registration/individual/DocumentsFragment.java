@@ -27,6 +27,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -45,6 +46,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -128,6 +130,10 @@ public class DocumentsFragment extends Fragment {
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
     String PICK_TYPE_KTP = "ktp", PICK_TYPE_NPWP = "npwp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
     int BITMAP_SIZE = 60, MAX_SIZE = 640;
+
+    Button btnr_ktp, btnr_npwp, btnr_selfie, btnr_ttd;
+    ImageView imgr_ktp, imgr_npwp, imgr_selfie, imgr_ttd;
+    Bitmap bitmap_ktp, bitmap_npwp, bitmap_selfie, bitmap_ttd;
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -327,6 +333,85 @@ public class DocumentsFragment extends Fragment {
                 Log.e("Data-File", gv.perRegDataFile.toString());
             }
         });
+
+
+        imgr_ktp = view.findViewById(R.id.img_ktp_fr_documents);
+        btnr_ktp = view.findViewById(R.id.btn_ktp_fr_documents);
+        btnr_ktp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_ktp = f.rotateImage(bitmap_ktp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_ktp.setImageBitmap(bitmap_ktp);
+                    bitmap_ktp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    ktp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        imgr_npwp = view.findViewById(R.id.img_npwp_fr_documents);
+        btnr_npwp = view.findViewById(R.id.btn_npwp_fr_documents);
+        btnr_npwp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_npwp = f.rotateImage(bitmap_npwp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_npwp.setImageBitmap(bitmap_npwp);
+                    bitmap_npwp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    npwp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        imgr_selfie = view.findViewById(R.id.img_selfie_fr_documents);
+        btnr_selfie = view.findViewById(R.id.btn_selfie_fr_documents);
+        btnr_selfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_selfie = f.rotateImage(bitmap_selfie);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_selfie.setImageBitmap(bitmap_selfie);
+                    bitmap_selfie.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    selfie_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        imgr_ttd = view.findViewById(R.id.img_ttd_fr_documents);
+        btnr_ttd = view.findViewById(R.id.btn_ttd_fr_documents);
+        btnr_ttd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_ttd = f.rotateImage(bitmap_ttd);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_ttd.setImageBitmap(bitmap_ttd);
+                    bitmap_ttd.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    ttd_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        checkStorageAccess();
+        cekButtonRotate();
+    }
+
+    private void cekButtonRotate(){
+        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
+        if(bitmap_npwp != null){btnr_npwp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
+        if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
+        if(bitmap_ttd != null){btnr_ttd.setVisibility(View.VISIBLE);}else{btnr_ttd.setVisibility(View.INVISIBLE);}
     }
 
     private void createDocument(){
@@ -532,19 +617,6 @@ public class DocumentsFragment extends Fragment {
                                 }
                             });
 
-//                            new AlertDialog.Builder(getActivity())
-//                                .setTitle("Pemberitahuan")
-//                                .setIcon(R.drawable.ic_document_photo_circle)
-//                                .setMessage(getString(R.string.req_doc))
-//                                .setCancelable(true)
-//                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-//                                    }
-//                                })
-//                                .create()
-//                                .show();
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
@@ -626,27 +698,35 @@ public class DocumentsFragment extends Fragment {
                 try {
                     //mengambil gambar dari Gallery
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
+                    // 640 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP) {
+                        bitmap_ktp = bitmap;
+                        imgr_ktp.setImageBitmap(bitmap_ktp);
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ktp_byte = bytes.toByteArray();
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
                         txt_ktp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_NPWP) {
+                        bitmap_npwp = bitmap;
+                        imgr_npwp.setImageBitmap(bitmap_npwp);
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_SELFIE) {
+                        bitmap_selfie = bitmap;
+                        imgr_selfie.setImageBitmap(bitmap_selfie);
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_TTD) {
+                        bitmap_ttd = bitmap;
+                        imgr_ttd.setImageBitmap(bitmap_ttd);
                         decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ttd_byte = bytes.toByteArray();
                         str_ttd = f.getStringImage(decoded_ttd);
@@ -665,29 +745,37 @@ public class DocumentsFragment extends Fragment {
                 Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                    if(bitmap == null){
+                    if (bitmap == null) {
                         f.showMessage(getString(R.string.bitmap_null));
-                    }else {
+                    } else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                         bitmap = f.getRotateImage2(file.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         if (requestCode == PICK_KTP_CAM) {
+                            bitmap_ktp = bitmap;
+                            imgr_ktp.setImageBitmap(bitmap_ktp);
                             decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             ktp_byte = bytes.toByteArray();
                             str_ktp = f.getStringImage(decoded_ktp);
                             txt_ktp.setText(filePath.getLastPathSegment());
                         } else if (requestCode == PICK_NPWP_CAM) {
+                            bitmap_npwp = bitmap;
+                            imgr_npwp.setImageBitmap(bitmap_npwp);
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
                         } else if (requestCode == PICK_SELFIE_CAM) {
+                            bitmap_selfie = bitmap;
+                            imgr_selfie.setImageBitmap(bitmap_selfie);
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
                         } else if (requestCode == PICK_TTD_CAM) {
+                            bitmap_ttd = bitmap;
+                            imgr_ttd.setImageBitmap(bitmap_ttd);
                             decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             ttd_byte = bytes.toByteArray();
                             str_ttd = f.getStringImage(decoded_ttd);
@@ -698,9 +786,41 @@ public class DocumentsFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
+        }else if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(getActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
         }
+        cekButtonRotate();
         cekView();
         cekDone();
+    }
+
+    Boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", getActivity().getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
     }
 
     private void cekView(){
