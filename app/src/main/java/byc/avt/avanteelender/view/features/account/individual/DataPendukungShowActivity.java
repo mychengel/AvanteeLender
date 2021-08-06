@@ -765,7 +765,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         ttd_byte = bytes.toByteArray();
                         str_ttd = f.getStringImage(decoded_ttd);
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

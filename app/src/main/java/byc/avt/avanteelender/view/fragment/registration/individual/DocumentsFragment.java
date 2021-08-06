@@ -596,8 +596,8 @@ public class DocumentsFragment extends Fragment {
                                 btnNext = dialogView.findViewById(R.id.btn_next_dial_pfn);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_swafoto, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfs);
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfw);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
                                 PICK_IMAGE_REQUEST = PICK_TTD_CAM;
                                 dialogView = inflater.inflate(R.layout.dialog_pra_foto_ttd, null);
