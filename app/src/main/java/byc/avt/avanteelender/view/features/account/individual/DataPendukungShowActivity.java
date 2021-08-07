@@ -781,7 +781,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
+                        //bitmap = f.getRotateImage2(file.getPath(), bitmap);
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
 
