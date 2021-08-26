@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -87,7 +88,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
     String str_ava = "";
     int PICK_AVA = 1, PICK_AVA_CAM = 2;
     String PICK_TYPE_AVA = "ava";
-    int BITMAP_SIZE = 60, MAX_SIZE = 640;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_AVA = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -398,13 +399,16 @@ public class UpdateAvaActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     if(bitmap == null){
-                        f.showMessage(getString(R.string.bitmap_null));
+                        f.showMessage(getString(R.string.must_portrait));
                     }else {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        ///new
                         if (requestCode == PICK_AVA_CAM) {
+                            performCrop(filePath, CROP_AVA);
+                        }
+                        else if (requestCode == CROP_AVA) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_ava = bitmap;
                             img_ava_indi.setImageBitmap(bitmap_ava);
                             decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
@@ -412,6 +416,20 @@ public class UpdateAvaActivity extends AppCompatActivity {
                             str_ava = f.getStringImage(decoded_ava);
                             txt_ava.setText(filePath.getLastPathSegment());
                         }
+                        ///new
+
+//                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+//                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
+//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+//                        if (requestCode == PICK_AVA_CAM) {
+//                            bitmap_ava = bitmap;
+//                            img_ava_indi.setImageBitmap(bitmap_ava);
+//                            decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+//                            ava_byte = bytes.toByteArray();
+//                            str_ava = f.getStringImage(decoded_ava);
+//                            txt_ava.setText(filePath.getLastPathSegment());
+//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -431,6 +449,31 @@ public class UpdateAvaActivity extends AppCompatActivity {
         cekButtonRotate();
         cekView();
         cekDone();
+    }
+
+    private void performCrop(Uri picUri, int PIC_CROP){
+        try {
+            UpdateAvaActivity.this.grantUriPermission("com.android.camera",picUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.setDataAndType(picUri, "image/*");
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            cropIntent.putExtra("outputX", 300);
+            cropIntent.putExtra("outputY", 300);
+            cropIntent.putExtra("return-data", true);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Device tidak support untuk memotong gambar.";
+            Toast toast = Toast.makeText( UpdateAvaActivity.this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     Boolean storageAccess = false;

@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view.fragment.registration.individual;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -129,7 +130,7 @@ public class DocumentsFragment extends Fragment {
     String str_ktp = "", str_npwp = "", str_selfie = "", str_ttd = "";
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
     String PICK_TYPE_KTP = "ktp", PICK_TYPE_NPWP = "npwp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
-    int BITMAP_SIZE = 60, MAX_SIZE = 640;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_KTP = 101, CROP_NPWP = 102, CROP_SELFIE = 103, CROP_TTD = 104;;
 
     Button btnr_ktp, btnr_npwp, btnr_selfie, btnr_ttd;
     ImageView imgr_ktp, imgr_npwp, imgr_selfie, imgr_ttd;
@@ -746,41 +747,96 @@ public class DocumentsFragment extends Fragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                     if (bitmap == null) {
-                        f.showMessage(getString(R.string.bitmap_null));
+                        f.showMessage(getString(R.string.must_portrait));
                     } else {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        ////new
                         if (requestCode == PICK_KTP_CAM) {
+                            performCrop(filePath, CROP_KTP);
+                        } else if (requestCode == PICK_NPWP_CAM) {
+                            performCrop(filePath, CROP_NPWP);
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            performCrop(filePath, CROP_SELFIE);
+                        } else if (requestCode == PICK_TTD_CAM) {
+                            performCrop(filePath, CROP_TTD);
+                        }
+
+                        else if (requestCode == CROP_KTP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_ktp = bitmap;
-                            imgr_ktp.setImageBitmap(bitmap_ktp);
                             decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_ktp.setImageBitmap(bitmap_ktp);
                             ktp_byte = bytes.toByteArray();
                             str_ktp = f.getStringImage(decoded_ktp);
                             txt_ktp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == PICK_NPWP_CAM) {
+                        } else if (requestCode == CROP_NPWP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_npwp = bitmap;
-                            imgr_npwp.setImageBitmap(bitmap_npwp);
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_npwp.setImageBitmap(decoded_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == PICK_SELFIE_CAM) {
+                        } else if (requestCode == CROP_SELFIE) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_selfie = bitmap;
-                            imgr_selfie.setImageBitmap(bitmap_selfie);
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_selfie.setImageBitmap(decoded_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == PICK_TTD_CAM) {
+                        } else if (requestCode == CROP_TTD) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_ttd = bitmap;
-                            imgr_ttd.setImageBitmap(bitmap_ttd);
                             decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_ttd.setImageBitmap(decoded_ttd);
                             ttd_byte = bytes.toByteArray();
                             str_ttd = f.getStringImage(decoded_ttd);
                             txt_ttd.setText(filePath.getLastPathSegment());
                         }
+                        ////new
+
+
+//                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+//                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
+//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+//                        if (requestCode == PICK_KTP_CAM) {
+//                            bitmap_ktp = bitmap;
+//                            imgr_ktp.setImageBitmap(bitmap_ktp);
+//                            decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+//                            ktp_byte = bytes.toByteArray();
+//                            str_ktp = f.getStringImage(decoded_ktp);
+//                            txt_ktp.setText(filePath.getLastPathSegment());
+//                        } else if (requestCode == PICK_NPWP_CAM) {
+//                            bitmap_npwp = bitmap;
+//                            imgr_npwp.setImageBitmap(bitmap_npwp);
+//                            decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+//                            npwp_byte = bytes.toByteArray();
+//                            str_npwp = f.getStringImage(decoded_npwp);
+//                            txt_npwp.setText(filePath.getLastPathSegment());
+//                        } else if (requestCode == PICK_SELFIE_CAM) {
+//                            bitmap_selfie = bitmap;
+//                            imgr_selfie.setImageBitmap(bitmap_selfie);
+//                            decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+//                            selfie_byte = bytes.toByteArray();
+//                            str_selfie = f.getStringImage(decoded_selfie);
+//                            txt_selfie.setText(filePath.getLastPathSegment());
+//                        } else if (requestCode == PICK_TTD_CAM) {
+//                            bitmap_ttd = bitmap;
+//                            imgr_ttd.setImageBitmap(bitmap_ttd);
+//                            decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+//                            ttd_byte = bytes.toByteArray();
+//                            str_ttd = f.getStringImage(decoded_ttd);
+//                            txt_ttd.setText(filePath.getLastPathSegment());
+//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -800,6 +856,31 @@ public class DocumentsFragment extends Fragment {
         cekButtonRotate();
         cekView();
         cekDone();
+    }
+
+    private void performCrop(Uri picUri, int PIC_CROP){
+        try {
+            getActivity().grantUriPermission("com.android.camera",picUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.setDataAndType(picUri, "image/*");
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("aspectX", 4);
+            cropIntent.putExtra("aspectY", 3);
+            cropIntent.putExtra("outputX", 400);
+            cropIntent.putExtra("outputY", 300);
+            cropIntent.putExtra("return-data", true);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Device tidak support untuk memotong gambar.";
+            Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     Boolean storageAccess = false;
