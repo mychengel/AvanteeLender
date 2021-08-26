@@ -402,10 +402,10 @@ public class UpdateAvaActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.must_portrait));
                     }else {
                         ///new
+//                        if (requestCode == PICK_AVA_CAM) {
+//                            performCrop(filePath, CROP_AVA);
+//                        }
                         if (requestCode == PICK_AVA_CAM) {
-                            performCrop(filePath, CROP_AVA);
-                        }
-                        else if (requestCode == CROP_AVA) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);

@@ -754,9 +754,11 @@ public class DocumentsFragment extends Fragment {
                             performCrop(filePath, CROP_KTP);
                         } else if (requestCode == PICK_NPWP_CAM) {
                             performCrop(filePath, CROP_NPWP);
-                        } else if (requestCode == PICK_SELFIE_CAM) {
-                            performCrop(filePath, CROP_SELFIE);
-                        } else if (requestCode == PICK_TTD_CAM) {
+                        }
+//                        else if (requestCode == PICK_SELFIE_CAM) {
+//                            performCrop(filePath, CROP_SELFIE);
+//                        }
+                        else if (requestCode == PICK_TTD_CAM) {
                             performCrop(filePath, CROP_TTD);
                         }
 
@@ -780,7 +782,7 @@ public class DocumentsFragment extends Fragment {
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == CROP_SELFIE) {
+                        } else if (requestCode == PICK_SELFIE_CAM) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);

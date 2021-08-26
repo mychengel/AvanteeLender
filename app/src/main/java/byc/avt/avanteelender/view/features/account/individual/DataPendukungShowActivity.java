@@ -790,9 +790,11 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             performCrop(filePath, CROP_KTP);
                         } else if (requestCode == PICK_NPWP_CAM) {
                             performCrop(filePath, CROP_NPWP);
-                        } else if (requestCode == PICK_SELFIE_CAM) {
-                            performCrop(filePath, CROP_SELFIE);
-                        } else if (requestCode == PICK_TTD_CAM) {
+                        }
+//                        else if (requestCode == PICK_SELFIE_CAM) {
+//                            performCrop(filePath, CROP_SELFIE);
+//                        }
+                        else if (requestCode == PICK_TTD_CAM) {
                             performCrop(filePath, CROP_TTD);
                         }
 
@@ -815,7 +817,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             img_npwp.setImageBitmap(decoded_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
-                        } else if (requestCode == CROP_SELFIE) {
+                        } else if (requestCode == PICK_SELFIE_CAM) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
