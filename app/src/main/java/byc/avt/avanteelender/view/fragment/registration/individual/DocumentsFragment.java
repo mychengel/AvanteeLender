@@ -734,6 +734,64 @@ public class DocumentsFragment extends Fragment {
                         txt_ttd.setText(filePath.getLastPathSegment() + ".jpg");
                     }
 
+
+                    ////new
+                    if (requestCode == PICK_KTP_CAM) {
+                        performCrop(filePath, CROP_KTP);
+                    } else if (requestCode == PICK_NPWP_CAM) {
+                        performCrop(filePath, CROP_NPWP);
+                    }
+//                        else if (requestCode == PICK_SELFIE_CAM) {
+//                            performCrop(filePath, CROP_SELFIE);
+//                        }
+                    else if (requestCode == PICK_TTD_CAM) {
+                        performCrop(filePath, CROP_TTD);
+                    }
+
+                    else if (requestCode == CROP_KTP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_ktp = bitmap;
+                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_ktp.setImageBitmap(bitmap_ktp);
+                        ktp_byte = bytes.toByteArray();
+                        str_ktp = f.getStringImage(decoded_ktp);
+                        txt_ktp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == CROP_NPWP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_npwp = bitmap;
+                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_npwp.setImageBitmap(decoded_npwp);
+                        npwp_byte = bytes.toByteArray();
+                        str_npwp = f.getStringImage(decoded_npwp);
+                        txt_npwp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_selfie = bitmap;
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_selfie.setImageBitmap(decoded_selfie);
+                        selfie_byte = bytes.toByteArray();
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == CROP_TTD) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_ttd = bitmap;
+                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_ttd.setImageBitmap(decoded_ttd);
+                        ttd_byte = bytes.toByteArray();
+                        str_ttd = f.getStringImage(decoded_ttd);
+                        txt_ttd.setText(filePath.getLastPathSegment());
+                    }
+                    ////new
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
