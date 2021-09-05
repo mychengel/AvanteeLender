@@ -66,7 +66,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
     String jobs="", jobField="", isOnlineBased="ya", jobPosition="", experience="", income="",
             companyName="", companyNumber="", fundsSource="", companyAddress="", companyProvince="",
             companyCity="", companyDistrict="", companyUrban="", companyRT="", companyRW="",
-            companyPostalCode="";
+            companyPostalCode="", ex="";
 
     List<Object> listJob = new ArrayList<>(); List<Object> listJobID = new ArrayList<>();
     List<Object> listJobField = new ArrayList<>(); List<Object> listJobFieldID = new ArrayList<>();
@@ -126,6 +126,8 @@ public class WorkInfoShowActivity extends AppCompatActivity {
         Intent i = getIntent();
         try {
             job = new JSONObject(i.getStringExtra("jobWorkInfo"));
+            ex = job.getString("job_experience").replaceAll("&lt;","<");
+            ex = ex.replaceAll("&gt;",">");
             if(job.getString("online_based").equalsIgnoreCase("Ya")){
                 radButtonIsOnlineBased = findViewById(R.id.rad_yes_fr_work_info_show);
                 isOnlineBased = "ya";
@@ -137,7 +139,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             txtJob.getEditText().setText(job.getString("client_job"));
             txtJobField.getEditText().setText(job.getString("client_job_type"));
             txtJobPosition.getEditText().setText(job.getString("job_position"));
-            txtExperience.getEditText().setText(job.getString("job_experience").replaceAll("[lgt;&]", ""));
+            txtExperience.getEditText().setText(ex);
             txtIncome.getEditText().setText(job.getString("income"));
             txtCompanyName.getEditText().setText(job.getString("company_name"));
             txtCompanyNumber.getEditText().setText(job.getString("office_phone"));
@@ -418,10 +420,13 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 if(result.getInt("code") == 200){
                     JSONObject jobRes = result.getJSONObject("result");
                     JSONArray jar = jobRes.getJSONArray("position");
+                    Log.e("List Job Position", jar.toString());
                     for(int i = 0; i < jar.length(); i++){
                         listJobPosition.add(jar.getJSONObject(i).getString("name"));
                         listJobPositionID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("job_position"))){
+                        String jp = job.getString("job_position").replaceAll("\r","");
+                        jp = jp.replaceAll("\n","");
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(jp)){
                             jobPosition = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data jobpos", jobPosition);
@@ -452,10 +457,12 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 if(result.getInt("code") == 200){
                     JSONObject jobRes = result.getJSONObject("result");
                     JSONArray jar = jobRes.getJSONArray("experience");
+                    Log.e("List Experience", jar.toString());
                     for(int i = 0; i < jar.length(); i++){
                         listExperience.add(jar.getJSONObject(i).getString("name"));
                         listExperienceID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("job_experience"))){
+
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(ex)){
                             experience = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data jobexp", experience);

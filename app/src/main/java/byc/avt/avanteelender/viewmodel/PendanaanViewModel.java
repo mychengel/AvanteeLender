@@ -26,11 +26,21 @@ public class PendanaanViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultSetujuFunding = new MutableLiveData<>();
     private MutableLiveData<String> resultSignerFunding = new MutableLiveData<>();
     private MutableLiveData<String> resultSignStatus = new MutableLiveData<>();
+    private MutableLiveData<String> resultDownloadFactsheet = new MutableLiveData<>();
 
     public PendanaanViewModel(@NonNull Application application) {
         super(application);
         repository = PendanaanRepository.getInstance();
     }
+
+    public void downloadFactsheet(String uid, String token, String loan_id){
+        resultDownloadFactsheet = repository.downloadFactsheet(loan_id, uid, token, getApplication());
+    }
+
+    public LiveData<String> getResultDownloadFactsheet(){
+        return resultDownloadFactsheet;
+    }
+
 
     public void getStageFunding(String uid, String token, String loan_no){
         resultStageFunding = repository.stageFunding(loan_no, uid, token, getApplication());

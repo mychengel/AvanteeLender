@@ -1,6 +1,7 @@
 package byc.avt.avanteelender.repositories;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +23,8 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +32,7 @@ import java.util.Map;
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
+import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Pendanaan;
 
@@ -47,6 +51,81 @@ public class PendanaanRepository {
             repository = new PendanaanRepository();
         }
         return repository;
+    }
+
+    public MutableLiveData<String> downloadFactsheet(final String loan_no, final String uid, final String token, final Context context) {
+        final MutableLiveData<String> result = new MutableLiveData<>();
+        String myurl = url+"internal/pendanaan/download_factsheet/"+loan_no;
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
+                new Response.Listener<byte[]>() {
+                    @Override
+                    public void onResponse(byte[] response) {
+                        // TODO handle the response
+                        try {
+                            if (response!=null) {
+                                Log.e("Factsheet", response.toString());
+                                String filename = loan_no+"_Factsheet";
+                                File folder = null;
+                                File file = null;
+                                try{
+                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
+                                    if (!folder.exists()) {
+                                        folder.mkdirs();
+                                    }
+
+                                    int fCount = 0;
+                                    File[] files = folder.listFiles();
+                                    for (File filex : files) {
+                                        if (filex.getName().contains(filename)) {
+                                            fCount++;
+                                        }
+                                    }
+                                    if(fCount == 0){
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
+                                    }else{
+                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
+                                    }
+
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    Log.e("PathDocFactsheet", file+"");
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                result.setValue(context.getString(R.string.factsheet_downloaded));
+
+                                FileOutputStream outputStream;
+                                outputStream = new FileOutputStream(file, true);
+                                outputStream.write(response);
+                                outputStream.close();
+                            }else{
+                                result.setValue(context.getString(R.string.download_failed));
+                            }
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            result.setValue(context.getString(R.string.download_failed));
+                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                            e.printStackTrace();
+                        }
+                    }
+                } ,new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                result.setValue(context.getString(R.string.download_failed));
+            }
+        }, null)
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid, token);
+            }
+        };
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        mRequestQueue.add(request);
+        return result;
     }
 
     public MutableLiveData<ArrayList<Pendanaan>> getListPendanaan(final String uid, final String token, final Context context) {

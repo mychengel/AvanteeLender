@@ -2,19 +2,28 @@ package byc.avt.avanteelender.view.features.pendanaan;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -24,6 +33,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -106,6 +116,58 @@ public class PendanaanDetailActivity extends AppCompatActivity {
 
     }
 
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+
+    private void checkPermission(){
+        checkStorageAccess();
+        final int permission = ActivityCompat.checkSelfPermission(PendanaanDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(PendanaanDetailActivity.this, PERMISSIONS_STORAGE, 1);
+        }else{
+
+        }
+    }
+
+    boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s",PendanaanDetailActivity.this.getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2296) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                if (Environment.isExternalStorageManager()) {
+                    storageAccess = true;
+                } else {
+                    storageAccess = false;
+                    Toast.makeText(PendanaanDetailActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    checkStorageAccess();
+                }
+            }
+        }
+    }
+
     public void confirmDanai(){
         dialog.show();
         viewModel.getStageFunding(prefManager.getUid(), prefManager.getToken(), loan_no);
@@ -169,6 +231,26 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         viewModel.getDetailPendanaanResult().observe(PendanaanDetailActivity.this, showDetailPendanaan);
     }
 
+    private Observer<String> showResultDownloadFactsheet = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            dialog.cancel();
+            new AlertDialog.Builder(PendanaanDetailActivity.this)
+                    .setTitle("Konfirmasi")
+                    .setIcon(R.drawable.logo)
+                    .setMessage(result)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+    };
+
     private Observer<JSONObject> showDetailPendanaan = new Observer<JSONObject>() {
         @Override
         public void onChanged(final JSONObject result) {
@@ -181,10 +263,24 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                     img_factsheet.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent i = new Intent(PendanaanDetailActivity.this, FactsheetActivity.class);
-                            i.putExtra("factsheet", factsheet_url);
-                            startActivity(i);
-                            overridePendingTransition(R.anim.enter, R.anim.exit);
+//                            Intent i = new Intent(PendanaanDetailActivity.this, FactsheetActivity.class);
+//                            i.putExtra("factsheet", factsheet_url);
+//                            startActivity(i);
+//                            overridePendingTransition(R.anim.enter, R.anim.exit);
+                            checkPermission();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                if(storageAccess){
+                                    dialog.show();
+                                    viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
+                                    viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
+                                }else{
+                                    checkPermission();
+                                }
+                            }else{
+                                dialog.show();
+                                viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
+                                viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
+                            }
                         }
                     });
                     txt_loan_rating.setText(res.getString("loan_rating"));
