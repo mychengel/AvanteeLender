@@ -43,6 +43,7 @@ import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 public class BankInfoShowActivity extends AppCompatActivity {
 
+    Fungsi f = new Fungsi(BankInfoShowActivity.this);
     private Toolbar toolbar;
     JSONObject job;
     private PrefManager prefManager;
@@ -196,8 +197,21 @@ public class BankInfoShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(BankInfoShowActivity.this).moveOut();
                 }else{
-                    new Fungsi(BankInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
+                    //new Fungsi(BankInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = f.docErr400(jobRes.toString());
+                    new AlertDialog.Builder(BankInfoShowActivity.this)
+                            .setTitle("Peringatan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                     //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {

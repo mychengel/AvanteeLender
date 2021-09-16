@@ -73,6 +73,21 @@ public class Fungsi {
         }
     }
 
+    public String exrn(String text){
+        String res = text.replaceAll("\r","");
+        res = res.replaceAll("\n","");
+        return res;
+    }
+
+    public String docErr400(String text){
+        String msg = text.replaceAll("\",","\n• ");
+        msg = msg.replaceAll("\"","");
+        msg = msg.replaceAll("_"," ");
+        msg = msg.replaceAll("\\{","");
+        msg = msg.replaceAll("\\}","");
+        return msg;
+    }
+
     public void showMessageLong(String msg) {
         if(msg.equalsIgnoreCase("")){
             Toast.makeText(ctx, "", Toast.LENGTH_SHORT).show();

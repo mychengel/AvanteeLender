@@ -500,4 +500,5 @@
     <string name="bitmap_null">Terjadi kesalahan, silahkan coba lagi.</string>
     <string name="rotate">Rotasikan</string>
     <string name="must_portrait">Orientasi pengambilan foto harus portrait. Coba lagi!</string>
+    <string name="failed_on_multiples">Nominal pendanaan tidak sesuai dengan kelipatan nominal yang diijinkan yaitu </string>
 </resources>

@@ -46,6 +46,7 @@ import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 public class AddressDataShowActivity extends AppCompatActivity {
 
+    Fungsi f = new Fungsi(AddressDataShowActivity.this);
     private Toolbar toolbar;
     JSONObject job1, job2;
 
@@ -344,8 +345,21 @@ public class AddressDataShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(AddressDataShowActivity.this).moveOut();
                 }else{
-                    new Fungsi(AddressDataShowActivity.this).showMessage(getString(R.string.failed_update_data));
+                    //new Fungsi(AddressDataShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = f.docErr400(jobRes.toString());
+                    new AlertDialog.Builder(AddressDataShowActivity.this)
+                            .setTitle("Peringatan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                     cekError();
                     //new Routes(AddressDataShowActivity.this).moveOut();
                 }

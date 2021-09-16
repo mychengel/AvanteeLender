@@ -142,7 +142,12 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             txtExperience.getEditText().setText(ex);
             txtIncome.getEditText().setText(job.getString("income"));
             txtCompanyName.getEditText().setText(job.getString("company_name"));
-            txtCompanyNumber.getEditText().setText(job.getString("office_phone"));
+            if(job.getString("office_phone").equalsIgnoreCase("-")){
+                txtCompanyNumber.getEditText().setText("");
+            }else{
+                txtCompanyNumber.getEditText().setText(job.getString("office_phone"));
+            }
+
             txtFundsSource.getEditText().setText(job.getString("source_funds"));
             txtCompanyAddress.getEditText().setText(job.getString("company_address"));
             txtCompanyProvince.getEditText().setText(job.getString("company_province"));
@@ -309,8 +314,20 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(WorkInfoShowActivity.this).moveOut();
                 }else{
-                    new Fungsi(WorkInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = f.docErr400(jobRes.toString());
+                    new AlertDialog.Builder(WorkInfoShowActivity.this)
+                            .setTitle("Peringatan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                     cekError();
                     //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
@@ -355,7 +372,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listJob.add(jar.getJSONObject(i).getString("name"));
                         listJobID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("client_job"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("client_job")))){
                             jobs = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data jobtype", jobs);
@@ -389,7 +406,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listJobField.add(jar.getJSONObject(i).getString("name"));
                         listJobFieldID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("client_job_type"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("client_job_type")))){
                             jobField = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data jobfield", jobField);
@@ -424,9 +441,9 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listJobPosition.add(jar.getJSONObject(i).getString("name"));
                         listJobPositionID.add(jar.getJSONObject(i).getString("id"));
-                        String jp = job.getString("job_position").replaceAll("\r","");
-                        jp = jp.replaceAll("\n","");
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(jp)){
+//                        String jp = job.getString("job_position").replaceAll("\r","");
+//                        jp = jp.replaceAll("\n","");
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("job_position")))){
                             jobPosition = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data jobpos", jobPosition);
@@ -496,7 +513,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listIncome.add(jar.getJSONObject(i).getString("name"));
                         listIncomeID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("income"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("income")))){
                             income = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data income", income);
@@ -530,7 +547,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listFundsSource.add(jar.getJSONObject(i).getString("name"));
                         listFundsSourceID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("source_funds"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("source_funds")))){
                             fundsSource = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data funds", fundsSource);
@@ -564,7 +581,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listProvince.add(jar.getJSONObject(i).getString("name"));
                         listProvinceID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("company_province"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("company_province")))){
                             companyProvince = jar.getJSONObject(i).getString("id");
                             viewModel.getCity(prefManager.getUid(), prefManager.getToken(), companyProvince);
                             viewModel.getResultCity().observe(WorkInfoShowActivity.this, showCity);
@@ -604,7 +621,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listCity.add(jar.getJSONObject(i).getString("name"));
                         listCityID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("company_city"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("company_city")))){
                             companyCity = jar.getJSONObject(i).getString("id");
                             viewModel.getDistrict(prefManager.getUid(), prefManager.getToken(), companyCity);
                             viewModel.getResultDistrict().observe(WorkInfoShowActivity.this, showDistrict);
@@ -644,7 +661,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listDistrict.add(jar.getJSONObject(i).getString("name"));
                         listDistrictID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("company_district"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("company_district")))){
                             companyDistrict = jar.getJSONObject(i).getString("id");
                             viewModel.getUrban(prefManager.getUid(), prefManager.getToken(), companyDistrict);
                             viewModel.getResultUrban().observe(WorkInfoShowActivity.this, showUrban);
@@ -684,7 +701,7 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listUrban.add(jar.getJSONObject(i).getString("name"));
                         listUrbanID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(job.getString("company_village"))){
+                        if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("company_village")))){
                             companyUrban = jar.getJSONObject(i).getString("id");
                         }
                         Log.e("Data comUrban", companyUrban);

@@ -332,26 +332,43 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Konfirmasi")
-                        .setIcon(R.drawable.logo)
-                        .setMessage(getString(R.string.pendanaan_confirmation))
-                        .setCancelable(false)
-                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                                confirmDanai();
-                            }
-                        })
-                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
-                        .create()
-                        .show();
+                if(nominal % multiplesFunding == 0){
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Konfirmasi")
+                            .setIcon(R.drawable.logo)
+                            .setMessage(getString(R.string.pendanaan_confirmation))
+                            .setCancelable(false)
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                    confirmDanai();
+                                }
+                            })
+                            .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .create()
+                            .show();
+                }else{
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Peringatan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage(getString(R.string.failed_on_multiples) + " " + f.toNumb(multiplesFunding+""))
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+
             }
         });
 

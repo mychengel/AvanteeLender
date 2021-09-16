@@ -461,12 +461,7 @@ public class DocumentsFragment extends Fragment {
                 }else if(result.getInt("code") == 400){
                     OTPReceiver.isReady = false;
                     JSONObject jobRes = result.getJSONObject("result");
-                    String msg = jobRes.toString();
-                    msg = msg.replaceAll("\",","\n• ");
-                    msg = msg.replaceAll("\"","");
-                    msg = msg.replaceAll("_"," ");
-                    msg = msg.replaceAll("\\{","");
-                    msg = msg.replaceAll("\\}","");
+                    String msg = f.docErr400(jobRes.toString());
                     dialog.cancel();
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Pemberitahuan")

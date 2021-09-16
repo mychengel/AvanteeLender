@@ -255,8 +255,21 @@ public class PersonalDataShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(PersonalDataShowActivity.this).moveOut();
                 }else{
-                    new Fungsi(PersonalDataShowActivity.this).showMessage(getString(R.string.failed_update_data));
+                    //new Fungsi(PersonalDataShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = f.docErr400(jobRes.toString());
+                    new AlertDialog.Builder(PersonalDataShowActivity.this)
+                            .setTitle("Peringatan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                     //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
