@@ -39,17 +39,7 @@ public class InVerificationProcessActivity extends AppCompatActivity {
         prefManager = PrefManager.getInstance(InVerificationProcessActivity.this);
         dialog = GlobalVariables.loadingDialog(InVerificationProcessActivity.this);
         txt_info = findViewById(R.id.txt_info_in_verification_process);
-
-//        Intent i = getIntent();
-//        msg = i.getStringExtra("info");
-//        if(msg.isEmpty()){
-//            txt_info.setText(getString(R.string.in_process_verification));
-//        }else{
-//            //txt_info.setText(msg);
-//            txt_info.setText(getString(R.string.in_process_verification));
-//        }
         txt_info.setText(getString(R.string.in_process_verification));
-
         btn_back = findViewById(R.id.btn_kembali_in_verification_process);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +47,6 @@ public class InVerificationProcessActivity extends AppCompatActivity {
                 logout();
             }
         });
-
     }
 
     public void logout() {

@@ -101,17 +101,6 @@ public class SelesaiPortofolioFragment extends Fragment {
                 txt_tot_pb_selesai.setText(f.toNumb(""+result.getLong("total_pokok_plus_bunga")));
                 txt_tot_nom_selesai.setText(f.toNumb(""+result.getLong("total_portofolio_selesai")));
                 Log.e("pinjaman",result.getLong("total")+"");
-//                rows = result.getJSONArray("rows");
-//                Log.e("ROWS",rows.toString());
-//                if(rows.length()==0){
-//                }else{
-//                    for(int i = 0; i < rows.length(); i++){
-//                        tot_pb_selesai = tot_pb_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("payment_amount"));
-//                        tot_nom_selesai = tot_nom_selesai + (long) Double.parseDouble(rows.getJSONObject(i).getString("nominal"));
-//                    }
-//                }
-//                txt_tot_pb_selesai.setText(f.toNumb(""+tot_pb_selesai));
-//                txt_tot_nom_selesai.setText(f.toNumb(""+tot_nom_selesai));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -126,7 +115,6 @@ public class SelesaiPortofolioFragment extends Fragment {
         @Override
         public void onChanged(ArrayList<PortofolioSelesai> result) {
             if(result.isEmpty()){
-                //f.showMessage("Portofolio selesai belum ada.");
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.VISIBLE);
             }else{
@@ -144,7 +132,6 @@ public class SelesaiPortofolioFragment extends Fragment {
                         loadMorePortSelesai(""+current_page);
                     }
                 });
-                //rv.smoothScrollToPosition(results.size());
             }
 
         }
@@ -165,7 +152,6 @@ public class SelesaiPortofolioFragment extends Fragment {
                 portofolioSelesaiAdapter.notifyDataSetChanged();
             }
             prog_bar.setVisibility(View.GONE);
-            //rv.smoothScrollToPosition(results.size());
         }
     };
 

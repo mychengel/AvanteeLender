@@ -70,10 +70,7 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         toolbar = view.findViewById(R.id.toolbar_fr_term);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setIcon(R.drawable.logo_s);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo_xs);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         nestedSv = view.findViewById(R.id.nested_sv_fr_term);
         txt_content = view.findViewById(R.id.txt_toc_fr_term);
         txt_content.setText(text);
@@ -166,18 +163,5 @@ public class TermSheetFragment extends BottomSheetDialogFragment {
        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == android.R.id.home){
-//            if(instance.isVisible()){}
-//            getActivity().finish();
-//            instance.dismiss();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
 
 }

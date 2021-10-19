@@ -40,17 +40,9 @@ public class AfterSignActivity extends AppCompatActivity {
         dialog = GlobalVariables.loadingDialog(AfterSignActivity.this);
         prefManager = PrefManager.getInstance(AfterSignActivity.this);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
-
-//        Intent intent = getIntent();
-//        String action = intent.getAction();
-//        Uri data = intent.getData();
-        //Log.e("IntentURIParams", data.getLastPathSegment());
-        //strData = data.getLastPathSegment();
         email = prefManager.getEmail();
         password = prefManager.getPassword();
-
         confirmLogin();
-
     }
 
     public void confirmLogin() {
@@ -107,7 +99,6 @@ public class AfterSignActivity extends AppCompatActivity {
                                     msg = res.getJSONObject("privy_status").getString("msg");
                                     i = new Intent(AfterSignActivity.this, InVerificationProcessActivity.class);
                                     i.putExtra("info", msg);
-                                    //f.showMessage(msg);
                                 }
                             }else{
                                 i = new Intent(AfterSignActivity.this, OTPDocActivity.class);
@@ -119,7 +110,6 @@ public class AfterSignActivity extends AppCompatActivity {
                     }else{
                         i = new Intent(AfterSignActivity.this, OTPActivity.class);
                     }
-
                     //Routing
                     new Routes(AfterSignActivity.this).moveInFinish(i);
                     dialog.cancel();

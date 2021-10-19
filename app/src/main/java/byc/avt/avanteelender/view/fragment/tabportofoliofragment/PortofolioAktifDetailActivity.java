@@ -190,10 +190,6 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
         final int permission = ActivityCompat.checkSelfPermission(PortofolioAktifDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PortofolioAktifDetailActivity.this, PERMISSIONS_STORAGE, 1);
-//            if (Build.VERSION.SDK_INT >= 30) {
-//                Intent permissionIntent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-//                requireActivity().startActivity(permissionIntent);
-//            }
         }else{
 
         }

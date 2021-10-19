@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -60,6 +61,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.view.features.account.individual.DataPendukungShowActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
@@ -93,7 +95,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
     String str_ktp = "", str_npwp = "", str_selfie = "";
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
     String PICK_TYPE_KTP = "ktp", PICK_TYPE_NPWP = "npwp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
-    int BITMAP_SIZE = 60, MAX_SIZE = 512;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_KTP = 101, CROP_NPWP = 102, CROP_SELFIE = 103;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,55 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        btnr_ktp = findViewById(R.id.btn_ktp_ins_data_pendukung_show);
+        btnr_ktp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_ktp = f.rotateImage(bitmap_ktp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    img_ktp.setImageBitmap(bitmap_ktp);
+                    bitmap_ktp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    ktp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        btnr_npwp = findViewById(R.id.btn_npwp_ins_data_pendukung_show);
+        btnr_npwp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_npwp = f.rotateImage(bitmap_npwp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    img_npwp.setImageBitmap(bitmap_npwp);
+                    bitmap_npwp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    npwp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        btnr_selfie = findViewById(R.id.btn_selfie_ins_data_pendukung_show);
+        btnr_selfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_selfie = f.rotateImage(bitmap_selfie);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    img_selfie.setImageBitmap(bitmap_selfie);
+                    bitmap_selfie.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    selfie_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
         edit_ktp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -214,7 +265,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 no_ktp = edit_ktp.getEditText().getText().toString().trim();
                 cekKTP(no_ktp);
-                //cekDone();
             }
         });
 
@@ -229,7 +279,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 no_npwp = edit_npwp.getEditText().getText().toString().trim();
                 cekNPWP(no_npwp);
-                //cekDone();
             }
         });
 
@@ -279,9 +328,9 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
     }
 
     private void cekButtonRotate(){
-        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
-        if(bitmap_npwp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
-        if(bitmap_selfie != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
+         if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
+        if(bitmap_npwp != null){btnr_npwp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
+        if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
     }
 
 
@@ -293,7 +342,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             gv.insEditData.put("jabatan",jabatan);
             gv.insEditData.put("no_telepon",phone);
             gv.insEditData.put("email",email);
-
             gv.insEditData.put("no_ktp", no_ktp);
             gv.insEditData.put("no_npwp", no_npwp);
             if(!str_npwp.isEmpty()){gv.insEditDataFile.put("npwp", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));}
@@ -336,19 +384,15 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
-                    //new Fungsi(InsDataPendukungShowActivity.this).showMessage(getString(R.string.success_update_data));
-                    //dialog.cancel();
-                    //new Routes(InsDataPendukungShowActivity.this).moveOut();
+
                 }else{
                     new Fungsi(InsDataPendukungShowActivity.this).showMessage(getString(R.string.failed_update_data));
-                    //dialog.cancel();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 String msg = getString(R.string.system_in_trouble);
                 Log.e("ResponInsUpDoc", msg);
                 new Fungsi(InsDataPendukungShowActivity.this).showMessage(msg);
-                //dialog.cancel();
             }
             gv.insEditData.put("event_name","informasi_narahubung");
             viewModel2.updateInstitutionDoc(prefManager.getUid(), prefManager.getToken());
@@ -364,17 +408,38 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     new Fungsi(InsDataPendukungShowActivity.this).showMessage(getString(R.string.success_update_data));
                     dialog.cancel();
                     new Routes(InsDataPendukungShowActivity.this).moveOut();
-                }else{
-                    JSONObject obj = result.getJSONObject("result");
-                    String err = "";
-                    err = obj.toString().replaceAll("\"", "");
-                    err = err.replace("{", "");
-                    err = err.replace("}", "");
-                    //new Fungsi(InsDataPendukungShowActivity.this).showMessage(getString(R.string.failed_update_data));
-                    new Fungsi(InsDataPendukungShowActivity.this).showMessageLong(err);
+                }else if(result.getInt("code") == 400){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    String msg = f.docErr400(jobRes.toString());
                     dialog.cancel();
-                    new Routes(InsDataPendukungShowActivity.this).moveOut();
+                    new AlertDialog.Builder(InsDataPendukungShowActivity.this)
+                            .setTitle("Pemberitahuan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage("• " + msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
+                }else{
+                    String msg = result.getString("msg");
+                    Log.e("Respon per cr doc", msg);
+                    dialog.cancel();
+                    new AlertDialog.Builder(InsDataPendukungShowActivity.this)
+                            .setTitle("Pemberitahuan")
+                            .setIcon(R.drawable.logo)
+                            .setMessage(msg)
+                            .setCancelable(false)
+                            .setPositiveButton("Baik, saya mengerti", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).create().show();
                 }
+                dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
                 String msg = getString(R.string.system_in_trouble);
@@ -480,12 +545,8 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                                 btnNext = dialogView.findViewById(R.id.btn_next_dial_pfn);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_swafoto, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfs);
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_ttd, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pft);
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfw);
                             }
                             dialogInterface.cancel();
 
@@ -502,23 +563,8 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                             });
 
 
-
-//                            new AlertDialog.Builder(InsDataPendukungShowActivity.this)
-//                                    .setTitle("Pemberitahuan")
-//                                    .setIcon(R.drawable.ic_document_photo_circle)
-//                                    .setMessage(getString(R.string.req_doc))
-//                                    .setCancelable(true)
-//                                    .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialogInterface, int i) {
-//                                            showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-//                                        }
-//                                    })
-//                                    .create()
-//                                    .show();
                         }
                     })
-//                .setPositiveButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_document_photo_circle))
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -529,14 +575,11 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                                 PICK_IMAGE_REQUEST = PICK_NPWP;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD;
                             }
                             dialog.cancel();
                             showGallery(PICK_IMAGE_REQUEST);
                         }
                     })
-//                .setNegativeButtonIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken))
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogs, int which) {
@@ -603,17 +646,55 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP) {
+                        bitmap_ktp = bitmap;
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_ktp.setImageBitmap(decoded_ktp);
                         ktp_byte = bytes.toByteArray();
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
                     } else if (requestCode == PICK_NPWP) {
+                        bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_npwp.setImageBitmap(decoded_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                     } else if (requestCode == PICK_SELFIE) {
+                        bitmap_selfie = bitmap;
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        img_selfie.setImageBitmap(decoded_selfie);
+                        selfie_byte = bytes.toByteArray();
+                        str_selfie = f.getStringImage(decoded_selfie);
+                    }
+
+                    ////new
+                    if (requestCode == PICK_KTP_CAM) {
+                        performCrop(filePath, CROP_KTP);
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        performCrop(filePath, CROP_SELFIE);
+                    } else if (requestCode == PICK_NPWP_CAM) {
+                        performCrop(filePath, CROP_NPWP);
+                    }
+                    else if (requestCode == CROP_KTP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_ktp = bitmap;
+                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        img_ktp.setImageBitmap(bitmap_ktp);
+                        ktp_byte = bytes.toByteArray();
+                        Log.e("KTP Byte", ktp_byte + "");
+                        str_ktp = f.getStringImage(decoded_ktp);
+                    } else if (requestCode == CROP_NPWP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_npwp = bitmap;
+                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        img_npwp.setImageBitmap(decoded_npwp);
+                        npwp_byte = bytes.toByteArray();
+                        str_npwp = f.getStringImage(decoded_npwp);
+                    } else if (requestCode == CROP_SELFIE) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_selfie.setImageBitmap(decoded_selfie);
                         selfie_byte = bytes.toByteArray();
@@ -634,30 +715,47 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     if(bitmap == null){
-                        f.showMessage(getString(R.string.bitmap_null));
+                        f.showMessage(getString(R.string.must_portrait));
                     }else {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //bitmap = f.getRotateImage(bitmap);
-                        bitmap = f.getRotateImage(file.getPath(), bitmap);
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        ////new
                         if (requestCode == PICK_KTP_CAM) {
+                            performCrop(filePath, CROP_KTP);
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            performCrop(filePath, CROP_SELFIE);
+                        } else if (requestCode == PICK_NPWP_CAM) {
+                            performCrop(filePath, CROP_NPWP);
+                        }
+                        else if (requestCode == CROP_KTP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_ktp = bitmap;
                             decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            img_ktp.setImageBitmap(decoded_ktp);
+                            img_ktp.setImageBitmap(bitmap_ktp);
                             ktp_byte = bytes.toByteArray();
                             Log.e("KTP Byte", ktp_byte + "");
                             str_ktp = f.getStringImage(decoded_ktp);
-                        } else if (requestCode == PICK_NPWP_CAM) {
+                        } else if (requestCode == CROP_NPWP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_npwp = bitmap;
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             img_npwp.setImageBitmap(decoded_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
-                        } else if (requestCode == PICK_SELFIE_CAM) {
+                        } else if (requestCode == CROP_SELFIE) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                             img_selfie.setImageBitmap(decoded_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                         }
+
+                        ////new
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -674,9 +772,40 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                 }
             }
         }
+
         cekButtonRotate();
-//        cekView();
-//        cekDone();
+    }
+
+    private void performCrop(Uri picUri, int PIC_CROP){
+        try {
+            InsDataPendukungShowActivity.this.grantUriPermission("com.android.camera",picUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.setDataAndType(picUri, "image/*");
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            cropIntent.putExtra("crop", "true");
+            if(PIC_CROP == CROP_SELFIE){
+                cropIntent.putExtra("aspectX", 1);
+                cropIntent.putExtra("aspectY", 1);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 400);
+            }else{
+                cropIntent.putExtra("aspectX", 4);
+                cropIntent.putExtra("aspectY", 3);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 300);
+            }
+            cropIntent.putExtra("return-data", true);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Device tidak support untuk memotong gambar.";
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     Boolean storageAccess = false;
@@ -696,7 +825,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     startActivityForResult(intent, 2296);
                 }
             }
-
         }
     }
 

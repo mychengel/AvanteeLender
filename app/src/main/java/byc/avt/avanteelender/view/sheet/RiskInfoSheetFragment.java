@@ -48,9 +48,6 @@ public class RiskInfoSheetFragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_sheet_risk_info, container, false);
         txt_risk_info = view.findViewById(R.id.txt_risk_info_fr_sheet_risk_info);
-        //String risk_info_final = new Fungsi().htmlToStr(risk_info).toString();
-        //txt_risk_info.setText(risk_info_final);
-
         simpleWebView = view.findViewById(R.id.wv_fr_sheet_risk_info);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);

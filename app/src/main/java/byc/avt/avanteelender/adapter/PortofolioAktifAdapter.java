@@ -95,8 +95,6 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
             public void onClick(View view) {
                 Intent i = new Intent(context, PortofolioAktifDetailActivity.class);
                 i.putExtra("port_data", ps);
-//                i.putExtra("loan_no", ps.getLoan_no());
-//                i.putExtra("funding_id", ps.getFunding_id());
                 context.startActivity(i);
                 ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
@@ -111,14 +109,13 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
 
     class CardViewViewHolder extends RecyclerView.ViewHolder{
         TextView txt_loan_type, txt_loan_rating, txt_loan_no, txt_sisa_tenor, txt_tenor, txt_interest, txt_angs_paid, txt_angs_next, txt_status;
-        ImageView img_mark, img_ontime;
+        ImageView img_mark;
         Button btn_det;
         ConstraintLayout cons;
 
         CardViewViewHolder(View itemView) {
             super(itemView);
             btn_det = itemView.findViewById(R.id.btn_detail_adp_port_aktif);
-            //btn_det.setVisibility(View.GONE);
             txt_loan_type = itemView.findViewById(R.id.txt_loan_type_adp_port_aktif);
             txt_loan_rating = itemView.findViewById(R.id.txt_loan_rating_adp_port_aktif);
             txt_loan_no = itemView.findViewById(R.id.txt_loan_code_adp_port_aktif);
@@ -128,10 +125,7 @@ public class PortofolioAktifAdapter extends RecyclerView.Adapter<PortofolioAktif
             txt_angs_paid = itemView.findViewById(R.id.txt_angs_sudah_adp_port_aktif);
             txt_angs_next = itemView.findViewById(R.id.txt_angs_selanjutnya_adp_port_aktif);
             img_mark = itemView.findViewById(R.id.img_mark_adp_port_aktif);
-            //img_ontime = itemView.findViewById(R.id.img_tepat_waktu_adp_port_aktif);
-            //img_ontime.setVisibility(View.GONE);
             txt_status = itemView.findViewById(R.id.lbl_tepat_waktu_adp_port_aktif);
-            //txt_is_ontime.setVisibility(View.GONE);
             cons = itemView.findViewById(R.id.cons_adp_port_aktif);
         }
     }

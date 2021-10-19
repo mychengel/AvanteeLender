@@ -1,4 +1,15 @@
-package byc.avt.avanteelender.view.fragment.registration.individual;
+package byc.avt.avanteelender.view.auth.prvrejection;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,20 +23,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -33,30 +30,18 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,121 +51,113 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.helper.MultiPermissionRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.helper.VolleyMultipartRequest;
-import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.DataPart;
-import byc.avt.avanteelender.view.auth.LoginActivity;
-import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
-import byc.avt.avanteelender.view.auth.SignersCheckActivity;
-import byc.avt.avanteelender.view.features.account.individual.DataPendukungShowActivity;
-import byc.avt.avanteelender.view.misc.OTPActivity;
-import byc.avt.avanteelender.view.misc.OTPDocActivity;
-import byc.avt.avanteelender.view.others.SettingActivity;
+import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
-import static androidx.core.graphics.TypefaceCompatUtil.getTempFile;
+public class PRTypeUpTwoActivity extends AppCompatActivity {
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class DocumentsFragment extends Fragment {
-
-    public DocumentsFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_documents, container, false);
-    }
-
-    private MasterDataViewModel viewModel;
-    private AuthenticationViewModel viewModel2;
+    private AuthenticationViewModel viewModel;
+    private MasterDataViewModel viewModel2;
     private PrefManager prefManager;
     private Dialog dialog;
+    private Toolbar toolbar;
     GlobalVariables gv;
-    Fungsi f = new Fungsi(getActivity());
-    TextInputLayout edit_ktp, edit_npwp, edit_tgl_npwp;
-    EditText edittext_tgl_npwp;
-    TextView txt_ktp, txt_npwp, txt_selfie, txt_ttd;
-    CardView cv_ktp, cv_npwp, cv_selfie, cv_ttd;
-    LinearLayout lin_npwp;
-    ImageView img_ktp, img_cancelktp, img_npwp, img_cancelnpwp, img_selfie, img_cancelselfie, img_ttd, img_cancelttd;
-    boolean is_not_have_npwp = false;
-    CheckBox cb_not_have_npwp;
-    Button btn_next;
-    String no_ktp = "", no_npwp = "", tgl_npwp = "";
-    byte[] ktp_byte = null, npwp_byte = null, selfie_byte = null, ttd_byte = null;
+    Fungsi f = new Fungsi(PRTypeUpTwoActivity.this);
 
+    String msg = "", handler = "", code = "", status = "", category = "";
+    JSONObject result;
+    JSONArray handlers;
+    TextView txtInfo;
+    Button btnSimpan;
+
+    AutoCompleteTextView auto_job_position, auto_avg_transaction;
+    TextInputLayout txt_job_position, txt_avg_transaction, edit_ktp, edit_mothername;
+    List<Object> listJobPosition = new ArrayList<>(); List<Object> listJobPositionID = new ArrayList<>();
+    List<Object> listAvgTrans = new ArrayList<>(); List<Object> listAvgTransID = new ArrayList<>();
+    String jobPosition="", motherName="", no_ktp="", avgTrans="";
+
+    TextView txt_ktp, txt_selfie, txt_ttd;
+    byte[][] imgFile = null;
+    byte[] ktp_byte = null, selfie_byte = null, ttd_byte = null;
+    CardView cv_ktp, cv_selfie, cv_ttd;
+    ImageView img_ktp, img_cancelktp, img_selfie, img_cancelselfie, img_ttd, img_cancelttd;
     Bitmap bitmap, decoded_ktp, decoded_npwp, decoded_selfie, decoded_ttd;
     String str_ktp = "", str_npwp = "", str_selfie = "", str_ttd = "";
-    int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_NPWP_CAM = 6, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
-    String PICK_TYPE_KTP = "ktp", PICK_TYPE_NPWP = "npwp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
-    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_KTP = 101, CROP_NPWP = 102, CROP_SELFIE = 103, CROP_TTD = 104;
+    int PICK_KTP = 1, PICK_SELFIE = 3, PICK_TTD = 4, PICK_KTP_CAM = 5, PICK_SELFIE_CAM = 7, PICK_TTD_CAM = 8;
+    String PICK_TYPE_KTP = "ktp", PICK_TYPE_SELFIE = "selfie", PICK_TYPE_TTD = "ttd";
+    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_KTP = 101, CROP_SELFIE = 103, CROP_TTD = 104;
 
-    Button btnr_ktp, btnr_npwp, btnr_selfie, btnr_ttd;
-    ImageView imgr_ktp, imgr_npwp, imgr_selfie, imgr_ttd;
-    Bitmap bitmap_ktp, bitmap_npwp, bitmap_selfie, bitmap_ttd;
+    Button btnr_ktp, btnr_selfie, btnr_ttd;
+    ImageView imgr_ktp, imgr_selfie, imgr_ttd;
+    Bitmap bitmap_ktp, bitmap_selfie, bitmap_ttd;
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(MasterDataViewModel.class);
-        viewModel2 = new ViewModelProvider(this).get(AuthenticationViewModel.class);
-        prefManager = PrefManager.getInstance(getActivity());
-        dialog = GlobalVariables.loadingDialog(requireActivity());
-        edit_tgl_npwp = view.findViewById(R.id.edit_npwp_date_fr_documents);
-        edittext_tgl_npwp = view.findViewById(R.id.editText_npwp_date_fr_documents);
-        cv_ktp = view.findViewById(R.id.cv_take_ktp_fr_documents);
-        cv_npwp = view.findViewById(R.id.cv_take_npwp_fr_documents);
-        cv_selfie = view.findViewById(R.id.cv_take_selfie_fr_documents);
-        cv_ttd = view.findViewById(R.id.cv_take_ttd_fr_documents);
-        edit_ktp = view.findViewById(R.id.edit_ktp_number_fr_documents);
-        edit_npwp = view.findViewById(R.id.edit_npwp_number_fr_documents);
-        txt_ktp = view.findViewById(R.id.txt_take_ktp_fr_documents);
-        txt_npwp = view.findViewById(R.id.txt_take_npwp_fr_documents);
-        txt_selfie = view.findViewById(R.id.txt_take_selfie_fr_documents);
-        txt_ttd = view.findViewById(R.id.txt_take_ttd_fr_documents);
-        img_ktp = view.findViewById(R.id.img_take_ktp_fr_documents);
-        img_cancelktp = view.findViewById(R.id.img_cancel_take_ktp_fr_document);
-        img_npwp = view.findViewById(R.id.img_take_npwp_fr_documents);
-        img_cancelnpwp = view.findViewById(R.id.img_cancel_take_npwp_fr_document);
-        img_selfie = view.findViewById(R.id.img_take_selfie_fr_documents);
-        img_cancelselfie = view.findViewById(R.id.img_cancel_take_selfie_fr_document);
-        img_ttd = view.findViewById(R.id.img_take_ttd_fr_documents);
-        img_cancelttd = view.findViewById(R.id.img_cancel_take_ttd_fr_document);
-        lin_npwp = view.findViewById(R.id.lin_npwp_fr_documents);
-        cb_not_have_npwp = view.findViewById(R.id.cb_not_have_npwp_fr_documents);
-        cb_not_have_npwp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    lin_npwp.setVisibility(View.GONE);
-                    is_not_have_npwp = true;
-//                    gv.perRegDataFile.remove("npwp_img");
-//                    gv.perRegData.remove("no_npwp");
-//                    gv.perRegData.remove("tanggal_pendaftaran_npwp");
-                }else{
-                    lin_npwp.setVisibility(View.VISIBLE);
-                    is_not_have_npwp = false;
-                }
-                cekDone();
-            }
-        });
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_prtype_up_two);
+        GlobalVariables.perReregData.clear();
+        GlobalVariables.perReregDataFile.clear();
+        viewModel = new ViewModelProvider(PRTypeUpTwoActivity.this).get(AuthenticationViewModel.class);
+        viewModel2 = new ViewModelProvider(PRTypeUpTwoActivity.this).get(MasterDataViewModel.class);
+        prefManager = PrefManager.getInstance(PRTypeUpTwoActivity.this);
+        toolbar = findViewById(R.id.toolbar_prtype_up_two);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        dialog = GlobalVariables.loadingDialog(PRTypeUpTwoActivity.this);
+
+        cv_ktp = findViewById(R.id.cv_take_ktp_prtype_up_two);
+        
+        cv_selfie = findViewById(R.id.cv_take_selfie_prtype_up_two);
+        cv_ttd = findViewById(R.id.cv_take_ttd_prtype_up_two);
+        edit_ktp = findViewById(R.id.edit_ktp_number_prtype_up_two);
+        edit_mothername = findViewById(R.id.edit_mothername_prtype_up_two);
+        txt_ktp = findViewById(R.id.txt_take_ktp_prtype_up_two);
+        txt_selfie = findViewById(R.id.txt_take_selfie_prtype_up_two);
+        txt_ttd = findViewById(R.id.txt_take_ttd_prtype_up_two);
+        img_ktp = findViewById(R.id.img_take_ktp_prtype_up_two);
+        img_cancelktp =findViewById(R.id.img_cancel_take_ktp_fr_document);
+        img_selfie = findViewById(R.id.img_take_selfie_prtype_up_two);
+        img_cancelselfie = findViewById(R.id.img_cancel_take_selfie_fr_document);
+        img_ttd = findViewById(R.id.img_take_ttd_prtype_up_two);
+        img_cancelttd = findViewById(R.id.img_cancel_take_ttd_fr_document);
+        txtInfo = findViewById(R.id.txt_info_prtype_up_two);
+        txtInfo.setText(getString(R.string.lets_get_know_eo));
+        btnSimpan = findViewById(R.id.btn_simpan_prtype_up_two);
+
+        auto_job_position = findViewById(R.id.auto_jabatan_prtype_up_two);
+        auto_avg_transaction = findViewById(R.id.auto_avg_transaction_prtype_up_two);
+        txt_job_position = findViewById(R.id.edit_jabatan_prtype_up_two);
+        txt_avg_transaction = findViewById(R.id.edit_avg_transaction_prtype_up_two);
+
+        Intent i = getIntent();
+        try {
+            result = new JSONObject(i.getStringExtra("rJob"));
+            status = result.getString("msg").toLowerCase();
+            msg = result.getJSONObject("reason").getString("reason");
+            code = result.getJSONObject("reason").getString("code");
+            //handlers = result.getJSONObject("reason").getJSONArray("handlers");
+            //category = handlers.getJSONObject(0).getString("category");
+            //handler = handlers.getJSONObject(0).getString("handler");
+            txtInfo.setText(msg);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         edit_ktp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -197,7 +174,7 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
-        edit_npwp.getEditText().addTextChangedListener(new TextWatcher() {
+        edit_mothername.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -206,29 +183,9 @@ public class DocumentsFragment extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                no_npwp = edit_npwp.getEditText().getText().toString().trim();
-                cekNPWP(no_npwp);
+                motherName = edit_mothername.getEditText().getText().toString().trim();
+                cekMotherName(motherName);
                 cekDone();
-            }
-        });
-
-        edittext_tgl_npwp.setFocusable(false);
-        edittext_tgl_npwp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-                builder.setTitleText("Pilih tanggal NPWP");
-                builder.setSelection(Calendar.getInstance().getTimeInMillis());
-                MaterialDatePicker picker = builder.build();
-                picker.show(getActivity().getSupportFragmentManager(),"NPWP");
-                picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-                    @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                        tgl_npwp = sdf.format(selection);
-                        edittext_tgl_npwp.setText(tgl_npwp);
-                    }
-                });
             }
         });
 
@@ -237,15 +194,6 @@ public class DocumentsFragment extends Fragment {
             public void onClick(View view) {
                 if(str_ktp.equalsIgnoreCase("")){
                     chooseFileConfirmation(PICK_TYPE_KTP);
-                }
-            }
-        });
-
-        cv_npwp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(str_npwp.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_NPWP);
                 }
             }
         });
@@ -280,18 +228,6 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
-        img_cancelnpwp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                str_npwp = "";
-                npwp_byte = null;
-                imgr_npwp.setImageResource(R.drawable.ic_baseline_no_photography_24);
-                btnr_npwp.setVisibility(View.INVISIBLE);
-                cekView();
-                cekDone();
-            }
-        });
-
         img_cancelselfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,33 +252,15 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
-        btn_next = view.findViewById(R.id.btn_next_fr_documents);
-        btn_next.setEnabled(false);
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gv.stPerDocument = true;
-                gv.perRegData.put("no_ktp", no_ktp);
-                if(is_not_have_npwp){
-                    gv.perRegData.put("miliki_npwp", "0");
-                }else{
-                    gv.perRegData.put("miliki_npwp", "1");
-                    gv.perRegData.put("tanggal_pendaftaran_npwp", tgl_npwp);
-                    gv.perRegData.put("no_npwp", no_npwp);
-                    gv.perRegDataFile.put("npwp_img", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));
-                }
-                gv.perRegDataFile.put("ktp_img", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
-                gv.perRegDataFile.put("selfie", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
-                gv.perRegDataFile.put("spesimen_ttd", new DataPart("ttd.jpg", ttd_byte, "image/jpeg"));
-                createDocument();
-                Log.e("Data-Object", gv.perRegData.toString());
-                Log.e("Data-File", gv.perRegDataFile.toString());
-            }
-        });
+        clearMasterList();
 
+        viewModel2.getJobPosition(prefManager.getUid(), prefManager.getToken());
+        viewModel2.getResultJobPosition().observe(PRTypeUpTwoActivity.this, showJobPosition);
+        viewModel2.getAvgTransaction(prefManager.getUid(), prefManager.getToken());
+        viewModel2.getResultAvgTransaction().observe(PRTypeUpTwoActivity.this, showAvgTrans);
 
-        imgr_ktp = view.findViewById(R.id.img_ktp_fr_documents);
-        btnr_ktp = view.findViewById(R.id.btn_ktp_fr_documents);
+        imgr_ktp = findViewById(R.id.img_ktp_prtype_up_two);
+        btnr_ktp = findViewById(R.id.btn_ktp_prtype_up_two);
         btnr_ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -358,25 +276,8 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
-        imgr_npwp = view.findViewById(R.id.img_npwp_fr_documents);
-        btnr_npwp = view.findViewById(R.id.btn_npwp_fr_documents);
-        btnr_npwp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    bitmap_npwp = f.rotateImage(bitmap_npwp);
-                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
-                    imgr_npwp.setImageBitmap(bitmap_npwp);
-                    bitmap_npwp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
-                    npwp_byte = byt.toByteArray();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        imgr_selfie = view.findViewById(R.id.img_selfie_fr_documents);
-        btnr_selfie = view.findViewById(R.id.btn_selfie_fr_documents);
+        imgr_selfie = findViewById(R.id.img_selfie_prtype_up_two);
+        btnr_selfie = findViewById(R.id.btn_selfie_prtype_up_two);
         btnr_selfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,8 +293,8 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
-        imgr_ttd = view.findViewById(R.id.img_ttd_fr_documents);
-        btnr_ttd = view.findViewById(R.id.btn_ttd_fr_documents);
+        imgr_ttd = findViewById(R.id.img_ttd_prtype_up_two);
+        btnr_ttd = findViewById(R.id.btn_ttd_prtype_up_two);
         btnr_ttd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -409,19 +310,30 @@ public class DocumentsFragment extends Fragment {
             }
         });
 
+        btnSimpan.setEnabled(false);
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgFile = new byte[][]{ktp_byte, selfie_byte, ttd_byte};
+                gv.perReregData.put("privy_status", status);
+                gv.perReregData.put("identity_card", no_ktp);
+                gv.perReregData.put("code", code);
+                gv.perReregData.put("mother_maiden_name", motherName);
+                gv.perReregData.put("clients_job_position", jobPosition);
+                gv.perReregData.put("average_transaction_id", avgTrans);
+                gv.perReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+                gv.perReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
+                gv.perReregDataFile.put("imgFile[]", new DataPart("spesimen.jpg", ttd_byte, "image/jpeg"));
+                reregistDocument();
+            }
+        });
+
         checkStorageAccess();
         cekButtonRotate();
     }
 
-    private void cekButtonRotate(){
-        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
-        if(bitmap_npwp != null){btnr_npwp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
-        if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
-        if(bitmap_ttd != null){btnr_ttd.setVisibility(View.VISIBLE);}else{btnr_ttd.setVisibility(View.INVISIBLE);}
-    }
-
-    private void createDocument(){
-        new AlertDialog.Builder(getActivity())
+    private void reregistDocument(){
+        new AlertDialog.Builder(PRTypeUpTwoActivity.this)
                 .setTitle("Konfirmasi")
                 .setIcon(R.drawable.logo)
                 .setMessage(getString(R.string.create_doc_confirmation))
@@ -431,8 +343,8 @@ public class DocumentsFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel2.createPersonalDoc(prefManager.getUid(), prefManager.getToken());
-                        viewModel2.getResultCreatePersonalDoc().observe(getActivity(), showResult);
+                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken());
+                        viewModel.getResultReregistPrvp001().observe(PRTypeUpTwoActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -451,24 +363,19 @@ public class DocumentsFragment extends Fragment {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
-                    OTPReceiver.isReady = true;
-                    JSONObject jobRes = result.getJSONObject("result");
-                    String msg = jobRes.getString("messages");
-                    Log.e("Respon per cr doc", jobRes.toString());
+                    //String msg = result.getString("message");
+                    String msg = getString(R.string.reupload_success);
                     //new
-                    GlobalVariables.perRegData.clear();
-                    GlobalVariables.insRegData.clear();
-                    new Fungsi(getActivity()).showMessage(msg);
+                    GlobalVariables.perReregData.clear();
+                    GlobalVariables.perReregDataFile.clear();
+                    new Fungsi(PRTypeUpTwoActivity.this).showMessage(msg);
                     dialog.cancel();
-                    Intent intent = new Intent(getActivity(), OTPDocActivity.class);
-                    intent.putExtra("from", "doc");
-                    new Routes(getActivity()).moveInFinish(intent);
-                }else if(result.getInt("code") == 400){
-                    OTPReceiver.isReady = false;
-                    JSONObject jobRes = result.getJSONObject("result");
-                    String msg = f.docErr400(jobRes.toString());
+                    Intent intent = new Intent(PRTypeUpTwoActivity.this, InVerificationProcessActivity.class);
+                    new Routes(PRTypeUpTwoActivity.this).moveInFinish(intent);
+                }else if(result.getInt("code") == 400 || result.getBoolean("status") == false){
+                    String msg = getString(R.string.reupload_failed);
                     dialog.cancel();
-                    new AlertDialog.Builder(getActivity())
+                    new AlertDialog.Builder(PRTypeUpTwoActivity.this)
                             .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
                             .setMessage("• " + msg)
@@ -480,17 +387,14 @@ public class DocumentsFragment extends Fragment {
                                 }
                             }).create().show();
                 }else{
-                    OTPReceiver.isReady = false;
-                    String msg = result.getString("msg");
-                    Log.e("Respon per cr doc", msg);
-                    //f.showMessage(msg);
+                    String msg = getString(R.string.reupload_failed);
                     dialog.cancel();
-                    new AlertDialog.Builder(getActivity())
+                    new AlertDialog.Builder(PRTypeUpTwoActivity.this)
                             .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
-                            .setMessage(msg)
+                            .setMessage("• " + msg)
                             .setCancelable(false)
-                            .setPositiveButton("Baik, saya mengerti", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
@@ -500,14 +404,45 @@ public class DocumentsFragment extends Fragment {
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
-                String msg = getString(R.string.system_in_trouble);
-                Log.e("Respon per cr doc", msg);
-                new Fungsi(getActivity()).showMessage(msg);
+                String msg = getString(R.string.reupload_failed);
                 dialog.cancel();
-                logout();
+                new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+                        .setTitle("Pemberitahuan")
+                        .setIcon(R.drawable.logo)
+                        .setMessage("• " + msg)
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        }).create().show();
+//                new Routes(PRTypeUpOneActivity.this).moveOut();
             }
         }
     };
+
+    public void clearMasterList(){
+        listJobPosition.clear();listJobPositionID.clear();
+        listAvgTrans.clear();listAvgTransID.clear();
+    }
+
+    private void cekButtonRotate(){
+        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
+        if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
+        if(bitmap_ttd != null){btnr_ttd.setVisibility(View.VISIBLE);}else{btnr_ttd.setVisibility(View.INVISIBLE);}
+    }
+
+    boolean mothernameisvalid = false;
+    public void cekMotherName(String text){
+        if(TextUtils.isEmpty(text)){
+            edit_mothername.setError(getString(R.string.cannotnull));
+            mothernameisvalid = false;
+        }else{
+            edit_mothername.setError(null);
+            mothernameisvalid = true;
+        }
+    }
 
     boolean ktpisvalid = false;
     public void cekKTP(String ktp){
@@ -525,39 +460,15 @@ public class DocumentsFragment extends Fragment {
         }
     }
 
-    boolean npwpisvalid = false;
-    public void cekNPWP(String npwp){
-        if(TextUtils.isEmpty(npwp)){
-            edit_npwp.setError(getString(R.string.cannotnull));
-            npwpisvalid = false;
-        }else{
-            if(npwp.length() < 15){
-                edit_npwp.setError(getString(R.string.min_digit_npwp));
-                npwpisvalid = false;
-            }else if(npwp.length() == 15){
-                edit_npwp.setError(null);
-                npwpisvalid = true;
-            }
-        }
-    }
-
     boolean allisfilled = false;
     private void cekDone(){
-        if(is_not_have_npwp){
-            if(ktpisvalid && !str_ktp.isEmpty() && !str_selfie.isEmpty() && !str_ttd.isEmpty()){
-                allisfilled = true;
-            }else{
-                allisfilled = false;
-            }
+        if(mothernameisvalid && !motherName.isEmpty() && ktpisvalid && !str_ktp.isEmpty() && !str_selfie.isEmpty() && !str_ttd.isEmpty()){
+            allisfilled = true;
         }else{
-            if(ktpisvalid && npwpisvalid && !str_ktp.isEmpty() && !str_npwp.isEmpty() && !str_selfie.isEmpty() && !str_ttd.isEmpty()){
-                allisfilled = true;
-            }else{
-                allisfilled = false;
-            }
+            allisfilled = false;
         }
 
-        btn_next.setEnabled(allisfilled);
+        btnSimpan.setEnabled(allisfilled);
     }
 
     private static String[] PERMISSIONS_STORAGE = {
@@ -566,13 +477,80 @@ public class DocumentsFragment extends Fragment {
             Manifest.permission.CAMERA
     };
 
+
+    private Observer<JSONObject> showJobPosition = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    JSONArray jar = jobRes.getJSONArray("position");
+                    for(int i = 0; i < jar.length(); i++){
+                        listJobPosition.add(jar.getJSONObject(i).getString("name"));
+                        listJobPositionID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(jobPosition)){
+                            txt_job_position.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(PRTypeUpTwoActivity.this, R.layout.support_simple_spinner_dropdown_item, listJobPosition);
+                    auto_job_position.setAdapter(adapter);
+                    auto_job_position.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            jobPosition = listJobPositionID.get(x).toString();
+                            Log.e("jobPosition", jobPosition);
+                            txt_job_position.setError(null);
+                        }
+                    });
+                }else{
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Observer<JSONObject> showAvgTrans = new Observer<JSONObject>() {
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject jobRes = result.getJSONObject("result");
+                    JSONArray jar = jobRes.getJSONArray("average");
+                    for(int i = 0; i < jar.length(); i++){
+                        listAvgTrans.add(jar.getJSONObject(i).getString("name"));
+                        listAvgTransID.add(jar.getJSONObject(i).getString("id"));
+                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(avgTrans)){
+                            txt_avg_transaction.getEditText().setText(jar.getJSONObject(i).getString("name"));
+                        }
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(PRTypeUpTwoActivity.this, R.layout.support_simple_spinner_dropdown_item, listAvgTrans);
+                    auto_avg_transaction.setAdapter(adapter);
+                    auto_avg_transaction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
+                            avgTrans = listAvgTransID.get(x).toString();
+                            Log.e("avgTrans", avgTrans);
+                            txt_avg_transaction.setError(null);
+                        }
+                    });
+                }else{
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
     int PICK_IMAGE_REQUEST = 0;
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
-        int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        int permission = ActivityCompat.checkSelfPermission(PRTypeUpTwoActivity.this, Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
+            ActivityCompat.requestPermissions(PRTypeUpTwoActivity.this, PERMISSIONS_STORAGE, 1);
         }else{
-            new AlertDialog.Builder(getActivity())
+            new AlertDialog.Builder(PRTypeUpTwoActivity.this)
                     .setTitle("Konfirmasi")
                     .setIcon(R.drawable.ic_document_photo_circle)
                     .setMessage("Metode pengambilan foto apa yang ingin digunakan?")
@@ -580,8 +558,8 @@ public class DocumentsFragment extends Fragment {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final Dialog mdialog = new Dialog(getActivity());
-                            LayoutInflater inflater = LayoutInflater.from(getActivity());
+                            final Dialog mdialog = new Dialog(PRTypeUpTwoActivity.this);
+                            LayoutInflater inflater = LayoutInflater.from(PRTypeUpTwoActivity.this);
                             View dialogView = null;
                             Button btnNext = null;
 
@@ -589,10 +567,6 @@ public class DocumentsFragment extends Fragment {
                                 PICK_IMAGE_REQUEST = PICK_KTP_CAM;
                                 dialogView = inflater.inflate(R.layout.dialog_pra_foto_ktp, null);
                                 btnNext = dialogView.findViewById(R.id.btn_next_dial_pfk);
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
-                                PICK_IMAGE_REQUEST = PICK_NPWP_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_npwp, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfn);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
                                 dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
@@ -624,8 +598,6 @@ public class DocumentsFragment extends Fragment {
                             int PICK_IMAGE_REQUEST = 0;
                             if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
                                 PICK_IMAGE_REQUEST = PICK_KTP;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
-                                PICK_IMAGE_REQUEST = PICK_NPWP;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
@@ -656,11 +628,11 @@ public class DocumentsFragment extends Fragment {
         File file = null;
 
         try{
-            storageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),"/avantee/");
+            storageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),"/avantee/");
             if (!storageDir.exists()) {
                 storageDir.mkdirs();
             }
-            file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/avantee/", imageFileName);
+            file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/avantee/", imageFileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -669,7 +641,7 @@ public class DocumentsFragment extends Fragment {
             e.printStackTrace();
         }
 
-        Uri imgUri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName()+".fileprovider", file);
+        Uri imgUri = FileProvider.getUriForFile(PRTypeUpTwoActivity.this, getApplicationContext().getPackageName()+".fileprovider", file);
         cameraIntent.putExtra("return-data", true);
         cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
@@ -696,7 +668,7 @@ public class DocumentsFragment extends Fragment {
                 Log.e("UriPath", filePath.toString());
                 try {
                     //mengambil gambar dari Gallery
-                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     // 640 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -709,13 +681,6 @@ public class DocumentsFragment extends Fragment {
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
                         txt_ktp.setText(filePath.getLastPathSegment() + ".jpg");
-                    } else if (requestCode == PICK_NPWP) {
-                        bitmap_npwp = bitmap;
-                        imgr_npwp.setImageBitmap(bitmap_npwp);
-                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        npwp_byte = bytes.toByteArray();
-                        str_npwp = f.getStringImage(decoded_npwp);
-                        txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_SELFIE) {
                         bitmap_selfie = bitmap;
                         imgr_selfie.setImageBitmap(bitmap_selfie);
@@ -736,11 +701,11 @@ public class DocumentsFragment extends Fragment {
                     ////new
                     if (requestCode == PICK_KTP_CAM) {
                         performCrop(filePath, CROP_KTP);
-                    } else if (requestCode == PICK_NPWP_CAM) {
-                        performCrop(filePath, CROP_NPWP);
-                    } else if (requestCode == PICK_SELFIE_CAM) {
-                            performCrop(filePath, CROP_SELFIE);
-                    } else if (requestCode == PICK_TTD_CAM) {
+                    }
+                    else if (requestCode == PICK_SELFIE_CAM) {
+                        performCrop(filePath, CROP_SELFIE);
+                    }
+                    else if (requestCode == PICK_TTD_CAM) {
                         performCrop(filePath, CROP_TTD);
                     }
 
@@ -753,15 +718,6 @@ public class DocumentsFragment extends Fragment {
                         ktp_byte = bytes.toByteArray();
                         str_ktp = f.getStringImage(decoded_ktp);
                         txt_ktp.setText(filePath.getLastPathSegment());
-                    } else if (requestCode == CROP_NPWP) {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                        bitmap_npwp = bitmap;
-                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_npwp.setImageBitmap(decoded_npwp);
-                        npwp_byte = bytes.toByteArray();
-                        str_npwp = f.getStringImage(decoded_npwp);
-                        txt_npwp.setText(filePath.getLastPathSegment());
                     } else if (requestCode == CROP_SELFIE) {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
@@ -790,12 +746,12 @@ public class DocumentsFragment extends Fragment {
             } else {
                 File path = null;
                 File file = null;
-                path = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 file = new File(path, "/avantee/" + imageFileName);
 
-                Uri filePath = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".fileprovider", file);
+                Uri filePath = FileProvider.getUriForFile(PRTypeUpTwoActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     if (bitmap == null) {
                         f.showMessage(getString(R.string.must_portrait));
                     } else {
@@ -804,8 +760,6 @@ public class DocumentsFragment extends Fragment {
                             performCrop(filePath, CROP_KTP);
                         } else if (requestCode == PICK_SELFIE_CAM) {
                             performCrop(filePath, CROP_SELFIE);
-                        } else if (requestCode == PICK_NPWP_CAM) {
-                            performCrop(filePath, CROP_NPWP);
                         } else if (requestCode == PICK_TTD_CAM) {
                             performCrop(filePath, CROP_TTD);
                         }
@@ -820,16 +774,6 @@ public class DocumentsFragment extends Fragment {
                             ktp_byte = bytes.toByteArray();
                             str_ktp = f.getStringImage(decoded_ktp);
                             txt_ktp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == CROP_NPWP) {
-                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                            bitmap_npwp = bitmap;
-                            decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_npwp.setImageBitmap(decoded_npwp);
-                            npwp_byte = bytes.toByteArray();
-                            str_npwp = f.getStringImage(decoded_npwp);
-                            txt_npwp.setText(filePath.getLastPathSegment());
                         } else if (requestCode == CROP_SELFIE) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -864,7 +808,7 @@ public class DocumentsFragment extends Fragment {
                     storageAccess = true;
                 } else {
                     storageAccess = false;
-                    Toast.makeText(getActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PRTypeUpTwoActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
                     checkStorageAccess();
                 }
             }
@@ -876,7 +820,7 @@ public class DocumentsFragment extends Fragment {
 
     private void performCrop(Uri picUri, int PIC_CROP){
         try {
-            getActivity().grantUriPermission("com.android.camera",picUri,
+            grantUriPermission("com.android.camera",picUri,
                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(picUri, "image/*");
@@ -901,7 +845,7 @@ public class DocumentsFragment extends Fragment {
         catch(ActivityNotFoundException anfe){
             //display an error message
             String errorMessage = "Device tidak support untuk memotong gambar.";
-            Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(PRTypeUpTwoActivity.this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -915,7 +859,7 @@ public class DocumentsFragment extends Fragment {
                 try {
                     Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
                     intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", getActivity().getPackageName())));
+                    intent.setData(Uri.parse(String.format("package:%s", getPackageName())));
                     startActivityForResult(intent, 2296);
                 } catch (Exception e) {
                     Intent intent = new Intent();
@@ -929,45 +873,34 @@ public class DocumentsFragment extends Fragment {
 
     private void cekView(){
         if(!str_ktp.equalsIgnoreCase("")){
-            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-            img_ktp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken));
+            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
+            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
             img_cancelktp.setVisibility(View.VISIBLE);
         }else{
-            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
-            img_ktp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
+            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
+            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
             txt_ktp.setText(getString(R.string.take_photo_of_ktp));
             img_cancelktp.setVisibility(View.GONE);
         }
 
-        if(!str_npwp.equalsIgnoreCase("")){
-            cv_npwp.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-            img_npwp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken));
-            img_cancelnpwp.setVisibility(View.VISIBLE);
-        }else{
-            cv_npwp.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
-            img_npwp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
-            txt_npwp.setText(getString(R.string.take_photo_of_npwp));
-            img_cancelnpwp.setVisibility(View.GONE);
-        }
-
         if(!str_selfie.equalsIgnoreCase("")){
-            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-            img_selfie.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken));
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
             img_cancelselfie.setVisibility(View.VISIBLE);
         }else{
-            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
-            img_selfie.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
             txt_selfie.setText(getString(R.string.take_photo_of_selfie));
             img_cancelselfie.setVisibility(View.GONE);
         }
 
         if(!str_ttd.equalsIgnoreCase("")){
-            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-            img_ttd.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_picture_taken));
+            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
+            img_ttd.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
             img_cancelttd.setVisibility(View.VISIBLE);
         }else{
-            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
-            img_ttd.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
+            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
+            img_ttd.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
             txt_ttd.setText(getString(R.string.take_photo_of_spesimenttd));
             img_cancelttd.setVisibility(View.GONE);
         }
@@ -976,8 +909,8 @@ public class DocumentsFragment extends Fragment {
     public void logout() {
         // LOGOUT: GET method to server through endpoint
         dialog.show();
-        viewModel2.logout(prefManager.getUid(), prefManager.getToken());
-        viewModel2.getLogoutResult().observe(getActivity(), checkLogout);
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
+        viewModel.getLogoutResult().observe(PRTypeUpTwoActivity.this, checkLogout);
     }
 
     private Observer<String> checkLogout = new Observer<String>() {
@@ -985,14 +918,29 @@ public class DocumentsFragment extends Fragment {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 dialog.cancel();
-                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
+                Intent intent = new Intent(PRTypeUpTwoActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                new Routes(getActivity()).moveOutIntent(intent);
+                new Routes(PRTypeUpTwoActivity.this).moveOutIntent(intent);
             }else{
                 dialog.cancel();
                 new Fungsi().showMessage(result);
             }
         }
     };
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            new Routes(PRTypeUpTwoActivity.this).moveOut();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new Routes(PRTypeUpTwoActivity.this).moveOut();
+    }
 
 }

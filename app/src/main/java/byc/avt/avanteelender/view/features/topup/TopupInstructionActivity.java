@@ -51,14 +51,11 @@ public class TopupInstructionActivity extends AppCompatActivity {
         simpleWebView = findViewById(R.id.wv_topup_instruction);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
-        //simpleWebView.setHorizontalScrollBarEnabled(true);
         simpleWebView.requestFocus();
         simpleWebView.getSettings().setDomStorageEnabled(true);
         simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
         simpleWebView.getSettings().setJavaScriptEnabled(true);
         simpleWebView.setWebViewClient(new TopupInstructionActivity.MyWebViewClient());
-//        String url = "https://avantee.co.id:8444/blog";
-//        simpleWebView.loadUrl(url);
 
         simpleWebView.setOnTouchListener(new View.OnTouchListener() {
             @Override

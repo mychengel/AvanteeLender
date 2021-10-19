@@ -97,7 +97,6 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 noKtp = txtNoKtp.getEditText().getText().toString().trim();
                 cekKTP(noKtp);
-                //cekDone();
             }
         });
 
@@ -156,7 +155,6 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
         });
 
         editIsOn(false);
-        //loadData();
     }
 
     public void editIsOn(boolean s){
@@ -251,9 +249,7 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
                     err = err.replace("{", "");
                     err = err.replace("}", "");
                     new Fungsi(InsNarahubungShowActivity.this).showMessageLong(err);
-                    //new Fungsi(InsNarahubungShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
-                    //new Routes(InsNarahubungShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -261,7 +257,6 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(InsNarahubungShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(InsNarahubungShowActivity.this).moveOut();
             }
         }
     };

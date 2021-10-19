@@ -100,11 +100,8 @@ public class SettingInsAccountActivity extends AppCompatActivity {
                     }
                 });
 
-//        txt_name.setText(prefManager.getName());
-//        txt_inisial.setText(prefManager.getName().substring(0,1));
         txt_code.setText(gv.LENDER_CODE);
         txt_email.setText(prefManager.getEmail());
-
         img_pp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

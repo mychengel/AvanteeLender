@@ -44,41 +44,7 @@ public class PortofolioFragment extends Fragment {
             adapter.addFragment(new SelesaiPortofolioFragment(), getString(R.string.selesai));
         }
         setTab(index);
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, float v, int i1) {
-//            }
-//            @Override
-//            public void onPageSelected(int i) {
-//                tabLayout.getTabAt(i).select();
-//            }
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-//            }
-//        });
 
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition(), true);
-////                if (tab.getPosition() == 0)
-////                    getChildFragmentManager().beginTransaction().replace(R.id.vp_fr_portfolio, AktifPortofolioFragment.newInstance(), "Aktif").addToBackStack(null).commit();
-////                if (tab.getPosition() == 1)
-////                    getChildFragmentManager().beginTransaction().replace(R.id.vp_fr_portfolio, PendingPortofolioFragment.newInstance(), "Pending").addToBackStack(null).commit();
-////                if (tab.getPosition() == 2)
-////                    getChildFragmentManager().beginTransaction().replace(R.id.vp_fr_portfolio, SelesaiPortofolioFragment.newInstance(), "Selesai").addToBackStack(null).commit();
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
     }
 
     public static void setTab(int i){

@@ -3,6 +3,7 @@ package byc.avt.avanteelender.view.fragment.registration.institution;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -39,6 +41,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -97,7 +100,11 @@ public class CompanyDocumentsFragment extends Fragment {
     String str_ktp = "", str_npwp = "", str_selfie = "";
     int PICK_KTP = 1, PICK_NPWP = 2, PICK_SELFIE = 3, PICK_KTP_CAM = 4, PICK_NPWP_CAM = 5, PICK_SELFIE_CAM = 6;
     String PICK_TYPE_KTP = "insktp", PICK_TYPE_NPWP = "insnpwp", PICK_TYPE_SELFIE = "insselfie";
-    int BITMAP_SIZE = 60, MAX_SIZE = 640;
+    int BITMAP_SIZE = 60, MAX_SIZE = 640, CROP_KTP = 101, CROP_NPWP = 102, CROP_SELFIE = 103;
+
+    Button btnr_ktp, btnr_npwp, btnr_selfie, btnr_ttd;
+    ImageView imgr_ktp, imgr_npwp, imgr_selfie, imgr_ttd;
+    Bitmap bitmap_ktp, bitmap_npwp, bitmap_selfie, bitmap_ttd;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -167,6 +174,8 @@ public class CompanyDocumentsFragment extends Fragment {
             public void onClick(View view) {
                 str_ktp = "";
                 ktp_byte = null;
+                imgr_ktp.setImageResource(R.drawable.ic_baseline_no_photography_24);
+                btnr_ktp.setVisibility(View.INVISIBLE);
                 cekView();
                 cekDone();
             }
@@ -177,6 +186,8 @@ public class CompanyDocumentsFragment extends Fragment {
             public void onClick(View view) {
                 str_npwp = "";
                 npwp_byte = null;
+                imgr_npwp.setImageResource(R.drawable.ic_baseline_no_photography_24);
+                btnr_npwp.setVisibility(View.INVISIBLE);
                 cekView();
                 cekDone();
             }
@@ -187,6 +198,8 @@ public class CompanyDocumentsFragment extends Fragment {
             public void onClick(View view) {
                 str_selfie = "";
                 selfie_byte = null;
+                imgr_selfie.setImageResource(R.drawable.ic_baseline_no_photography_24);
+                btnr_selfie.setVisibility(View.INVISIBLE);
                 cekView();
                 cekDone();
             }
@@ -199,12 +212,73 @@ public class CompanyDocumentsFragment extends Fragment {
             public void onClick(View v) {
                 gv.stInsDocument = true;
                 gv.insRegData.put("no_npwp", no_npwp);
+                gv.insRegDataFile.put("ktp", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
                 gv.insRegDataFile.put("npwp", new DataPart("npwp.jpg", npwp_byte, "image/jpeg"));
-                gv.insRegDataFile.put("selfie_img", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
+                gv.insRegDataFile.put("selfie", new DataPart("selfie.jpg", selfie_byte, "image/jpeg"));
                 createDocument();
             }
         });
 
+        imgr_ktp = view.findViewById(R.id.img_ktp_fr_com_doc);
+        btnr_ktp = view.findViewById(R.id.btn_ktp_fr_com_doc);
+        btnr_ktp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_ktp = f.rotateImage(bitmap_ktp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_ktp.setImageBitmap(bitmap_ktp);
+                    bitmap_ktp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    ktp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        imgr_npwp = view.findViewById(R.id.img_npwp_fr_com_doc);
+        btnr_npwp = view.findViewById(R.id.btn_npwp_fr_com_doc);
+        btnr_npwp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_npwp = f.rotateImage(bitmap_npwp);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_npwp.setImageBitmap(bitmap_npwp);
+                    bitmap_npwp.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    npwp_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        imgr_selfie = view.findViewById(R.id.img_selfie_fr_com_doc);
+        btnr_selfie = view.findViewById(R.id.btn_selfie_fr_com_doc);
+        btnr_selfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    bitmap_selfie = f.rotateImage(bitmap_selfie);
+                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
+                    imgr_selfie.setImageBitmap(bitmap_selfie);
+                    bitmap_selfie.compress(Bitmap.CompressFormat.JPEG, 100, byt);
+                    selfie_byte = byt.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        cekButtonRotate();
+        checkStorageAccess();
+
+    }
+
+    private void cekButtonRotate(){
+        if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
+        if(bitmap_npwp != null){btnr_npwp.setVisibility(View.VISIBLE);}else{btnr_npwp.setVisibility(View.INVISIBLE);}
+        if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
     }
 
     private void createDocument(){
@@ -241,19 +315,19 @@ public class CompanyDocumentsFragment extends Fragment {
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = jobRes.getString("messages");
                     Log.e("Respon per cr doc", jobRes.toString());
+                    //new
+                    GlobalVariables.perRegData.clear();
+                    GlobalVariables.insRegData.clear();
+                    GlobalVariables.insRegDataFile.clear();
                     new Fungsi(getActivity()).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(getActivity(), OTPDocActivity.class);
+                    intent.putExtra("from", "doc");
                     new Routes(getActivity()).moveInFinish(intent);
                 }else if(result.getInt("code") == 400){
                     OTPReceiver.isReady = false;
                     JSONObject jobRes = result.getJSONObject("result");
-                    String msg = jobRes.toString();
-                    msg = msg.replaceAll("\",","\n• ");
-                    msg = msg.replaceAll("\"","");
-                    msg = msg.replaceAll("_"," ");
-                    msg = msg.replaceAll("\\{","");
-                    msg = msg.replaceAll("\\}","");
+                    String msg = f.docErr400(jobRes.toString());
                     dialog.cancel();
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Pemberitahuan")
@@ -281,8 +355,6 @@ public class CompanyDocumentsFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
-                                    Intent intent = new Intent(getActivity(), RegistrationFormActivity.class);
-                                    new Routes(getActivity()).moveOutIntent(intent);
                                 }
                             }).create().show();
                 }
@@ -293,8 +365,7 @@ public class CompanyDocumentsFragment extends Fragment {
                 Log.e("Respon ins cr doc", msg);
                 new Fungsi(getActivity()).showMessage(msg);
                 dialog.cancel();
-                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
-                new Routes(getActivity()).moveOutIntent(intent);
+                logout();
             }
         }
     };
@@ -351,19 +422,6 @@ public class CompanyDocumentsFragment extends Fragment {
                                 }
                             });
 
-//                            new AlertDialog.Builder(getActivity())
-//                                .setTitle("Pemberitahuan")
-//                                .setIcon(R.drawable.ic_document_photo_circle)
-//                                .setMessage(getString(R.string.req_doc))
-//                                .setCancelable(true)
-//                                .setPositiveButton("OK, ambil foto", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        showCameraCapture(PICK_IMAGE_REQUEST, PICK_IMAGE_TYPE);
-//                                    }
-//                                })
-//                                .create()
-//                                .show();
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
@@ -448,22 +506,67 @@ public class CompanyDocumentsFragment extends Fragment {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                     if (requestCode == PICK_KTP) {
+                        bitmap_ktp = bitmap;
+                        imgr_ktp.setImageBitmap(bitmap_ktp);
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         ktp_byte = bytes.toByteArray();
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
                         txt_ktp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_NPWP) {
+                        bitmap_npwp = bitmap;
+                        imgr_npwp.setImageBitmap(bitmap_npwp);
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment() + ".jpg");
                     } else if (requestCode == PICK_SELFIE) {
+                        bitmap_selfie = bitmap;
+                        imgr_selfie.setImageBitmap(bitmap_selfie);
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
                     }
+
+                    ////new
+                    if (requestCode == PICK_KTP_CAM) {
+                        performCrop(filePath, CROP_KTP);
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        performCrop(filePath, CROP_SELFIE);
+                    } else if (requestCode == PICK_NPWP_CAM) {
+                        performCrop(filePath, CROP_NPWP);
+                    }
+
+                    else if (requestCode == CROP_KTP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_ktp = bitmap;
+                        decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_ktp.setImageBitmap(bitmap_ktp);
+                        ktp_byte = bytes.toByteArray();
+                        str_ktp = f.getStringImage(decoded_ktp);
+                        txt_ktp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == CROP_NPWP) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_npwp = bitmap;
+                        decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_npwp.setImageBitmap(decoded_npwp);
+                        npwp_byte = bytes.toByteArray();
+                        str_npwp = f.getStringImage(decoded_npwp);
+                        txt_npwp.setText(filePath.getLastPathSegment());
+                    } else if (requestCode == CROP_SELFIE) {
+                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        bitmap_selfie = bitmap;
+                        decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                        imgr_selfie.setImageBitmap(decoded_selfie);
+                        selfie_byte = bytes.toByteArray();
+                        str_selfie = f.getStringImage(decoded_selfie);
+                        txt_selfie.setText(filePath.getLastPathSegment());
+                    }
+                    ////new
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -479,35 +582,112 @@ public class CompanyDocumentsFragment extends Fragment {
                     if(bitmap == null){
                         f.showMessage(getString(R.string.bitmap_null));
                     }else {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
-                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                        ////new
                         if (requestCode == PICK_KTP_CAM) {
+                            performCrop(filePath, CROP_KTP);
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            performCrop(filePath, CROP_SELFIE);
+                        } else if (requestCode == PICK_NPWP_CAM) {
+                            performCrop(filePath, CROP_NPWP);
+                        }
+
+                        else if (requestCode == CROP_KTP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_ktp = bitmap;
                             decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_ktp.setImageBitmap(bitmap_ktp);
                             ktp_byte = bytes.toByteArray();
                             str_ktp = f.getStringImage(decoded_ktp);
                             txt_ktp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == PICK_NPWP_CAM) {
+                        } else if (requestCode == CROP_NPWP) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_npwp = bitmap;
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_npwp.setImageBitmap(decoded_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == PICK_SELFIE_CAM) {
+                        } else if (requestCode == CROP_SELFIE) {
+                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
+                            bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+                            imgr_selfie.setImageBitmap(decoded_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
                         }
+                        ////new
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        cekButtonRotate();
         cekView();
         cekDone();
     }
+
+    private void performCrop(Uri picUri, int PIC_CROP){
+        try {
+            getActivity().grantUriPermission("com.android.camera",picUri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.setDataAndType(picUri, "image/*");
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            cropIntent.putExtra("crop", "true");
+            if(PIC_CROP == CROP_SELFIE){
+                cropIntent.putExtra("aspectX", 1);
+                cropIntent.putExtra("aspectY", 1);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 400);
+            }else{
+                cropIntent.putExtra("aspectX", 4);
+                cropIntent.putExtra("aspectY", 3);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 300);
+            }
+            cropIntent.putExtra("return-data", true);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Device tidak support untuk memotong gambar.";
+            Toast toast = Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    Boolean storageAccess = false;
+    private void checkStorageAccess(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()) {
+                storageAccess = true;
+            } else {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                    intent.addCategory("android.intent.category.DEFAULT");
+                    intent.setData(Uri.parse(String.format("package:%s", getActivity().getPackageName())));
+                    startActivityForResult(intent, 2296);
+                } catch (Exception e) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivityForResult(intent, 2296);
+                }
+            }
+
+        }
+    }
+
 
 
     boolean npwpisvalid = false;
@@ -555,7 +735,7 @@ public class CompanyDocumentsFragment extends Fragment {
         }else{
             cv_npwp.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightest_neutral));
             img_npwp.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_take_picture));
-            txt_npwp.setText(getString(R.string.take_narahubung_npwp_photo));
+            txt_npwp.setText(getString(R.string.take_company_npwp_photo));
             img_cancelnpwp.setVisibility(View.GONE);
         }
 
@@ -570,4 +750,26 @@ public class CompanyDocumentsFragment extends Fragment {
             img_cancelselfie.setVisibility(View.GONE);
         }
     }
+
+    public void logout() {
+        // LOGOUT: GET method to server through endpoint
+        dialog.show();
+        viewModel.logout(prefManager.getUid(), prefManager.getToken());
+        viewModel.getLogoutResult().observe(getActivity(), checkLogout);
+    }
+
+    private Observer<String> checkLogout = new Observer<String>() {
+        @Override
+        public void onChanged(String result) {
+            if(result.equals("ok")) {
+                dialog.cancel();
+                Intent intent = new Intent(getActivity(), WalkthroughActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                new Routes(getActivity()).moveOutIntent(intent);
+            }else{
+                dialog.cancel();
+                new Fungsi().showMessage(result);
+            }
+        }
+    };
 }

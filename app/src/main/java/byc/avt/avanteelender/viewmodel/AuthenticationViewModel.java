@@ -19,7 +19,6 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultAccountData = new MutableLiveData<>();
     private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
     private MutableLiveData<JSONObject> msg_in = new MutableLiveData<>();
-    //private MutableLiveData<String> msg_in = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();
     private MutableLiveData<String> msg_otp_ver = new MutableLiveData<>();
     private MutableLiveData<String> msg_ver_otp = new MutableLiveData<>();
@@ -40,6 +39,7 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSigner = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultUpdateProfile = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultReregistPrvp001 = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -228,5 +228,13 @@ public class AuthenticationViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getResultUpdateProfile(){
         return resultUpdateProfile;
+    }
+
+    public void reregistPrvp001(String uid, String token){
+        resultReregistPrvp001 = authenticationRepository.reregistPrvp001(uid, token, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultReregistPrvp001(){
+        return resultReregistPrvp001;
     }
 }

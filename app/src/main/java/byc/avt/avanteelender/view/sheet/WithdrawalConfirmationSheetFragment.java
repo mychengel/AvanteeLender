@@ -83,7 +83,6 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
         txt_no_rek_bank = view.findViewById(R.id.txt_no_bank_fr_sheet_withdrawal_confirmation);
         txt_nama_pemilik_bank = view.findViewById(R.id.txt_nama_pemilik_bank_fr_sheet_withdrawal_confirmation);
         txt_nominal_penarikan.setText(f.toNumb(""+nominal_penarikan));
-        //txt_biaya_penarikan.setText(getString(R.string.biaya_admin_penarikan)+" -"+f.toNumb(""+biaya_penarikan));
         txt_biaya_penarikan.setText(getString(R.string.withdrawal_admin_fee));
         txt_nama_bank.setText(nama_bank);
         txt_no_rek_bank.setText(no_rek_bank);
@@ -136,7 +135,6 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
                     new ConfirmationSheetFragment(R.raw.withdrawal_processed_loop, getString(R.string.withdrawal_in_process), getString(R.string.withdrawal_in_process_desc));
                     ConfirmationSheetFragment sheetFragment = ConfirmationSheetFragment.getInstance();
                     sheetFragment.show(getActivity().getSupportFragmentManager(), sheetFragment.getTag());
-                    //instance.dismiss();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {

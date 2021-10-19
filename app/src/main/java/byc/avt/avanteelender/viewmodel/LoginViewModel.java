@@ -15,8 +15,6 @@ import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.repositories.AuthenticationRepository;
 
 public class LoginViewModel extends AndroidViewModel {
-    //private MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
-
     private AuthenticationRepository authenticationRepository;
     private MutableLiveData<JSONObject> msg = new MutableLiveData<>();
     private MutableLiveData<String> msg_out = new MutableLiveData<>();

@@ -102,8 +102,6 @@ public class Fungsi {
 
     public Spanned htmlToStr(String msg){
         Spanned hsl;
-        //msg = msg.replace("<li>", "\n");
-        //msg = msg.replace("<\li>", " ");
         msg = msg.replace("\n", " ");
         msg = msg.replace("\t", " ");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -146,17 +144,13 @@ public class Fungsi {
         final int color = 0xff424242;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2,
                 bitmap.getWidth()/2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-        //return _bmp;
         return output;
     }
 
@@ -173,12 +167,8 @@ public class Fungsi {
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
         canvas.drawRect(rect, paint);
-        //canvas.drawRoundRect(, bitmap.getWidth() / 2, bitmap.getHeight() / 2, paint);
-        //canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, 10, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-        //return _bmp;
         return output;
     }
     public static Bitmap rotateImage(Bitmap bitmap) throws IOException {
@@ -192,7 +182,6 @@ public class Fungsi {
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_NORMAL);
         if(Build.VERSION.SDK_INT > 26){
-            //rotatedBitmap = bitmap;
             if(Build.VERSION.SDK_INT >= 30){
                 if(Build.MODEL.contains("SM")){
                     if(orientation == ExifInterface.ORIENTATION_ROTATE_90 || orientation == ExifInterface.ORIENTATION_ROTATE_270){

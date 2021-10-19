@@ -16,22 +16,6 @@ public class AvtFaq {
         this.content = content;
     }
 
-//    protected AvtFaq(Parcel in) {
-//        title = in.readString();
-//        content = in.readString();
-//    }
-
-//    public static final Creator<AvtFaq> CREATOR = new Creator<AvtFaq>() {
-//        @Override
-//        public AvtFaq createFromParcel(Parcel in) {
-//            return new AvtFaq(in);
-//        }
-//
-//        @Override
-//        public AvtFaq[] newArray(int size) {
-//            return new AvtFaq[size];
-//        }
-//    };
 
     public Spanned getTitle() {
         return title;
@@ -41,14 +25,4 @@ public class AvtFaq {
         return content;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-
-//    @Override
-//    public void writeToParcel(Parcel parcel, int i) {
-//        parcel.writeString(title);
-//        parcel.writeString(content);
-//    }
 }

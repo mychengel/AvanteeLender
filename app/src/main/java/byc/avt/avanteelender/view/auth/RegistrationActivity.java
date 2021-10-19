@@ -48,7 +48,6 @@ public class RegistrationActivity extends AppCompatActivity {
     public CheckBox checkAgree;
     private AuthenticationViewModel viewModel;
     private String phoneNumber = "", password = "", rePassword = "", email = "", refId = "";
-    //public boolean readTerm = false; //variable untuk menyimpan hasil dari bottom sheet TermFragment
     private Dialog dialog;
 
     @Override
@@ -68,7 +67,6 @@ public class RegistrationActivity extends AppCompatActivity {
         editConfirmPassword = findViewById(R.id.edit_re_password_daftar);
         editRefId = findViewById(R.id.edit_ref_id_daftar);
         btnRegister = findViewById(R.id.btn_daftar);
-        //checkAgree = findViewById(R.id.cb_setuju_syarat_ketentuan_daftar);
         viewModel = new ViewModelProvider(RegistrationActivity.this).get(AuthenticationViewModel.class);
         Objects.requireNonNull(editPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
         Objects.requireNonNull(editConfirmPassword.getEditText()).addTextChangedListener(cekPassTextWatcher);
@@ -111,36 +109,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 confirmRegister();
             }
         });
-
-//        checkAgree.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked){
-//                    readTerm = true;
-//                    cekDone();
-//                }else{
-//                    readTerm = false;
-//                    cekDone();
-//                }
-//
-////                boolean isread = TermSheetFragment.read;
-////                if (isChecked) {
-////                    if(isread){
-////                        checkAgree.setChecked(true);
-////                        readTerm = true;
-////                        cekDone();
-////                    }else{
-////                        TermSheetFragment termFragment = TermSheetFragment.getInstance();
-////                        termFragment.show(getSupportFragmentManager(), termFragment.getTag());
-////                        checkAgree.setChecked(false);
-////                    }
-////                } else {
-////                    checkAgree.setChecked(false);
-////                    readTerm = false;
-////                    cekDone();
-////                }
-//            }
-//        });
     }
 
     boolean emailisvalid = false;
@@ -181,7 +149,6 @@ public class RegistrationActivity extends AppCompatActivity {
         }else{
             allisfilled = false;
         }
-        //btnRegister.setEnabled(readTerm && allisfilled);
         btnRegister.setEnabled(allisfilled);
     }
 
@@ -284,7 +251,6 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     };
 
-    //back button clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

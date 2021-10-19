@@ -49,13 +49,6 @@ public class PortofolioPendingAdapter extends RecyclerView.Adapter<PortofolioPen
     @Override
     public void onBindViewHolder(@NonNull final PortofolioPendingAdapter.CardViewViewHolder holder, int position) {
         final PortofolioPending ps = getListPortofolioPending().get(position);
-//        if(ps.getIs_paid().equalsIgnoreCase("-")){
-//            holder.txt_is_paid.setVisibility(View.VISIBLE);
-//            holder.img_done.setVisibility(View.VISIBLE);
-//        }else{
-//            holder.txt_is_paid.setVisibility(View.VISIBLE);
-//            holder.img_done.setVisibility(View.VISIBLE);
-//        }
         holder.txt_loan_type.setText(ps.getLoan_type());
         holder.txt_loan_no.setText(ps.getLoan_no());
         holder.txt_loan_rating.setText(ps.getLoan_rating());
@@ -63,7 +56,6 @@ public class PortofolioPendingAdapter extends RecyclerView.Adapter<PortofolioPen
         holder.txt_tenor.setText(ps.getTenor()+" hari");
         holder.txt_interest.setText(""+ (int)Float.parseFloat(ps.getInterest())+"%");
         holder.txt_nominal.setText(f.toNumb(ps.getNominal()));
-        //holder.txt_payment_amount.setText(f.toNumb(ps.getPayment_amount()));
         if(ps.getLoan_rating().charAt(0) == 'A'){
             holder.img_mark.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_loan_rating_a));
         }else if(ps.getLoan_rating().charAt(0) == 'B'){

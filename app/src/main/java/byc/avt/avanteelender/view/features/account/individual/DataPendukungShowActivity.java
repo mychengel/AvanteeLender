@@ -261,7 +261,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            //img_ktp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -280,7 +279,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            //img_selfie.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -299,7 +297,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            //img_spesimen_ttd.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             return false;
                         }
                     })
@@ -334,7 +331,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 no_ktp = edit_ktp.getEditText().getText().toString().trim();
                 cekKTP(no_ktp);
-                //cekDone();
             }
         });
 
@@ -349,7 +345,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 no_npwp = edit_npwp.getEditText().getText().toString().trim();
                 cekNPWP(no_npwp);
-                //cekDone();
             }
         });
 
@@ -376,36 +371,28 @@ public class DataPendukungShowActivity extends AppCompatActivity {
         cv_ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(str_ktp.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_KTP);
-                //}
+                chooseFileConfirmation(PICK_TYPE_KTP);
             }
         });
 
         cv_npwp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(str_npwp.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_NPWP);
-                //}
+                chooseFileConfirmation(PICK_TYPE_NPWP);
             }
         });
 
         cv_selfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(str_selfie.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_SELFIE);
-                //}
+                chooseFileConfirmation(PICK_TYPE_SELFIE);
             }
         });
 
         cv_ttd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if(str_ttd.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_TTD);
-                //}
+                chooseFileConfirmation(PICK_TYPE_TTD);
             }
         });
 
@@ -444,21 +431,9 @@ public class DataPendukungShowActivity extends AppCompatActivity {
 
     private void confirmNext(View v){
         if(ktpisvalid){
-//            try {
-//                if(job.getString("ktp_no").equalsIgnoreCase(no_ktp)){
-//
-//                }else{
-//                    gv.perEditData.put("no_ktp", no_ktp);
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
             gv.perEditData.put("no_ktp", no_ktp);
             if(is_not_have_npwp){
                 gv.perEditData.put("miliki_npwp", "0");
-//                    gv.perRegData.put("tanggal_pendaftaran_npwp", "");
-//                    gv.perRegData.put("no_npwp", "");
-//                    gv.perRegData.put("npwp_img", null);
             }else{
                 gv.perEditData.put("miliki_npwp", "1");
                 gv.perEditData.put("tanggal_pendaftaran_npwp", tgl_npwp);
@@ -514,7 +489,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 }else{
                     new Fungsi(DataPendukungShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
-                    //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -522,7 +496,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(DataPendukungShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };
@@ -560,7 +533,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
     }
 
     public void editIsOn(boolean s){
-
         edit_ktp.setEnabled(s);
         edit_npwp.setEnabled(s);
         edit_tgl_npwp.setEnabled(s);
@@ -737,7 +709,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                 try {
                     //mengambil gambar dari Gallery
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-
                     // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
                     bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -772,19 +743,17 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     ////new
                     if (requestCode == PICK_KTP_CAM) {
                         performCrop(filePath, CROP_KTP);
+                    } else if (requestCode == PICK_SELFIE_CAM) {
+                        performCrop(filePath, CROP_SELFIE);
                     } else if (requestCode == PICK_NPWP_CAM) {
                         performCrop(filePath, CROP_NPWP);
                     }
-//                        else if (requestCode == PICK_SELFIE_CAM) {
-//                            performCrop(filePath, CROP_SELFIE);
-//                        }
                     else if (requestCode == PICK_TTD_CAM) {
                         performCrop(filePath, CROP_TTD);
                     }
 
                     else if (requestCode == CROP_KTP) {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_ktp = bitmap;
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
@@ -794,16 +763,14 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         str_ktp = f.getStringImage(decoded_ktp);
                     } else if (requestCode == CROP_NPWP) {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
                         img_npwp.setImageBitmap(decoded_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
-                    } else if (requestCode == PICK_SELFIE_CAM) {
+                    } else if (requestCode == CROP_SELFIE) {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        ///ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
@@ -812,7 +779,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         str_selfie = f.getStringImage(decoded_selfie);
                     } else if (requestCode == CROP_TTD) {
                         bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_ttd = bitmap;
                         decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
@@ -822,8 +788,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                     }
 
                     ////new
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -844,12 +808,11 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         ////new
                         if (requestCode == PICK_KTP_CAM) {
                             performCrop(filePath, CROP_KTP);
+                        } else if (requestCode == PICK_SELFIE_CAM) {
+                            performCrop(filePath, CROP_SELFIE);
                         } else if (requestCode == PICK_NPWP_CAM) {
                             performCrop(filePath, CROP_NPWP);
                         }
-//                        else if (requestCode == PICK_SELFIE_CAM) {
-//                            performCrop(filePath, CROP_SELFIE);
-//                        }
                         else if (requestCode == PICK_TTD_CAM) {
                             performCrop(filePath, CROP_TTD);
                         }
@@ -873,7 +836,7 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             img_npwp.setImageBitmap(decoded_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
-                        } else if (requestCode == PICK_SELFIE_CAM) {
+                        } else if (requestCode == CROP_SELFIE) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
@@ -894,39 +857,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                         }
 
                         ////new
-
-
-//                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-//                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
-//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-//
-//                        if (requestCode == PICK_KTP_CAM) {
-//                            bitmap_ktp = bitmap;
-//                            decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-//                            img_ktp.setImageBitmap(bitmap_ktp);
-//                            ktp_byte = bytes.toByteArray();
-//                            Log.e("KTP Byte", ktp_byte + "");
-//                            str_ktp = f.getStringImage(decoded_ktp);
-//                        } else if (requestCode == PICK_NPWP_CAM) {
-//                            bitmap_npwp = bitmap;
-//                            decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-//                            img_npwp.setImageBitmap(decoded_npwp);
-//                            npwp_byte = bytes.toByteArray();
-//                            str_npwp = f.getStringImage(decoded_npwp);
-//                        } else if (requestCode == PICK_SELFIE_CAM) {
-//                            bitmap_selfie = bitmap;
-//                            decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-//                            img_selfie.setImageBitmap(decoded_selfie);
-//                            selfie_byte = bytes.toByteArray();
-//                            str_selfie = f.getStringImage(decoded_selfie);
-//                        } else if (requestCode == PICK_TTD_CAM) {
-//                            bitmap_ttd = bitmap;
-//                            decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-//                            img_spesimen_ttd.setImageBitmap(decoded_ttd);
-//                            ttd_byte = bytes.toByteArray();
-//                            str_ttd = f.getStringImage(decoded_ttd);
-//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -945,8 +875,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
         }
 
         cekButtonRotate();
-//        cekView();
-//        cekDone();
     }
 
     private void performCrop(Uri picUri, int PIC_CROP){
@@ -958,10 +886,17 @@ public class DataPendukungShowActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 4);
-            cropIntent.putExtra("aspectY", 3);
-            cropIntent.putExtra("outputX", 400);
-            cropIntent.putExtra("outputY", 300);
+            if(PIC_CROP == CROP_SELFIE){
+                cropIntent.putExtra("aspectX", 1);
+                cropIntent.putExtra("aspectY", 1);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 400);
+            }else{
+                cropIntent.putExtra("aspectX", 4);
+                cropIntent.putExtra("aspectY", 3);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 300);
+            }
             cropIntent.putExtra("return-data", true);
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
             startActivityForResult(cropIntent, PIC_CROP);

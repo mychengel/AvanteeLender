@@ -214,67 +214,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
         rv_his_trx_filter.setLayoutManager(linearLayoutManagerFilter);
         historyTrxAdapterFilter.setListHistoryTrx(results_filter);
         rv_his_trx_filter.setAdapter(historyTrxAdapterFilter);
-
-        //runFirst();
-        //loadHistoryTrxListFilter();
     }
-
-//    public void loadHistoryTrxListFilter() {
-//        // POST to server through endpoint
-//        //dialog.show();
-//        viewModel.getHistoryTrxListFilter(prefManager.getUid(), prefManager.getToken(), "1", start, end, status);
-//        viewModel.getResultHistoryTrxListFilter().observe(HistoriTransaksiListActivity.this, showHistoryTrxListFilter);
-//    }
-//
-//    private Observer<ArrayList<HistoryTrx>> showHistoryTrxListFilter = new Observer<ArrayList<HistoryTrx>>() {
-//        @Override
-//        public void onChanged(final ArrayList<HistoryTrx> result) {
-//            results = result;
-//            if(results.size()==0){
-//                rv_his_trx_list.setVisibility(View.INVISIBLE);
-//                lbl_no_trx.setVisibility(View.VISIBLE);
-//            }else{
-//                rv_his_trx_list.setVisibility(View.VISIBLE);
-//                lbl_no_trx.setVisibility(View.INVISIBLE);
-//                linearLayoutManager = new LinearLayoutManager(HistoriTransaksiListActivity.this);
-//                rv_his_trx_list.setLayoutManager(linearLayoutManager);
-//                historyTrxAdapter = new HistoryTrxAdapter(HistoriTransaksiListActivity.this);
-//                historyTrxAdapter.setListHistoryTrx(results);
-//                rv_his_trx_list.setAdapter(historyTrxAdapter);
-//                rv_his_trx_list.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-//                    @Override
-//                    public void onLoadMore(int current_page) {
-//                        loadMoreHistoryFilter(""+current_page);
-//                    }
-//                });
-//                rv_his_trx_list.smoothScrollToPosition(results.size());
-//            }
-//            dialog.cancel();
-//        }
-//    };
-//
-//    public void loadMoreHistoryFilter(String page) {
-//        // POST to server through endpoint
-//        prog_bar.setVisibility(View.VISIBLE);
-//        viewModel.getHistoryTrxListFilter(prefManager.getUid(), prefManager.getToken(), page, start, end, status);
-//        viewModel.getResultHistoryTrxListFilter().observe(HistoriTransaksiListActivity.this, showMoreHistoryFilter);
-//    }
-//
-//    private Observer<ArrayList<HistoryTrx>> showMoreHistoryFilter = new Observer<ArrayList<HistoryTrx>>() {
-//        @Override
-//        public void onChanged(final ArrayList<HistoryTrx> result) {
-//            for(int i = 0; i < result.size(); i++){
-//                results.add(result.get(i));
-//                historyTrxAdapter.notifyDataSetChanged();
-//            }
-//            //results_tmp = results;
-//            prog_bar.setVisibility(View.GONE);
-//            rv_his_trx_list.smoothScrollToPosition(results.size());
-//            txt_filter_text.setText(filter_text+ " ("+results.size()+")");
-//        }
-//    };
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

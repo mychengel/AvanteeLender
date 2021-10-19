@@ -361,7 +361,6 @@ public class AddressDataShowActivity extends AppCompatActivity {
                                 }
                             }).create().show();
                     cekError();
-                    //new Routes(AddressDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -370,7 +369,6 @@ public class AddressDataShowActivity extends AppCompatActivity {
                 new Fungsi(AddressDataShowActivity.this).showMessage(msg);
                 dialog.cancel();
                 cekError();
-                //new Routes(AddressDataShowActivity.this).moveOut();
             }
         }
     };

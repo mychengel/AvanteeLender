@@ -75,18 +75,15 @@ public class AvtFaqAdapter extends RecyclerView.Adapter<AvtFaqAdapter.CardViewVi
         holder.wv.loadDataWithBaseURL(null, faq.getContent(), "text/HTML", "UTF-8", null);
 
         holder.lbl_title.setText(faq.getTitle());
-        //holder.lbl_content.setText(faq.getContent());
         holder.img_expand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!is_expand){
                     holder.img_expand.setRotation(180);
-                    //holder.lbl_content.setVisibility(View.VISIBLE);
                     holder.wv.setVisibility(View.VISIBLE);
                     is_expand = !is_expand;
                 }else{
                     holder.img_expand.setRotation(0);
-                    //holder.lbl_content.setVisibility(View.GONE);
                     holder.wv.setVisibility(View.GONE);
                     is_expand = !is_expand;
                 }
@@ -98,12 +95,10 @@ public class AvtFaqAdapter extends RecyclerView.Adapter<AvtFaqAdapter.CardViewVi
             public void onClick(View view) {
                 if(!is_expand){
                     holder.img_expand.setRotation(180);
-                    //holder.lbl_content.setVisibility(View.VISIBLE);
                     holder.wv.setVisibility(View.VISIBLE);
                     is_expand = !is_expand;
                 }else{
                     holder.img_expand.setRotation(0);
-                    //holder.lbl_content.setVisibility(View.GONE);
                     holder.wv.setVisibility(View.GONE);
                     is_expand = !is_expand;
                 }

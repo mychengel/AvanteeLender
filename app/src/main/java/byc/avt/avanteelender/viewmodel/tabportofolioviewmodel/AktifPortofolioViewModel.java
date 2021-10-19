@@ -22,7 +22,6 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultHeader = new MutableLiveData<>();
     private MutableLiveData<ArrayList<PortofolioAktif>> resultList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<PortofolioAktifDetail>> resultListDetail = new MutableLiveData<>();
-    private MutableLiveData<String> resultOnTime = new MutableLiveData<>();
     private MutableLiveData<String> resultDownloadSuratKuasa = new MutableLiveData<>();
     private MutableLiveData<String> resultDownloadSuratPerjanjian = new MutableLiveData<>();
     private MutableLiveData<String> resultDownloadSuratKuasaLoan = new MutableLiveData<>();

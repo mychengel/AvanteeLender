@@ -197,7 +197,6 @@ public class BankInfoShowActivity extends AppCompatActivity {
                     dialog.cancel();
                     new Routes(BankInfoShowActivity.this).moveOut();
                 }else{
-                    //new Fungsi(BankInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = f.docErr400(jobRes.toString());
@@ -212,7 +211,6 @@ public class BankInfoShowActivity extends AppCompatActivity {
                                     dialogInterface.cancel();
                                 }
                             }).create().show();
-                    //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -220,7 +218,6 @@ public class BankInfoShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(BankInfoShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };

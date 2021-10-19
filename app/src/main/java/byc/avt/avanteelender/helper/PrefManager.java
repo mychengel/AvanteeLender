@@ -173,8 +173,5 @@ public class PrefManager {
         docEditor.clear().commit();
     }
 
-    //function to manage user pref
-
-
 
 }

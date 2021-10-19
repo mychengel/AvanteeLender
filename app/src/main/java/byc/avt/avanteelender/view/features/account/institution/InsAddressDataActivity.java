@@ -323,7 +323,6 @@ public class InsAddressDataActivity extends AppCompatActivity {
                     new Fungsi(InsAddressDataActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
                     cekError();
-                    //new Routes(InsAddressDataActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -332,7 +331,6 @@ public class InsAddressDataActivity extends AppCompatActivity {
                 new Fungsi(InsAddressDataActivity.this).showMessage(msg);
                 dialog.cancel();
                 cekError();
-                //new Routes(InsAddressDataActivity.this).moveOut();
             }
         }
     };

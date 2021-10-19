@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_address_data_show.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_daftar.xml" value="0.14493243243243242" />
+        <entry key="app/src/main/res/layout/activity_data_pendukung_show.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/activity_in_verification_process.xml" value="0.13851351351351351" />
+        <entry key="app/src/main/res/layout/activity_ins_data_pendukung_show.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/activity_ins_narahubung_show.xml" value="0.12430555555555556" />
+        <entry key="app/src/main/res/layout/activity_masuk.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/activity_personal_data_show.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/activity_prtype_up_three.xml" value="0.2408026755852843" />
+        <entry key="app/src/main/res/layout/activity_prtype_up_two.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_prtypeupone.xml" value="0.23612040133779263" />
+        <entry key="app/src/main/res/layout/activity_prvp001.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_registration_form.xml" value="0.16689189189189188" />
+        <entry key="app/src/main/res/layout/activity_rejection_process.xml" value="0.17" />
+        <entry key="app/src/main/res/layout/activity_setting.xml" value="0.13851351351351351" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16452702702702704" />
+        <entry key="app/src/main/res/layout/dialog_pra_foto_ktp.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_pra_foto_npwp.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/dialog_pra_foto_swafoto.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_bank_info.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/fragment_company_address.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/fragment_company_documents.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_documents.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_personal_data.xml" value="0.16655405405405405" />
+        <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.16689189189189188" />
+        <entry key="app/src/main/res/layout/fragment_work_info.xml" value="0.16655405405405405" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectPlainTextFileTypeManager">
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_kontrak.xml" />
   </component>

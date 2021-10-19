@@ -130,8 +130,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         btn_next = view.findViewById(R.id.btn_selanjutnya_fr_sheet_danai);
         img_plus = view.findViewById(R.id.img_plus_fr_sheet_danai);
         img_minus = view.findViewById(R.id.img_minus_fr_sheet_danai);
-        /*final int selectedId = rg_metode.getCheckedRadioButtonId();
-        radioButton = view.findViewById(selectedId);*/
         radSaldo.setChecked(mSaldo);
         radTfBank.setChecked(mTfBank);
         Log.e("LOAN_NO", loan_no);
@@ -191,11 +189,9 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
 
                             nominal_show = f.toNumb(""+nominal);
                             nominal_show = nominal_show.substring(2, nominal_show.length());
-                            //f.showMessage(getString(R.string.reach_limit_number));
                         }
                     }
 
-                    //current = nominal_show;
                     edit_nominal.setText(nominal_show);
                     edit_nominal.setSelection(nominal_show.length());
                     edit_nominal.addTextChangedListener(this);
@@ -326,7 +322,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                 mSaldo = false; mTfBank = true;
                 radSaldo.setChecked(mSaldo);
                 radTfBank.setChecked(mTfBank);
-                //confirmNominal("tb");
             }
         });
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -354,19 +349,58 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                             .create()
                             .show();
                 }else{
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Peringatan")
-                            .setIcon(R.drawable.logo)
-                            .setMessage(getString(R.string.failed_on_multiples) + " " + f.toNumb(multiplesFunding+""))
-                            .setCancelable(false)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            })
-                            .create()
-                            .show();
+                    if(maxInvest < multiplesFunding){
+                        if(minInvest == nominal || maxInvest == nominal){
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("Konfirmasi")
+                                    .setIcon(R.drawable.logo)
+                                    .setMessage(getString(R.string.pendanaan_confirmation))
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                            confirmDanai();
+                                        }
+                                    })
+                                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }else{
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("Peringatan")
+                                    .setIcon(R.drawable.logo)
+                                    .setMessage(getString(R.string.failed_on_maxinvest) + " " + f.toNumb(maxInvest+""))
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    }else{
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Peringatan")
+                                .setIcon(R.drawable.logo)
+                                .setMessage(getString(R.string.failed_on_multiples) + " " + f.toNumb(multiplesFunding+""))
+                                .setCancelable(false)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
                 }
 
             }
@@ -394,11 +428,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                     intent.putExtra("loan_no", res.getString("loan_no"));
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     new Routes(getActivity()).moveInFinish(intent);
-
-//                    new DanaiSheetFragment(res);
-//                    DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();
-//                    danaiSheetFragment.show(getSupportFragmentManager(), danaiSheetFragment.getTag());
-                }else{
+               }else{
                     f.showMessage(getString(R.string.failed_load_data));
                 }
             } catch (JSONException e) {
@@ -420,10 +450,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
             try {
                 if(result.getInt("code") == 200){
                     Log.e("resultNominal", result.toString());
-//                    JSONObject res = result.getJSONObject("result");
-//                    new DanaiSheetFragment(res);
-//                    DanaiSheetFragment danaiSheetFragment = DanaiSheetFragment.getInstance();
-//                    danaiSheetFragment.show(getSupportFragmentManager(), danaiSheetFragment.getTag());
                 }else{
                     f.showMessage(getString(R.string.failed_load_data));
                 }
@@ -436,7 +462,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
 
     public void cekDone(){
         cb_agree.setText(getString(R.string.saya_setuju_mendanai)+" "+f.toNumb(""+nominal));
-        //if((nominal % multiplesFunding == 0) && (nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
         if((nominal <= totalSaldo && nominal <= maxInvest) && (totalSaldo >= minInvest) && (nominal >= minInvest)){
             isNomValid = true;
         }else{

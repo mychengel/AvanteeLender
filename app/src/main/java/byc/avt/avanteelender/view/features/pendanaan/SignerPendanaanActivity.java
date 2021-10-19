@@ -68,7 +68,6 @@ public class SignerPendanaanActivity extends AppCompatActivity {
         simpleWebView = findViewById(R.id.wv_signer_pendanaan);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
-        //simpleWebView.setHorizontalScrollBarEnabled(true);
         simpleWebView.requestFocus();
         simpleWebView.getSettings().setDomStorageEnabled(true);
         simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");

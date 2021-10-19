@@ -75,20 +75,16 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                //result.setValue(response.toString());
                                 Log.e("ResponSuratKuasa", response.toString());
                                 String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa";
                                 File folder = null;
                                 File file = null;
 
                                 try{
-                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
                                     folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     int fCount = 0;
                                     File[] files = folder.listFiles();
                                     for (File filex : files) {
@@ -154,20 +150,16 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                //result.setValue(response.toString());
                                 Log.e("ResponSuratPerjanjian", response.toString());
                                 String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian";
                                 File folder = null;
                                 File file = null;
 
                                 try{
-                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
                                     folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     int fCount = 0;
                                     File[] files = folder.listFiles();
                                     for (File filex : files) {
@@ -234,20 +226,16 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                //result.setValue(response.toString());
                                 Log.e("SuratKuasaLoan", response.toString());
                                 String filename = loan_no+"_Agreement";
                                 File folder = null;
                                 File file = null;
 
                                 try{
-                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
                                     folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     int fCount = 0;
                                     File[] files = folder.listFiles();
                                     for (File filex : files) {
@@ -313,20 +301,15 @@ public class AktifPortofolioRepository {
                         // TODO handle the response
                         try {
                             if (response!=null) {
-                                //result.setValue(response.toString());
                                 Log.e("Kuasa", response.toString());
                                 String filename = funding_id+"_SuratKuasa";
                                 File folder = null;
                                 File file = null;
-
                                 try{
-                                    //folder = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "");
                                     folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
                                     if (!folder.exists()) {
                                         folder.mkdirs();
                                     }
-                                    //file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "", filename);
-                                    //file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename);
                                     int fCount = 0;
                                     File[] files = folder.listFiles();
                                     for (File filex : files) {
@@ -451,7 +434,6 @@ public class AktifPortofolioRepository {
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    //result.setValue(list);
                                     String loan_rating = rows.getJSONObject(i).getString("loan_rating");
                                     String loan_type = rows.getJSONObject(i).getString("loan_type");
                                     PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"), rows.getJSONObject(i).getString("funding_id"),
@@ -512,7 +494,6 @@ public class AktifPortofolioRepository {
                         try {
                             rows = response.getJSONArray("rows");
                             if(rows.length()==0){
-                                //result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
                                     String periode = rows.getJSONObject(i).getString("schedule_period");

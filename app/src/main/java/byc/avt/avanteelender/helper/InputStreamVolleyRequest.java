@@ -22,7 +22,6 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
         // TODO Auto-generated constructor stub
 
         super(method, mUrl, errorListener);
-        // this request would never use cache.
         setShouldCache(false);
         mListener = listener;
         mParams=params;

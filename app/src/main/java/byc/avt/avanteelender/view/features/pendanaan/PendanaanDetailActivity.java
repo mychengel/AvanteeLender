@@ -97,7 +97,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         loan_no = intent.getStringExtra("loan_no");
         tenor = intent.getStringExtra("tenor");
-
         img_factsheet = findViewById(R.id.img_factsheet_pendanaan_det);
 
         new Handler().postDelayed(new Runnable() {
@@ -263,10 +262,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                     img_factsheet.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-//                            Intent i = new Intent(PendanaanDetailActivity.this, FactsheetActivity.class);
-//                            i.putExtra("factsheet", factsheet_url);
-//                            startActivity(i);
-//                            overridePendingTransition(R.anim.enter, R.anim.exit);
                             checkPermission();
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                                 if(storageAccess){
@@ -345,8 +340,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                                 String str_disclaimer = res.getJSONObject("risk_information").getString("risk_disclaimer");
                                 String str_risk_desc = res.getJSONObject("risk_information").getString("risk_information");
                                 new RiskInfoSheetFragment(str_risk_desc, str_disclaimer);
-                                //String risk_info = f.htmlToStr(str_edit).toString();
-//                                new RiskInfoSheetFragment(risk_info);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -368,7 +361,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         }
                     });
 
-                    //txt_tenor.setText(""+f.selisihHari2(res.getString("publikasi_end"), res.getString("paid_of_date")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

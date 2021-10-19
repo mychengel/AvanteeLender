@@ -98,7 +98,7 @@ public class NarahubungFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 confirmNext(v);
-                //Navigation.findNavController(v).navigate(R.id.action_narahubungFragment_to_companyAddressFragment);
+//                Navigation.findNavController(v).navigate(R.id.action_narahubungFragment_to_companyAddressFragment);
             }
         });
 

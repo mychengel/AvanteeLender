@@ -48,7 +48,6 @@ public class OTPReceiver extends BroadcastReceiver {
 
             }else{}
 
-
         }
     }
 }

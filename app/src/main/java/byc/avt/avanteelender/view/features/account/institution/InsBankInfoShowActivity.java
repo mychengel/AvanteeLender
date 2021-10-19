@@ -58,7 +58,6 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
 
     String bank="", accountName="", accountNumber="";
     List<Object> listBank = new ArrayList<>(); List<Object> listBankID = new ArrayList<>();
-    //List<Object> listAvgTrans = new ArrayList<>(); List<Object> listAvgTransID = new ArrayList<>();
     String is_same_name = "0", name_tmp = "";
 
     @Override
@@ -185,7 +184,6 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
                 }else{
                     new Fungsi(InsBankInfoShowActivity.this).showMessage(getString(R.string.failed_update_data));
                     dialog.cancel();
-                    //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -193,7 +191,6 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(InsBankInfoShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };

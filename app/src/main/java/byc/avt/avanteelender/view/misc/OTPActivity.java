@@ -163,7 +163,6 @@ public class OTPActivity extends AppCompatActivity {
                     }else{
                         i = new Intent(OTPActivity.this, OTPActivity.class);
                     }
-
                     //Routing
                     new Routes(OTPActivity.this).moveInFinish(i);
                     dialog.cancel();
@@ -206,7 +205,6 @@ public class OTPActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             sendOTPVerification();
-            //btnVerify.setEnabled(false);
             OTPActivity.this.setTimer();
         }
     };

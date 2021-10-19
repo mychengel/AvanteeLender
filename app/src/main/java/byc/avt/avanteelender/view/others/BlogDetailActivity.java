@@ -63,15 +63,6 @@ public class BlogDetailActivity extends AppCompatActivity {
         txt_author_and_date.setText(b.getCreated_by()+" - "+f.tglFull(b.getCreated_date()));
         txt_title.setText(b.getTitle());
         txt_content.setText(f.htmlToStr(b.getText()));
-
-//        Glide.with(BlogDetailActivity.this).load(b.getImg())
-//                .apply(RequestOptions.skipMemoryCacheOf(true))
-//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
-//                .placeholder(R.drawable.ic_baseline_no_photography_24)
-//                .error(R.drawable.ic_baseline_no_photography_24)
-//                .dontAnimate()
-//                .into(img);
-
         Glide.with(BlogDetailActivity.this).load(b.getImg())
                 .placeholder(R.drawable.ic_baseline_no_photography_24)
                 .error(R.drawable.ic_baseline_no_photography_24)

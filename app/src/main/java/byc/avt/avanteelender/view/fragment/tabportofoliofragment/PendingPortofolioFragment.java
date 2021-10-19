@@ -101,20 +101,7 @@ public class PendingPortofolioFragment extends Fragment {
                 txt_est_bunga_diterima.setText(f.toNumb(""+result.getLong("estimasi_total_bunga")));
                 txt_tot_nom_pending.setText(f.toNumb(""+result.getLong("total_portofolio_pending")));
                 Log.e("pinjaman",result.getLong("total")+"");
-//                rows = result.getJSONArray("rows");
-//                Log.e("ROWS",rows.toString());
-//                if(rows.length()==0){
-//                }else{
-//                    for(int i = 0; i < rows.length(); i++){
-//                        tot_est_bunga_diterima = tot_est_bunga_diterima + rows.getJSONObject(i).getLong("estimasi_bunga_per_loan");
-//                        tot_nom_pending = tot_nom_pending + rows.getJSONObject(i).getLong("nominal");
-//                    }
-//                }
-
-//                txt_est_bunga_diterima.setText(f.toNumb(""+tot_est_bunga_diterima));
-//                txt_tot_nom_pending.setText(f.toNumb(""+(tot_nom_pending)));
-
-            } catch (JSONException e) {
+           } catch (JSONException e) {
                 e.printStackTrace();
             }
             dialog.cancel();
@@ -125,7 +112,6 @@ public class PendingPortofolioFragment extends Fragment {
         @Override
         public void onChanged(ArrayList<PortofolioPending> result) {
             if(result.isEmpty()){
-                //f.showMessage("Portofolio pending belum ada.");
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.VISIBLE);
             }else{
@@ -143,7 +129,7 @@ public class PendingPortofolioFragment extends Fragment {
                         loadMorePortPending(""+current_page);
                     }
                 });
-                //rv.smoothScrollToPosition(results.size());
+
             }
 
         }
@@ -166,7 +152,7 @@ public class PendingPortofolioFragment extends Fragment {
                 portofolioPendingAdapter.notifyDataSetChanged();
             }
             prog_bar.setVisibility(View.GONE);
-            //rv.smoothScrollToPosition(results.size());
+
         }
     };
 

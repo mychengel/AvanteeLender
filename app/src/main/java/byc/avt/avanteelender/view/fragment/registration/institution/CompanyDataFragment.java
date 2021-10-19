@@ -114,13 +114,13 @@ public class CompanyDataFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 confirmNext(v);
-                //Navigation.findNavController(v).navigate(R.id.action_companyDataFragment_to_narahubungFragment);
+//                Navigation.findNavController(v).navigate(R.id.action_companyDataFragment_to_narahubungFragment);
             }
         });
         Log.e("tipeinvestorins", ""+ GlobalVariables.insRegData.get("tipe_investor"));
 
+        loadTermsAndCondition();
         loadData();
-
     }
 
     private void confirmNext(View v){

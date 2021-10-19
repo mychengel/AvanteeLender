@@ -79,11 +79,9 @@ public class RegistrationFormActivity extends AppCompatActivity {
         step5 = findViewById(R.id.step5);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(RegistrationFormActivity.this);
-        //setSupportActionBar(toolbar);
 
         navController = Navigation.findNavController(this, R.id.regis_form_fragment_container);
         NavigationUI.setupWithNavController(collapsing, toolbar, navController);
-
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -178,7 +176,6 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         if(navController.getCurrentDestination().getId() == R.id.welcomeFragment){
             logoutConfirmation();
         }

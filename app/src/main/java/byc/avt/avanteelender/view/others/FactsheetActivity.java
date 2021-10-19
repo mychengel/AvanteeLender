@@ -36,7 +36,6 @@ public class FactsheetActivity extends AppCompatActivity {
     private ProgressBar prog;
     private TextView lbl_info;
     private Toolbar toolbar;
-    //private PDFView pdf;
     private LottieAnimationView lottie;
 
     @Override
@@ -45,7 +44,6 @@ public class FactsheetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_factsheet);
         prog = findViewById(R.id.prog_factsheet);
         toolbar = findViewById(R.id.toolbar_factsheet);
-        //pdf = findViewById(R.id.pdfviewer_factsheet);
         lbl_info = findViewById(R.id.lbl_info_factsheet);
         lbl_info.setVisibility(View.GONE);
         lottie = findViewById(R.id.lottie_factsheet);
@@ -112,7 +110,7 @@ public class FactsheetActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(InputStream inputStream) {
-            //pdf.fromStream(inputStream).load();
+
         }
     }
 }

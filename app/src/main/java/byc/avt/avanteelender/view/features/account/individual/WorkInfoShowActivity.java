@@ -262,7 +262,6 @@ public class WorkInfoShowActivity extends AppCompatActivity {
             gv.perEditData.put("lama_bekerja",experience);
             gv.perEditData.put("pendapatan_per_bulan",income);
             gv.perEditData.put("sumber_dana",fundsSource);
-           // gv.perEditData.put("sumber_dana_lain","");
             gv.perEditData.put("nama_perusahaan",companyName);
             gv.perEditData.put("alamat_perusahaan",companyAddress);
             gv.perEditData.put("provinsi_perusahaan",companyProvince);
@@ -329,7 +328,6 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                                 }
                             }).create().show();
                     cekError();
-                    //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -338,7 +336,6 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                 new Fungsi(WorkInfoShowActivity.this).showMessage(msg);
                 dialog.cancel();
                 cekError();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };
@@ -441,8 +438,6 @@ public class WorkInfoShowActivity extends AppCompatActivity {
                     for(int i = 0; i < jar.length(); i++){
                         listJobPosition.add(jar.getJSONObject(i).getString("name"));
                         listJobPositionID.add(jar.getJSONObject(i).getString("id"));
-//                        String jp = job.getString("job_position").replaceAll("\r","");
-//                        jp = jp.replaceAll("\n","");
                         if(jar.getJSONObject(i).getString("name").equalsIgnoreCase(f.exrn(job.getString("job_position")))){
                             jobPosition = jar.getJSONObject(i).getString("id");
                         }

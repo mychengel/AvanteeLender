@@ -270,7 +270,6 @@ public class PersonalDataShowActivity extends AppCompatActivity {
                                     dialogInterface.cancel();
                                 }
                             }).create().show();
-                    //new Routes(PersonalDataShowActivity.this).moveOut();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -278,7 +277,6 @@ public class PersonalDataShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(PersonalDataShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };

@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e("expiredtoken", ""+prefManager.getExpiredTime());
         navView = findViewById(R.id.nav_view_main);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        if (savedInstanceState == null){
-//            navView.setSelectedItemId(R.id.navigation_dasbor);
-//        }
 
         if(getIntent().getStringExtra("dest").equalsIgnoreCase("1")){
             navView.setSelectedItemId(R.id.navigation_dasbor);
@@ -82,18 +79,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_portofolio:
                     fragment = new PortofolioFragment();
                     loadFragment(fragment);
-                    //PortofolioFragment.index = 0;
                     return true;
                 case R.id.navigation_notifikasi:
                     fragment = new PenawaranFragment();
                     loadFragment(fragment);
-                    //NotificationsFragment.index = 0;
                     return true;
-//                case R.id.navigation_notifikasi:
-//                    fragment = new NotificationsFragment();
-//                    loadFragment(fragment);
-//                    NotificationsFragment.index = 0;
-//                    return true;
             }
             return false;
         }
@@ -115,10 +105,7 @@ public class MainActivity extends AppCompatActivity {
             shiftingMode.setAccessible(false);
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                //noinspection RestrictedApi
                 item.setShifting(false);
-                // set once again checked value, so view will be updated
-                //noinspection RestrictedApi
                 item.setChecked(item.getItemData().isChecked());
             }
         } catch (NoSuchFieldException e) {
@@ -138,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce){
-            //logout();
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
             a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

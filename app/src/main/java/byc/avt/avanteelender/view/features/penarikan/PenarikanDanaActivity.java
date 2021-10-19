@@ -137,7 +137,6 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                     nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
-                    //f.showMessage(getString(R.string.reach_limit_withdrawal));
                 }else{
                     if((nominal_tarik_int + 1) <= ewallet){
                         nominal_tarik_int = nominal_tarik_int + 1;
@@ -168,19 +167,6 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                     nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
                     edit_nominal.setText(nominal_tarik_show);
                     edit_nominal.setSelection(nominal_tarik_show.length());
-//                    if((nominal_tarik_int - 1) >= 20000){
-//                        nominal_tarik_int = nominal_tarik_int - 1;
-//                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
-//                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-//                        edit_nominal.setText(nominal_tarik_show);
-//                        edit_nominal.setSelection(nominal_tarik_show.length());
-//                    }else{
-//                        nominal_tarik_int = 20000;
-//                        nominal_tarik_show = f.toNumb(""+nominal_tarik_int);
-//                        nominal_tarik_show = nominal_tarik_show.substring(2, nominal_tarik_show.length());
-//                        edit_nominal.setText(nominal_tarik_show);
-//                        edit_nominal.setSelection(nominal_tarik_show.length());
-//                    }
                 }
                 cekDone();
             }
@@ -210,7 +196,6 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     }
 
     private void cekDone(){
-        //if(nominal_tarik_int >= 20000 && nominal_tarik_int <= ewallet){
         if(nominal_tarik_int <= ewallet){
             btn_next.setEnabled(true);
         }else {
@@ -233,20 +218,6 @@ public class PenarikanDanaActivity extends AppCompatActivity {
                 txt_saldo_tersedia.setText(f.toNumb(""+ewallet));
                 String info2 = "";
                 info2 = getString(R.string.withdrawal_admin_fee);
-//                if(ewallet < 20000){
-//                    maxTarik = 0;
-//                    info2 = getString(R.string.info_penarikan_dana_maks_2_nol);
-//                    btn_next.setEnabled(false);
-//                }else if(ewallet >= 500000000){
-//                    maxTarik = ewallet - 35000;
-//                    info2 = getString(R.string.info_penarikan_dana_maks_2_above500jt);
-//                    btn_next.setEnabled(true);
-//                }else{
-//                    maxTarik = ewallet - 2900;
-//                    info2 = getString(R.string.info_penarikan_dana_maks_2_below500jt);
-//                    btn_next.setEnabled(true);
-//                }
-                //txt_info_max_tarik.setText(getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+" "+info2);
                 txt_info_max_tarik.setText("- "+getString(R.string.min_withdrawal)+"\n"
                         +"- "+getString(R.string.info_penarikan_dana_maks_1)+" "+f.toNumb(""+maxTarik)+".\n"
                         +"- "+info2);

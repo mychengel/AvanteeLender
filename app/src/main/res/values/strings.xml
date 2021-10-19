@@ -27,7 +27,7 @@
 
     <!-- TODO: Splash screen -->
     <string name="ojk_logo">OJK Logo</string>
-    <string name="ojk_registered">Terdaftar dan diawasi oleh</string>
+    <string name="ojk_registered">Berizin dan diawasi oleh</string>
     <string name="member_of">Anggota dari</string>
     <string name="in_process_verification">Akun Anda sedang dalam tahap proses verifikasi oleh kami. Mohon menunggu beberapa saat.</string>
 
@@ -488,17 +488,33 @@
     <string name="take_photo">Ambil foto</string>
     <string name="tata_cara_foto">Silahkan ikuti panduan di bawah ini:</string>
     <string name="selfie_title">Panduan Foto Wajah</string>
-    <string name="selfie_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri.</string>
+    <string name="selfie_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="swafoto_title">Panduan Foto Swafoto</string>
-    <string name="swafoto_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri.</string>
+    <string name="swafoto_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="ktp_title">Panduan Foto KTP</string>
-    <string name="ktp_sop">• Pastikan foto e-KTP adalah asli dan bukan salinan. \n• Pastikan e-KTP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan e-KTP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas. \n• Crop hasil foto sesuai kebutuhan menggunakan galeri.</string>
+    <string name="ktp_sop">• Pastikan foto e-KTP adalah asli dan bukan salinan. \n• Pastikan e-KTP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan e-KTP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas. \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="npwptitle">Panduan Foto NPWP</string>
-    <string name="npwp_sop">• Pastikan foto NPWP adalah asli dan bukan salinan. \n• Pastikan NPWP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan NPWP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas.  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri.</string>
+    <string name="npwp_sop">• Pastikan foto NPWP adalah asli dan bukan salinan. \n• Pastikan NPWP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan NPWP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas.  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="ttd_title">Panduan Foto Spesimen TTD</string>
-    <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Posisikan spesimen sesuai pada contoh gambar di atas.  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri.</string>
+    <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Posisikan spesimen sesuai pada contoh gambar di atas.  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="bitmap_null">Terjadi kesalahan, silahkan coba lagi.</string>
     <string name="rotate">Rotasikan</string>
     <string name="must_portrait">Orientasi pengambilan foto harus portrait. Coba lagi!</string>
-    <string name="failed_on_multiples">Nominal pendanaan tidak sesuai dengan kelipatan nominal yang diijinkan yaitu </string>
+    <string name="failed_on_multiples">Nominal pendanaan tidak sesuai dengan kelipatan nominal yang diizinkan yaitu </string>
+    <string name="failed_on_maxinvest">Nominal pendanaan tidak sesuai dengan maksimum nominal yang diizinkan yaitu </string>
+    <string name="company_npwp_number">No. NPWP perusahaan</string>
+    <string name="take_company_npwp_photo">Ambil foto NPWP perusahaan</string>
+    <string name="dokumen_narahubung">Dokumen narahubung</string>
+    <string name="dokumen_perusahaan">Dokumen perusahaan</string>
+    <string name="reupload">Unggah Data Kembali</string>
+    <string name="rejection_by_privy">Akun Anda gagal verifikasi oleh PrivyID</string>
+    <string name="save">Simpan</string>
+    <string name="unggah_foto_passport">Unggah foto passport</string>
+    <string name="format_diperbolehkan">Format yang diperbolehkan: .jpg, .png</string>
+    <string name="reupload_success">Sukses mengupload data/berkas terbaru</string>
+    <string name="reupload_failed">Gagal mengupload data/berkas terbaru. Silahkan coba lagi!</string>
+    <string name="nik_ktp">No. NIK KTP</string>
+    <string name="jabatan_pekerjaan_anda">Jabatan Pekerjaan Anda</string>
+    <string name="lets_get_know_eo">Hi, Selamat datang di Avantee. \nBantu kami untuk mengenal Anda lebih baik sebagai seorang pemberi dana. \nMohon untuk memperbaharui data Anda.</string>
+
 </resources>

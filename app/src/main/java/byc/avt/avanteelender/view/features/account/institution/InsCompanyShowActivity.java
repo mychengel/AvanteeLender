@@ -239,7 +239,6 @@ public class InsCompanyShowActivity extends AppCompatActivity {
                 Log.e("Respon per cr doc", msg);
                 new Fungsi(InsCompanyShowActivity.this).showMessage(msg);
                 dialog.cancel();
-                //new Routes(PersonalDataShowActivity.this).moveOut();
             }
         }
     };
@@ -299,7 +298,6 @@ public class InsCompanyShowActivity extends AppCompatActivity {
         if(income.isEmpty()){txtIncome.setError(getString(R.string.cannotnull));}else{txtIncome.setError(null);}
         if(fundsSource.isEmpty()){txtFundsSource.setError(getString(R.string.cannotnull));}else{txtFundsSource.setError(null);}
         if(companyPhone.isEmpty()){txtCompanyPhone.setError(getString(R.string.cannotnull));}else{txtCompanyPhone.setError(null);}
-        //if(companyFax.isEmpty()){txtCompanyFax.setError(getString(R.string.cannotnull));}else{txtCompanyFax.setError(null);}
         if(companyDesc.isEmpty()){txtCompanyDesc.setError(getString(R.string.cannotnull));}else{txtCompanyDesc.setError(null);}
     }
 

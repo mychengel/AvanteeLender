@@ -80,8 +80,6 @@ public class SettingAccountActivity extends AppCompatActivity {
         cv_essential_doc = findViewById(R.id.cv_data_dokumen_pendukung_setting_account);
         img_pp = findViewById(R.id.img_pp_setting_account);
 
-        //txt_name.setText(prefManager.getName());
-//        txt_inisial.setText(prefManager.getName().substring(0,1));
         txt_code.setText(gv.LENDER_CODE);
         txt_email.setText(prefManager.getEmail());
 
@@ -105,7 +103,6 @@ public class SettingAccountActivity extends AppCompatActivity {
         img_pp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //view.startAnimation(f.clickAnim());
                 Intent intent = new Intent(SettingAccountActivity.this, UpdateAvaActivity.class);
                 new Routes(SettingAccountActivity.this).moveIn(intent);
             }

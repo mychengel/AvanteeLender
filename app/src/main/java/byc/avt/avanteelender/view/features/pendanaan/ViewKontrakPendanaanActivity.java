@@ -56,7 +56,6 @@ public class ViewKontrakPendanaanActivity extends AppCompatActivity {
         simpleWebView = findViewById(R.id.wv_view_kontrak_pendanaan);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
-        //simpleWebView.setHorizontalScrollBarEnabled(true);
         simpleWebView.requestFocus();
         simpleWebView.getSettings().setDomStorageEnabled(true);
         simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
@@ -134,7 +133,6 @@ public class ViewKontrakPendanaanActivity extends AppCompatActivity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             // TODO Auto-generated method stub
             super.onPageStarted(view, url, favicon);
-            //dialog.show();
         }
 
         @Override

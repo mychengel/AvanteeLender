@@ -176,7 +176,6 @@ public class OTPDocActivity extends AppCompatActivity {
                                 }else{
                                     msg = res.getJSONObject("privy_status").getString("msg");
                                     i = new Intent(OTPDocActivity.this, InVerificationProcessActivity.class);
-                                    //i.putExtra("info", msg);
                                 }
                             }else{
                                 i = new Intent(OTPDocActivity.this, OTPDocActivity.class);

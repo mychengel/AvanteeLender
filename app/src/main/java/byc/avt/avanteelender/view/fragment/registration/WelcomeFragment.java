@@ -99,7 +99,6 @@ public class WelcomeFragment extends Fragment {
         btn_begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new Fungsi(getActivity()).showMessage("In progress ~ Baycode");
                 Navigation.findNavController(requireActivity(), R.id.regis_form_fragment_container).navigate(R.id.action_nav_to_lendertype);
             }
         });

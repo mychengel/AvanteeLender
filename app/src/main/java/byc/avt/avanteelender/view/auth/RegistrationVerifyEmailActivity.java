@@ -50,14 +50,12 @@ public class RegistrationVerifyEmailActivity extends AppCompatActivity {
         btn_next = findViewById(R.id.btn_next_reg_verify_email);
         lbl_des = findViewById(R.id.lbl_des_reg_verify_email);
         lbl_des.setText(getString(R.string.des_email_terkirim1)+" "+email+" "+getString(R.string.des_email_terkirim2));
-
         btn_resent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resendEmail();
             }
         });
-
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +97,6 @@ public class RegistrationVerifyEmailActivity extends AppCompatActivity {
         }
     };
 
-    // button back diklik
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

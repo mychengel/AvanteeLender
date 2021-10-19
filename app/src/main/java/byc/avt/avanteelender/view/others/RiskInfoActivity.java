@@ -53,7 +53,6 @@ public class RiskInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         prefManager = PrefManager.getInstance(RiskInfoActivity.this);
-        //txt_content = findViewById(R.id.content_risk_info);
         simpleWebView = findViewById(R.id.wv_risk_info);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
@@ -87,8 +86,6 @@ public class RiskInfoActivity extends AppCompatActivity {
                     JSONObject risk_job = job.getJSONObject("informasi_risiko");
                     String risk_info = "<!doctype html>\n" +
                             "    <html lang=\"en-US\">"+risk_job.getString("content_text")+"</html>";
-                    String risk_info_final = f.htmlToStr(risk_info).toString();
-                    //txt_content.setText(risk_info_final);\
                     simpleWebView.loadDataWithBaseURL(null, risk_info, "text/HTML", "UTF-8", null);
                 }else{
                     f.showMessage(getString(R.string.failed_load_info));

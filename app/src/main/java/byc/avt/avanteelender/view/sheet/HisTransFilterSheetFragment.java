@@ -2,6 +2,7 @@ package byc.avt.avanteelender.view.sheet;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
+                        Log.e("Hasil Date:",selection.toString());
                         dateStart = sdf.format(selection);
                         date_start.setText(sdf2.format(selection));
                     }
@@ -157,20 +159,6 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
 
             }
         });
-
-//        rg_type.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                int selectedId = radioGroup.getCheckedRadioButtonId();
-//                rb_type = view.findViewById(selectedId);
-//                if(rb_type.getText().equals("Pembayaran")){
-//
-//                }else{
-//
-//                }
-//            }
-//        });
-
 
         btn_terapkan.setOnClickListener(new View.OnClickListener() {
             @Override

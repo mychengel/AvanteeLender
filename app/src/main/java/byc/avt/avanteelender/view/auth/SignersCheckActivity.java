@@ -80,7 +80,6 @@ public class SignersCheckActivity extends AppCompatActivity {
         simpleWebView = findViewById(R.id.wv_signers_check);
         simpleWebView.setNestedScrollingEnabled(true);
         simpleWebView.setVerticalScrollBarEnabled(true);
-        //simpleWebView.setHorizontalScrollBarEnabled(true);
         simpleWebView.requestFocus();
         simpleWebView.getSettings().setDomStorageEnabled(true);
         simpleWebView.getSettings().setDefaultTextEncodingName("utf-8");
@@ -157,7 +156,6 @@ public class SignersCheckActivity extends AppCompatActivity {
                     Document doc = Jsoup.parse(String.valueOf(page));
                     String inFrameView = doc.toString();
                     simpleWebView.loadDataWithBaseURL(null, page, "text/HTML", "UTF-8", null);
-
                     String url = GlobalVariables.BASE_URL+"internal/privy/sign_status/"+doc_token;
                     Request request = new Request.Builder().url(url).build();
                     OkSse okSse = new OkSse();
@@ -213,7 +211,6 @@ public class SignersCheckActivity extends AppCompatActivity {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             // TODO Auto-generated method stub
             super.onPageStarted(view, url, favicon);
-            //dialog.show();
         }
 
         @Override
@@ -315,7 +312,6 @@ public class SignersCheckActivity extends AppCompatActivity {
                                 msg = res.getJSONObject("privy_status").getString("msg");
                                 i = new Intent(SignersCheckActivity.this, InVerificationProcessActivity.class);
                                 i.putExtra("info", msg);
-                                //f.showMessage(msg);
                             }
                         }else{
                             i = new Intent(SignersCheckActivity.this, RegistrationFormActivity.class);

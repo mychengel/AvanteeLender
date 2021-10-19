@@ -21,10 +21,6 @@ public class NotificationsFragment extends Fragment {
 
     public static int index = 0;
 
-//    public NotificationsFragment(int index){
-//        this.index = index;
-//    }
-
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static ViewPagerAdapter adapter;

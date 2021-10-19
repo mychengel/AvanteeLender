@@ -180,7 +180,6 @@ public class OTPSettingsActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             resendOTPVerification();
-            //btnVerify.setEnabled(false);
             OTPSettingsActivity.this.setTimer();
         }
     };

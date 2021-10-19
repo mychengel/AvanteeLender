@@ -44,7 +44,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_desc_dial_pfk" />
+                app:layout_constraintTop_toBottomOf="@+id/lbl_desc_dial_pfk"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/lbl_tc_dial_pfk"

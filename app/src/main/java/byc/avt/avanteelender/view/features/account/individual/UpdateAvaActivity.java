@@ -190,8 +190,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
     private void confirmSave(){
         gv.profileData.put("handphone", noHp);
         if(str_ava.isEmpty()){
-            //gv.profileData.put("pic_user",null);
-            //gv.profileDataFile.put("pic_user", null);
         }else{
             gv.profileDataFile.put("pic_user", new DataPart("ava.jpg", ava_byte, "image/jpeg"));
         }
@@ -209,7 +207,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                     dialog.cancel();
                     if(result.isNull("result")){
                         new Fungsi(UpdateAvaActivity.this).showMessage(result.getString("msg"));
-                        //new Routes(UpdateAvaActivity.this).moveOut();
                         confirmLogin();
                     }else{
                         Intent intent = new Intent(UpdateAvaActivity.this, OTPSettingsActivity.class);
@@ -233,11 +230,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
 
     boolean allisfilled = true;
     private void cekDone(){
-//        if(!str_ava.isEmpty()){
-//            allisfilled = true;
-//        }else{
-//            allisfilled = false;
-//        }
         btn_simpan.setEnabled(allisfilled);
     }
 
@@ -275,8 +267,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-
-
                         }
                     })
                     .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
@@ -321,7 +311,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
         }
     }
 
-    String currentPhotoPath = "";
     String imageFileName = "";
     private void showCameraCapture(int PICK_IMAGE_REQUEST, String PICK_IMAGE_TYPE) {
         imageFileName = PICK_IMAGE_TYPE+".jpg";
@@ -402,9 +391,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                         f.showMessage(getString(R.string.must_portrait));
                     }else {
                         ///new
-//                        if (requestCode == PICK_AVA_CAM) {
-//                            performCrop(filePath, CROP_AVA);
-//                        }
                         if (requestCode == PICK_AVA_CAM) {
                             bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
                             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -418,18 +404,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                         }
                         ///new
 
-//                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-//                        bitmap = f.getRotateImage2(file.getPath(), bitmap);
-//                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-//                        if (requestCode == PICK_AVA_CAM) {
-//                            bitmap_ava = bitmap;
-//                            img_ava_indi.setImageBitmap(bitmap_ava);
-//                            decoded_ava = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-//                            ava_byte = bytes.toByteArray();
-//                            str_ava = f.getStringImage(decoded_ava);
-//                            txt_ava.setText(filePath.getLastPathSegment());
-//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -497,7 +471,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
         }
     }
 
-    /////////////////
     public void confirmLogin() {
         // POST to server through endpoint
         dialog.show();
@@ -547,9 +520,7 @@ public class UpdateAvaActivity extends AppCompatActivity {
                                 }
                             }else{
                                 msg = res.getJSONObject("privy_status").getString("msg");
-                                //i = new Intent(UpdateAvaActivity.this, MainActivity.class);
                                 i = new Intent(UpdateAvaActivity.this, InVerificationProcessActivity.class);
-                                //i.putExtra("info", msg);
                                 //f.showMessage(msg);
                             }
                         }else{
@@ -558,7 +529,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                     }else{
                         i = new Intent(UpdateAvaActivity.this, OTPActivity.class);
                     }
-
                     //Routing
                     new Routes(UpdateAvaActivity.this).moveInFinish(i);
                     dialog.cancel();

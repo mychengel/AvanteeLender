@@ -747,14 +747,6 @@ public class AuthenticationRepository {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS();
             }
-
-//            @Override
-//            protected Map<String,String> getParams(){
-//                Map<String,String> params = new HashMap<>();
-//                params.put("authkey", key);
-//                return params;
-//            }
-
         };
         requestQueue.getCache().clear();
         requestQueue.add(jor).setRetryPolicy(new RetryPolicy() {
@@ -1498,6 +1490,74 @@ public class AuthenticationRepository {
             public void retry(VolleyError error) throws VolleyError {
             }
         });
+
+        return result;
+    }
+
+    public MutableLiveData<JSONObject> reregistPrvp001(final String uid, final String token, final Context context) {
+        final MutableLiveData<JSONObject> result = new MutableLiveData<>();
+        requestQueue = Volley.newRequestQueue(context, new HurlStack());
+        final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"merchand/privy/reregister",
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        String resultResponse = new String(response.data);
+                        //new Fungsi(context).showMessageLong(resultResponse);
+                        try {
+                            result.setValue(new JSONObject(resultResponse));
+                        } catch (JSONException e) {
+                            Log.e("ERRORNYA", resultResponse);
+                            e.printStackTrace();
+                            if(resultResponse.contains("\"code\":200,\"status\":true")){
+                                String resp = "{\"code\":200,\"status\":true,\"result\":{\"messages\":\"Dokument Sukses, Kode verifikasi telah dikirim melalui SMS ke telepon anda.\"}}";
+                                try {
+                                    result.setValue(new JSONObject(resp));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+                            }else{
+                                e.printStackTrace();
+                                Map<String,Object> msg = new HashMap<>();
+                                msg.put("code",900);
+                                msg.put("msg", context.getString(R.string.system_in_trouble));
+                                result.setValue(new JSONObject(msg));
+                            }
+                        }
+                        Log.e("createPersonalDocResult", resultResponse);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", error.toString());
+                        Map<String,Object> msg = new HashMap<>();
+                        msg.put("code",900);
+                        msg.put("msg", context.getString(R.string.system_in_trouble));
+                        result.setValue(new JSONObject(msg));
+                    }
+                }
+        )
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return GlobalVariables.API_ACCESS_IN(uid,token);
+            }
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = GlobalVariables.perReregData;
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = GlobalVariables.perReregDataFile;
+                return params;
+            }
+
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(jor);
 
         return result;
     }

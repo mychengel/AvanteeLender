@@ -124,12 +124,10 @@ public class DashboardFragment extends Fragment {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
                     Bitmap bitmap = ((BitmapDrawable) resource).getBitmap();
-                    //Bitmap emptyBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
                     if (resource.getConstantState() == null) {
                         pp_icon.setImageResource(R.drawable.ic_iconuser);
                         txt_initial.setVisibility(View.VISIBLE);
                     }else{
-                        //Drawable newdrawable = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(f.getCroppedBitmap(bitmap), 136, 136, true));
                         Drawable newdrawable = new BitmapDrawable(getResources(), bitmap);
                         pp_icon.setImageDrawable(newdrawable);
                         txt_initial.setVisibility(View.GONE);
@@ -341,9 +339,7 @@ public class DashboardFragment extends Fragment {
             try {
                 if(result.getBoolean("status")==false){
                     dashboarddone = true;
-                    //new Fungsi(getActivity()).showMessage("Gagal memuat data");
                 }else{
-                    //new Fungsi(getActivity()).showMessage("Berhasil memuat data");
                     dashboarddone = true;
                     showDashboardData(result);
                 }

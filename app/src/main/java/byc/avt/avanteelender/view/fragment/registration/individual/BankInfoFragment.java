@@ -76,8 +76,6 @@ public class BankInfoFragment extends Fragment {
         prefManager = PrefManager.getInstance(getActivity());
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
-        //gv.stPerDocument = false;
-
         cb_owner_name_same_as_name = view.findViewById(R.id.cb_owner_name_same_as_name_fr_bank_info);
         auto_bank = view.findViewById(R.id.auto_bank_name_fr_bank_info);
         auto_avg_trans = view.findViewById(R.id.auto_avg_transaction_fr_bank_info);

@@ -59,7 +59,6 @@ public class SetNewPasswordActivity extends AppCompatActivity {
         String action = intent.getAction();
         Uri data = intent.getData();
         Log.e("IntentURIParams", data.getLastPathSegment());
-        //f.showMessage("AuthKey: "+data.getLastPathSegment());
 
         edit_pass.getEditText().addTextChangedListener(new TextWatcher() {
             @Override

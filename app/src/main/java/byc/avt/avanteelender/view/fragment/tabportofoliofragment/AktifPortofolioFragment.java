@@ -153,10 +153,6 @@ public class AktifPortofolioFragment extends Fragment {
         final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
-//            if (Build.VERSION.SDK_INT >= 30) {
-//                Intent permissionIntent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-//                requireActivity().startActivity(permissionIntent);
-//            }
         }else{
 
         }
@@ -265,7 +261,6 @@ public class AktifPortofolioFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //dialog.cancel();
         }
     };
 
@@ -294,7 +289,6 @@ public class AktifPortofolioFragment extends Fragment {
                         loadMorePortAktif(""+current_page);
                     }
                 });
-                //rv.smoothScrollToPosition(results.size());
             }
             dialog.cancel();
         }
@@ -315,7 +309,6 @@ public class AktifPortofolioFragment extends Fragment {
                 portofolioAktifAdapter.notifyDataSetChanged();
             }
             prog_bar.setVisibility(View.GONE);
-            //rv.smoothScrollToPosition(results.size());
         }
     };
 

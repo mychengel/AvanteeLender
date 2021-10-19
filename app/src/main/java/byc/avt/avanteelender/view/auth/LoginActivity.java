@@ -167,9 +167,16 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }else{
                                     msg = res.getJSONObject("privy_status").getString("msg");
-                                    i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
-                                    //i.putExtra("info", msg);
-                                    new Fungsi(LoginActivity.this).showMessage(msg);
+                                    if(msg.equalsIgnoreCase("invalid") || msg.equalsIgnoreCase("rejected")){
+                                        i = new Intent(LoginActivity.this, RejectionProcessActivity.class);
+                                        JSONObject rJob = res.getJSONObject("privy_status");
+                                        i.putExtra("rJob", rJob.toString());
+                                    }else{
+                                        i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
+                                        //i.putExtra("info", msg);
+                                        new Fungsi(LoginActivity.this).showMessage(msg);
+                                    }
+
                                 }
                             }else{
                                 i = new Intent(LoginActivity.this, OTPDocActivity.class);
