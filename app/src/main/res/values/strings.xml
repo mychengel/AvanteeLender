@@ -106,7 +106,7 @@
     <string name="company_type">Tipe perusahaan</string>
     <string name="company_establishment">Tahun pendirian</string>
     <string name="business_field">Bidang usaha</string>
-    <string name="company_is_online_based">Perusahaan berbasis online?</string>
+    <string name="company_is_online_based">Perusahaan berbasis internet?</string>
     <string name="company_income">Pendapatan perusahaan</string>
     <string name="company_phone">No. telepon perusahaan</string>
     <string name="company_fax">No. fax perusahaan (opsional)</string>
@@ -419,7 +419,7 @@
     <string name="not_received_confirmation_email">Belum terima email konfirmasi?</string>
     <string name="failed_exc_data">Terdapat kesalahan data pada sistem, mohon hubungi admin Avantee untuk melakukan pengecekan data akun Anda.</string>
     <string name="save_new_pass">Simpan kata sandi baru</string>
-    <string name="pass_terms">Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil &amp; 1 angka. (min. 8 huruf &amp; maks. 12 huruf)</string>
+    <string name="pass_terms">Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil &amp; 1 angka. (min. 8 huruf &amp; maks. 32 huruf)</string>
     <string name="new_pass_success">Ubah kata sandi berhasil</string>
     <string name="new_pass_success_desc">Anda telah berhasil mengubah kata sandi. Silahkan masuk aplikasi dengan kata sandi baru.</string>
     <string name="reset_eng">Reset</string>
@@ -433,6 +433,8 @@
     <string name="take_ktp_pict">Ambil foto KTP</string>
     <string name="min_digit_npwp">No. NPWP minimum 15 digit</string>
     <string name="min_digit_ktp">No. KTP minimum 16 digit</string>
+    <string name="max_digit_ktp">No. KTP maksimum 16 digit</string>
+    <string name="max_digit_phone">No. Telp. kantor maksimum 15 digit</string>
     <string name="create_doc_confirmation">Apakah Anda yakin untuk melanjutkan menyimpan? Pastikan Anda sudah mengisi seluruh data dengan benar dan sejujur-jujurnya.</string>
     <string name="update_doc_confirmation">Apakah Anda yakin untuk melanjutkan menyimpan perubahan?</string>
     <string name="saldo_rdl">Saldo RDL</string>
@@ -463,6 +465,7 @@
     <string name="download_failed">Download dokumen gagal, silahkan coba beberapa saat lagi.</string>
     <string name="document_info">Informasi dokumen</string>
     <string name="owner_name_same_as_name">Nama pemilik rekening sama dengan nama</string>
+    <string name="owner_name_same_as_name_company">Nama pemilik rekening sama dengan nama perusahaan</string>
     <string name="change_pass_desc">Silahkan masukkan kata sandi lama, lalu ganti dengan kata sandi Anda.</string>
     <string name="old_pass">Kata sandi lama</string>
     <string name="pass_must_same">Kata sandi harus sama!</string>
@@ -481,7 +484,7 @@
     <string name="min_withdrawal">Dana minimum penarikan adalah Rp20.000.</string>
     <string name="privy_doc_undefined">Terdapat kesalahan pada sistem penandatanganan dokumen digital, silahkan hubungi tim support kami untuk informasi lebih lanjut.</string>
     <string name="ubah">Ubah</string>
-    <string name="postal_code_max_char">Kode pos maksimum 5 karakter</string>
+    <string name="postal_code_max_char">Kode pos maksimum 5 digit</string>
     <string name="req_ava">Pengambilan foto disarankan menggunakan rasio layar 1:1 (persegi) dengan orientasi kamera landscape maupun portrait.</string>
     <string name="req_doc">Pengambilan foto disarankan menggunakan rasio layar 4:3 (persegi panjang) dengan orientasi kamera landscape.</string>
     <string name="nav_penawaran">Penawaran</string>
@@ -514,6 +517,7 @@
     <string name="reupload_success">Sukses mengupload data/berkas terbaru</string>
     <string name="reupload_failed">Gagal mengupload data/berkas terbaru. Silahkan coba lagi!</string>
     <string name="nik_ktp">No. NIK KTP</string>
+    <string name="validate_sel_now">Rentang waktu yang dipilih tidak boleh melebihi hari ini.</string>
     <string name="jabatan_pekerjaan_anda">Jabatan Pekerjaan Anda</string>
     <string name="lets_get_know_eo">Hi, Selamat datang di Avantee. \nBantu kami untuk mengenal Anda lebih baik sebagai seorang pemberi dana. \nMohon untuk memperbaharui data Anda.</string>
 

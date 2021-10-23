@@ -63,7 +63,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
     GlobalVariables gv;
     Fungsi f = new Fungsi(PRTypeUpOneActivity.this);
 
-    String msg = "", handler = "", code = "", status = "", category = "";
+    String msg = "", handler = "", code = "", status = "", category = "", ctype = "";
     JSONObject result;
     JSONArray handlers;
     TextView txtInfo;
@@ -91,6 +91,8 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prtypeupone);
         GlobalVariables.perReregData.clear();
         GlobalVariables.perReregDataFile.clear();
+        GlobalVariables.insReregData.clear();
+        GlobalVariables.insReregDataFile.clear();
         viewModel = new ViewModelProvider(PRTypeUpOneActivity.this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(PRTypeUpOneActivity.this);
         toolbar = findViewById(R.id.toolbar_prtypeupone);
@@ -110,6 +112,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
         Intent i = getIntent();
         try {
             result = new JSONObject(i.getStringExtra("rJob"));
+            ctype = i.getStringExtra("cType");
             status = result.getString("msg").toLowerCase();
             msg = result.getJSONObject("reason").getString("reason");
             code = result.getJSONObject("reason").getString("code");
@@ -164,10 +167,18 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gv.perReregData.put("privy_status", status);
-                gv.perReregData.put("code", code);
-                gv.perReregData.put("category", category);
-                gv.perReregDataFile.put("supportFile", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
+                if(ctype.equalsIgnoreCase("perorangan")){
+                    GlobalVariables.perReregData.put("privy_status", status);
+                    GlobalVariables.perReregData.put("code", code);
+                    GlobalVariables.perReregData.put("category", category);
+                    GlobalVariables.perReregDataFile.put("supportFile", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
+
+                }else{
+                    GlobalVariables.insReregData.put("privy_status", status);
+                    GlobalVariables.insReregData.put("code", code);
+                    GlobalVariables.insReregData.put("category", category);
+                    GlobalVariables.insReregDataFile.put("supportFile", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
+                }
                 reregistDocument();
             }
         });
@@ -187,7 +198,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken());
+                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), ctype);
                         viewModel.getResultReregistPrvp001().observe(PRTypeUpOneActivity.this, showResult);
                     }
                 })
@@ -212,6 +223,8 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
                     //new
                     GlobalVariables.perReregData.clear();
                     GlobalVariables.perReregDataFile.clear();
+                    GlobalVariables.insReregData.clear();
+                    GlobalVariables.insReregDataFile.clear();
                     new Fungsi(PRTypeUpOneActivity.this).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(PRTypeUpOneActivity.this, InVerificationProcessActivity.class);
@@ -503,10 +516,17 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 4);
-            cropIntent.putExtra("aspectY", 3);
-            cropIntent.putExtra("outputX", 400);
-            cropIntent.putExtra("outputY", 300);
+            if(code.contains("PRVS")){
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
+                cropIntent.putExtra("outputY", 400);
+            }else{
+                cropIntent.putExtra("aspectX", 4);
+                cropIntent.putExtra("aspectY", 3);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 300);
+            }
             cropIntent.putExtra("return-data", true);
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
             startActivityForResult(cropIntent, PIC_CROP);

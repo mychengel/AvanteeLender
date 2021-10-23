@@ -1494,7 +1494,7 @@ public class AuthenticationRepository {
         return result;
     }
 
-    public MutableLiveData<JSONObject> reregistPrvp001(final String uid, final String token, final Context context) {
+    public MutableLiveData<JSONObject> reregistPrvp001(final String uid, final String token, final String ctype, final Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final VolleyMultipartRequest jor = new VolleyMultipartRequest(Request.Method.POST, url+"merchand/privy/reregister",
@@ -1545,13 +1545,23 @@ public class AuthenticationRepository {
 
             @Override
             protected Map<String, String> getParams(){
-                Map<String, String> params = GlobalVariables.perReregData;
+                Map<String, String> params = null;
+                if(ctype.equalsIgnoreCase("perorangan")){
+                    params = GlobalVariables.perReregData;
+                }else{
+                    params = GlobalVariables.insReregData;
+                }
                 return params;
             }
 
             @Override
             protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = GlobalVariables.perReregDataFile;
+                Map<String, DataPart> params = null;
+                if(ctype.equalsIgnoreCase("perorangan")){
+                    params = GlobalVariables.perReregDataFile;
+                }else{
+                    params = GlobalVariables.insReregDataFile;
+                }
                 return params;
             }
 

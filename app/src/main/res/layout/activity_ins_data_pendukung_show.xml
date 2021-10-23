@@ -52,19 +52,32 @@
             android:layout_height="match_parent"
             android:paddingBottom="8dp">
 
+            <TextView
+                android:id="@+id/lbl_narahubung_ins_data_pendukung_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dokumen_narahubung"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_ktp_number_ins_data_pendukung_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/lbl_narahubung_ins_data_pendukung_show">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -179,6 +192,86 @@
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toBottomOf="@+id/lbl_no_npwp_ins_data_pendukung_show" />-->
 
+            <TextView
+                android:id="@+id/lbl_selfie_ins_data_pendukung_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/selfie_photo"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_ktp_ins_data_pendukung_show" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_img_selfie_ins_data_pendukung_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                app:cardBackgroundColor="@color/dark"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lbl_selfie_ins_data_pendukung_show">
+
+                <Button
+                    android:id="@+id/btn_selfie_ins_data_pendukung_show"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="top|end"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_baseline_rotate_right_dark_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/img_selfie_ins_data_pendukung_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:contentDescription="@string/img"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_no_photography_24" />
+
+                <ImageView
+                    android:id="@+id/img_selfie_indi_ins_data_pendukung_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/img"
+                    app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/lbl_perusahaan_ins_data_pendukung_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/dokumen_perusahaan"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_img_selfie_ins_data_pendukung_show" />
+
             <LinearLayout
                 android:id="@+id/lin_npwp_ins_data_pendukung_show"
                 android:layout_width="match_parent"
@@ -188,7 +281,7 @@
                 android:paddingBottom="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_img_ktp_ins_data_pendukung_show">
+                app:layout_constraintTop_toBottomOf="@+id/lbl_perusahaan_ins_data_pendukung_show">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_npwp_number_ins_data_pendukung_show"
@@ -264,71 +357,7 @@
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/lbl_selfie_ins_data_pendukung_show"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/ibm_plex_sans_medium"
-                android:text="@string/selfie_photo"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lin_npwp_ins_data_pendukung_show" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_img_selfie_ins_data_pendukung_show"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                app:cardBackgroundColor="@color/dark"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_selfie_ins_data_pendukung_show">
-
-                <Button
-                    android:id="@+id/btn_selfie_ins_data_pendukung_show"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="top|end"
-                    android:background="@android:color/transparent"
-                    android:elevation="0dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:icon="@drawable/ic_baseline_rotate_right_dark_24"
-                    app:iconGravity="textStart"
-                    app:iconTint="@android:color/white" />
-
-                <ImageView
-                    android:id="@+id/img_selfie_ins_data_pendukung_show"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="24dp"
-                    android:contentDescription="@string/img"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_baseline_no_photography_24" />
-
-                <ImageView
-                    android:id="@+id/img_selfie_indi_ins_data_pendukung_show"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:contentDescription="@string/img"
-                    app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
-            </androidx.cardview.widget.CardView>
 
 
             <Button
@@ -347,7 +376,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_img_selfie_ins_data_pendukung_show" />
+                app:layout_constraintTop_toBottomOf="@+id/lin_npwp_ins_data_pendukung_show" />
 
             <Button
                 android:id="@+id/btn_ubah_ins_data_pendukung_show"

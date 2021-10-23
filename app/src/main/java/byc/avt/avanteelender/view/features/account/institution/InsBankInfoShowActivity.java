@@ -43,7 +43,7 @@ import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 public class InsBankInfoShowActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    JSONObject job;
+    JSONObject job, jobCom;
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
@@ -58,7 +58,7 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
 
     String bank="", accountName="", accountNumber="";
     List<Object> listBank = new ArrayList<>(); List<Object> listBankID = new ArrayList<>();
-    String is_same_name = "0", name_tmp = "";
+    String is_same_name = "0", name_tmp = "", companyName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,8 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
         Intent i = getIntent();
         try {
             job = new JSONObject(i.getStringExtra("jobBankInfo"));
+            jobCom = new JSONObject(i.getStringExtra("jobCompanyInfo"));
+            companyName = jobCom.getString("nama_perusahaan");
             txtBank.getEditText().setText(job.getString("bank_name"));
             txtAccountName.getEditText().setText(job.getString("bank_account"));
             name_tmp = job.getString("bank_account");
@@ -98,7 +100,7 @@ public class InsBankInfoShowActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    txtAccountName.getEditText().setText(prefManager.getName());
+                    txtAccountName.getEditText().setText(companyName);
                     is_same_name = "1";
                 }else{
                     txtAccountName.getEditText().setText(name_tmp);

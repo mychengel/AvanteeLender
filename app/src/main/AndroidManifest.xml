@@ -53,9 +53,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.auth.prvrejection.PRTypeUpTwoInsActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.auth.prvrejection.PRTypeUpThreeActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.auth.prvrejection.PRTypeUpTwoActivity"
             android:exported="true"

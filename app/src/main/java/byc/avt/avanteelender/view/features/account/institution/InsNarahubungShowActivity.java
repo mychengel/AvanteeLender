@@ -125,7 +125,9 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmNext(v);
+                if(ktpisvalid){
+                    confirmNext(v);
+                }else{}
             }
         });
 
@@ -179,6 +181,9 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             }else if(ktp.length() == 16){
                 txtNoKtp.setError(null);
                 ktpisvalid = true;
+            }else{
+                txtNoKtp.setError(getString(R.string.max_digit_ktp));
+                ktpisvalid = false;
             }
         }
     }

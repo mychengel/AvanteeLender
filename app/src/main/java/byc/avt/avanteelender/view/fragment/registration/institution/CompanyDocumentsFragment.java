@@ -405,8 +405,8 @@ public class CompanyDocumentsFragment extends Fragment {
                                 btnNext = dialogView.findViewById(R.id.btn_next_dial_pfn);
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_swafoto, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfs);
+                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
+                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pfw);
                             }
                             dialogInterface.cancel();
 
@@ -552,7 +552,7 @@ public class CompanyDocumentsFragment extends Fragment {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_npwp.setImageBitmap(decoded_npwp);
+                        imgr_npwp.setImageBitmap(bitmap_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment());
@@ -561,7 +561,7 @@ public class CompanyDocumentsFragment extends Fragment {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_selfie.setImageBitmap(decoded_selfie);
+                        imgr_selfie.setImageBitmap(bitmap_selfie);
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment());
@@ -607,7 +607,7 @@ public class CompanyDocumentsFragment extends Fragment {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_npwp = bitmap;
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_npwp.setImageBitmap(decoded_npwp);
+                            imgr_npwp.setImageBitmap(bitmap_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
@@ -617,7 +617,7 @@ public class CompanyDocumentsFragment extends Fragment {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_selfie.setImageBitmap(decoded_selfie);
+                            imgr_selfie.setImageBitmap(bitmap_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
@@ -645,9 +645,9 @@ public class CompanyDocumentsFragment extends Fragment {
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
             if(PIC_CROP == CROP_SELFIE){
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
                 cropIntent.putExtra("outputY", 400);
             }else{
                 cropIntent.putExtra("aspectX", 4);

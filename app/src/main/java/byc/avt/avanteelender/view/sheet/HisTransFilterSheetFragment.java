@@ -1,5 +1,6 @@
 package byc.avt.avanteelender.view.sheet;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -12,9 +13,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -24,6 +30,8 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -40,6 +48,8 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
     AutoCompleteTextView date_start, date_end;
     LinearLayout lin_pof;
     static String dateStart = "", dateEnd = "", status = "";
+    CalendarConstraints.Builder constraintBuilderStart, constraintBuilderEnd;
+    long selNow = 0, selStart = 0, selEnd = 0;
 
     public HisTransFilterSheetFragment() {
     }
@@ -50,6 +60,7 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         return instance;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,14 +81,26 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
         btn_terapkan = view.findViewById(R.id.btn_terapkan_fr_sheet_filter_his_trans);
 
         date_start.setFocusable(false);
+        selNow = Calendar.getInstance().getTimeInMillis() + 25200000;
+        selStart = Calendar.getInstance().getTimeInMillis() + 25200000;
+        constraintBuilderStart = new CalendarConstraints.Builder();
+        constraintBuilderStart.setValidator(DateValidatorPointBackward.now());
+
+        selEnd = Calendar.getInstance().getTimeInMillis() + 25200000;
+        constraintBuilderEnd = new CalendarConstraints.Builder();
+        constraintBuilderEnd.setValidator(DateValidatorPointBackward.now());
+
         date_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 final SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+
+
                 MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
                 builder.setTitleText("Tanggal batas awal");
-                builder.setSelection(Calendar.getInstance().getTimeInMillis());
+                builder.setSelection(selStart);
+                builder.setCalendarConstraints(constraintBuilderStart.build());
                 MaterialDatePicker picker = builder.build();
                 picker.show(getActivity().getSupportFragmentManager(),"start");
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
@@ -86,6 +109,9 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                         Log.e("Hasil Date:",selection.toString());
                         dateStart = sdf.format(selection);
                         date_start.setText(sdf2.format(selection));
+                        selStart = (Long) selection;
+                        constraintBuilderEnd.setValidator(DateValidatorPointForward.from((Long) selection));
+                        //constraintBuilderEnd.setValidator(DateValidatorPointBackward.now());
                     }
                 });
             }
@@ -97,16 +123,21 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 final SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+
                 MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
                 builder.setTitleText("Tanggal batas akhir");
-                builder.setSelection(Calendar.getInstance().getTimeInMillis());
+                builder.setSelection(selEnd);
+                builder.setCalendarConstraints(constraintBuilderEnd.build());
                 MaterialDatePicker picker = builder.build();
-                picker.show(getActivity().getSupportFragmentManager(),"start");
+                picker.show(getActivity().getSupportFragmentManager(),"end");
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
                         dateEnd = sdf.format(selection);
                         date_end.setText(sdf2.format(selection));
+                        selEnd = (Long) selection;
+                        constraintBuilderStart.setValidator(DateValidatorPointBackward.before((Long) selection));
+                        //constraintBuilderStart.setValidator(DateValidatorPointForward.from((Long) selection));
                     }
                 });
             }
@@ -156,7 +187,6 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 }else{
                     status = "0";
                 }
-
             }
         });
 
@@ -167,8 +197,13 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                     if(dateStart.isEmpty() || dateEnd.isEmpty()){
                         new Fungsi(getActivity()).showMessage(getString(R.string.pof_cannot_null));
                     }else{
-                        HistoriTransaksiListActivity.filterRun(dateStart, dateEnd, status);
-                        instance.dismiss();
+                        if((selStart > selNow) || (selEnd > selNow)){
+                            new Fungsi(getActivity()).showMessage(getString(R.string.validate_sel_now));
+                        }else{
+                            HistoriTransaksiListActivity.filterRun(dateStart, dateEnd, status);
+                            instance.dismiss();
+                        }
+
                     }
                 }else{
                     dateStart = "";

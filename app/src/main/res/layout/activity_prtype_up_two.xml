@@ -36,6 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/txtnull"
                 android:textAlignment="center"
@@ -147,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:foreground="@drawable/selectable_square"
                 app:cardBackgroundColor="@color/lightest_neutral"
@@ -185,12 +186,12 @@
                         android:textColor="@color/darkO05"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/img_take_ktp_prtype_up_two"
-                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_ktp_fr_document"
+                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_ktp_prtype_up_two"
                         app:layout_constraintStart_toEndOf="@+id/img_take_ktp_prtype_up_two"
                         app:layout_constraintTop_toTopOf="@+id/img_take_ktp_prtype_up_two" />
 
                     <ImageView
-                        android:id="@+id/img_cancel_take_ktp_fr_document"
+                        android:id="@+id/img_cancel_take_ktp_prtype_up_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -288,12 +289,12 @@
                         android:textColor="@color/darkO05"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/img_take_selfie_prtype_up_two"
-                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_selfie_fr_document"
+                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_selfie_prtype_up_two"
                         app:layout_constraintStart_toEndOf="@+id/img_take_selfie_prtype_up_two"
                         app:layout_constraintTop_toTopOf="@+id/img_take_selfie_prtype_up_two" />
 
                     <ImageView
-                        android:id="@+id/img_cancel_take_selfie_fr_document"
+                        android:id="@+id/img_cancel_take_selfie_prtype_up_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -391,12 +392,12 @@
                         android:textColor="@color/darkO05"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/img_take_ttd_prtype_up_two"
-                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_ttd_fr_document"
+                        app:layout_constraintEnd_toStartOf="@+id/img_cancel_take_ttd_prtype_up_two"
                         app:layout_constraintStart_toEndOf="@+id/img_take_ttd_prtype_up_two"
                         app:layout_constraintTop_toTopOf="@+id/img_take_ttd_prtype_up_two" />
 
                     <ImageView
-                        android:id="@+id/img_cancel_take_ttd_fr_document"
+                        android:id="@+id/img_cancel_take_ttd_prtype_up_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"

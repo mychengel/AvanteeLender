@@ -66,7 +66,7 @@ import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
-public class PRTypeUpTwoActivity extends AppCompatActivity {
+public class PRTypeUpTwoInsActivity extends AppCompatActivity {
 
     private AuthenticationViewModel viewModel;
     private MasterDataViewModel viewModel2;
@@ -74,7 +74,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
     private Dialog dialog;
     private Toolbar toolbar;
     GlobalVariables gv;
-    Fungsi f = new Fungsi(PRTypeUpTwoActivity.this);
+    Fungsi f = new Fungsi(PRTypeUpTwoInsActivity.this);
 
     String msg = "", handler = "", code = "", status = "", category = "";
     JSONObject result;
@@ -106,43 +106,34 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prtype_up_two);
-        GlobalVariables.perReregData.clear();
-        GlobalVariables.perReregDataFile.clear();
-        viewModel = new ViewModelProvider(PRTypeUpTwoActivity.this).get(AuthenticationViewModel.class);
-        viewModel2 = new ViewModelProvider(PRTypeUpTwoActivity.this).get(MasterDataViewModel.class);
-        prefManager = PrefManager.getInstance(PRTypeUpTwoActivity.this);
-        toolbar = findViewById(R.id.toolbar_prtype_up_two);
+        setContentView(R.layout.activity_prtype_up_two_ins);
+        GlobalVariables.insReregData.clear();
+        GlobalVariables.insReregDataFile.clear();
+        viewModel = new ViewModelProvider(PRTypeUpTwoInsActivity.this).get(AuthenticationViewModel.class);
+        viewModel2 = new ViewModelProvider(PRTypeUpTwoInsActivity.this).get(MasterDataViewModel.class);
+        prefManager = PrefManager.getInstance(PRTypeUpTwoInsActivity.this);
+        toolbar = findViewById(R.id.toolbar_prtype_up_two_ins);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        dialog = GlobalVariables.loadingDialog(PRTypeUpTwoActivity.this);
+        dialog = GlobalVariables.loadingDialog(PRTypeUpTwoInsActivity.this);
 
-        cv_ktp = findViewById(R.id.cv_take_ktp_prtype_up_two);
-        
-        cv_selfie = findViewById(R.id.cv_take_selfie_prtype_up_two);
-        cv_ttd = findViewById(R.id.cv_take_ttd_prtype_up_two);
-        edit_ktp = findViewById(R.id.edit_ktp_number_prtype_up_two);
-        edit_mothername = findViewById(R.id.edit_mothername_prtype_up_two);
-        txt_ktp = findViewById(R.id.txt_take_ktp_prtype_up_two);
-        txt_selfie = findViewById(R.id.txt_take_selfie_prtype_up_two);
-        txt_ttd = findViewById(R.id.txt_take_ttd_prtype_up_two);
-        img_ktp = findViewById(R.id.img_take_ktp_prtype_up_two);
-        img_cancelktp =findViewById(R.id.img_cancel_take_ktp_prtype_up_two);
-        img_selfie = findViewById(R.id.img_take_selfie_prtype_up_two);
-        img_cancelselfie = findViewById(R.id.img_cancel_take_selfie_prtype_up_two);
-        img_ttd = findViewById(R.id.img_take_ttd_prtype_up_two);
-        img_cancelttd = findViewById(R.id.img_cancel_take_ttd_prtype_up_two);
-        txtInfo = findViewById(R.id.txt_info_prtype_up_two);
+        cv_ktp = findViewById(R.id.cv_take_ktp_prtype_up_two_ins);
+
+        cv_selfie = findViewById(R.id.cv_take_selfie_prtype_up_two_ins);
+
+        edit_ktp = findViewById(R.id.edit_ktp_number_prtype_up_two_ins);
+        txt_ktp = findViewById(R.id.txt_take_ktp_prtype_up_two_ins);
+        txt_selfie = findViewById(R.id.txt_take_selfie_prtype_up_two_ins);
+        img_ktp = findViewById(R.id.img_take_ktp_prtype_up_two_ins);
+        img_cancelktp =findViewById(R.id.img_cancel_take_ktp_prtype_up_two_ins);
+        img_selfie = findViewById(R.id.img_take_selfie_prtype_up_two_ins);
+        img_cancelselfie = findViewById(R.id.img_cancel_take_selfie_prtype_up_two_ins);
+        txtInfo = findViewById(R.id.txt_info_prtype_up_two_ins);
         txtInfo.setText(getString(R.string.lets_get_know_eo));
-        btnSimpan = findViewById(R.id.btn_simpan_prtype_up_two);
-
-        auto_job_position = findViewById(R.id.auto_jabatan_prtype_up_two);
-        auto_avg_transaction = findViewById(R.id.auto_avg_transaction_prtype_up_two);
-        txt_job_position = findViewById(R.id.edit_jabatan_prtype_up_two);
-        txt_avg_transaction = findViewById(R.id.edit_avg_transaction_prtype_up_two);
+        btnSimpan = findViewById(R.id.btn_simpan_prtype_up_two_ins);
 
         Intent i = getIntent();
         try {
@@ -150,9 +141,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             status = result.getString("msg").toLowerCase();
             msg = result.getJSONObject("reason").getString("reason");
             code = result.getJSONObject("reason").getString("code");
-            //handlers = result.getJSONObject("reason").getJSONArray("handlers");
-            //category = handlers.getJSONObject(0).getString("category");
-            //handler = handlers.getJSONObject(0).getString("handler");
             txtInfo.setText(msg);
 
         } catch (JSONException e) {
@@ -174,21 +162,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             }
         });
 
-        edit_mothername.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                motherName = edit_mothername.getEditText().getText().toString().trim();
-                cekMotherName(motherName);
-                cekDone();
-            }
-        });
-
         cv_ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,15 +176,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(str_selfie.equalsIgnoreCase("")){
                     chooseFileConfirmation(PICK_TYPE_SELFIE);
-                }
-            }
-        });
-
-        cv_ttd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(str_ttd.equalsIgnoreCase("")){
-                    chooseFileConfirmation(PICK_TYPE_TTD);
                 }
             }
         });
@@ -240,27 +204,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             }
         });
 
-        img_cancelttd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                str_ttd = "";
-                ttd_byte = null;
-                imgr_ttd.setImageResource(R.drawable.ic_baseline_no_photography_24);
-                btnr_ttd.setVisibility(View.INVISIBLE);
-                cekView();
-                cekDone();
-            }
-        });
-
-        clearMasterList();
-
-        viewModel2.getJobPosition(prefManager.getUid(), prefManager.getToken());
-        viewModel2.getResultJobPosition().observe(PRTypeUpTwoActivity.this, showJobPosition);
-        viewModel2.getAvgTransaction(prefManager.getUid(), prefManager.getToken());
-        viewModel2.getResultAvgTransaction().observe(PRTypeUpTwoActivity.this, showAvgTrans);
-
-        imgr_ktp = findViewById(R.id.img_ktp_prtype_up_two);
-        btnr_ktp = findViewById(R.id.btn_ktp_prtype_up_two);
+        imgr_ktp = findViewById(R.id.img_ktp_prtype_up_two_ins);
+        btnr_ktp = findViewById(R.id.btn_ktp_prtype_up_two_ins);
         btnr_ktp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,8 +221,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             }
         });
 
-        imgr_selfie = findViewById(R.id.img_selfie_prtype_up_two);
-        btnr_selfie = findViewById(R.id.btn_selfie_prtype_up_two);
+        imgr_selfie = findViewById(R.id.img_selfie_prtype_up_two_ins);
+        btnr_selfie = findViewById(R.id.btn_selfie_prtype_up_two_ins);
         btnr_selfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -293,37 +238,16 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             }
         });
 
-        imgr_ttd = findViewById(R.id.img_ttd_prtype_up_two);
-        btnr_ttd = findViewById(R.id.btn_ttd_prtype_up_two);
-        btnr_ttd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    bitmap_ttd = f.rotateImage(bitmap_ttd);
-                    ByteArrayOutputStream byt = new ByteArrayOutputStream();
-                    imgr_ttd.setImageBitmap(bitmap_ttd);
-                    bitmap_ttd.compress(Bitmap.CompressFormat.JPEG, 100, byt);
-                    ttd_byte = byt.toByteArray();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         btnSimpan.setEnabled(false);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imgFile = new byte[][]{ktp_byte, selfie_byte, ttd_byte};
-                GlobalVariables.perReregData.put("privy_status", status);
-                GlobalVariables.perReregData.put("identity_card", no_ktp);
-                GlobalVariables.perReregData.put("code", code);
-                GlobalVariables.perReregData.put("mother_maiden_name", motherName);
-                GlobalVariables.perReregData.put("clients_job_position", jobPosition);
-                GlobalVariables.perReregData.put("average_transaction_id", avgTrans);
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("spesimen.jpg", ttd_byte, "image/jpeg"));
+                GlobalVariables.insReregData.put("privy_status", status);
+                GlobalVariables.insReregData.put("identity_card", no_ktp);
+                GlobalVariables.insReregData.put("code", code);
+                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
                 reregistDocument();
             }
         });
@@ -333,7 +257,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
     }
 
     private void reregistDocument(){
-        new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+        new AlertDialog.Builder(PRTypeUpTwoInsActivity.this)
                 .setTitle("Konfirmasi")
                 .setIcon(R.drawable.logo)
                 .setMessage(getString(R.string.create_doc_confirmation))
@@ -343,8 +267,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), "perorangan");
-                        viewModel.getResultReregistPrvp001().observe(PRTypeUpTwoActivity.this, showResult);
+                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), "institusi");
+                        viewModel.getResultReregistPrvp001().observe(PRTypeUpTwoInsActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -366,16 +290,16 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     //String msg = result.getString("message");
                     String msg = getString(R.string.reupload_success);
                     //new
-                    GlobalVariables.perReregData.clear();
-                    GlobalVariables.perReregDataFile.clear();
-                    new Fungsi(PRTypeUpTwoActivity.this).showMessage(msg);
+                    GlobalVariables.insReregData.clear();
+                    GlobalVariables.insReregDataFile.clear();
+                    new Fungsi(PRTypeUpTwoInsActivity.this).showMessage(msg);
                     dialog.cancel();
-                    Intent intent = new Intent(PRTypeUpTwoActivity.this, InVerificationProcessActivity.class);
-                    new Routes(PRTypeUpTwoActivity.this).moveInFinish(intent);
+                    Intent intent = new Intent(PRTypeUpTwoInsActivity.this, InVerificationProcessActivity.class);
+                    new Routes(PRTypeUpTwoInsActivity.this).moveInFinish(intent);
                 }else if(result.getInt("code") == 400 || result.getBoolean("status") == false){
                     String msg = getString(R.string.reupload_failed);
                     dialog.cancel();
-                    new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+                    new AlertDialog.Builder(PRTypeUpTwoInsActivity.this)
                             .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
                             .setMessage("• " + msg)
@@ -389,7 +313,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                 }else{
                     String msg = getString(R.string.reupload_failed);
                     dialog.cancel();
-                    new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+                    new AlertDialog.Builder(PRTypeUpTwoInsActivity.this)
                             .setTitle("Pemberitahuan")
                             .setIcon(R.drawable.logo)
                             .setMessage("• " + msg)
@@ -406,7 +330,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                 e.printStackTrace();
                 String msg = getString(R.string.reupload_failed);
                 dialog.cancel();
-                new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+                new AlertDialog.Builder(PRTypeUpTwoInsActivity.this)
                         .setTitle("Pemberitahuan")
                         .setIcon(R.drawable.logo)
                         .setMessage("• " + msg)
@@ -422,26 +346,9 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         }
     };
 
-    public void clearMasterList(){
-        listJobPosition.clear();listJobPositionID.clear();
-        listAvgTrans.clear();listAvgTransID.clear();
-    }
-
     private void cekButtonRotate(){
         if(bitmap_ktp != null){btnr_ktp.setVisibility(View.VISIBLE);}else{btnr_ktp.setVisibility(View.INVISIBLE);}
         if(bitmap_selfie != null){btnr_selfie.setVisibility(View.VISIBLE);}else{btnr_selfie.setVisibility(View.INVISIBLE);}
-        if(bitmap_ttd != null){btnr_ttd.setVisibility(View.VISIBLE);}else{btnr_ttd.setVisibility(View.INVISIBLE);}
-    }
-
-    boolean mothernameisvalid = false;
-    public void cekMotherName(String text){
-        if(TextUtils.isEmpty(text)){
-            edit_mothername.setError(getString(R.string.cannotnull));
-            mothernameisvalid = false;
-        }else{
-            edit_mothername.setError(null);
-            mothernameisvalid = true;
-        }
     }
 
     boolean ktpisvalid = false;
@@ -462,7 +369,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
 
     boolean allisfilled = false;
     private void cekDone(){
-        if(mothernameisvalid && !motherName.isEmpty() && ktpisvalid && !str_ktp.isEmpty() && !str_selfie.isEmpty() && !str_ttd.isEmpty()){
+        if(ktpisvalid && !str_ktp.isEmpty() && !str_selfie.isEmpty()){
             allisfilled = true;
         }else{
             allisfilled = false;
@@ -477,80 +384,13 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             Manifest.permission.CAMERA
     };
 
-
-    private Observer<JSONObject> showJobPosition = new Observer<JSONObject>() {
-        @Override
-        public void onChanged(JSONObject result) {
-            try {
-                if(result.getInt("code") == 200){
-                    JSONObject jobRes = result.getJSONObject("result");
-                    JSONArray jar = jobRes.getJSONArray("position");
-                    for(int i = 0; i < jar.length(); i++){
-                        listJobPosition.add(jar.getJSONObject(i).getString("name"));
-                        listJobPositionID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(jobPosition)){
-                            txt_job_position.getEditText().setText(jar.getJSONObject(i).getString("name"));
-                        }
-                    }
-                    ArrayAdapter adapter = new ArrayAdapter(PRTypeUpTwoActivity.this, R.layout.support_simple_spinner_dropdown_item, listJobPosition);
-                    auto_job_position.setAdapter(adapter);
-                    auto_job_position.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                            jobPosition = listJobPositionID.get(x).toString();
-                            Log.e("jobPosition", jobPosition);
-                            txt_job_position.setError(null);
-                        }
-                    });
-                }else{
-                }
-                dialog.cancel();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    private Observer<JSONObject> showAvgTrans = new Observer<JSONObject>() {
-        @Override
-        public void onChanged(JSONObject result) {
-            try {
-                if(result.getInt("code") == 200){
-                    JSONObject jobRes = result.getJSONObject("result");
-                    JSONArray jar = jobRes.getJSONArray("average");
-                    for(int i = 0; i < jar.length(); i++){
-                        listAvgTrans.add(jar.getJSONObject(i).getString("name"));
-                        listAvgTransID.add(jar.getJSONObject(i).getString("id"));
-                        if(jar.getJSONObject(i).getString("id").equalsIgnoreCase(avgTrans)){
-                            txt_avg_transaction.getEditText().setText(jar.getJSONObject(i).getString("name"));
-                        }
-                    }
-                    ArrayAdapter adapter = new ArrayAdapter(PRTypeUpTwoActivity.this, R.layout.support_simple_spinner_dropdown_item, listAvgTrans);
-                    auto_avg_transaction.setAdapter(adapter);
-                    auto_avg_transaction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int x, long l) {
-                            avgTrans = listAvgTransID.get(x).toString();
-                            Log.e("avgTrans", avgTrans);
-                            txt_avg_transaction.setError(null);
-                        }
-                    });
-                }else{
-                }
-                dialog.cancel();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
     int PICK_IMAGE_REQUEST = 0;
     private void chooseFileConfirmation(final String PICK_IMAGE_TYPE){
-        int permission = ActivityCompat.checkSelfPermission(PRTypeUpTwoActivity.this, Manifest.permission.CAMERA);
+        int permission = ActivityCompat.checkSelfPermission(PRTypeUpTwoInsActivity.this, Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(PRTypeUpTwoActivity.this, PERMISSIONS_STORAGE, 1);
+            ActivityCompat.requestPermissions(PRTypeUpTwoInsActivity.this, PERMISSIONS_STORAGE, 1);
         }else{
-            new AlertDialog.Builder(PRTypeUpTwoActivity.this)
+            new AlertDialog.Builder(PRTypeUpTwoInsActivity.this)
                     .setTitle("Konfirmasi")
                     .setIcon(R.drawable.ic_document_photo_circle)
                     .setMessage("Metode pengambilan foto apa yang ingin digunakan?")
@@ -558,8 +398,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     .setPositiveButton("KAMERA", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final Dialog mdialog = new Dialog(PRTypeUpTwoActivity.this);
-                            LayoutInflater inflater = LayoutInflater.from(PRTypeUpTwoActivity.this);
+                            final Dialog mdialog = new Dialog(PRTypeUpTwoInsActivity.this);
+                            LayoutInflater inflater = LayoutInflater.from(PRTypeUpTwoInsActivity.this);
                             View dialogView = null;
                             Button btnNext = null;
 
@@ -571,11 +411,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                                 PICK_IMAGE_REQUEST = PICK_SELFIE_CAM;
                                 dialogView = inflater.inflate(R.layout.dialog_pra_foto_wajah, null);
                                 btnNext = dialogView.findViewById(R.id.btn_next_dial_pfw);
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD_CAM;
-                                dialogView = inflater.inflate(R.layout.dialog_pra_foto_ttd, null);
-                                btnNext = dialogView.findViewById(R.id.btn_next_dial_pft);
                             }
+
                             dialogInterface.cancel();
 
                             mdialog.setContentView(dialogView);
@@ -600,8 +437,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                                 PICK_IMAGE_REQUEST = PICK_KTP;
                             }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
                                 PICK_IMAGE_REQUEST = PICK_SELFIE;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD;
                             }
                             dialog.cancel();
                             showGallery(PICK_IMAGE_REQUEST);
@@ -641,7 +476,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Uri imgUri = FileProvider.getUriForFile(PRTypeUpTwoActivity.this, getApplicationContext().getPackageName()+".fileprovider", file);
+        Uri imgUri = FileProvider.getUriForFile(PRTypeUpTwoInsActivity.this, getApplicationContext().getPackageName()+".fileprovider", file);
         cameraIntent.putExtra("return-data", true);
         cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
@@ -688,15 +523,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment() + ".jpg");
-                    } else if (requestCode == PICK_TTD) {
-                        bitmap_ttd = bitmap;
-                        imgr_ttd.setImageBitmap(bitmap_ttd);
-                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        ttd_byte = bytes.toByteArray();
-                        str_ttd = f.getStringImage(decoded_ttd);
-                        txt_ttd.setText(filePath.getLastPathSegment() + ".jpg");
                     }
-
 
                     ////new
                     if (requestCode == PICK_KTP_CAM) {
@@ -704,9 +531,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     }
                     else if (requestCode == PICK_SELFIE_CAM) {
                         performCrop(filePath, CROP_SELFIE);
-                    }
-                    else if (requestCode == PICK_TTD_CAM) {
-                        performCrop(filePath, CROP_TTD);
                     }
 
                     else if (requestCode == CROP_KTP) {
@@ -727,15 +551,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment());
-                    } else if (requestCode == CROP_TTD) {
-                        bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                        bitmap_ttd = bitmap;
-                        decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_ttd.setImageBitmap(decoded_ttd);
-                        ttd_byte = bytes.toByteArray();
-                        str_ttd = f.getStringImage(decoded_ttd);
-                        txt_ttd.setText(filePath.getLastPathSegment());
                     }
                     ////new
 
@@ -749,7 +564,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                 path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 file = new File(path, "/avantee/" + imageFileName);
 
-                Uri filePath = FileProvider.getUriForFile(PRTypeUpTwoActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
+                Uri filePath = FileProvider.getUriForFile(PRTypeUpTwoInsActivity.this, getApplicationContext().getPackageName() + ".fileprovider", file);
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                     if (bitmap == null) {
@@ -760,8 +575,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                             performCrop(filePath, CROP_KTP);
                         } else if (requestCode == PICK_SELFIE_CAM) {
                             performCrop(filePath, CROP_SELFIE);
-                        } else if (requestCode == PICK_TTD_CAM) {
-                            performCrop(filePath, CROP_TTD);
                         }
 
                         else if (requestCode == CROP_KTP) {
@@ -784,16 +597,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
-                        } else if (requestCode == CROP_TTD) {
-                            bitmap = f.getResizedBitmap(bitmap, MAX_SIZE);
-                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
-                            bitmap_ttd = bitmap;
-                            decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_ttd.setImageBitmap(decoded_ttd);
-                            ttd_byte = bytes.toByteArray();
-                            str_ttd = f.getStringImage(decoded_ttd);
-                            txt_ttd.setText(filePath.getLastPathSegment());
                         }
                         ////new
 
@@ -808,7 +611,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     storageAccess = true;
                 } else {
                     storageAccess = false;
-                    Toast.makeText(PRTypeUpTwoActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PRTypeUpTwoInsActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
                     checkStorageAccess();
                 }
             }
@@ -845,7 +648,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         catch(ActivityNotFoundException anfe){
             //display an error message
             String errorMessage = "Device tidak support untuk memotong gambar.";
-            Toast toast = Toast.makeText(PRTypeUpTwoActivity.this, errorMessage, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(PRTypeUpTwoInsActivity.this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -873,36 +676,25 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
 
     private void cekView(){
         if(!str_ktp.equalsIgnoreCase("")){
-            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
-            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
+            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoInsActivity.this, R.color.white));
+            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoInsActivity.this, R.drawable.ic_picture_taken));
             img_cancelktp.setVisibility(View.VISIBLE);
         }else{
-            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
-            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
+            cv_ktp.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoInsActivity.this, R.color.lightest_neutral));
+            img_ktp.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoInsActivity.this, R.drawable.ic_take_picture));
             txt_ktp.setText(getString(R.string.take_photo_of_ktp));
             img_cancelktp.setVisibility(View.GONE);
         }
 
         if(!str_selfie.equalsIgnoreCase("")){
-            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
-            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoInsActivity.this, R.color.white));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoInsActivity.this, R.drawable.ic_picture_taken));
             img_cancelselfie.setVisibility(View.VISIBLE);
         }else{
-            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
-            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
+            cv_selfie.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoInsActivity.this, R.color.lightest_neutral));
+            img_selfie.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoInsActivity.this, R.drawable.ic_take_picture));
             txt_selfie.setText(getString(R.string.take_photo_of_selfie));
             img_cancelselfie.setVisibility(View.GONE);
-        }
-
-        if(!str_ttd.equalsIgnoreCase("")){
-            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.white));
-            img_ttd.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_picture_taken));
-            img_cancelttd.setVisibility(View.VISIBLE);
-        }else{
-            cv_ttd.setCardBackgroundColor(ContextCompat.getColor(PRTypeUpTwoActivity.this, R.color.lightest_neutral));
-            img_ttd.setImageDrawable(ContextCompat.getDrawable(PRTypeUpTwoActivity.this, R.drawable.ic_take_picture));
-            txt_ttd.setText(getString(R.string.take_photo_of_spesimenttd));
-            img_cancelttd.setVisibility(View.GONE);
         }
     }
 
@@ -910,7 +702,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         // LOGOUT: GET method to server through endpoint
         dialog.show();
         viewModel.logout(prefManager.getUid(), prefManager.getToken());
-        viewModel.getLogoutResult().observe(PRTypeUpTwoActivity.this, checkLogout);
+        viewModel.getLogoutResult().observe(PRTypeUpTwoInsActivity.this, checkLogout);
     }
 
     private Observer<String> checkLogout = new Observer<String>() {
@@ -918,9 +710,9 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         public void onChanged(String result) {
             if(result.equals("ok")) {
                 dialog.cancel();
-                Intent intent = new Intent(PRTypeUpTwoActivity.this, WalkthroughActivity.class);
+                Intent intent = new Intent(PRTypeUpTwoInsActivity.this, WalkthroughActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                new Routes(PRTypeUpTwoActivity.this).moveOutIntent(intent);
+                new Routes(PRTypeUpTwoInsActivity.this).moveOutIntent(intent);
             }else{
                 dialog.cancel();
                 new Fungsi().showMessage(result);
@@ -932,7 +724,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            new Routes(PRTypeUpTwoActivity.this).moveOut();
+            new Routes(PRTypeUpTwoInsActivity.this).moveOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -940,7 +732,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new Routes(PRTypeUpTwoActivity.this).moveOut();
+        new Routes(PRTypeUpTwoInsActivity.this).moveOut();
     }
 
 }

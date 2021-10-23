@@ -167,10 +167,12 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }else{
                                     msg = res.getJSONObject("privy_status").getString("msg");
+                                    String ctype = res.getString("client_type");
                                     if(msg.equalsIgnoreCase("invalid") || msg.equalsIgnoreCase("rejected")){
                                         i = new Intent(LoginActivity.this, RejectionProcessActivity.class);
                                         JSONObject rJob = res.getJSONObject("privy_status");
                                         i.putExtra("rJob", rJob.toString());
+                                        i.putExtra("cType", ctype);
                                     }else{
                                         i = new Intent(LoginActivity.this, InVerificationProcessActivity.class);
                                         //i.putExtra("info", msg);
@@ -231,11 +233,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             password = Objects.requireNonNull(editPassword.getEditText()).getText().toString().trim();
-            passisvalid = GlobalVariables.PASSWORD_PATTERN2.matcher(password).matches();
+            passisvalid = GlobalVariables.PASSWORD_PATTERN.matcher(password).matches();
             if(passisvalid){
                 editPassword.setError(null);
             }else{
-                //editPassword.setError("Kata sandi setidaknya harus memiliki 1 huruf kapital, 1 huruf kecil & 1 angka. (min. 8 huruf & maks. 12 huruf)");
+                editPassword.setError(getString(R.string.pass_terms));
             }
             cekDone();
         }

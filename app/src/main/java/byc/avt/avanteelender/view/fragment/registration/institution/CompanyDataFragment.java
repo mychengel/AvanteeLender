@@ -10,7 +10,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
 import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,12 +111,28 @@ public class CompanyDataFragment extends Fragment {
             }
         });
 
+        txtCompanyPhone.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                companyPhone = txtCompanyPhone.getEditText().getText().toString().trim();
+                cekPhone(companyPhone);
+            }
+        });
+
         btn_next = view.findViewById(R.id.btn_next_fr_com_data);
         btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmNext(v);
+                if(phoneisvalid){
+                    confirmNext(v);
+                }
 //                Navigation.findNavController(v).navigate(R.id.action_companyDataFragment_to_narahubungFragment);
             }
         });
@@ -121,6 +140,18 @@ public class CompanyDataFragment extends Fragment {
 
         loadTermsAndCondition();
         loadData();
+    }
+
+    boolean phoneisvalid = false;
+    public void cekPhone(String phone){
+        if(phone.length() > 15){
+            txtCompanyPhone.setError(getString(R.string.max_digit_phone));
+            phoneisvalid = false;
+        }else{
+            txtCompanyPhone.setError(null);
+            phoneisvalid = true;
+        }
+
     }
 
     private void confirmNext(View v){

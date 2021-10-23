@@ -152,6 +152,7 @@ public class SettingInsAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SettingInsAccountActivity.this, InsBankInfoShowActivity.class);
                 intent.putExtra("jobBankInfo", jobDataRekBank.toString());
+                intent.putExtra("jobCompanyInfo", jobDataPerusahaan.toString());
                 new Routes(SettingInsAccountActivity.this).moveIn(intent);
             }
         });

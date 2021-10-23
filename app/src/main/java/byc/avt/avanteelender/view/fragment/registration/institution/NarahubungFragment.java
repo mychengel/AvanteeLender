@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,18 +95,54 @@ public class NarahubungFragment extends Fragment {
             }
         });
 
+        txtNoKtp.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                noKtp = txtNoKtp.getEditText().getText().toString().trim();
+                cekKTP(noKtp);
+            }
+        });
+
         btn_next = view.findViewById(R.id.btn_next_fr_narahubung_data);
         btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmNext(v);
+                if(ktpisvalid){
+                    confirmNext(v);
+                }
 //                Navigation.findNavController(v).navigate(R.id.action_narahubungFragment_to_companyAddressFragment);
             }
         });
 
         loadData();
     }
+
+    boolean ktpisvalid = false;
+    public void cekKTP(String ktp){
+        if(TextUtils.isEmpty(ktp)){
+            txtNoKtp.setError(getString(R.string.cannotnull));
+            ktpisvalid = false;
+        }else{
+            if(ktp.length() < 16){
+                txtNoKtp.setError(getString(R.string.min_digit_ktp));
+                ktpisvalid = false;
+            }else if(ktp.length() == 16){
+                txtNoKtp.setError(null);
+                ktpisvalid = true;
+            }else{
+                txtNoKtp.setError(getString(R.string.max_digit_ktp));
+                ktpisvalid = false;
+            }
+        }
+    }
+
 
     public void loadData(){
         dialog.show();

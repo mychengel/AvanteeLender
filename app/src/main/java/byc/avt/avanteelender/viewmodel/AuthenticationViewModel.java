@@ -230,8 +230,8 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return resultUpdateProfile;
     }
 
-    public void reregistPrvp001(String uid, String token){
-        resultReregistPrvp001 = authenticationRepository.reregistPrvp001(uid, token, getApplication());
+    public void reregistPrvp001(String uid, String token, String ctype){
+        resultReregistPrvp001 = authenticationRepository.reregistPrvp001(uid, token, ctype, getApplication());
     }
 
     public LiveData<JSONObject> getResultReregistPrvp001(){

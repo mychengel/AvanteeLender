@@ -158,7 +158,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     }
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        img_ktp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         return false;
                     }
                 })
@@ -177,7 +176,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     }
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        img_selfie.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         return false;
                     }
                 })
@@ -196,7 +194,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     }
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        img_npwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         return false;
                     }
                 })
@@ -648,20 +645,20 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                     if (requestCode == PICK_KTP) {
                         bitmap_ktp = bitmap;
                         decoded_ktp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_ktp.setImageBitmap(decoded_ktp);
+                        img_ktp.setImageBitmap(bitmap_ktp);
                         ktp_byte = bytes.toByteArray();
                         str_ktp = f.getStringImage(decoded_ktp);
                         Log.e("str_ktp", str_ktp);
                     } else if (requestCode == PICK_NPWP) {
                         bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_npwp.setImageBitmap(decoded_npwp);
+                        img_npwp.setImageBitmap(bitmap_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                     } else if (requestCode == PICK_SELFIE) {
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_selfie.setImageBitmap(decoded_selfie);
+                        img_selfie.setImageBitmap(bitmap_selfie);
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                     }
@@ -688,7 +685,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_npwp.setImageBitmap(decoded_npwp);
+                        img_npwp.setImageBitmap(bitmap_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                     } else if (requestCode == CROP_SELFIE) {
@@ -696,7 +693,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        img_selfie.setImageBitmap(decoded_selfie);
+                        img_selfie.setImageBitmap(bitmap_selfie);
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                     }
@@ -741,7 +738,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_npwp = bitmap;
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            img_npwp.setImageBitmap(decoded_npwp);
+                            img_npwp.setImageBitmap(bitmap_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                         } else if (requestCode == CROP_SELFIE) {
@@ -750,7 +747,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            img_selfie.setImageBitmap(decoded_selfie);
+                            img_selfie.setImageBitmap(bitmap_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                         }
@@ -786,9 +783,9 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
             if(PIC_CROP == CROP_SELFIE){
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
                 cropIntent.putExtra("outputY", 400);
             }else{
                 cropIntent.putExtra("aspectX", 4);

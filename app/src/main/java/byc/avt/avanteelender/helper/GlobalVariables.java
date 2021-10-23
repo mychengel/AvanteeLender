@@ -32,6 +32,16 @@ public final class GlobalVariables {
             //"(?=.*[a-zA-Z])" + //can be any letter (uppercase/lowercase)
             //"(?=.*[@#$%^&+=])" + //at least 1 special character
             "(?=\\S+$)." + //no white spaces
+            "{8,32}" + //at least 8 character, max 32 character
+            "$");
+
+    public static final Pattern PASSWORD_PATTERN3 = Pattern.compile("^" +
+            "(?=.*[0-9])" +         //at least has 1 number
+            "(?=.*[a-z])" +         //at least has 1 lower case letter
+            "(?=.*[A-Z])" +         //at least has 1 upper case letter
+            //"(?=.*[a-zA-Z])" + //can be any letter (uppercase/lowercase)
+            //"(?=.*[@#$%^&+=])" + //at least 1 special character
+            "(?=\\S+$)." + //no white spaces
             "{8,12}" + //at least 8 character, max 12 character
             "$");
 

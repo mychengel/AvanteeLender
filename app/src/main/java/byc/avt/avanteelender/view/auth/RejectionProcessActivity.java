@@ -38,12 +38,12 @@ public class RejectionProcessActivity extends AppCompatActivity {
     JSONObject result;
     TextView txtInfo;
     Button btnReupload;
-    String msg = "", code = "";
+    String msg = "", code = "", ctype = "";
     String[] typeUploadOne = new String[]{ "PRVP001", "PRVP002", "PRVP003", "PRVP004", "PRVP005", "PRVP006", "PRVP010", "PRVP012", "PRVP014", "PRVP015", "PRVN004", "PRVN005", "PRVK002", "PRVK003", "PRVK004", "PRVK006", "PRVK008", "PRVK009", "PRVK011", "PRVK012", "PRVK013", "PRVK015", "PRVK018", "PRVS001", "PRVS002", "PRVS003", "PRVS004", "PRVS006" };
 
     ///MUST BE EDITED BY ITS TYPE
     ///-->privy_status, identity_card, code, mother_maiden_name, clients_job_position, average_transaction_id, imgFile[]::3 files
-    String[] typeUploadTwo = new String[]{ "PRVP009", "PRVK014", "PRVD004", "PRVN002", "PRVM001", "PRVM002", "PRVM003" };
+    String[] typeUploadTwo = new String[]{ "PRVP009", "PRVK001", "PRVK014", "PRVD004", "PRVN002", "PRVM001", "PRVM002", "PRVM003" };
 
     ///-->privy_status, supportFile[]::2 files, code, category[0], category[1]
     String[] typeUploadThree = new String[]{ "PRVD001", "PRVD002", "PRVD005", "PRVD007", "PRVD009", "PRVD011", "PRVD013", "PRVK016", "PRVK017", "PRVK019" };
@@ -63,6 +63,7 @@ public class RejectionProcessActivity extends AppCompatActivity {
         Intent i = getIntent();
         try {
             result = new JSONObject(i.getStringExtra("rJob"));
+            ctype = i.getStringExtra("cType");
             msg = result.getJSONObject("reason").getString("reason");
             code = result.getJSONObject("reason").getString("code");
             txtInfo.setText(msg);
@@ -75,15 +76,21 @@ public class RejectionProcessActivity extends AppCompatActivity {
                     if(checkOne) {
                         Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpOneActivity.class);
                         in.putExtra("rJob", result.toString());
+                        in.putExtra("cType", ctype);
                         new Routes(RejectionProcessActivity.this).moveIn(in);
                     }else if(checkTwo){
-                        Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpTwoActivity.class);
-                        in.putExtra("rJob", result.toString());
-                        new Routes(RejectionProcessActivity.this).moveIn(in);
-                        //new Fungsi(RejectionProcessActivity.this).showMessage(code);
+                        if(ctype.equalsIgnoreCase("institusi")){
+
+                        }else{
+                            Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpTwoActivity.class);
+                            in.putExtra("rJob", result.toString());
+                            new Routes(RejectionProcessActivity.this).moveIn(in);
+                            //new Fungsi(RejectionProcessActivity.this).showMessage(code);
+                        }
                     }else if(checkThree){
                         Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpThreeActivity.class);
                         in.putExtra("rJob", result.toString());
+                        in.putExtra("cType", ctype);
                         new Routes(RejectionProcessActivity.this).moveIn(in);
 //                        new Fungsi(RejectionProcessActivity.this).showMessage(code);
                     }

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,7 +58,8 @@ public class CompanyBankFragment extends Fragment {
     AutoCompleteTextView auto_bank;
     TextInputLayout txtBank, txtAccountName, txtAccountNumber;
     String bank="", accountName="", accountNumber="";
-    CheckBox cb_owner_name_same_as_name;
+    CheckBox cb_owner_name_same_as_name_company;
+    String is_same_name = "0", name_tmp = "", companyName = "";
 
     List<Object> listBank = new ArrayList<>(); List<Object> listBankID = new ArrayList<>();
 
@@ -69,11 +71,24 @@ public class CompanyBankFragment extends Fragment {
         dialog = GlobalVariables.loadingDialog(requireActivity());
 
         gv.stInsDocument = false;
-
+        cb_owner_name_same_as_name_company = view.findViewById(R.id.cb_name_same_as_name_narahubung_fr_com_bank);
         auto_bank = view.findViewById(R.id.auto_bank_name_fr_com_bank);
         txtBank = view.findViewById(R.id.edit_bank_name_fr_com_bank);
         txtAccountName = view.findViewById(R.id.edit_bank_owner_name_fr_com_bank);
         txtAccountNumber = view.findViewById(R.id.edit_bank_account_number_fr_com_bank);
+
+        cb_owner_name_same_as_name_company.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    txtAccountName.getEditText().setText(gv.insRegData.get("nama_perusahaan"));
+                    is_same_name = "1";
+                }else{
+//                    txtAccountName.getEditText().setText(name_tmp);
+                    is_same_name = "0";
+                }
+            }
+        });
 
         btn_next = view.findViewById(R.id.btn_next_fr_com_bank);
         btn_next.setEnabled(true);
@@ -96,6 +111,7 @@ public class CompanyBankFragment extends Fragment {
             gv.insRegData.put("bank", bank);
             gv.insRegData.put("bank_account", accountName);
             gv.insRegData.put("bank_account_no", accountNumber);
+            gv.insRegData.put("sesuai_nama", is_same_name);
             setNoError();
             Navigation.findNavController(v).navigate(R.id.action_companyBankFragment_to_companyDocumentsFragment);
         }else{

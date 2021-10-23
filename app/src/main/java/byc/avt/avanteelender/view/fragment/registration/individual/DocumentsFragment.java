@@ -521,6 +521,9 @@ public class DocumentsFragment extends Fragment {
             }else if(ktp.length() == 16){
                 edit_ktp.setError(null);
                 ktpisvalid = true;
+            }else{
+                edit_ktp.setError(getString(R.string.max_digit_ktp));
+                ktpisvalid = false;
             }
         }
     }
@@ -758,7 +761,7 @@ public class DocumentsFragment extends Fragment {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_npwp = bitmap;
                         decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_npwp.setImageBitmap(decoded_npwp);
+                        imgr_npwp.setImageBitmap(bitmap_npwp);
                         npwp_byte = bytes.toByteArray();
                         str_npwp = f.getStringImage(decoded_npwp);
                         txt_npwp.setText(filePath.getLastPathSegment());
@@ -767,7 +770,7 @@ public class DocumentsFragment extends Fragment {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_selfie.setImageBitmap(decoded_selfie);
+                        imgr_selfie.setImageBitmap(bitmap_selfie);
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment());
@@ -776,7 +779,7 @@ public class DocumentsFragment extends Fragment {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_ttd = bitmap;
                         decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_ttd.setImageBitmap(decoded_ttd);
+                        imgr_ttd.setImageBitmap(bitmap_ttd);
                         ttd_byte = bytes.toByteArray();
                         str_ttd = f.getStringImage(decoded_ttd);
                         txt_ttd.setText(filePath.getLastPathSegment());
@@ -826,7 +829,7 @@ public class DocumentsFragment extends Fragment {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_npwp = bitmap;
                             decoded_npwp = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_npwp.setImageBitmap(decoded_npwp);
+                            imgr_npwp.setImageBitmap(bitmap_npwp);
                             npwp_byte = bytes.toByteArray();
                             str_npwp = f.getStringImage(decoded_npwp);
                             txt_npwp.setText(filePath.getLastPathSegment());
@@ -836,7 +839,7 @@ public class DocumentsFragment extends Fragment {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_selfie.setImageBitmap(decoded_selfie);
+                            imgr_selfie.setImageBitmap(bitmap_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
@@ -846,7 +849,7 @@ public class DocumentsFragment extends Fragment {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_ttd = bitmap;
                             decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_ttd.setImageBitmap(decoded_ttd);
+                            imgr_ttd.setImageBitmap(bitmap_ttd);
                             ttd_byte = bytes.toByteArray();
                             str_ttd = f.getStringImage(decoded_ttd);
                             txt_ttd.setText(filePath.getLastPathSegment());
@@ -884,9 +887,9 @@ public class DocumentsFragment extends Fragment {
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
             if(PIC_CROP == CROP_SELFIE){
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
                 cropIntent.putExtra("outputY", 400);
             }else{
                 cropIntent.putExtra("aspectX", 4);
