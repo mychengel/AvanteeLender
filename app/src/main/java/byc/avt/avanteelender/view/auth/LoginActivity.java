@@ -20,10 +20,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
@@ -34,6 +36,7 @@ import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.UserData;
 import byc.avt.avanteelender.view.MainActivity;
+import byc.avt.avanteelender.view.features.account.institution.InsCompanyShowActivity;
 import byc.avt.avanteelender.view.features.penarikan.PenarikanDanaActivity;
 import byc.avt.avanteelender.view.misc.OTPActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
@@ -113,6 +116,26 @@ public class LoginActivity extends AppCompatActivity {
                 confirmLogin();
             }
         });
+
+    }
+
+    int choosenYear;
+    private void chooseYearOnly() {
+        final Calendar today = Calendar.getInstance();
+        choosenYear = today.get(Calendar.YEAR);
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(LoginActivity.this, new MonthPickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(int selectedMonth, int selectedYear) {
+                editEmail.getEditText().setText(Integer.toString(selectedYear));
+                choosenYear = selectedYear;
+                //yearEst = ""+choosenYear;
+            }
+        }, choosenYear, 0);
+
+        builder.showYearOnly()
+                .setYearRange(1960, today.get(Calendar.YEAR))
+                .build()
+                .show();
     }
 
     public void confirmLogin() {

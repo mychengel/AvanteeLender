@@ -140,6 +140,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_business_field_ins_company_show">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_year_est_ins_company_show"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:background="@color/lightest_neutral"

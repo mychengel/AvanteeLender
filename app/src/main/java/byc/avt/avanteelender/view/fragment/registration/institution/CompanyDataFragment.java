@@ -22,16 +22,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +42,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.view.features.account.institution.InsCompanyShowActivity;
 import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
@@ -57,13 +61,14 @@ public class CompanyDataFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
+    EditText txtYearEst;
 
     Button btn_next;
     private RadioGroup radGroupIsOnlineBased;
     private RadioButton radButtonIsOnlineBased;
     AutoCompleteTextView auto_company_type, auto_business_field, auto_income,
             auto_funds_source;
-    TextInputLayout txtCompanyName, txtCompanyType, txtBusinessField, txtYearEst, txtIncome,
+    TextInputLayout txtCompanyName, txtCompanyType, txtBusinessField, txtIncome,
             txtFundsSource, txtCompanyPhone, txtCompanyFax, txtCompanyDesc;
     String companyName="", companyType="", businessField="", yearEst="", isOnlineBased="ya", income="",
             fundsSource="", companyPhone="", companyFax="", companyDesc="";
@@ -90,7 +95,7 @@ public class CompanyDataFragment extends Fragment {
         txtCompanyName = view.findViewById(R.id.edit_company_name_fr_com_data);
         txtCompanyType = view.findViewById(R.id.edit_company_type_fr_com_data);
         txtBusinessField = view.findViewById(R.id.edit_business_field_fr_com_data);
-        txtYearEst = view.findViewById(R.id.edit_year_of_establishment_fr_com_data);
+        txtYearEst = view.findViewById(R.id.edit_year_est_fr_com_data);
         txtIncome = view.findViewById(R.id.edit_company_income_fr_com_data);
         txtFundsSource = view.findViewById(R.id.edit_funds_source_fr_com_data);
         txtCompanyPhone = view.findViewById(R.id.edit_company_phone_fr_com_data);
@@ -125,6 +130,14 @@ public class CompanyDataFragment extends Fragment {
             }
         });
 
+        txtYearEst.setFocusable(false);
+        txtYearEst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseYearOnly();
+            }
+        });
+
         btn_next = view.findViewById(R.id.btn_next_fr_com_data);
         btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +155,28 @@ public class CompanyDataFragment extends Fragment {
         loadData();
     }
 
+    int choosenYear;
+
+    private void chooseYearOnly() {
+        final Calendar today = Calendar.getInstance();
+        choosenYear = today.get(Calendar.YEAR);
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getActivity(), new MonthPickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(int selectedMonth, int selectedYear) {
+                txtYearEst.setText(Integer.toString(selectedYear));
+                choosenYear = selectedYear;
+                yearEst = ""+choosenYear;
+            }
+        }, choosenYear, 0);
+
+        builder.showYearOnly()
+                .setYearRange(1960, today.get(Calendar.YEAR))
+                .build()
+                .show();
+    }
+
+
+
     boolean phoneisvalid = false;
     public void cekPhone(String phone){
         if(phone.length() > 15){
@@ -156,7 +191,7 @@ public class CompanyDataFragment extends Fragment {
 
     private void confirmNext(View v){
         companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
-        yearEst = Objects.requireNonNull(txtYearEst.getEditText().getText().toString().trim());
+        //yearEst = Objects.requireNonNull(txtYearEst.getText().toString().trim());
         companyPhone = Objects.requireNonNull(txtCompanyPhone.getEditText().getText().toString().trim());
         companyFax = Objects.requireNonNull(txtCompanyFax.getEditText().getText().toString().trim());
         companyDesc = Objects.requireNonNull(txtCompanyDesc.getEditText().getText().toString().trim());
@@ -205,7 +240,7 @@ public class CompanyDataFragment extends Fragment {
             txtCompanyName.getEditText().setText(companyName);
             txtCompanyType.getEditText().setText(companyType);
             txtBusinessField.getEditText().setText(businessField);
-            txtYearEst.getEditText().setText(yearEst);
+            txtYearEst.setText(yearEst);
             txtIncome.getEditText().setText(income);
             txtFundsSource.getEditText().setText(fundsSource);
             txtCompanyPhone.getEditText().setText(companyPhone);

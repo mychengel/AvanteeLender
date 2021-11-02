@@ -258,7 +258,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
+        if(domicilePostalCode.length() <= 5 && ktpPostalCode.length() <= 5 && !ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
                 && !ktpDistrict.isEmpty() && !ktpUrban.isEmpty() && !ktpPostalCode.isEmpty() && ktpPostalCode.length() <= 5 && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
                 && !domicileDistrict.isEmpty() && !domicileUrban.isEmpty() && !domicilePostalCode.isEmpty() && domicilePostalCode.length() <= 5){

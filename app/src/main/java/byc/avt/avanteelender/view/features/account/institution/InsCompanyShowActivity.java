@@ -20,16 +20,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,13 +57,14 @@ public class InsCompanyShowActivity extends AppCompatActivity {
     private PrefManager prefManager;
     private Dialog dialog;
     GlobalVariables gv;
+    EditText txtYearEst;
 
     private RadioButton radYa, radNo;
     private RadioGroup radGroupIsOnlineBased;
     private RadioButton radButtonIsOnlineBased;
     AutoCompleteTextView auto_company_type, auto_business_field, auto_income,
             auto_funds_source;
-    TextInputLayout txtCompanyName, txtCompanyType, txtBusinessField, txtYearEst, txtIncome,
+    TextInputLayout txtCompanyName, txtCompanyType, txtBusinessField, txtIncome,
             txtFundsSource, txtCompanyPhone, txtCompanyFax, txtCompanyDesc;
     String companyName="", companyType="", businessField="", yearEst="", isOnlineBased="ya", income="",
             fundsSource="", companyPhone="", companyFax="", companyDesc="";
@@ -85,6 +90,7 @@ public class InsCompanyShowActivity extends AppCompatActivity {
         prefManager = PrefManager.getInstance(InsCompanyShowActivity.this);
         dialog = GlobalVariables.loadingDialog(InsCompanyShowActivity.this);
 
+
         auto_company_type = findViewById(R.id.auto_company_type_ins_company_show);
         auto_business_field = findViewById(R.id.auto_business_field_ins_company_show);
         auto_income = findViewById(R.id.auto_company_income_ins_company_show);
@@ -93,7 +99,7 @@ public class InsCompanyShowActivity extends AppCompatActivity {
         txtCompanyName = findViewById(R.id.edit_company_name_ins_company_show);
         txtCompanyType = findViewById(R.id.edit_company_type_ins_company_show);
         txtBusinessField = findViewById(R.id.edit_business_field_ins_company_show);
-        txtYearEst = findViewById(R.id.edit_year_of_establishment_ins_company_show);
+        txtYearEst = findViewById(R.id.edit_year_est_ins_company_show);
         txtIncome = findViewById(R.id.edit_company_income_ins_company_show);
         txtFundsSource = findViewById(R.id.edit_funds_source_ins_company_show);
         txtCompanyPhone = findViewById(R.id.edit_company_phone_ins_company_show);
@@ -123,7 +129,7 @@ public class InsCompanyShowActivity extends AppCompatActivity {
             companyName = job.getString("nama_perusahaan");
             txtCompanyType.getEditText().setText(job.getString("tipe_perusahaan"));
             txtBusinessField.getEditText().setText(job.getString("bidang_usaha"));
-            txtYearEst.getEditText().setText(job.getString("tahun_pendirian"));
+            txtYearEst.setText(job.getString("tahun_pendirian"));
             yearEst = job.getString("tahun_pendirian");
             txtIncome.getEditText().setText(job.getString("pendapatan").replace("&gt;", ">"));
             txtFundsSource.getEditText().setText(job.getString("sumber_dana"));
@@ -143,6 +149,14 @@ public class InsCompanyShowActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        txtYearEst.setFocusable(false);
+        txtYearEst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseYearOnly();
+            }
+        });
 
         btn_save = findViewById(R.id.btn_save_ins_company_show);
         btn_save.setEnabled(true);
@@ -167,9 +181,31 @@ public class InsCompanyShowActivity extends AppCompatActivity {
         loadData();
     }
 
+    int choosenYear;
+
+    private void chooseYearOnly() {
+        final Calendar today = Calendar.getInstance();
+        choosenYear = today.get(Calendar.YEAR);
+        MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(InsCompanyShowActivity.this, new MonthPickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(int selectedMonth, int selectedYear) {
+                txtYearEst.setText(Integer.toString(selectedYear));
+                choosenYear = selectedYear;
+                yearEst = ""+choosenYear;
+            }
+        }, choosenYear, 0);
+
+        builder.showYearOnly()
+                .setYearRange(1960, today.get(Calendar.YEAR))
+                .build()
+                .show();
+    }
+
+
     private void confirmNext(View v){
+        new Fungsi(InsCompanyShowActivity.this).showMessage(yearEst);
         companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
-        yearEst = Objects.requireNonNull(txtYearEst.getEditText().getText().toString().trim());
+        //yearEst = Objects.requireNonNull(txtYearEst.getText().toString().trim());
         companyPhone = Objects.requireNonNull(txtCompanyPhone.getEditText().getText().toString().trim());
         companyFax = Objects.requireNonNull(txtCompanyFax.getEditText().getText().toString().trim());
         companyDesc = Objects.requireNonNull(txtCompanyDesc.getEditText().getText().toString().trim());

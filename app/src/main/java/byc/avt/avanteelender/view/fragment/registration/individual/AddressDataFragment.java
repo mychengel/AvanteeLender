@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -159,6 +161,34 @@ public class AddressDataFragment extends Fragment {
             }
         });
 
+        txtKtpPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ktpPostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        txtDomicilePostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                domicilePostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         btn_next = view.findViewById(R.id.btn_next_fr_address_data);
         btn_next.setEnabled(true);
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +200,11 @@ public class AddressDataFragment extends Fragment {
         });
 
         loadData();
+    }
+
+    public void cekPostal(){
+        if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
+        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
     }
 
     public void clearMasterList(){
@@ -247,7 +282,7 @@ public class AddressDataFragment extends Fragment {
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
+        if(domicilePostalCode.length() <= 5 && ktpPostalCode.length() <= 5 &&!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
                 && !ktpDistrict.isEmpty() && !ktpUrban.isEmpty() && !ktpRT.isEmpty()
                 && !ktpRW.isEmpty() && !ktpPostalCode.isEmpty() && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()

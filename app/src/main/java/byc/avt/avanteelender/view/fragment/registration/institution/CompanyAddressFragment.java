@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,6 +138,33 @@ public class CompanyAddressFragment extends Fragment {
         });
 
 
+        txtKtpPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                aktaPostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        txtDomicilePostalCode.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                domicilePostalCode = charSequence.toString();
+                cekPostal();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         btn_next = view.findViewById(R.id.btn_next_fr_com_address);
         btn_next.setEnabled(true);
@@ -148,6 +177,11 @@ public class CompanyAddressFragment extends Fragment {
         });
 
         loadData();
+    }
+
+    public void cekPostal(){
+        if(aktaPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
+        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
     }
 
 
@@ -226,7 +260,7 @@ public class CompanyAddressFragment extends Fragment {
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(!aktaAddress.isEmpty() && !aktaCountry.isEmpty() && !aktaProvince.isEmpty() && !aktaCity.isEmpty()
+        if(domicilePostalCode.length() <= 5 && aktaPostalCode.length() <= 5 && !aktaAddress.isEmpty() && !aktaCountry.isEmpty() && !aktaProvince.isEmpty() && !aktaCity.isEmpty()
                 && !aktaDistrict.isEmpty() && !aktaUrban.isEmpty() && !aktaPostalCode.isEmpty() && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
                 && !domicileDistrict.isEmpty() && !domicileUrban.isEmpty() && !domicilePostalCode.isEmpty()){
