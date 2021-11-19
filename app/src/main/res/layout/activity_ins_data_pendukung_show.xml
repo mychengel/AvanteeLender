@@ -66,55 +66,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_ktp_number_ins_data_pendukung_show"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/lbl_ktp_ins_data_pendukung_show"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                app:errorEnabled="true"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:text="@string/ktp_photo"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_narahubung_ins_data_pendukung_show">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@color/lightest_neutral"
-                    android:hint="@string/KTP_number"
-                    android:inputType="text|number"
-                    android:maxLength="16"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <TextView-->
-<!--                android:id="@+id/lbl_no_ktp_ins_data_pendukung_show"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:fontFamily="@font/ibm_plex_sans_medium"-->
-<!--                android:text="@string/KTP_number"-->
-<!--                android:textAllCaps="true"-->
-<!--                android:textColor="@color/colorPrimary"-->
-<!--                android:textSize="12sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/txt_no_ktp_ins_data_pendukung_show"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:text="@string/txtnull"-->
-<!--                android:textSize="15sp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/lbl_no_ktp_ins_data_pendukung_show" />-->
+                app:layout_constraintTop_toBottomOf="@+id/lbl_narahubung_ins_data_pendukung_show" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_img_ktp_ins_data_pendukung_show"
@@ -128,7 +94,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_ktp_number_ins_data_pendukung_show">
+                app:layout_constraintTop_toBottomOf="@+id/lbl_ktp_ins_data_pendukung_show">
 
                 <Button
                     android:id="@+id/btn_ktp_ins_data_pendukung_show"
@@ -385,17 +351,17 @@
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_white"
+                android:background="@drawable/button_white_state_selector"
                 android:letterSpacing="0.01"
                 android:text="@string/ubah"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_save_ins_data_pendukung_show"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_save_ins_data_pendukung_show"
-                app:layout_constraintTop_toTopOf="@+id/btn_save_ins_data_pendukung_show"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_save_ins_data_pendukung_show"/>
+                app:layout_constraintTop_toTopOf="@+id/btn_save_ins_data_pendukung_show" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

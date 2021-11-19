@@ -107,10 +107,13 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
                         Log.e("Hasil Date:",selection.toString());
-                        dateStart = sdf.format(selection);
-                        date_start.setText(sdf2.format(selection));
+                        dateStart = sdf.format((Long)selection + 25200000);
+                        date_start.setText(sdf2.format((Long)selection + 25200000));
                         selStart = (Long) selection;
                         constraintBuilderEnd.setValidator(DateValidatorPointForward.from((Long) selection));
+                        if(selStart > selNow){
+                            new Fungsi(getActivity()).showMessage(getString(R.string.validate_sel_now));
+                        }
                         //constraintBuilderEnd.setValidator(DateValidatorPointBackward.now());
                     }
                 });
@@ -134,10 +137,13 @@ public class HisTransFilterSheetFragment extends BottomSheetDialogFragment {
                 picker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {
-                        dateEnd = sdf.format(selection);
-                        date_end.setText(sdf2.format(selection));
+                        dateEnd = sdf.format((Long)selection + 25200000);
+                        date_end.setText(sdf2.format((Long)selection + 25200000));
                         selEnd = (Long) selection;
                         constraintBuilderStart.setValidator(DateValidatorPointBackward.before((Long) selection));
+                        if(selEnd > selNow){
+                            new Fungsi(getActivity()).showMessage(getString(R.string.validate_sel_now));
+                        }
                         //constraintBuilderStart.setValidator(DateValidatorPointForward.from((Long) selection));
                     }
                 });

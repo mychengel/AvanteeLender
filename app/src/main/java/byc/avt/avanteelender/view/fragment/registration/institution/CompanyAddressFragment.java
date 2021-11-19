@@ -61,13 +61,13 @@ public class CompanyAddressFragment extends Fragment {
     AutoCompleteTextView auto_aktaCountry, auto_aktaProvince, auto_aktaCity, auto_aktaDistrict, auto_aktaUrban, auto_domicileCountry,
             auto_domicileProvince, auto_domicileCity, auto_domicileDistrict, auto_domicileUrban;
     TextInputLayout txtKtpAddress, txtKtpCountry, txtKtpProvince, txtKtpCity,
-            txtKtpDistrict, txtKtpUrban, txtKtpRT, txtKtpRW, txtKtpPostalCode;
+            txtKtpDistrict, txtKtpUrban, txtKtpPostalCode;
     TextInputLayout txtDomicileAddress, txtDomicileCountry, txtDomicileProvince, txtDomicileCity,
-            txtDomicileDistrict, txtDomicileUrban, txtDomicileRT, txtDomicileRW, txtDomicilePostalCode;
+            txtDomicileDistrict, txtDomicileUrban, txtDomicilePostalCode;
     String aktaAddress="", aktaCountry="", aktaProvince="", aktaCity="", aktaDistrict="", aktaUrban="",
-            aktaRT="", aktaRW="", aktaPostalCode="";
+            aktaPostalCode="";
     String domicileAddress="", domicileCountry="", domicileProvince="", domicileCity="", domicileDistrict="",
-            domicileUrban="", domicileRT="", domicileRW="", domicilePostalCode="";
+            domicileUrban="", domicilePostalCode="";
     boolean is_domicile_same_as_akta = false;
 
     List<Object> listCountryAkta = new ArrayList<>(); List<Object> listCountryIDAkta = new ArrayList<>();
@@ -110,8 +110,6 @@ public class CompanyAddressFragment extends Fragment {
         txtKtpCity = view.findViewById(R.id.edit_akta_city_fr_com_address);
         txtKtpDistrict = view.findViewById(R.id.edit_akta_kecamatan_fr_com_address);
         txtKtpUrban = view.findViewById(R.id.edit_akta_kelurahan_fr_com_address);
-//        txtKtpRT = view.findViewById(R.id.edit_akta_rt_fr_com_address);
-//        txtKtpRW = view.findViewById(R.id.edit_akta_rw_fr_com_address);
         txtKtpPostalCode = view.findViewById(R.id.edit_akta_kodepos_fr_com_address);
         txtDomicileAddress = view.findViewById(R.id.edit_operasional_address_fr_com_address);
         txtDomicileCountry = view.findViewById(R.id.edit_operasional_country_fr_com_address);
@@ -119,8 +117,6 @@ public class CompanyAddressFragment extends Fragment {
         txtDomicileCity = view.findViewById(R.id.edit_operasional_city_fr_com_address);
         txtDomicileDistrict = view.findViewById(R.id.edit_operasional_kecamatan_fr_com_address);
         txtDomicileUrban = view.findViewById(R.id.edit_operasional_kelurahan_fr_com_address);
-//        txtDomicileRT = view.findViewById(R.id.edit_operasional_rt_fr_com_address);
-//        txtDomicileRW = view.findViewById(R.id.edit_operasional_rw_fr_com_address);
         txtDomicilePostalCode = view.findViewById(R.id.edit_operasional_kodepos_fr_com_address);
         lin_domicile_area = view.findViewById(R.id.lin_operasional_fr_com_address);
         cb_domicile_same_as_akta = view.findViewById(R.id.cb_operasional_same_as_akta_fr_com_address);
@@ -130,6 +126,20 @@ public class CompanyAddressFragment extends Fragment {
                 if(b){
                     is_domicile_same_as_akta = true;
                     lin_domicile_area.setVisibility(View.GONE);
+                    txtDomicileAddress.getEditText().setText(txtKtpAddress.getEditText().getText());
+                    txtDomicileCountry.getEditText().setText(txtKtpCountry.getEditText().getText());
+                    txtDomicileProvince.getEditText().setText(txtKtpProvince.getEditText().getText());
+                    txtDomicileCity.getEditText().setText(txtKtpCity.getEditText().getText());
+                    txtDomicileDistrict.getEditText().setText(txtKtpDistrict.getEditText().getText());
+                    txtDomicileUrban.getEditText().setText(txtKtpUrban.getEditText().getText());
+                    txtDomicilePostalCode.getEditText().setText(txtKtpPostalCode.getEditText().getText());
+                    domicileAddress = aktaAddress;
+                    domicileCountry = aktaCountry;
+                    domicileProvince = aktaProvince;
+                    domicileCity = aktaCity;
+                    domicileDistrict = aktaDistrict;
+                    domicileUrban = aktaUrban;
+                    domicilePostalCode = aktaPostalCode;
                 }else{
                     is_domicile_same_as_akta = false;
                     lin_domicile_area.setVisibility(View.VISIBLE);
@@ -180,8 +190,17 @@ public class CompanyAddressFragment extends Fragment {
     }
 
     public void cekPostal(){
-        if(aktaPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
-        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
+        if(aktaPostalCode.isEmpty()){
+            txtKtpPostalCode.setError(getString(R.string.cannotnull));
+        }else if(aktaPostalCode.length() < 5){
+            txtKtpPostalCode.setError(getString(R.string.postal_code_min_char));
+        }else{txtKtpPostalCode.setError(null);}
+
+        if(domicilePostalCode.isEmpty()){
+            txtDomicilePostalCode.setError(getString(R.string.cannotnull));
+        }else if(domicilePostalCode.length() < 5){
+            txtDomicilePostalCode.setError(getString(R.string.postal_code_min_char));
+        }else{txtDomicilePostalCode.setError(null);}
     }
 
 
@@ -207,10 +226,6 @@ public class CompanyAddressFragment extends Fragment {
             txtKtpDistrict.getEditText().setText(aktaDistrict);
             aktaUrban = gv.insRegData.get("kelurahan_akta").toString();
             txtKtpUrban.getEditText().setText(aktaUrban);
-//            aktaRT = gv.insRegData.get("rt_akta").toString();
-//            txtKtpRT.getEditText().setText(aktaRT);
-//            aktaRW = gv.insRegData.get("rw_akta").toString();
-//            txtKtpRW.getEditText().setText(aktaRW);
             aktaPostalCode = gv.insRegData.get("kode_pos_akta").toString();
             txtKtpPostalCode.getEditText().setText(aktaPostalCode);
             domicileAddress = gv.insRegData.get("alamat_operasional").toString();
@@ -222,10 +237,6 @@ public class CompanyAddressFragment extends Fragment {
             txtDomicileDistrict.getEditText().setText(domicileDistrict);
             domicileUrban = gv.insRegData.get("kelurahan_operasional").toString();
             txtDomicileUrban.getEditText().setText(domicileUrban);
-//            domicileRT = gv.insRegData.get("rt_operasional").toString();
-//            txtDomicileRT.getEditText().setText(domicileRT);
-//            domicileRW = gv.insRegData.get("rw_operasional").toString();
-//            txtDomicileRW.getEditText().setText(domicileRW);
             domicilePostalCode = gv.insRegData.get("kode_pos_operasional").toString();
             txtDomicilePostalCode.getEditText().setText(domicilePostalCode);
         }else{}
@@ -239,8 +250,6 @@ public class CompanyAddressFragment extends Fragment {
 
     private void confirmNext(View v){
         aktaAddress = Objects.requireNonNull(txtKtpAddress.getEditText().getText().toString().trim());
-//        aktaRT = Objects.requireNonNull(txtKtpRT.getEditText().getText().toString().trim());
-//        aktaRW = Objects.requireNonNull(txtKtpRW.getEditText().getText().toString().trim());
         aktaPostalCode = Objects.requireNonNull(txtKtpPostalCode.getEditText().getText().toString().trim());
 
         if(is_domicile_same_as_akta){
@@ -250,17 +259,13 @@ public class CompanyAddressFragment extends Fragment {
             domicileCity = aktaCity;
             domicileDistrict = aktaDistrict;
             domicileUrban = aktaUrban;
-//            domicileRT = aktaRT;
-//            domicileRW = aktaRW;
             domicilePostalCode = aktaPostalCode;
         }else{
             domicileAddress = Objects.requireNonNull(txtDomicileAddress.getEditText().getText().toString().trim());
-//            domicileRT = Objects.requireNonNull(txtDomicileRT.getEditText().getText().toString().trim());
-//            domicileRW = Objects.requireNonNull(txtDomicileRW.getEditText().getText().toString().trim());
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(domicilePostalCode.length() <= 5 && aktaPostalCode.length() <= 5 && !aktaAddress.isEmpty() && !aktaCountry.isEmpty() && !aktaProvince.isEmpty() && !aktaCity.isEmpty()
+        if(domicilePostalCode.length() == 5 && aktaPostalCode.length() == 5 && !aktaAddress.isEmpty() && !aktaCountry.isEmpty() && !aktaProvince.isEmpty() && !aktaCity.isEmpty()
                 && !aktaDistrict.isEmpty() && !aktaUrban.isEmpty() && !aktaPostalCode.isEmpty() && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
                 && !domicileDistrict.isEmpty() && !domicileUrban.isEmpty() && !domicilePostalCode.isEmpty()){
@@ -271,8 +276,6 @@ public class CompanyAddressFragment extends Fragment {
             gv.insRegData.put("kota_akta",aktaCity);
             gv.insRegData.put("kecamatan_akta",aktaDistrict);
             gv.insRegData.put("kelurahan_akta",aktaUrban);
-//            gv.insRegData.put("rt_akta",aktaRT);
-//            gv.insRegData.put("rw_akta",aktaRW);
             gv.insRegData.put("kode_pos_akta",aktaPostalCode);
             gv.insRegData.put("alamat_operasional",domicileAddress);
             gv.insRegData.put("negara_operasional",domicileCountry);
@@ -280,8 +283,6 @@ public class CompanyAddressFragment extends Fragment {
             gv.insRegData.put("kota_operasional",domicileCity);
             gv.insRegData.put("kecamatan_operasional",domicileDistrict);
             gv.insRegData.put("kelurahan_operasional",domicileUrban);
-//            gv.insRegData.put("rt_operasional",domicileRT);
-//            gv.insRegData.put("rw_operasional",domicileRW);
             gv.insRegData.put("kode_pos_operasional",domicilePostalCode);
             setNoError();
             Navigation.findNavController(v).navigate(R.id.action_companyAddressFragment_to_companyBankFragment);
@@ -297,8 +298,6 @@ public class CompanyAddressFragment extends Fragment {
         txtKtpCity.setError(null);
         txtKtpDistrict.setError(null);
         txtKtpUrban.setError(null);
-//        txtKtpRT.setError(null);
-//        txtKtpRW.setError(null);
         txtKtpPostalCode.setError(null);
         txtDomicileAddress.setError(null);
         txtDomicileCountry.setError(null);
@@ -306,8 +305,6 @@ public class CompanyAddressFragment extends Fragment {
         txtDomicileCity.setError(null);
         txtDomicileDistrict.setError(null);
         txtDomicileUrban.setError(null);
-//        txtDomicileRT.setError(null);
-//        txtDomicileRW.setError(null);
         txtDomicilePostalCode.setError(null);
     }
 
@@ -318,18 +315,13 @@ public class CompanyAddressFragment extends Fragment {
         if(aktaCity.isEmpty()){txtKtpCity.setError(getString(R.string.cannotnull));}else{txtKtpCity.setError(null);}
         if(aktaDistrict.isEmpty()){txtKtpDistrict.setError(getString(R.string.cannotnull));}else{txtKtpDistrict.setError(null);}
         if(aktaUrban.isEmpty()){txtKtpUrban.setError(getString(R.string.cannotnull));}else{txtKtpUrban.setError(null);}
-//        if(aktaRT.isEmpty()){txtKtpRT.setError(getString(R.string.cannotnull));}else{txtKtpRT.setError(null);}
-//        if(aktaRW.isEmpty()){txtKtpRW.setError(getString(R.string.cannotnull));}else{txtKtpRW.setError(null);}
-        if(aktaPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}else{txtKtpPostalCode.setError(null);}
         if(domicileAddress.isEmpty()){txtDomicileAddress.setError(getString(R.string.cannotnull));}else{txtDomicileAddress.setError(null);}
         if(domicileCountry.isEmpty()){txtDomicileCountry.setError(getString(R.string.cannotnull));}else{txtDomicileCountry.setError(null);}
         if(domicileProvince.isEmpty()){txtDomicileProvince.setError(getString(R.string.cannotnull));}else{txtDomicileProvince.setError(null);}
         if(domicileCity.isEmpty()){txtDomicileCity.setError(getString(R.string.cannotnull));}else{txtDomicileCity.setError(null);}
         if(domicileDistrict.isEmpty()){txtDomicileDistrict.setError(getString(R.string.cannotnull));}else{txtDomicileDistrict.setError(null);}
         if(domicileUrban.isEmpty()){txtDomicileUrban.setError(getString(R.string.cannotnull));}else{txtDomicileUrban.setError(null);}
-//        if(domicileRT.isEmpty()){txtDomicileRT.setError(getString(R.string.cannotnull));}else{txtDomicileRT.setError(null);}
-//        if(domicileRW.isEmpty()){txtDomicileRW.setError(getString(R.string.cannotnull));}else{txtDomicileRW.setError(null);}
-        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}else{txtDomicilePostalCode.setError(null);}
+        cekPostal();
     }
 
     private Observer<JSONObject> showCountryAkta = new Observer<JSONObject>() {

@@ -484,7 +484,11 @@
     <string name="min_withdrawal">Dana minimum penarikan adalah Rp20.000.</string>
     <string name="privy_doc_undefined">Terdapat kesalahan pada sistem penandatanganan dokumen digital, silahkan hubungi tim support kami untuk informasi lebih lanjut.</string>
     <string name="ubah">Ubah</string>
+    <string name="otp_cannot_null">Kode Verifikasi tidak boleh kosong!</string>
+    <string name="otp_min_six_char">Kode Verifikasi minimal 6 karakter!</string>
+    <string name="login_to_otp">Silahkan login kembali untuk melakukan verifikasi OTP.</string>
     <string name="postal_code_max_char">Kode pos maksimum 5 digit</string>
+    <string name="postal_code_min_char">Kode pos minimum 5 digit</string>
     <string name="req_ava">Pengambilan foto disarankan menggunakan rasio layar 1:1 (persegi) dengan orientasi kamera landscape maupun portrait.</string>
     <string name="req_doc">Pengambilan foto disarankan menggunakan rasio layar 4:3 (persegi panjang) dengan orientasi kamera landscape.</string>
     <string name="nav_penawaran">Penawaran</string>
@@ -520,5 +524,6 @@
     <string name="validate_sel_now">Rentang waktu yang dipilih tidak boleh melebihi hari ini.</string>
     <string name="jabatan_pekerjaan_anda">Jabatan Pekerjaan Anda</string>
     <string name="lets_get_know_eo">Hi, Selamat datang di Avantee. \nBantu kami untuk mengenal Anda lebih baik sebagai seorang pemberi dana. \nMohon untuk memperbaharui data Anda.</string>
+    <string name="ktp_photo">FOTO KTP</string>
 
 </resources>

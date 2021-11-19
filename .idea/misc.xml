@@ -5,14 +5,18 @@
       <map>
         <entry key="app/src/main/res/drawable/button_disabled.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_green.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_grey.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_state_selector.xml" value="0.16041666666666668" />
-        <entry key="app/src/main/res/layout/activity_address_data_show.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/button_white_state_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_address_data_show.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_bank_info_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_daftar.xml" value="0.14493243243243242" />
         <entry key="app/src/main/res/layout/activity_data_pendukung_show.xml" value="0.16655405405405405" />
         <entry key="app/src/main/res/layout/activity_in_verification_process.xml" value="0.13851351351351351" />
+        <entry key="app/src/main/res/layout/activity_ins_address_data.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/activity_ins_bank_info_show.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_ins_company_show.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_ins_data_pendukung_show.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_ins_data_pendukung_show.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_ins_narahubung_show.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16587837837837838" />
         <entry key="app/src/main/res/layout/activity_masuk.xml" value="0.21" />
@@ -26,9 +30,11 @@
         <entry key="app/src/main/res/layout/activity_rejection_process.xml" value="0.17" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.13851351351351351" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.16452702702702704" />
+        <entry key="app/src/main/res/layout/activity_work_info_show.xml" value="0.16587837837837838" />
         <entry key="app/src/main/res/layout/dialog_pra_foto_ktp.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_pra_foto_npwp.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_pra_foto_swafoto.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_address_data.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_bank_info.xml" value="0.16655405405405405" />
         <entry key="app/src/main/res/layout/fragment_company_address.xml" value="0.16655405405405405" />
         <entry key="app/src/main/res/layout/fragment_company_bank.xml" value="0.25" />

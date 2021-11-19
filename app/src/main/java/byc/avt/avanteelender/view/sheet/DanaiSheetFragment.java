@@ -402,7 +402,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
                                         .show();
                             }
                         }else{
-                            if(minInvest == nominal || maxInvest == nominal){
+                            if(minInvest == nominal){
                                 new AlertDialog.Builder(getActivity())
                                         .setTitle("Konfirmasi")
                                         .setIcon(R.drawable.logo)

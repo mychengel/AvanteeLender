@@ -229,6 +229,7 @@
                     android:background="@color/lightest_neutral"
                     android:hint="@string/company_phone"
                     android:inputType="text|number"
+                    android:maxLength="15"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>

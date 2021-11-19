@@ -186,6 +186,7 @@ public class PersonalDataShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 

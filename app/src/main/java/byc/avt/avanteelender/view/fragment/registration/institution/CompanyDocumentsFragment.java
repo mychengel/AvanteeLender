@@ -361,7 +361,7 @@ public class CompanyDocumentsFragment extends Fragment {
                 dialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
-                String msg = getString(R.string.system_in_trouble);
+                String msg = getString(R.string.login_to_otp);
                 Log.e("Respon ins cr doc", msg);
                 new Fungsi(getActivity()).showMessage(msg);
                 dialog.cancel();

@@ -174,6 +174,7 @@ public class InsCompanyShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 
@@ -203,9 +204,7 @@ public class InsCompanyShowActivity extends AppCompatActivity {
 
 
     private void confirmNext(View v){
-        new Fungsi(InsCompanyShowActivity.this).showMessage(yearEst);
         companyName = Objects.requireNonNull(txtCompanyName.getEditText().getText().toString().trim());
-        //yearEst = Objects.requireNonNull(txtYearEst.getText().toString().trim());
         companyPhone = Objects.requireNonNull(txtCompanyPhone.getEditText().getText().toString().trim());
         companyFax = Objects.requireNonNull(txtCompanyFax.getEditText().getText().toString().trim());
         companyDesc = Objects.requireNonNull(txtCompanyDesc.getEditText().getText().toString().trim());

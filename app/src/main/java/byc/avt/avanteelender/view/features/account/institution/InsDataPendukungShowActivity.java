@@ -115,7 +115,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         dialog = GlobalVariables.loadingDialog(InsDataPendukungShowActivity.this);
         System.out.println();
 
-        edit_ktp = findViewById(R.id.edit_ktp_number_ins_data_pendukung_show);
         edit_npwp = findViewById(R.id.edit_npwp_number_ins_data_pendukung_show);
         cv_ktp = findViewById(R.id.cv_img_ktp_ins_data_pendukung_show);
         cv_npwp = findViewById(R.id.cv_img_npwp_ins_data_pendukung_show);
@@ -131,14 +130,12 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         try {
             job = new JSONObject(i.getStringExtra("jobDocument"));
             job2 = new JSONObject(i.getStringExtra("jobNarahubungData"));
-            edit_ktp.getEditText().setText(job2.getString("no_ktp"));
-            no_ktp = job2.getString("no_ktp");
-            cekKTP(no_ktp);
             edit_npwp.getEditText().setText(job.getString("no_npwp"));
             no_npwp = job.getString("no_npwp");
             cekNPWP(no_npwp);
 
             //variable that can't edited
+            no_ktp = job2.getString("no_ktp");
             name = job2.getString("nama");
             birthdate = job2.getString("tanggal_lahir");
             jabatan = job2.getString("jabatan");
@@ -250,21 +247,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             }
         });
 
-
-        edit_ktp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                no_ktp = edit_ktp.getEditText().getText().toString().trim();
-                cekKTP(no_ktp);
-            }
-        });
-
         edit_npwp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -316,6 +298,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 
@@ -333,7 +316,7 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
 
 
     private void confirmNext(View v){
-        if(ktpisvalid && npwpisvalid){
+        if(npwpisvalid){
             gv.insEditData.put("nama",name);
             gv.insEditData.put("tanggal_lahir",birthdate);
             gv.insEditData.put("jabatan",jabatan);
@@ -481,7 +464,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
     }
 
     public void editIsOn(boolean s){
-        edit_ktp.setEnabled(s);
         edit_npwp.setEnabled(s);
         img_ktp.setEnabled(s);
         img_npwp.setEnabled(s);

@@ -142,6 +142,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
             txtKtpRT.getEditText().setText(job1.getString("identity_rt"));
             txtKtpRW.getEditText().setText(job1.getString("identity_rw"));
             txtKtpPostalCode.getEditText().setText(job1.getString("identity_postal_code"));
+            ktpPostalCode = job1.getString("identity_postal_code");
 
             job2 = new JSONObject(i.getStringExtra("jobAddressDataDomicile"));
             txtDomicileAddress.getEditText().setText(job2.getString("clients_address"));
@@ -153,6 +154,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
             txtDomicileRT.getEditText().setText(job2.getString("rt"));
             txtDomicileRW.getEditText().setText(job2.getString("rw"));
             txtDomicilePostalCode.getEditText().setText(job2.getString("clients_postal_code"));
+            domicilePostalCode = job2.getString("clients_postal_code");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -218,6 +220,7 @@ public class AddressDataShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 

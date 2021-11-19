@@ -114,9 +114,7 @@ public class NarahubungFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ktpisvalid){
-                    confirmNext(v);
-                }
+                confirmNext(v);
 //                Navigation.findNavController(v).navigate(R.id.action_narahubungFragment_to_companyAddressFragment);
             }
         });
@@ -172,7 +170,7 @@ public class NarahubungFragment extends Fragment {
 
         emailIsValid = Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-        if(!name.isEmpty() && !birthdate.isEmpty() && !jabatan.isEmpty() && !phone.isEmpty() && !noKtp.isEmpty()
+        if(!name.isEmpty() && !birthdate.isEmpty() && !jabatan.isEmpty() && !phone.isEmpty() && ktpisvalid && !noKtp.isEmpty()
                 && !email.isEmpty() && emailIsValid){
             gv.stInsNarahubung = true;
             gv.insRegData.put("nama",name);
@@ -207,6 +205,10 @@ public class NarahubungFragment extends Fragment {
         }else if(!emailIsValid){
             txtEmail.setError(getString(R.string.email_not_valid));
         }else{txtEmail.setError(null);}
-        if(noKtp.isEmpty()){txtNoKtp.setError(getString(R.string.cannotnull));}else{txtNoKtp.setError(null);}
+        if(noKtp.isEmpty()){
+            txtNoKtp.setError(getString(R.string.cannotnull));
+        }else if(noKtp.length() < 16){
+            txtNoKtp.setError(getString(R.string.min_digit_ktp));
+        }else{txtNoKtp.setError(null);}
     }
 }

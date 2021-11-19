@@ -81,7 +81,14 @@ public class OTPActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verifyOTP();
+                if(otpView.getText().toString().isEmpty()){
+                    f.showMessage(getString(R.string.otp_cannot_null));
+                }else if(otpView.getText().toString().length() < 6){
+                    f.showMessage(getString(R.string.otp_min_six_char));
+                }else{
+                    verifyOTP();
+                }
+
             }
         });
 
@@ -122,10 +129,12 @@ public class OTPActivity extends AppCompatActivity {
             String cek = result.split(": ")[0];
             String msg = result.split(": ")[1];
             if(cek.equalsIgnoreCase("success")){
+                dialog.cancel();
                 f.showMessage(msg);
                 confirmLogin();
             }else{
                 f.showMessage(msg);
+                dialog.cancel();
             }
 
         }
@@ -155,7 +164,6 @@ public class OTPActivity extends AppCompatActivity {
                     prefManager.setUserData(ud);
                     if(verif == 1){
                         if(res.isNull("doc") && res.isNull("swafoto") && res.isNull("docfile")){
-                            Log.e("Doc", "Aman, sistem bermasalah tapi");
                             i = new Intent(OTPActivity.this, RegistrationFormActivity.class);
                         }else{
                             i = new Intent(OTPActivity.this, RegistrationFormActivity.class);

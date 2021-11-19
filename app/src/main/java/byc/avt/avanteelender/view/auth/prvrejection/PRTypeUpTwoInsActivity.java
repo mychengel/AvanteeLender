@@ -631,9 +631,9 @@ public class PRTypeUpTwoInsActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
             if(PIC_CROP == CROP_SELFIE){
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
                 cropIntent.putExtra("outputY", 400);
             }else{
                 cropIntent.putExtra("aspectX", 4);

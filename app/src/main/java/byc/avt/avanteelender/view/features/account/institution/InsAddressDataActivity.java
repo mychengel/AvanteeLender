@@ -135,6 +135,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
             txtKtpDistrict.getEditText().setText(job1.getString("kecamatan"));
             txtKtpUrban.getEditText().setText(job1.getString("kelurahan"));
             txtKtpPostalCode.getEditText().setText(job1.getString("kode_pos"));
+            ktpPostalCode = job1.getString("kode_pos");
 
             job2 = new JSONObject(i.getStringExtra("jobAddressDataOperasional"));
             txtDomicileAddress.getEditText().setText(job2.getString("alamat"));
@@ -144,6 +145,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
             txtDomicileDistrict.getEditText().setText(job2.getString("kecamatan"));
             txtDomicileUrban.getEditText().setText(job2.getString("kelurahan"));
             txtDomicilePostalCode.getEditText().setText(job2.getString("kode_pos"));
+            domicilePostalCode = job2.getString("kode_pos");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -209,6 +211,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 
@@ -218,8 +221,8 @@ public class InsAddressDataActivity extends AppCompatActivity {
     }
 
     public void cekPostal(){
-        if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
-        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
+        if(ktpPostalCode.length() < 5){txtKtpPostalCode.setError(getString(R.string.postal_code_min_char));}else{txtKtpPostalCode.setError(null);}
+        if(domicilePostalCode.length() < 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_min_char));}else{txtDomicilePostalCode.setError(null);}
     }
 
     public void editIsOn(boolean s){
@@ -258,7 +261,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(domicilePostalCode.length() <= 5 && ktpPostalCode.length() <= 5 && !ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
+        if(domicilePostalCode.length() == 5 && ktpPostalCode.length() == 5 && !ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
                 && !ktpDistrict.isEmpty() && !ktpUrban.isEmpty() && !ktpPostalCode.isEmpty() && ktpPostalCode.length() <= 5 && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
                 && !domicileDistrict.isEmpty() && !domicileUrban.isEmpty() && !domicilePostalCode.isEmpty() && domicilePostalCode.length() <= 5){
@@ -761,7 +764,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
         if(ktpCity.isEmpty()){txtKtpCity.setError(getString(R.string.cannotnull));}else{txtKtpCity.setError(null);}
         if(ktpDistrict.isEmpty()){txtKtpDistrict.setError(getString(R.string.cannotnull));}else{txtKtpDistrict.setError(null);}
         if(ktpUrban.isEmpty()){txtKtpUrban.setError(getString(R.string.cannotnull));}else{txtKtpUrban.setError(null);}
-        if(ktpPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}
+        if(ktpPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}if(ktpPostalCode.length() < 5){txtKtpPostalCode.setError(getString(R.string.postal_code_min_char));}
         else{txtKtpPostalCode.setError(null);}
         if(domicileAddress.isEmpty()){txtDomicileAddress.setError(getString(R.string.cannotnull));}else{txtDomicileAddress.setError(null);}
         if(domicileCountry.isEmpty()){txtDomicileCountry.setError(getString(R.string.cannotnull));}else{txtDomicileCountry.setError(null);}
@@ -769,7 +772,7 @@ public class InsAddressDataActivity extends AppCompatActivity {
         if(domicileCity.isEmpty()){txtDomicileCity.setError(getString(R.string.cannotnull));}else{txtDomicileCity.setError(null);}
         if(domicileDistrict.isEmpty()){txtDomicileDistrict.setError(getString(R.string.cannotnull));}else{txtDomicileDistrict.setError(null);}
         if(domicileUrban.isEmpty()){txtDomicileUrban.setError(getString(R.string.cannotnull));}else{txtDomicileUrban.setError(null);}
-        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}
+        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}if(domicilePostalCode.length() < 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_min_char));}
         else{txtDomicilePostalCode.setError(null);}
     }
 

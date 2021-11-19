@@ -203,8 +203,17 @@ public class AddressDataFragment extends Fragment {
     }
 
     public void cekPostal(){
-        if(ktpPostalCode.length() > 5){txtKtpPostalCode.setError(getString(R.string.postal_code_max_char));}else{txtKtpPostalCode.setError(null);}
-        if(domicilePostalCode.length() > 5){txtDomicilePostalCode.setError(getString(R.string.postal_code_max_char));}else{txtDomicilePostalCode.setError(null);}
+        if(ktpPostalCode.isEmpty()){
+            txtKtpPostalCode.setError(getString(R.string.cannotnull));
+        }else if(ktpPostalCode.length() < 5){
+            txtKtpPostalCode.setError(getString(R.string.postal_code_min_char));
+        }else{txtKtpPostalCode.setError(null);}
+
+        if(domicilePostalCode.isEmpty()){
+            txtDomicilePostalCode.setError(getString(R.string.cannotnull));
+        }else if(domicilePostalCode.length() < 5){
+            txtDomicilePostalCode.setError(getString(R.string.postal_code_min_char));
+        }else{txtDomicilePostalCode.setError(null);}
     }
 
     public void clearMasterList(){
@@ -282,7 +291,7 @@ public class AddressDataFragment extends Fragment {
             domicilePostalCode = Objects.requireNonNull(txtDomicilePostalCode.getEditText().getText().toString().trim());
         }
 
-        if(domicilePostalCode.length() <= 5 && ktpPostalCode.length() <= 5 &&!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
+        if(domicilePostalCode.length() == 5 && ktpPostalCode.length() == 5 &&!ktpAddress.isEmpty() && !ktpCountry.isEmpty() && !ktpProvince.isEmpty() && !ktpCity.isEmpty()
                 && !ktpDistrict.isEmpty() && !ktpUrban.isEmpty() && !ktpRT.isEmpty()
                 && !ktpRW.isEmpty() && !ktpPostalCode.isEmpty() && !domicileAddress.isEmpty()
                 && !domicileCountry.isEmpty() && !domicileProvince.isEmpty() && !domicileCity.isEmpty()
@@ -344,7 +353,6 @@ public class AddressDataFragment extends Fragment {
         if(ktpUrban.isEmpty()){txtKtpUrban.setError(getString(R.string.cannotnull));}else{txtKtpUrban.setError(null);}
         if(ktpRT.isEmpty()){txtKtpRT.setError(getString(R.string.cannotnull));}else{txtKtpRT.setError(null);}
         if(ktpRW.isEmpty()){txtKtpRW.setError(getString(R.string.cannotnull));}else{txtKtpRW.setError(null);}
-        if(ktpPostalCode.isEmpty()){txtKtpPostalCode.setError(getString(R.string.cannotnull));}else{txtKtpPostalCode.setError(null);}
         if(domicileAddress.isEmpty()){txtDomicileAddress.setError(getString(R.string.cannotnull));}else{txtDomicileAddress.setError(null);}
         if(domicileCountry.isEmpty()){txtDomicileCountry.setError(getString(R.string.cannotnull));}else{txtDomicileCountry.setError(null);}
         if(domicileProvince.isEmpty()){txtDomicileProvince.setError(getString(R.string.cannotnull));}else{txtDomicileProvince.setError(null);}
@@ -353,7 +361,7 @@ public class AddressDataFragment extends Fragment {
         if(domicileUrban.isEmpty()){txtDomicileUrban.setError(getString(R.string.cannotnull));}else{txtDomicileUrban.setError(null);}
         if(domicileRT.isEmpty()){txtDomicileRT.setError(getString(R.string.cannotnull));}else{txtDomicileRT.setError(null);}
         if(domicileRW.isEmpty()){txtDomicileRW.setError(getString(R.string.cannotnull));}else{txtDomicileRW.setError(null);}
-        if(domicilePostalCode.isEmpty()){txtDomicilePostalCode.setError(getString(R.string.cannotnull));}else{txtDomicilePostalCode.setError(null);}
+        cekPostal();
     }
 
     private Observer<JSONObject> showCountryKTP = new Observer<JSONObject>() {

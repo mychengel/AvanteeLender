@@ -102,6 +102,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
     Button btnr_ktp, btnr_selfie, btnr_ttd;
     ImageView imgr_ktp, imgr_selfie, imgr_ttd;
     Bitmap bitmap_ktp, bitmap_selfie, bitmap_ttd;
+    String csc = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -723,7 +724,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_selfie = bitmap;
                         decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_selfie.setImageBitmap(decoded_selfie);
+                        imgr_selfie.setImageBitmap(bitmap_selfie);
                         selfie_byte = bytes.toByteArray();
                         str_selfie = f.getStringImage(decoded_selfie);
                         txt_selfie.setText(filePath.getLastPathSegment());
@@ -732,7 +733,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                         bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                         bitmap_ttd = bitmap;
                         decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                        imgr_ttd.setImageBitmap(decoded_ttd);
+                        imgr_ttd.setImageBitmap(bitmap_ttd);
                         ttd_byte = bytes.toByteArray();
                         str_ttd = f.getStringImage(decoded_ttd);
                         txt_ttd.setText(filePath.getLastPathSegment());
@@ -780,7 +781,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_selfie = bitmap;
                             decoded_selfie = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_selfie.setImageBitmap(decoded_selfie);
+                            imgr_selfie.setImageBitmap(bitmap_selfie);
                             selfie_byte = bytes.toByteArray();
                             str_selfie = f.getStringImage(decoded_selfie);
                             txt_selfie.setText(filePath.getLastPathSegment());
@@ -790,7 +791,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                             bitmap.compress(Bitmap.CompressFormat.JPEG, BITMAP_SIZE, bytes);
                             bitmap_ttd = bitmap;
                             decoded_ttd = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-                            imgr_ttd.setImageBitmap(decoded_ttd);
+                            imgr_ttd.setImageBitmap(bitmap_ttd);
                             ttd_byte = bytes.toByteArray();
                             str_ttd = f.getStringImage(decoded_ttd);
                             txt_ttd.setText(filePath.getLastPathSegment());
@@ -828,9 +829,9 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
             if(PIC_CROP == CROP_SELFIE){
-                cropIntent.putExtra("aspectX", 1);
-                cropIntent.putExtra("aspectY", 1);
-                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
                 cropIntent.putExtra("outputY", 400);
             }else{
                 cropIntent.putExtra("aspectX", 4);

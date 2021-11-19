@@ -27,6 +27,7 @@ import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.view.auth.prvrejection.PRTypeUpOneActivity;
 import byc.avt.avanteelender.view.auth.prvrejection.PRTypeUpThreeActivity;
 import byc.avt.avanteelender.view.auth.prvrejection.PRTypeUpTwoActivity;
+import byc.avt.avanteelender.view.auth.prvrejection.PRTypeUpTwoInsActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
@@ -43,7 +44,7 @@ public class RejectionProcessActivity extends AppCompatActivity {
 
     ///MUST BE EDITED BY ITS TYPE
     ///-->privy_status, identity_card, code, mother_maiden_name, clients_job_position, average_transaction_id, imgFile[]::3 files
-    String[] typeUploadTwo = new String[]{ "PRVP009", "PRVK001", "PRVK014", "PRVD004", "PRVN002", "PRVM001", "PRVM002", "PRVM003" };
+    String[] typeUploadTwo = new String[]{ "PRVP009", "PRVK001", "PRVK014", "PRVD003", "PRVD004", "PRVN002", "PRVM001", "PRVM002", "PRVM003" };
 
     ///-->privy_status, supportFile[]::2 files, code, category[0], category[1]
     String[] typeUploadThree = new String[]{ "PRVD001", "PRVD002", "PRVD005", "PRVD007", "PRVD009", "PRVD011", "PRVD013", "PRVK016", "PRVK017", "PRVK019" };
@@ -80,7 +81,9 @@ public class RejectionProcessActivity extends AppCompatActivity {
                         new Routes(RejectionProcessActivity.this).moveIn(in);
                     }else if(checkTwo){
                         if(ctype.equalsIgnoreCase("institusi")){
-
+                            Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpTwoInsActivity.class);
+                            in.putExtra("rJob", result.toString());
+                            new Routes(RejectionProcessActivity.this).moveIn(in);
                         }else{
                             Intent in = new Intent(RejectionProcessActivity.this, PRTypeUpTwoActivity.class);
                             in.putExtra("rJob", result.toString());

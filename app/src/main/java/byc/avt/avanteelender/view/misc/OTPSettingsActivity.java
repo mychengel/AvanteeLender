@@ -82,7 +82,13 @@ public class OTPSettingsActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                verifyOTP();
+                if(otpView.getText().toString().isEmpty()){
+                    f.showMessage(getString(R.string.otp_cannot_null));
+                }else if(otpView.getText().toString().length() < 6){
+                    f.showMessage(getString(R.string.otp_min_six_char));
+                }else{
+                    verifyOTP();
+                }
             }
         });
 
@@ -296,6 +302,7 @@ public class OTPSettingsActivity extends AppCompatActivity {
                     res = result.getJSONObject("result");
                     msg = res.getString("message");
                     f.showMessage(msg);
+                    dialog.cancel();
                 }
                 dialog.cancel();
             } catch (JSONException e) {

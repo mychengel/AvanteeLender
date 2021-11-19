@@ -143,10 +143,8 @@ public class CompanyDataFragment extends Fragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(phoneisvalid){
-                    confirmNext(v);
-                }
-//                Navigation.findNavController(v).navigate(R.id.action_companyDataFragment_to_narahubungFragment);
+                confirmNext(v);
+//              Navigation.findNavController(v).navigate(R.id.action_companyDataFragment_to_narahubungFragment);
             }
         });
         Log.e("tipeinvestorins", ""+ GlobalVariables.insRegData.get("tipe_investor"));
@@ -197,7 +195,7 @@ public class CompanyDataFragment extends Fragment {
         companyDesc = Objects.requireNonNull(txtCompanyDesc.getEditText().getText().toString().trim());
 
         if(!companyName.isEmpty() && !companyType.isEmpty() && !businessField.isEmpty() && !yearEst.isEmpty()
-                && !income.isEmpty() && !fundsSource.isEmpty() && !companyPhone.isEmpty() && !companyDesc.isEmpty()){
+                && !income.isEmpty() && !fundsSource.isEmpty() && phoneisvalid && !companyPhone.isEmpty() && !companyDesc.isEmpty()){
             gv.stInsCompanyData = true;
             gv.insRegData.put("nama_perusahaan",companyName);
             gv.insRegData.put("tipe_perusahaan",companyType);

@@ -171,17 +171,17 @@
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_white"
+                android:background="@drawable/button_white_state_selector"
                 android:letterSpacing="0.01"
                 android:text="@string/ubah"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_save_fr_ins_bank_info_show"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_save_fr_ins_bank_info_show"
-                app:layout_constraintTop_toTopOf="@+id/btn_save_fr_ins_bank_info_show"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_save_fr_ins_bank_info_show"/>
+                app:layout_constraintTop_toTopOf="@+id/btn_save_fr_ins_bank_info_show" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

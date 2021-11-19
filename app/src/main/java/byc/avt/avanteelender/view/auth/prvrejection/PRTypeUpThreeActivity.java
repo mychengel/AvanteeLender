@@ -83,6 +83,7 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
     Button btnr_filesupport, btnr_filesupport2;
     ImageView imgr_filesupport, imgr_filesupport2;
     Bitmap bitmap_filesupport, bitmap_filesupport2;
+    String csc = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,7 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(str_filesupport.equalsIgnoreCase("")){
+                    csc = handler0;
                     chooseFileConfirmation(PICK_TYPE_PASSPORT);
                 }
             }
@@ -146,6 +148,7 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(str_filesupport2.equalsIgnoreCase("")){
+                    csc = handler1;
                     chooseFileConfirmation(PICK_TYPE_PASSPORT2);
                 }
             }
@@ -610,10 +613,17 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 4);
-            cropIntent.putExtra("aspectY", 3);
-            cropIntent.putExtra("outputX", 400);
-            cropIntent.putExtra("outputY", 300);
+            if(csc.contains("selfie")){
+                cropIntent.putExtra("aspectX", 3);
+                cropIntent.putExtra("aspectY", 4);
+                cropIntent.putExtra("outputX", 300);
+                cropIntent.putExtra("outputY", 400);
+            }else{
+                cropIntent.putExtra("aspectX", 4);
+                cropIntent.putExtra("aspectY", 3);
+                cropIntent.putExtra("outputX", 400);
+                cropIntent.putExtra("outputY", 300);
+            }
             cropIntent.putExtra("return-data", true);
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
             startActivityForResult(cropIntent, PIC_CROP);

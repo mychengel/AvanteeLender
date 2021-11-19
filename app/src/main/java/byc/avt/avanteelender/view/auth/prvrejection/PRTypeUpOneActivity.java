@@ -83,6 +83,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
     Button btnr_filesupport;
     ImageView imgr_filesupport;
     Bitmap bitmap_filesupport;
+    String csc = "";
 
 
     @Override
@@ -129,6 +130,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(str_filesupport.equalsIgnoreCase("")){
+                    csc = handler;
                     chooseFileConfirmation(PICK_TYPE_PASSPORT);
                 }
             }
@@ -516,7 +518,7 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
-            if(code.contains("PRVS")){
+            if(csc.contains("selfie")){
                 cropIntent.putExtra("aspectX", 3);
                 cropIntent.putExtra("aspectY", 4);
                 cropIntent.putExtra("outputX", 300);

@@ -152,6 +152,7 @@
                     android:background="@color/lightest_neutral"
                     android:hint="@string/narahubung_ktp"
                     android:inputType="text|number"
+                    android:maxLength="16"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </com.google.android.material.textfield.TextInputLayout>

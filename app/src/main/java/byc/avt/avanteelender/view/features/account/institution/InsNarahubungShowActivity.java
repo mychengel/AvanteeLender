@@ -57,7 +57,7 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
 
     TextInputLayout txtName, txtBirthDate, txtJabatan, txtPhone, txtEmail, txtNoKtp;
     EditText editBirthDate;
-    String name="", birthdate="", jabatan="", phone="", email="", noKtp="";
+    String name="", birthdate="", jabatan="", phone="", email="", noKtp="", noKtpx;
     boolean emailIsValid = false;
 
     @Override
@@ -125,9 +125,7 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ktpisvalid){
-                    confirmNext(v);
-                }else{}
+                confirmNext(v);
             }
         });
 
@@ -142,6 +140,8 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             txtPhone.getEditText().setText(job.getString("no_telepon"));
             txtEmail.getEditText().setText(job.getString("email"));
             txtNoKtp.getEditText().setText(job.getString("no_ktp"));
+            noKtp = job.getString("no_ktp");
+            cekKTP(noKtp);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,6 +153,7 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editIsOn = !editIsOn;
                 editIsOn(editIsOn);
+                v.setEnabled(false);
             }
         });
 
@@ -178,12 +179,9 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
             if(ktp.length() < 16){
                 txtNoKtp.setError(getString(R.string.min_digit_ktp));
                 ktpisvalid = false;
-            }else if(ktp.length() == 16){
+            }else if(ktp.length() == 16) {
                 txtNoKtp.setError(null);
                 ktpisvalid = true;
-            }else{
-                txtNoKtp.setError(getString(R.string.max_digit_ktp));
-                ktpisvalid = false;
             }
         }
     }
@@ -197,7 +195,7 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
 
         emailIsValid = Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
-        if(!name.isEmpty() && !birthdate.isEmpty() && !jabatan.isEmpty() && !phone.isEmpty() && !noKtp.isEmpty()
+        if(!name.isEmpty() && !birthdate.isEmpty() && !jabatan.isEmpty() && !phone.isEmpty() && ktpisvalid && !noKtp.isEmpty()
                 && !email.isEmpty() && emailIsValid){
             gv.insEditData.put("event_name","informasi_narahubung");
             gv.insEditData.put("tipe_investor",prefManager.getClientType());
@@ -285,7 +283,11 @@ public class InsNarahubungShowActivity extends AppCompatActivity {
         }else if(!emailIsValid){
             txtEmail.setError(getString(R.string.email_not_valid));
         }else{txtEmail.setError(null);}
-        if(noKtp.isEmpty()){txtNoKtp.setError(getString(R.string.cannotnull));}else{txtNoKtp.setError(null);}
+        if(noKtp.isEmpty()){
+            txtNoKtp.setError(getString(R.string.cannotnull));
+        }else if(noKtp.length() < 16){
+            txtNoKtp.setError(getString(R.string.min_digit_ktp));
+        }else{txtNoKtp.setError(null);}
     }
 
     @Override
