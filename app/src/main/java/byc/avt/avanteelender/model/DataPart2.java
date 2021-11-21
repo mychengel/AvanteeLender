@@ -3,40 +3,39 @@ package byc.avt.avanteelender.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DataPart implements Parcelable {
+public class DataPart2 implements Parcelable {
     private String fileName;
-    private byte[] content;
+    private byte[][] content;
     private String type;
 
-    public DataPart() {
+    public DataPart2() {
     }
 
-    public DataPart(String name, byte[] data) {
+    public DataPart2(String name, byte[][] data) {
         fileName = name;
         content = data;
     }
 
-    public DataPart(String name, byte[] data, String mimeType) {
+    public DataPart2(String name, byte[][] data, String mimeType) {
         fileName = name;
         content = data;
         type = mimeType;
     }
 
-    protected DataPart(Parcel in) {
+    protected DataPart2(Parcel in) {
         fileName = in.readString();
-        content = in.createByteArray();
         type = in.readString();
     }
 
-    public static final Creator<DataPart> CREATOR = new Creator<DataPart>() {
+    public static final Creator<DataPart2> CREATOR = new Creator<DataPart2>() {
         @Override
-        public DataPart createFromParcel(Parcel in) {
-            return new DataPart(in);
+        public DataPart2 createFromParcel(Parcel in) {
+            return new DataPart2(in);
         }
 
         @Override
-        public DataPart[] newArray(int size) {
-            return new DataPart[size];
+        public DataPart2[] newArray(int size) {
+            return new DataPart2[size];
         }
     };
 
@@ -48,11 +47,11 @@ public class DataPart implements Parcelable {
         this.fileName = fileName;
     }
 
-    public byte[] getContent() {
+    public byte[][] getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(byte[][] content) {
         this.content = content;
     }
 
@@ -72,7 +71,6 @@ public class DataPart implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(fileName);
-        dest.writeByteArray(content);
         dest.writeString(type);
     }
 }

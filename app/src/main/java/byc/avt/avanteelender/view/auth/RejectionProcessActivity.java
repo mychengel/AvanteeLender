@@ -41,11 +41,9 @@ public class RejectionProcessActivity extends AppCompatActivity {
     Button btnReupload;
     String msg = "", code = "", ctype = "";
     String[] typeUploadOne = new String[]{ "PRVP001", "PRVP002", "PRVP003", "PRVP004", "PRVP005", "PRVP006", "PRVP010", "PRVP012", "PRVP014", "PRVP015", "PRVN004", "PRVN005", "PRVK002", "PRVK003", "PRVK004", "PRVK006", "PRVK008", "PRVK009", "PRVK011", "PRVK012", "PRVK013", "PRVK015", "PRVK018", "PRVS001", "PRVS002", "PRVS003", "PRVS004", "PRVS006" };
-
     ///MUST BE EDITED BY ITS TYPE
     ///-->privy_status, identity_card, code, mother_maiden_name, clients_job_position, average_transaction_id, imgFile[]::3 files
     String[] typeUploadTwo = new String[]{ "PRVP009", "PRVK001", "PRVK014", "PRVD003", "PRVD004", "PRVN002", "PRVM001", "PRVM002", "PRVM003" };
-
     ///-->privy_status, supportFile[]::2 files, code, category[0], category[1]
     String[] typeUploadThree = new String[]{ "PRVD001", "PRVD002", "PRVD005", "PRVD007", "PRVD009", "PRVD011", "PRVD013", "PRVK016", "PRVK017", "PRVK019" };
 

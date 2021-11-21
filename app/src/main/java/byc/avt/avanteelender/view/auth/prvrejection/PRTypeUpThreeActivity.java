@@ -91,8 +91,10 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prtype_up_three);
         GlobalVariables.perReregData.clear();
         GlobalVariables.perReregDataFile.clear();
+        GlobalVariables.perReregDataFileArray.clear();
         GlobalVariables.insReregData.clear();
         GlobalVariables.insReregDataFile.clear();
+        GlobalVariables.insReregDataFileArray.clear();
         viewModel = new ViewModelProvider(PRTypeUpThreeActivity.this).get(AuthenticationViewModel.class);
         prefManager = PrefManager.getInstance(PRTypeUpThreeActivity.this);
         toolbar = findViewById(R.id.toolbar_prtypeupthree);
@@ -223,15 +225,25 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
                     GlobalVariables.perReregData.put("code", code);
                     GlobalVariables.perReregData.put("category[0]", category0);
                     GlobalVariables.perReregData.put("category[1]", category1);
-                    GlobalVariables.perReregDataFile.put("supportFile[]", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
-                    GlobalVariables.perReregDataFile.put("supportFile[]", new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg"));
+                    DataPart[] datas = new DataPart[]{
+                            new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"),
+                            new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg")
+                    };
+                    GlobalVariables.perReregDataFileArray.put("supportFile[]", datas);
+//                    GlobalVariables.perReregDataFile.put("supportFile[]", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
+//                    GlobalVariables.perReregDataFile.put("supportFile[]", new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg"));
                 }else{
                     GlobalVariables.insReregData.put("privy_status", status);
                     GlobalVariables.insReregData.put("code", code);
                     GlobalVariables.insReregData.put("category[0]", category0);
                     GlobalVariables.insReregData.put("category[1]", category1);
-                    GlobalVariables.insReregDataFile.put("supportFile[]", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
-                    GlobalVariables.insReregDataFile.put("supportFile[]", new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg"));
+                    DataPart[] datas = new DataPart[]{
+                            new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"),
+                            new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg")
+                    };
+                    GlobalVariables.insReregDataFileArray.put("supportFile[]", datas);
+//                    GlobalVariables.insReregDataFile.put("supportFile[]", new DataPart("supportFile.jpg", filesupport_byte, "image/jpeg"));
+//                    GlobalVariables.insReregDataFile.put("supportFile[]", new DataPart("supportFile2.jpg", filesupport2_byte, "image/jpeg"));
                 }
                 reregistDocument();
             }
@@ -252,8 +264,8 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), ctype);
-                        viewModel.getResultReregistPrvp001().observe(PRTypeUpThreeActivity.this, showResult);
+                        viewModel.reregistType3(prefManager.getUid(), prefManager.getToken(), ctype);
+                        viewModel.getResultReregistType3().observe(PRTypeUpThreeActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -277,8 +289,10 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
                     //new
                     GlobalVariables.perReregData.clear();
                     GlobalVariables.perReregDataFile.clear();
+                    GlobalVariables.perReregDataFileArray.clear();
                     GlobalVariables.insReregData.clear();
                     GlobalVariables.insReregDataFile.clear();
+                    GlobalVariables.insReregDataFileArray.clear();
                     new Fungsi(PRTypeUpThreeActivity.this).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(PRTypeUpThreeActivity.this, InVerificationProcessActivity.class);
@@ -613,7 +627,7 @@ public class PRTypeUpThreeActivity extends AppCompatActivity {
             cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.putExtra("crop", "true");
-            if(csc.contains("selfie")){
+            if(csc.toLowerCase().contains("selfie")){
                 cropIntent.putExtra("aspectX", 3);
                 cropIntent.putExtra("aspectY", 4);
                 cropIntent.putExtra("outputX", 300);

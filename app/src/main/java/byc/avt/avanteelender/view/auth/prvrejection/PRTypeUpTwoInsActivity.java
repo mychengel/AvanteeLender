@@ -109,6 +109,7 @@ public class PRTypeUpTwoInsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prtype_up_two_ins);
         GlobalVariables.insReregData.clear();
         GlobalVariables.insReregDataFile.clear();
+        GlobalVariables.insReregDataFileArray.clear();
         viewModel = new ViewModelProvider(PRTypeUpTwoInsActivity.this).get(AuthenticationViewModel.class);
         viewModel2 = new ViewModelProvider(PRTypeUpTwoInsActivity.this).get(MasterDataViewModel.class);
         prefManager = PrefManager.getInstance(PRTypeUpTwoInsActivity.this);
@@ -246,8 +247,13 @@ public class PRTypeUpTwoInsActivity extends AppCompatActivity {
                 GlobalVariables.insReregData.put("privy_status", status);
                 GlobalVariables.insReregData.put("identity_card", no_ktp);
                 GlobalVariables.insReregData.put("code", code);
-                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
-                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
+                DataPart[] datas = new DataPart[]{
+                        new DataPart("ktp.jpg", ktp_byte, "image/jpeg"),
+                        new DataPart("selfie.jpg",selfie_byte, "image/jpeg")
+                };
+                GlobalVariables.insReregDataFileArray.put("imgFile[]", datas);
+//                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+//                GlobalVariables.insReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
                 reregistDocument();
             }
         });
@@ -267,8 +273,8 @@ public class PRTypeUpTwoInsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), "institusi");
-                        viewModel.getResultReregistPrvp001().observe(PRTypeUpTwoInsActivity.this, showResult);
+                        viewModel.reregistType2(prefManager.getUid(), prefManager.getToken(), "institusi");
+                        viewModel.getResultReregistType2().observe(PRTypeUpTwoInsActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -292,6 +298,7 @@ public class PRTypeUpTwoInsActivity extends AppCompatActivity {
                     //new
                     GlobalVariables.insReregData.clear();
                     GlobalVariables.insReregDataFile.clear();
+                    GlobalVariables.insReregDataFileArray.clear();
                     new Fungsi(PRTypeUpTwoInsActivity.this).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(PRTypeUpTwoInsActivity.this, InVerificationProcessActivity.class);

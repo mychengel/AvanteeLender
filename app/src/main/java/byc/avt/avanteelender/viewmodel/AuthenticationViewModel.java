@@ -39,7 +39,9 @@ public class AuthenticationViewModel extends AndroidViewModel {
     private MutableLiveData<JSONObject> resultDocToken = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSigner = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultUpdateProfile = new MutableLiveData<>();
-    private MutableLiveData<JSONObject> resultReregistPrvp001 = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultReregistType1 = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultReregistType2 = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultReregistType3 = new MutableLiveData<>();
 
     public AuthenticationViewModel(@NonNull Application application) {
         super(application);
@@ -230,11 +232,27 @@ public class AuthenticationViewModel extends AndroidViewModel {
         return resultUpdateProfile;
     }
 
-    public void reregistPrvp001(String uid, String token, String ctype){
-        resultReregistPrvp001 = authenticationRepository.reregistPrvp001(uid, token, ctype, getApplication());
+    public void reregistType1(String uid, String token, String ctype){
+        resultReregistType1 = authenticationRepository.reregistType1(uid, token, ctype, getApplication());
     }
 
-    public LiveData<JSONObject> getResultReregistPrvp001(){
-        return resultReregistPrvp001;
+    public LiveData<JSONObject> getResultReregistType1(){
+        return resultReregistType1;
+    }
+
+    public void reregistType2(String uid, String token, String ctype){
+        resultReregistType2 = authenticationRepository.reregistType23(uid, token, ctype, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultReregistType2(){
+        return resultReregistType2;
+    }
+
+    public void reregistType3(String uid, String token, String ctype){
+        resultReregistType3 = authenticationRepository.reregistType23(uid, token, ctype, getApplication());
+    }
+
+    public LiveData<JSONObject> getResultReregistType3(){
+        return resultReregistType3;
     }
 }

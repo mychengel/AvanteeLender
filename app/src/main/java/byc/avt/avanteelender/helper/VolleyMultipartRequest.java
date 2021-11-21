@@ -87,6 +87,12 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
                 dataParse(dos, data);
             }
 
+            //new by me
+            Map<String, DataPart[]> dataArray = getByteDataArray();
+            if (dataArray != null && dataArray.size() > 0) {
+                dataParseArray(dos, dataArray);
+            }
+
             // close multipart form data after text and file data
             dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
@@ -104,6 +110,11 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
      * @throws AuthFailureError
      */
     protected Map<String, DataPart> getByteData() throws AuthFailureError {
+        return null;
+    }
+
+    //new by me
+    protected Map<String, DataPart[]> getByteDataArray() throws AuthFailureError {
         return null;
     }
 
@@ -156,6 +167,15 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     private void dataParse(DataOutputStream dataOutputStream, Map<String, DataPart> data) throws IOException {
         for (Map.Entry<String, DataPart> entry : data.entrySet()) {
             buildDataPart(dataOutputStream, entry.getValue(), entry.getKey());
+        }
+    }
+
+    ///new by me
+    private void dataParseArray(DataOutputStream dataOutputStream, Map<String, DataPart[]> data) throws IOException {
+        for (Map.Entry<String, DataPart[]> entry : data.entrySet()) {
+            for(int x = 0;x < entry.getValue().length; x++){
+                buildDataPart(dataOutputStream, entry.getValue()[x], entry.getKey());
+            }
         }
     }
 

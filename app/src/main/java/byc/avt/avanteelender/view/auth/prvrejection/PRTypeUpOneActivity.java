@@ -200,8 +200,8 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), ctype);
-                        viewModel.getResultReregistPrvp001().observe(PRTypeUpOneActivity.this, showResult);
+                        viewModel.reregistType1(prefManager.getUid(), prefManager.getToken(), ctype);
+                        viewModel.getResultReregistType1().observe(PRTypeUpOneActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {

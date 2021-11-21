@@ -110,6 +110,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prtype_up_two);
         GlobalVariables.perReregData.clear();
         GlobalVariables.perReregDataFile.clear();
+        GlobalVariables.perReregDataFileArray.clear();
         viewModel = new ViewModelProvider(PRTypeUpTwoActivity.this).get(AuthenticationViewModel.class);
         viewModel2 = new ViewModelProvider(PRTypeUpTwoActivity.this).get(MasterDataViewModel.class);
         prefManager = PrefManager.getInstance(PRTypeUpTwoActivity.this);
@@ -322,9 +323,16 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                 GlobalVariables.perReregData.put("mother_maiden_name", motherName);
                 GlobalVariables.perReregData.put("clients_job_position", jobPosition);
                 GlobalVariables.perReregData.put("average_transaction_id", avgTrans);
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
-                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("spesimen.jpg", ttd_byte, "image/jpeg"));
+                DataPart[] datas = new DataPart[]{
+                        new DataPart("ktp.jpg", ktp_byte, "image/jpeg"),
+                        new DataPart("selfie.jpg",selfie_byte, "image/jpeg"),
+                        new DataPart("spesimen.jpg", ttd_byte, "image/jpeg")
+                };
+                GlobalVariables.perReregDataFileArray.put("imgFile[]", datas);
+
+//                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("ktp.jpg", ktp_byte, "image/jpeg"));
+//                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("selfie.jpg",selfie_byte, "image/jpeg"));
+//                GlobalVariables.perReregDataFile.put("imgFile[]", new DataPart("spesimen.jpg", ttd_byte, "image/jpeg"));
                 reregistDocument();
             }
         });
@@ -344,8 +352,8 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
                         dialog.show();
-                        viewModel.reregistPrvp001(prefManager.getUid(), prefManager.getToken(), "perorangan");
-                        viewModel.getResultReregistPrvp001().observe(PRTypeUpTwoActivity.this, showResult);
+                        viewModel.reregistType2(prefManager.getUid(), prefManager.getToken(), "perorangan");
+                        viewModel.getResultReregistType2().observe(PRTypeUpTwoActivity.this, showResult);
                     }
                 })
                 .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -369,6 +377,7 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
                     //new
                     GlobalVariables.perReregData.clear();
                     GlobalVariables.perReregDataFile.clear();
+                    GlobalVariables.perReregDataFileArray.clear();
                     new Fungsi(PRTypeUpTwoActivity.this).showMessage(msg);
                     dialog.cancel();
                     Intent intent = new Intent(PRTypeUpTwoActivity.this, InVerificationProcessActivity.class);
