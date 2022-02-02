@@ -3,7 +3,6 @@ package byc.avt.avanteelender.repositories;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -26,16 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.helper.HttpsTrustManager;
-import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.VolleyMultipartRequest;
 import byc.avt.avanteelender.helper.VolleySingleton;
 import byc.avt.avanteelender.model.DataPart;
 import byc.avt.avanteelender.model.User;
-import byc.avt.avanteelender.model.UserData;
 
 public class AuthenticationRepository {
 
@@ -99,7 +94,6 @@ public class AuthenticationRepository {
 
     ///Method to post user data for register
     public MutableLiveData<JSONObject> registration(User user, Context context) {
-        HttpsTrustManager.allowAllSSL();
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         Map<String, String> params = new HashMap<>();
@@ -150,7 +144,6 @@ public class AuthenticationRepository {
     }
 
     public MutableLiveData<JSONObject> login(final String email, final String password, Context context) {
-        HttpsTrustManager.allowAllSSL();
         prefManager = PrefManager.getInstance(context);
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
@@ -1318,7 +1311,6 @@ public class AuthenticationRepository {
 
 
     public MutableLiveData<JSONObject> getSettingData(final String uid, final String token, Context context) {
-        HttpsTrustManager.allowAllSSL();
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/setting", null,
@@ -1360,7 +1352,6 @@ public class AuthenticationRepository {
     }
 
     public MutableLiveData<JSONObject> getSettingDataNoAuth(Context context) {
-        HttpsTrustManager.allowAllSSL();
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/setting", null,
