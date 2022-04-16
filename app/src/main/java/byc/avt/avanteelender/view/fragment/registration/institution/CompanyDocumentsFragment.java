@@ -10,8 +10,22 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,25 +37,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.provider.Settings;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -58,13 +53,10 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.DataPart;
-import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
 import byc.avt.avanteelender.view.misc.OTPDocActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
-import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
 public class CompanyDocumentsFragment extends Fragment {
 
@@ -271,8 +263,6 @@ public class CompanyDocumentsFragment extends Fragment {
         });
 
         cekButtonRotate();
-        checkStorageAccess();
-
     }
 
     private void cekButtonRotate(){
@@ -311,7 +301,6 @@ public class CompanyDocumentsFragment extends Fragment {
         public void onChanged(JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
-                    OTPReceiver.isReady = true;
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = jobRes.getString("messages");
                     Log.e("Respon per cr doc", jobRes.toString());
@@ -325,7 +314,6 @@ public class CompanyDocumentsFragment extends Fragment {
                     intent.putExtra("from", "doc");
                     new Routes(getActivity()).moveInFinish(intent);
                 }else if(result.getInt("code") == 400){
-                    OTPReceiver.isReady = false;
                     JSONObject jobRes = result.getJSONObject("result");
                     String msg = f.docErr400(jobRes.toString());
                     dialog.cancel();
@@ -341,7 +329,6 @@ public class CompanyDocumentsFragment extends Fragment {
                                 }
                             }).create().show();
                 }else{
-                    OTPReceiver.isReady = false;
                     String msg = result.getString("msg");
                     Log.e("Respon ins cr doc", msg);
                     //f.showMessage(msg);
@@ -666,29 +653,6 @@ public class CompanyDocumentsFragment extends Fragment {
             toast.show();
         }
     }
-
-    Boolean storageAccess = false;
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", getActivity().getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
-        }
-    }
-
-
 
     boolean npwpisvalid = false;
     public void cekNPWP(String npwp){

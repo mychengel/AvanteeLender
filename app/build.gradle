@@ -8,8 +8,8 @@ android {
         applicationId "byc.avt.avanteelender"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "1.0.10"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

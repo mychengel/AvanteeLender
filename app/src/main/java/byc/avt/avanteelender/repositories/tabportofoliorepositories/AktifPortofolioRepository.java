@@ -1,9 +1,13 @@
 package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
@@ -40,6 +44,7 @@ import java.util.Date;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
+import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
@@ -65,310 +70,90 @@ public class AktifPortofolioRepository {
         return repository;
     }
 
-    public MutableLiveData<String> downloadSuratKuasa(final String uid, final String token, final Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        String myurl = url+"internal/portofolio/download_suratkuasa";
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        // TODO handle the response
-                        try {
-                            if (response!=null) {
-                                Log.e("ResponSuratKuasa", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratKuasa";
-                                File folder = null;
-                                File file = null;
-
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
-                                    }
-                                    int fCount = 0;
-                                    File[] files = folder.listFiles();
-                                    for (File filex : files) {
-                                        if (filex.getName().contains(filename)) {
-                                            fCount++;
-                                        }
-                                    }
-                                    if(fCount == 0){
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
-                                    }else{
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
-                                    }
-
-                                    if (!file.exists()) {
-                                        file.createNewFile();
-                                    }
-                                    Log.e("PathDoc", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                result.setValue(context.getString(R.string.surat_kuasa_downloaded));
-
-                                FileOutputStream outputStream;
-                                outputStream = new FileOutputStream(file, true);
-                                outputStream.write(response);
-                                outputStream.close();
-                            }else{
-                                result.setValue(context.getString(R.string.download_failed));
-                            }
-                        } catch (Exception e) {
-                            result.setValue(context.getString(R.string.download_failed));
-                            // TODO Auto-generated catch block
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                result.setValue(context.getString(R.string.download_failed));
-            }
-        }, null)
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
-        mRequestQueue.add(request);
+    public MutableLiveData<String> downloadDocument(final String uid, final String token, final Context context, final DocumentType documentType, final String loanNumber) {
+        final MutableLiveData<java.lang.String> result = new MutableLiveData<>();
+        final String filename = getFileName(documentType, loanNumber);
+        final String myUrl = getUrl(documentType, loanNumber);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(myUrl));
+        request.addRequestHeader("Authorization", GlobalVariables.basicAuth);
+        request.addRequestHeader("Token", token);
+        request.addRequestHeader("Uid", uid);
+        request.setTitle(filename);
+        request.setMimeType("application/pdf");
+        request.allowScanningByMediaScanner();
+        request.setAllowedOverMetered(true);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename + ".pdf");
+        DownloadManager dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
+        dm.enqueue(request);
+        result.setValue(context.getString(getResultMessage(documentType)));
         return result;
     }
 
-    public MutableLiveData<String> downloadSuratPerjanjian(final String uid, final String token, final Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        String myurl = url+"internal/portofolio/download_suratperjanjian";
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        // TODO handle the response
-                        try {
-                            if (response!=null) {
-                                Log.e("ResponSuratPerjanjian", response.toString());
-                                String filename = GlobalVariables.LENDER_CODE+"_SuratPerjanjian";
-                                File folder = null;
-                                File file = null;
-
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
-                                    }
-                                    int fCount = 0;
-                                    File[] files = folder.listFiles();
-                                    for (File filex : files) {
-                                        if (filex.getName().contains(filename)) {
-                                            fCount++;
-                                        }
-                                    }
-                                    if(fCount == 0){
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
-                                    }else{
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
-                                    }
-
-                                    if (!file.exists()) {
-                                        file.createNewFile();
-                                    }
-
-                                    Log.e("PathDoc", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
-
-                                FileOutputStream outputStream;
-                                outputStream = new FileOutputStream(file, true);
-                                outputStream.write(response);
-                                outputStream.close();
-                            }else{
-                                result.setValue(context.getString(R.string.download_failed));
-                            }
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            result.setValue(context.getString(R.string.download_failed));
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                result.setValue(context.getString(R.string.download_failed));
-            }
-        }, null)
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
-        mRequestQueue.add(request);
+    private Integer getResultMessage(DocumentType documentType) {
+        int result = 0;
+        switch (documentType) {
+            case AGREEMENT:
+            case PROCURATION_LOAN:
+                result = R.string.surat_perjanjian_downloaded;
+                break;
+            case PROCURATION:
+            case AGREEMENT_LOAN:
+                result = R.string.surat_kuasa_downloaded;
+                break;
+            case FACTSHEET_LOAN:
+                result = R.string.factsheet_downloaded;
+                break;
+        }
         return result;
     }
 
-    public MutableLiveData<String> downloadSuratKuasaLoan(final String loan_no, final String uid, final String token, final Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        String myurl = url+"internal/portofolio/suratkuasa/"+loan_no;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        // TODO handle the response
-                        try {
-                            if (response!=null) {
-                                Log.e("SuratKuasaLoan", response.toString());
-                                String filename = loan_no+"_Agreement";
-                                File folder = null;
-                                File file = null;
+    private String getUrl(DocumentType documentType, String loanNumber) {
+        String documentUrl = "";
 
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
-                                    }
-                                    int fCount = 0;
-                                    File[] files = folder.listFiles();
-                                    for (File filex : files) {
-                                        if (filex.getName().contains(filename)) {
-                                            fCount++;
-                                        }
-                                    }
-                                    if(fCount == 0){
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
-                                    }else{
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
-                                    }
-
-                                    if (!file.exists()) {
-                                        file.createNewFile();
-                                    }
-                                    Log.e("PathDoc", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                result.setValue(context.getString(R.string.surat_perjanjian_downloaded));
-
-                                FileOutputStream outputStream;
-                                outputStream = new FileOutputStream(file, true);
-                                outputStream.write(response);
-                                outputStream.close();
-                            }else{
-                                result.setValue(context.getString(R.string.download_failed));
-                            }
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            result.setValue(context.getString(R.string.download_failed));
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                result.setValue(context.getString(R.string.download_failed));
-            }
-        }, null)
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
-        mRequestQueue.add(request);
-        return result;
+        switch (documentType) {
+            case AGREEMENT:
+            case PROCURATION:
+                documentUrl = url + documentType.getEndpoint();
+                break;
+            case AGREEMENT_LOAN:
+            case PROCURATION_LOAN:
+            case FACTSHEET_LOAN:
+                documentUrl = url + documentType.getEndpoint() + loanNumber;
+                break;
+        }
+        Log.d("GETURLENUM", "getUrl: " + documentUrl);
+        return documentUrl;
     }
 
-    public MutableLiveData<String> downloadAgreementFunding(final String funding_id, final String uid, final String token, final Context context) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        String myurl = url+"internal/portofolio/agreement/"+funding_id;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, myurl,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        // TODO handle the response
-                        try {
-                            if (response!=null) {
-                                Log.e("Kuasa", response.toString());
-                                String filename = funding_id+"_SuratKuasa";
-                                File folder = null;
-                                File file = null;
-                                try{
-                                    folder = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS);
-                                    if (!folder.exists()) {
-                                        folder.mkdirs();
-                                    }
-                                    int fCount = 0;
-                                    File[] files = folder.listFiles();
-                                    for (File filex : files) {
-                                        if (filex.getName().contains(filename)) {
-                                            fCount++;
-                                        }
-                                    }
-                                    if(fCount == 0){
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
-                                    }else{
-                                        file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_DOWNLOADS, filename+"("+String.valueOf(fCount)+").pdf");
-                                    }
+    private String getFileName(DocumentType documentType, String loanNumber) {
+        String fileName = "";
 
-                                    if (!file.exists()) {
-                                        file.createNewFile();
-                                    }
-                                    Log.e("PathDoc", file+"");
-                                }catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                result.setValue(context.getString(R.string.surat_kuasa_downloaded));
-
-                                FileOutputStream outputStream;
-                                outputStream = new FileOutputStream(file, true);
-                                outputStream.write(response);
-                                outputStream.close();
-                            }else{
-                                result.setValue(context.getString(R.string.download_failed));
-                            }
-                        } catch (Exception e) {
-                            // TODO Auto-generated catch block
-                            result.setValue(context.getString(R.string.download_failed));
-                            Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
-                            e.printStackTrace();
-                        }
-                    }
-                } ,new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                result.setValue(context.getString(R.string.download_failed));
-            }
-        }, null)
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return GlobalVariables.API_ACCESS_IN(uid, token);
-            }
-        };
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
-        mRequestQueue.add(request);
-        return result;
+        switch (documentType) {
+            case AGREEMENT:
+                fileName = GlobalVariables.LENDER_CODE + "_SuratPerjanjian";
+                break;
+            case PROCURATION:
+                fileName = GlobalVariables.LENDER_CODE + "_SuratKuasa";
+                break;
+            case AGREEMENT_LOAN:
+                fileName = loanNumber + "_SuratKuasa";
+                break;
+            case PROCURATION_LOAN:
+                fileName = loanNumber + "_Agreement";
+                break;
+            case FACTSHEET_LOAN:
+                fileName = loanNumber + "_Factsheet";
+                break;
+        }
+        Log.d("GETFILENAMEENUM", "getFileName: " + fileName);
+        return fileName;
     }
 
     public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {
         final MutableLiveData<JSONObject> result = new MutableLiveData<>();
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active", null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url + "internal/portofolio/active", null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -382,8 +167,7 @@ public class AktifPortofolioRepository {
                         Log.e("Volley", error.toString());
                     }
                 }
-        )
-        {
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS_IN(uid, token);
@@ -395,10 +179,12 @@ public class AktifPortofolioRepository {
             public int getCurrentTimeout() {
                 return 60000;
             }
+
             @Override
             public int getCurrentRetryCount() {
                 return 0;
             }
+
             @Override
             public void retry(VolleyError error) throws VolleyError {
             }
@@ -411,16 +197,16 @@ public class AktifPortofolioRepository {
         final MutableLiveData<String> isOnTime = new MutableLiveData<>();
         final ArrayList<PortofolioAktif> list = new ArrayList<>();
         String pg = "";
-        if(page.equalsIgnoreCase("1")){
+        if (page.equalsIgnoreCase("1")) {
             pg = "";
-        }else{
-            pg = "?page="+page;
+        } else {
+            pg = "?page=" + page;
         }
 
 
         final PortofolioAktif[] pa = new PortofolioAktif[1];
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active"+pg, null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url + "internal/portofolio/active" + pg, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -429,11 +215,11 @@ public class AktifPortofolioRepository {
                         final String[] is_on_time = new String[1];
                         try {
                             rows = response.getJSONArray("rows");
-                            final int maxRows = rows.length()-1;
-                            if(rows.length()==0){
+                            final int maxRows = rows.length() - 1;
+                            if (rows.length() == 0) {
                                 result.setValue(list);
-                            }else{
-                                for(int i = 0; i < rows.length(); i++){
+                            } else {
+                                for (int i = 0; i < rows.length(); i++) {
                                     String loan_rating = rows.getJSONObject(i).getString("loan_rating");
                                     String loan_type = rows.getJSONObject(i).getString("loan_type");
                                     PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"), rows.getJSONObject(i).getString("funding_id"),
@@ -455,8 +241,7 @@ public class AktifPortofolioRepository {
                         Log.e("Volley", error.toString());
                     }
                 }
-        )
-        {
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS_IN(uid, token);
@@ -468,10 +253,12 @@ public class AktifPortofolioRepository {
             public int getCurrentTimeout() {
                 return 60000;
             }
+
             @Override
             public int getCurrentRetryCount() {
                 return 0;
             }
+
             @Override
             public void retry(VolleyError error) throws VolleyError {
             }
@@ -484,7 +271,7 @@ public class AktifPortofolioRepository {
         requestQueue = Volley.newRequestQueue(context, new HurlStack());
         final MutableLiveData<ArrayList<PortofolioAktifDetail>> result = new MutableLiveData<>();
         final ArrayList<PortofolioAktifDetail> list = new ArrayList<>();
-        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url+"internal/portofolio/active/detail?loan_no="+loan_no+"&funding="+funding_id, null,
+        final JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url + "internal/portofolio/active/detail?loan_no=" + loan_no + "&funding=" + funding_id, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -493,9 +280,9 @@ public class AktifPortofolioRepository {
                         int tot = 0;
                         try {
                             rows = response.getJSONArray("rows");
-                            if(rows.length()==0){
-                            }else{
-                                for(int i = 0; i < rows.length(); i++){
+                            if (rows.length() == 0) {
+                            } else {
+                                for (int i = 0; i < rows.length(); i++) {
                                     String periode = rows.getJSONObject(i).getString("schedule_period");
                                     String date_payment = rows.getJSONObject(i).getString("next_payment");
                                     String date_actualtrans = rows.getJSONObject(i).getString("actual_transaction_date");
@@ -506,8 +293,8 @@ public class AktifPortofolioRepository {
                                     String tax = rows.getJSONObject(i).getString("tax");
                                     String status = rows.getJSONObject(i).getString("status");
                                     String delay_details = rows.getJSONObject(i).getString("delay_details");
-                                    PortofolioAktifDetail pad = new PortofolioAktifDetail(periode,date_payment,date_actualtrans,
-                                            principal_payment,interest_amount,payment_amount,actual_payment,tax,status,delay_details);
+                                    PortofolioAktifDetail pad = new PortofolioAktifDetail(periode, date_payment, date_actualtrans,
+                                            principal_payment, interest_amount, payment_amount, actual_payment, tax, status, delay_details);
                                     list.add(pad);
                                 }
                                 result.setValue(list);
@@ -525,8 +312,7 @@ public class AktifPortofolioRepository {
                         Log.e("Volley", error.toString());
                     }
                 }
-        )
-        {
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return GlobalVariables.API_ACCESS_IN(uid, token);
@@ -538,10 +324,12 @@ public class AktifPortofolioRepository {
             public int getCurrentTimeout() {
                 return 60000;
             }
+
             @Override
             public int getCurrentRetryCount() {
                 return 0;
             }
+
             @Override
             public void retry(VolleyError error) throws VolleyError {
             }
@@ -549,5 +337,5 @@ public class AktifPortofolioRepository {
 
         return result;
     }
-    
+
 }

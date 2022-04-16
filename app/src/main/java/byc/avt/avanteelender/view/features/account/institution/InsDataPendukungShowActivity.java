@@ -1,16 +1,5 @@
 package byc.avt.avanteelender.view.features.account.institution;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -26,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,6 +25,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -61,9 +60,7 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.model.DataPart;
-import byc.avt.avanteelender.view.features.account.individual.DataPendukungShowActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 import byc.avt.avanteelender.viewmodel.MasterDataViewModel;
 
@@ -303,7 +300,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
         });
 
         editIsOn(false);
-        checkStorageAccess();
         cekButtonRotate();
     }
 
@@ -742,12 +738,8 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             }
         }else if (requestCode == 2296) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                } else {
-                    storageAccess = false;
+                if (!Environment.isExternalStorageManager()) {
                     Toast.makeText(InsDataPendukungShowActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
                 }
             }
         }
@@ -784,26 +776,6 @@ public class InsDataPendukungShowActivity extends AppCompatActivity {
             String errorMessage = "Device tidak support untuk memotong gambar.";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
-        }
-    }
-
-    Boolean storageAccess = false;
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", InsDataPendukungShowActivity.this.getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
         }
     }
 

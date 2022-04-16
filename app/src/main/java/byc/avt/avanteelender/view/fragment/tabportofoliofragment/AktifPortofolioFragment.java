@@ -1,30 +1,13 @@
 package byc.avt.avanteelender.view.fragment.tabportofoliofragment;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +15,18 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,17 +36,13 @@ import java.util.ArrayList;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.adapter.PortofolioAktifAdapter;
-import byc.avt.avanteelender.adapter.PortofolioPendingAdapter;
 import byc.avt.avanteelender.helper.EndlessRecyclerOnScrollListener;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
-import byc.avt.avanteelender.model.PortofolioPending;
 import byc.avt.avanteelender.view.fragment.PortofolioFragment;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
-import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
-import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.SelesaiPortofolioViewModel;
 
 public class AktifPortofolioFragment extends Fragment {
 
@@ -60,12 +51,11 @@ public class AktifPortofolioFragment extends Fragment {
     private PrefManager prefManager;
     private Dialog dialog;
     private TextView txt_tot_pinjaman_aktif, txt_tot_pinjaman_terlambat, txt_tot_angs_bunga_selanjutnya, txt_tot_angs_bunga_dibayar;
-    long tot_angs_bunga_selanjutnya=0, tot_angs_bunga_dibayar=0, tot_pinjaman_aktif=0, tot_pinjaman_terlambat=0;
+    long tot_angs_bunga_selanjutnya = 0, tot_angs_bunga_dibayar = 0, tot_pinjaman_aktif = 0, tot_pinjaman_terlambat = 0;
     private RecyclerView rv;
     private CardView cv_download_surat_kuasa, cv_download_perjanjian_kerja_sama;
     ConstraintLayout cons, cons_lottie;
     ProgressBar prog_bar;
-    Boolean storageAccess = false;
 
     public static AktifPortofolioFragment newInstance() {
         return new AktifPortofolioFragment();
@@ -100,19 +90,9 @@ public class AktifPortofolioFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 checkPermission();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if(storageAccess){
-                        dialog.show();
-                        viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-                        viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
-                    }else{
-                        checkPermission();
-                    }
-                }else{
-                    dialog.show();
-                    viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-                    viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
-                }
+                dialog.show();
+                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
+                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
             }
         });
 
@@ -120,23 +100,10 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_perjanjian_kerja_sama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    checkPermission();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if(storageAccess){
-                        dialog.show();
-                        viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
-                        viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
-                    }else{
-                        checkPermission();
-                    }
-                }else{
-                    dialog.show();
-                    viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
-                    viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
-                }
-
-
-
+                checkPermission();
+                dialog.show();
+                viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
+                viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
             }
         });
 
@@ -148,33 +115,10 @@ public class AktifPortofolioFragment extends Fragment {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
 
-    private void checkPermission(){
-        checkStorageAccess();
+    private void checkPermission() {
         final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
-        }else{
-
-        }
-    }
-
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s",requireActivity().getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
         }
     }
 
@@ -183,12 +127,8 @@ public class AktifPortofolioFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2296) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                } else {
-                    storageAccess = false;
+                if (!Environment.isExternalStorageManager()) {
                     Toast.makeText(requireActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
                 }
             }
         }
@@ -247,12 +187,12 @@ public class AktifPortofolioFragment extends Fragment {
         public void onChanged(JSONObject result) {
             JSONArray rows;
             try {
-                txt_tot_pinjaman_aktif.setText(result.getLong("total")+" pinjaman");
-                Log.e("pinjaman",result.getLong("total")+"");
+                txt_tot_pinjaman_aktif.setText(result.getLong("total") + " pinjaman");
+                Log.e("pinjaman", result.getLong("total") + "");
                 rows = result.getJSONArray("rows");
-                Log.e("ROWS",rows.toString());
-                if(rows.length()==0){
-                }else{
+                Log.e("ROWS", rows.toString());
+                if (rows.length() == 0) {
+                } else {
 
                 }
                 txt_tot_angs_bunga_dibayar.setText(f.toNumb(result.getString("total_angsuran_terbayar")));
@@ -272,10 +212,10 @@ public class AktifPortofolioFragment extends Fragment {
         public void onChanged(ArrayList<PortofolioAktif> result) {
             results = result;
             tot_pinjaman_terlambat = 0;
-            if(result.isEmpty()){
+            if (result.isEmpty()) {
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 cons.setVisibility(View.VISIBLE);
                 cons_lottie.setVisibility(View.GONE);
                 linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -286,7 +226,7 @@ public class AktifPortofolioFragment extends Fragment {
                 rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
                     @Override
                     public void onLoadMore(int current_page) {
-                        loadMorePortAktif(""+current_page);
+                        loadMorePortAktif("" + current_page);
                     }
                 });
             }
@@ -304,7 +244,7 @@ public class AktifPortofolioFragment extends Fragment {
     private Observer<ArrayList<PortofolioAktif>> showMorePortAktif = new Observer<ArrayList<PortofolioAktif>>() {
         @Override
         public void onChanged(final ArrayList<PortofolioAktif> result) {
-            for(int i = 0; i < result.size(); i++){
+            for (int i = 0; i < result.size(); i++) {
                 results.add(result.get(i));
                 portofolioAktifAdapter.notifyDataSetChanged();
             }

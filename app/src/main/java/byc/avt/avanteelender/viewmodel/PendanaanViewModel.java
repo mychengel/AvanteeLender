@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.model.Pendanaan;
 import byc.avt.avanteelender.repositories.PendanaanRepository;
 import byc.avt.avanteelender.repositories.SplashRepository;
@@ -34,7 +35,7 @@ public class PendanaanViewModel extends AndroidViewModel {
     }
 
     public void downloadFactsheet(String uid, String token, String loan_id){
-        resultDownloadFactsheet = repository.downloadFactsheet(loan_id, uid, token, getApplication());
+        resultDownloadFactsheet = repository.downloadFactSheet(uid, token, getApplication(), DocumentType.FACTSHEET_LOAN, loan_id);
     }
 
     public LiveData<String> getResultDownloadFactsheet(){

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioAktifDetail;
 import byc.avt.avanteelender.repositories.tabportofoliorepositories.AktifPortofolioRepository;
@@ -57,7 +58,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     }
 
     public void downloadSuratKuasa(String uid, String token){
-        resultDownloadSuratKuasa = AktifPortofolioRepository.downloadSuratKuasa(uid, token, getApplication());
+        resultDownloadSuratKuasa = AktifPortofolioRepository.downloadDocument(uid, token, getApplication(), DocumentType.PROCURATION, "n/a");
     }
 
     public LiveData<String> getResultDownloadSuratKuasa(){
@@ -65,7 +66,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     }
 
     public void downloadSuratPerjanjian(String uid, String token){
-        resultDownloadSuratPerjanjian = AktifPortofolioRepository.downloadSuratPerjanjian(uid, token, getApplication());
+        resultDownloadSuratPerjanjian = AktifPortofolioRepository.downloadDocument(uid, token, getApplication(), DocumentType.AGREEMENT, "n/a");
     }
 
     public LiveData<String> getResultDownloadSuratPerjanjian(){
@@ -73,7 +74,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     }
 
     public void downloadSuratKuasaLoan(String uid, String token, String loan_no){
-        resultDownloadSuratKuasaLoan = AktifPortofolioRepository.downloadSuratKuasaLoan(loan_no, uid, token, getApplication());
+        resultDownloadSuratKuasaLoan = AktifPortofolioRepository.downloadDocument(uid, token, getApplication(), DocumentType.PROCURATION_LOAN, loan_no);
     }
 
     public LiveData<String> getResultDownloadSuratKuasaLoan(){
@@ -81,7 +82,7 @@ public class AktifPortofolioViewModel extends AndroidViewModel {
     }
 
     public void downloadAgreementFunding(String uid, String token, String funding_id){
-        resultDownloadSuratPerjanjianFunding = AktifPortofolioRepository.downloadAgreementFunding(funding_id, uid, token, getApplication());
+        resultDownloadSuratPerjanjianFunding = AktifPortofolioRepository.downloadDocument(uid, token, getApplication(), DocumentType.AGREEMENT_LOAN, funding_id);
     }
 
     public LiveData<String> getResultDownloadAgreementFunding(){

@@ -121,50 +121,15 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     };
 
     private void checkPermission(){
-        checkStorageAccess();
         final int permission = ActivityCompat.checkSelfPermission(PendanaanDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PendanaanDetailActivity.this, PERMISSIONS_STORAGE, 1);
-        }else{
-
-        }
-    }
-
-    boolean storageAccess = false;
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s",PendanaanDetailActivity.this.getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2296) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                } else {
-                    storageAccess = false;
-                    Toast.makeText(PendanaanDetailActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
-                }
-            }
-        }
     }
 
     public void confirmDanai(){
@@ -263,19 +228,9 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             checkPermission();
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                if(storageAccess){
-                                    dialog.show();
-                                    viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
-                                    viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
-                                }else{
-                                    checkPermission();
-                                }
-                            }else{
-                                dialog.show();
-                                viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
-                                viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
-                            }
+                            dialog.show();
+                            viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
+                            viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
                         }
                     });
                     txt_loan_rating.setText(res.getString("loan_rating"));

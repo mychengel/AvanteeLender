@@ -60,11 +60,6 @@ public class WalkthroughActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Making notification bar transparent
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-//        }
-
         setContentView(R.layout.activity_walkthrough);
 
         viewPager = findViewById(R.id.view_pager_walkthrough);
@@ -140,15 +135,14 @@ public class WalkthroughActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        if(prefManager.getUid().equalsIgnoreCase("-")){
+        if (prefManager.getUid().equalsIgnoreCase("-")) {
             viewPager.setCurrentItem(layouts.length);
-        }else{
-            new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali "+prefManager.getName());
+        } else {
+            new Fungsi(WalkthroughActivity.this).showMessage("Selamat datang kembali " + prefManager.getName());
             Intent intent = new Intent(WalkthroughActivity.this, MainActivity.class);
             intent.putExtra("dest", "1");
             new Routes(WalkthroughActivity.this).moveInFinish(intent);
         }
-
     }
 
     //  viewpager change listener
@@ -202,7 +196,7 @@ public class WalkthroughActivity extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
-            if(position==4){
+            if (position == 4) {
                 txt_link_daftar = view.findViewById(R.id.txt_link_daftar);
                 txt_link_daftar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -273,8 +267,7 @@ public class WalkthroughActivity extends AppCompatActivity {
 
                         }
                     }).check();
-            if(!storageAccess){checkStorageAccess();}
-        }else{
+        } else {
             Dexter.withContext(WalkthroughActivity.this)
                     .withPermissions(
                             Manifest.permission.RECEIVE_SMS,
@@ -299,56 +292,13 @@ public class WalkthroughActivity extends AppCompatActivity {
         }
     }
 
-    Boolean storageAccess = false;
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-                prefManager.setStoragePermission(true);
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
-        }
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2296) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                    prefManager.setStoragePermission(true);
-                } else {
-                    storageAccess = false;
-                    prefManager.setStoragePermission(false);
-                    Toast.makeText(WalkthroughActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
-                }
-            }
-        }
-    }
-
-    private void requestNotificationPermission() {
-    }
-
-    private void requestLocationPermission() {
-    }
-
-    private void requestPhoneCallPermission() {
     }
 
     public boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onResume() {
         super.onResume();

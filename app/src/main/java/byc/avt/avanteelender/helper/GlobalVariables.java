@@ -5,15 +5,12 @@ import android.content.Context;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.helper.VolleyMultipartRequest;
 import byc.avt.avanteelender.model.DataPart;
 
 public final class GlobalVariables {
@@ -25,6 +22,7 @@ public final class GlobalVariables {
     public static final int BIAYA_PENARIKAN = 6000;
     public static String LENDER_CODE;
     public static String NO_HP;
+    public static final String basicAuth = "Basic " + Base64.encodeToString("B@code3:p@ssw0rdyangsimpleajalahyah".getBytes(), Base64.NO_WRAP);
     public static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
             "(?=.*[0-9])" +         //at least has 1 number
             "(?=.*[a-z])" +         //at least has 1 lower case letter

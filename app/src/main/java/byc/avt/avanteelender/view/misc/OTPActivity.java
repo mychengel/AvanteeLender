@@ -1,12 +1,5 @@
 package byc.avt.avanteelender.view.misc;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -14,12 +7,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mukesh.OtpView;
 
@@ -33,15 +32,10 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.model.UserData;
-import byc.avt.avanteelender.view.MainActivity;
-import byc.avt.avanteelender.view.auth.InVerificationProcessActivity;
-import byc.avt.avanteelender.view.auth.LoginActivity;
 import byc.avt.avanteelender.view.auth.RegistrationFormActivity;
-import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
 import byc.avt.avanteelender.viewmodel.AuthenticationViewModel;
 
 public class OTPActivity extends AppCompatActivity {
@@ -191,7 +185,6 @@ public class OTPActivity extends AppCompatActivity {
 
     public void sendOTPVerification() {
         // POST to server through endpoint
-        OTPReceiver.isReady = true;
         dialog.show();
         viewModel.sendOTPVerification(prefManager.getUid(), prefManager.getToken(), "verification");
         viewModel.getOTPVerificationResult().observe(OTPActivity.this, sendSuccess);
@@ -202,7 +195,6 @@ public class OTPActivity extends AppCompatActivity {
         public void onChanged(String result) {
             f.showMessage(result);
             dialog.cancel();
-            new OTPReceiver().setEditText(otpView, "verification");
             setTimer();
         }
     };

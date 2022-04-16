@@ -58,7 +58,6 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
     ImageView img_mark;
     CardView cv_pb, cv_nom, cv_download_surat_kuasa_pemberi_dana, cv_download_agreement_penerima_dana;
     private String loan_no = "", funding_id = "";
-    Boolean storageAccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,20 +137,9 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkPermission();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if(storageAccess){
-                        dialog.show();
-                        viewModel.downloadSuratKuasaLoan(prefManager.getUid(), prefManager.getToken(), loan_no);
-                        viewModel.getResultDownloadSuratKuasaLoan().observe(PortofolioAktifDetailActivity.this, showResultDownloadSuratKuasaLoan);
-                    }else{
-                        checkPermission();
-                    }
-                }else{
-                    dialog.show();
-                    viewModel.downloadSuratKuasaLoan(prefManager.getUid(), prefManager.getToken(), loan_no);
-                    viewModel.getResultDownloadSuratKuasaLoan().observe(PortofolioAktifDetailActivity.this, showResultDownloadSuratKuasaLoan);
-                }
-
+                dialog.show();
+                viewModel.downloadAgreementFunding(prefManager.getUid(), prefManager.getToken(), funding_id);
+                viewModel.getResultDownloadAgreementFunding().observe(PortofolioAktifDetailActivity.this, showResultDownloadAgreementFunding);
             }
         });
 
@@ -159,20 +147,9 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkPermission();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if(storageAccess){
-                        dialog.show();
-                        viewModel.downloadAgreementFunding(prefManager.getUid(), prefManager.getToken(), funding_id);
-                        viewModel.getResultDownloadAgreementFunding().observe(PortofolioAktifDetailActivity.this, showResultDownloadAgreementFunding);
-                    }else{
-                        checkPermission();
-                    }
-                }else{
-                    dialog.show();
-                    viewModel.downloadAgreementFunding(prefManager.getUid(), prefManager.getToken(), funding_id);
-                    viewModel.getResultDownloadAgreementFunding().observe(PortofolioAktifDetailActivity.this, showResultDownloadAgreementFunding);
-                }
-
+                dialog.show();
+                viewModel.downloadSuratKuasaLoan(prefManager.getUid(), prefManager.getToken(), loan_no);
+                viewModel.getResultDownloadSuratKuasaLoan().observe(PortofolioAktifDetailActivity.this, showResultDownloadSuratKuasaLoan);
             }
         });
 
@@ -186,49 +163,15 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
     };
 
     private void checkPermission(){
-        checkStorageAccess();
         final int permission = ActivityCompat.checkSelfPermission(PortofolioAktifDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PortofolioAktifDetailActivity.this, PERMISSIONS_STORAGE, 1);
-        }else{
-
-        }
-    }
-
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2296) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                } else {
-                    storageAccess = false;
-                    Toast.makeText(PortofolioAktifDetailActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
-                }
-            }
-        }
     }
 
     @Override

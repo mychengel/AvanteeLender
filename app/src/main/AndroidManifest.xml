@@ -19,12 +19,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.MANAGE_DOCUMENTS"
-        tools:ignore="ProtectedPermissions,ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -38,9 +33,6 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:allowBackup="true"
@@ -102,10 +94,14 @@
 
                 <data
                     android:host="avantee.co.id"
-                    android:pathPrefix="/member/confirm/yes/"
-                    android:port="8444"
-                    android:scheme="https"
-                    tools:ignore="AppLinkUrlError" />
+                    android:pathPattern="/confirm/ya/"
+                    android:pathPrefix="/confirm/ya/"
+                    android:scheme="https" />
+                <data
+                    android:host="avantee.co.id"
+                    android:pathPattern="/confirm/ya/"
+                    android:pathPrefix="/confirm/ya/"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
@@ -163,10 +159,14 @@
 
                 <data
                     android:host="avantee.co.id"
-                    android:pathPrefix="/member/recover/"
-                    android:port="8444"
-                    android:scheme="https"
-                    tools:ignore="AppLinkUrlError" />
+                    android:pathPattern="/recover/"
+                    android:pathPrefix="/recover/"
+                    android:scheme="https" />
+                <data
+                    android:host="avantee.co.id"
+                    android:pathPattern="/recover/"
+                    android:pathPrefix="/recover/"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
@@ -339,14 +339,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".helper.receiver.OTPReceiver"
-            android:permission="android.permission.BROADCAST_SMS">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

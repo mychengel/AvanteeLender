@@ -1,12 +1,5 @@
 package byc.avt.avanteelender.view.misc;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -22,7 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieDrawable;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.mukesh.OtpView;
 
 import org.json.JSONException;
@@ -35,7 +34,6 @@ import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.helper.Routes;
-import byc.avt.avanteelender.helper.receiver.OTPReceiver;
 import byc.avt.avanteelender.intro.WalkthroughActivity;
 import byc.avt.avanteelender.model.User;
 import byc.avt.avanteelender.model.UserData;
@@ -105,9 +103,6 @@ public class OTPSettingsActivity extends AppCompatActivity {
         }
 
         checkPermission();
-
-        OTPReceiver.isReady = true;
-        new OTPReceiver().setEditText(otpView, "settings");
         setTimer();
     }
 
@@ -174,8 +169,6 @@ public class OTPSettingsActivity extends AppCompatActivity {
         public void onChanged(String result) {
             f.showMessage(result);
             dialog.cancel();
-            OTPReceiver.isReady = true;
-            new OTPReceiver().setEditText(otpView, "settings");
             setTimer();
         }
     };

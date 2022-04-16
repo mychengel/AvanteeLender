@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">Avantee Lender</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="dasbor">Dasbor</string>
     <string name="portofolio">Portofolio</string>
-    <string name="portofolioinvest">Portofolio Investasi</string>
     <string name="notifikasi">Notifikasi</string>
     <string name="img">img</string>
     <string name="aktif">Aktif</string>
@@ -32,17 +28,13 @@
     <string name="in_process_verification">Akun Anda sedang dalam tahap proses verifikasi oleh kami. Mohon menunggu beberapa saat.</string>
 
     <!-- TODO: Authentication Register -->
-    <string name="register">Daftar</string>
     <string name="email">Email</string>
     <string name="referral_id">Referral ID (opsional)</string>
-    <string name="ive_read">Saya telah membaca dan setuju dengan</string>
     <string name="terms_and_condition">Syarat &amp; Ketentuan Avantee</string>
     <string name="register_as_lender">Daftar sebagai pemberi dana</string>
     <string name="otp_verification">Verifikasi OTP</string>
     <string name="otp_desc">Masukkan kode verifikasi yang telah dikirimkan melalui SMS ke nomor anda</string>
     <string name="resend_in">Kirim ulang kode dalam </string>
-    <string name="register_success">Pendaftaran berhasil</string>
-    <string name="register_success_message">Akun berhasil didaftarkan sebagai peminjam di Avantee. Silakan masuk kembali menggunakan nomor handphone dan kata sandi Anda.</string>
     <string name="register_complete">Pendaftaran selesai</string>
     <string name="registed_complete_message">Mohon menunggu proses verifikasi akun oleh tim kami.</string>
     <string name="resend_email_title">Kirim ulang email verifikasi</string>
@@ -61,10 +53,8 @@
     <!-- TODO: Authentication Forgot Password -->
     <string name="reset_password">Atur ulang kata sandi</string>
     <string name="reset_password_email">Masukkan alamat email Anda dan kami akan mengirimkan email berisi tautan untuk mengatur ulang kata sandi.</string>
-    <string name="reset_password_desc">Masukkan no. handphone Anda dan kami akan mengirimkan SMS berisi tautan untuk mengatur ulang kata sandi.</string>
     <string name="reset">Atur ulang</string>
     <string name="reset_failed">Pengiriman tautan atur ulang kata sandi gagal, silahkan cek kembali email yang Anda isikan</string>
-    <string name="reset_message">Klik tautan dalam SMS tersebut untuk mengatur ulang kata sandi Anda.</string>
     <string name="set_new_pass_failed">Atur ulang kata sandi gagal. Silahkan coba beberapa saat lagi.</string>
     <string name="change_pass_failed">Ubah kata sandi gagal. Pastikan password saat ini sudah benar.</string>
 
@@ -74,22 +64,16 @@
     <string name="fill_form">Isi\nformulir</string>
     <string name="document_picture">Foto\ndokumen</string>
     <string name="wait_verification">Tunggu\nverifikasi</string>
-    <string name="under_verification">Akun dalam verifikasi</string>
     <string name="start_filling_forms">Mulai pengisian formulir</string>
-    <string name="under_verification_message">Persetujuan memerlukan waktu hingga 24 jam. Kami akan memberi kabar via SMS. jangan keluar atau menghapus aplikasi ini.</string>
 
     <!-- TODO: common use -->
-    <string name="sms_sent">SMS terkirim</string>
     <string name="resend">Kirim ulang</string>
     <string name="phone_number">No. handphone</string>
     <string name="password">Kata sandi</string>
     <string name="retype_password">Ulangi kata sandi</string>
     <string name="cancel">Batalkan</string>
     <string name="next">Selanjutnya</string>
-    <string name="prev">Sebelumnya</string>
     <string name="back">Kembali</string>
-    <string name="use">Gunakan</string>
-    <string name="take_again">Foto ulang</string>
     <string name="ive_read_2">Saya telah membaca dan setuju dengan Syarat dan Ketentuan Avantee diatas</string>
     <string name="verify">Verifikasi</string>
 
@@ -116,12 +100,10 @@
     <string name="narahubung_position">Jabatan narahubung</string>
     <string name="narahubung_email">Email narahubung</string>
     <string name="narahubung_ktp">No. KTP narahubung</string>
-    <string name="name_same_as_narahubung">Nama sama dengan nama narahubung</string>
     <string name="address_based_akta">Alamat perusahaan sesuai akta</string>
     <string name="address_based_operasional">Alamat operasional perusahaan</string>
     <string name="address_same_as_akta">Alamat sama dengan akta</string>
     <string name="take_narahubung_ktp_photo">Ambil foto KTP narahubung</string>
-    <string name="take_narahubung_npwp_photo">Ambil foto NPWP narahubung</string>
     <string name="take_narahubung_selfie_photo">Ambil foto selfie narahubung</string>
     <string name="bith_date_narahubung">Tanggal lahir narahubung</string>
     <string name="email_not_valid">Email tidak valid</string>
@@ -134,7 +116,6 @@
     <string name="gender">Jenis kelamin</string>
     <string name="male">Laki-laki</string>
     <string name="female">Perempuan</string>
-    <string name="rather_not_say">Lainnya</string>
     <string name="marriage_status">Status perkawinan</string>
     <string name="birth_place">Tempat lahir</string>
     <string name="date_of_birth">Tanggal lahir</string>
@@ -166,15 +147,11 @@
     <string name="postal_code">Kode pos</string>
     <string name="rt">RT (contoh: 001)</string>
     <string name="rw">RW (contoh: 001)</string>
-    <string name="home_owned_status">Status kepemilikan rumah</string>
     <string name="address_on_KTP">Alamat sesuai KTP</string>
     <string name="domicile_address">Alamat tempat tinggal</string>
-    <string name="work_address">Alamat tempat bekerja</string>
     <string name="domicile_same_as_KTP">Alamat saat ini sama dengan KTP</string>
-    <string name="work_same_as_KTP">Alamat bekerja sama dengan KTP</string>
 
     <!-- TODO: New User Form Part 4 -->
-    <string name="other_family_member">Data keluarga tidak serumah</string>
     <!-- TODO: use these string => full_name, phone_number, address, province, city, sub_district, urban, postal_code -->
 
     <!-- TODO: New User Form Part 5 -->
@@ -186,83 +163,33 @@
     <string name="avg_transaction">Rata-rata transaksi</string>
 
     <!-- TODO: New User Form Part 6 -->
-    <string name="essential_document">Dokumen pendukung</string>
     <string name="KTP_number">No. KTP</string>
     <string name="take_photo_of_ktp">Ambil foto KTP</string>
-    <string name="take_selfie">Ambil foto selfie</string>
     <string name="npwp_number">No. NPWP</string>
     <string name="take_photo_of_npwp">Ambil foto NPWP</string>
     <string name="take_photo_of_selfie">Ambil foto Selfie</string>
     <string name="take_photo_of_spesimenttd">Ambil foto Spesimen TTD</string>
-    <string name="take_photo_of_account_book">Ambil foto nama dan nomor rekening Anda</string>
 
     <!-- TODO: Navigation & menu -->
-    <string name="nav_dashboard">Dasbor</string>
-    <string name="nav_loan">Pinjaman</string>
-    <string name="nav_notification">Notifikasi</string>
-    <string name="setting">Pengaturan</string>
-    <string name="press_exit">Tekan lagi untuk keluar!</string>
-    <string name="message">Pesan</string>
-    <string name="information">Info &amp; Penawaran</string>
     <string name="history_transaction">Histori Transaksi</string>
     <string name="loan">Pinjaman</string>
-    <string name="see_all">Lihat Semua</string>
-    <string name="current_loan">Pinjaman saat ini</string>
-    <string name="total_finished_loan">Total Nominal Pinjaman Selesai</string>
 
     <!-- TODO: Empty list -->
-    <string name="no_message">Tidak ada pesan</string>
     <string name="no_transaction_history">Belum ada transaksi</string>
-    <string name="no_loan">Anda belum mempunyai pinjaman. \nAjukan sekarang:</string>
-    <string name="no_active_loan">Anda belum memiliki pinjaman aktif. Silahkan memilih diantara tipe pinjaman yang tersedia sesuai keperluan Anda:</string>
 
     <!-- TODO: Loan Type -->
-    <string name="staff_loan">Staff Loan</string>
-    <string name="staff_loan_desc">Pinjaman khusus karyawan</string>
-    <string name="kta_loan">KTA</string>
-    <string name="kta_loan_desc">Kredit Tanpa Agunan</string>
-    <string name="kuta_loan">KUTA</string>
-    <string name="kuta_loan_desc">Kredit Usaha Tanpa Agunan</string>
 
 
     <!-- TODO: On boarding screen content -->
-    <string name="info_heading">Informasi layanan</string>
-    <string name="info_desc">Untuk sementara, layanan akan kami fokuskan kepada peminjam dengan domisili di area Jabodetabek serta memiliki ATM / Mobile / Internet Banking. Silahkan melanjutkan jika Anda memenuhi persyaratan tersebut. Terimkasih karena Anda terlah memilih untuk meminjam di Avantee.</string>
-    <string-array name="onboard_heading">
-        <item>Avantee siap menjembatani pemberi dana dan peminjam</item>
-        <item>Suku bunga kompetitif</item>
-        <item>Cepat dan transparan</item>
-        <item>Program referal</item>
-        <item>Penuhi kebutuhan pendanaan Anda bersama kami</item>
-    </string-array>
-    <string-array name="onboard_content">
-        <item>Dengan sistem tekfin peer to peer, kami siap menjembatani kebutuhan pendanaan pelaku UKM, sekaligus menjadi sarana pemodalan alternatif bagi para pemberi pinjaman.</item>
-        <item>Suku bunga yang kompetitif sesuai dengan penialian tingkat resiko kredit masing-masing pelaku usaha serta tingkat pendanaan sampai dengan 90%.</item>
-        <item>Dengan sistem tekfin peer to peer dan jangkauan pinjaman secara nasional, memungkinkan proses penggalangan dana pinjaman menjadi jauh lebih cepat, praktis, dan transparan dibanding proses konvensional.</item>
-        <item>Dengan membawa penyandang dana untuk ikut program pendanaan, peminjam dapat mengurangi biaya pinjaman dengan komisi referal.</item>
-        <item> </item>
-    </string-array>
     <string name="skip">Lewati</string>
-    <string name="close">Tutup</string>
-    <string name="i_understand">Saya mengerti, lanjutkan</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- TODO: Misc -->
-    <string name="dummy_heading">Video provides a powerful way to help you prove your point</string>
-    <string name="dummy_text">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video  that best fits your document that best fits your document.</string>
-    <string name="illustration">illustration</string>
     <string name="afpi_logo">AFPI Logo</string>
     <string name="logo">Logo</string>
-    <string name="currency_IDR">Rp</string>
-    <string name="tips_for_photo">Petunjuk pengambilan foto</string>
-    <string name="account_foto_tips">Untuk mempercepat proses verifikasi identitas Anda, mohon mengambil foto halaman depan buku rekening atau rekening koran seperti contoh berikut:</string>
-    <string name="account_book">Buku rekening</string>
-    <string name="current_account">Rekening koran</string>
     <string name="setuju_syarat_ketentuan">Saya telah membaca dan setuju dengan</string>
     <string name="syarat_ketentuan_avantee"><![CDATA[Syarat & Ketentuan Avantee]]></string>
-    <string name="terms_and_conditions">SYARAT DAN KETENTUAN UMUM\n\nDengan mengakses Situs Webs ini Anda setuju untuk terikat pada segala syarat dan ketentuan yang berhubungan dengan Situs Web ini dan materi apapun yang terkandung di dalamnya. Avantee memiliki hak untuk mengganti syarat dan ketentuan pada poin-point tertentu pada syarat dan ketentuan ini (apabila perlu) tanpa kewajiban untuk melakukan pemberitahuan terlebih dahulu.\n\nApabila Anda melanjutkan penggunaan dan akses pada Situs Web ini, Anda dianggap telah menerima dan menyetujui segala persyarat ini dan perubahan yang dilakukan. Apabila Anda tidak setuju dengan syarat dan ketentuan ini, silahkan meninggalkan Situs Web ini segera.\n\nPENERAPAN PERSYARATAN\n Persyaratan ini berlaku untuk setiap penggunaan Situs Web dan dengan mengakses dan menggunakan Situs Web maka : Anda setuju terhadap persyaratan ini; dan Ketika Anda mengakses dan menggunakan Situs Web ini untuk dan atas nama orang lain atau perusahaan (“pihak lain”), Anda telah mengkonfirmasi bahwa Anda berwenang untuk mewakili dan pada kenyataannya juga telah menyetujui persyaratan ini atas nama pihak lain yang Anda wakilkan tersebut. Pihak lain yang Anda wakilkan juga menjadi terikat untuk setuju pada persyaratan ini. Jika Anda tidak menyetujui Persyaratan ini, atau Anda tidak berwenang mengakses dan menggunakan Situs Web ini, dan Anda harus segera berhenti mengakses Situs Web ini. \n\nPERUBAHAN ATAS PERSYARATAN\nAvantee dapat mengubah Persyaratan ini setiap saat dengan memperbaruinya di Situs Web. Kecuali dinyatakan lain, setiap perubahan akan segera berlaku dan Anda bertanggung jawab untuk memastikan bahwa Anda mengetahui segala perubahan dan/atau atas adanya persyaratan terbaru tersebut. Dengan terus mengakses dan menggunakan Situs Web, Anda setuju untuk terikat dengan Persyaratan yang telah diubah di Situs Web. \n\nKEAKURATAN DATA \nAnda setuju bahwa dengan mengakses Situs Web dan menggunakan layanan, Anda menjamin keaslian dan keakuratan data yang Anda berikan di Situs Web. Data yang Anda berikan benar, akurat, lengkap, terbaru dan tidak menyesatkan. Anda setuju untuk : Memberikan update dan informasikan kepada Avantee tentang perubahan apapun pada data dan/informasi Anda, segera setelah terjadi perubahan tersebut. Memberikan ijin kepada Avantee untuk mengakses informasi yang diberikan dalam rangka pengecekan dan melakukan proses pengajuan kredit. Menyimpan kata sandi dan data pribadi Anda dengan aman dan selalu menjaga kerahasiaanya. Jika Anda bertindak untuk organisasi, asosiasi atau perusahaan, Anda bertanggung jawab penuh atas penggunaan layanan, termasuk namun tidak terbatas untuk melakukan hal-hal seperti yang tercantum dalam huruf a dan huruf b di atas. Jika Avantee mengetahui, baik secara langsung maupun di masa mendatang, bahwa data atau informasi yang Anda berikan kepada Avantee salah, diduga salah dan / atau tidak akurat, maka Avantee berhak memblokir akses Anda ke Situs Web. Anda akan bertanggung jawab atas segala kerusakan yang timbul atau akan timbul, baik material atau tidak penting, karena ketidakakuratan yang Anda berikan. \n\nPERSETUJUAN PENGGUNAAN TRANSAKSI ELEKTRONIK \nDengan menggunakan dan mengakses Situs Web sebagai pengguna, Anda memahami dan menyetujui bahwa segala bentuk komunikasi dari Avantee kepada Anda terkait dengan layanan melalui Situs Web akan diberikan secara elektronik baik melalui email atau dipublikasikan di Situs Web. Anda setuju untuk menerima semua dokumen, notifikasi dan kesepakatan yang timbul secara elektronik dari penggunaan Situs Web dan layanan Anda, termasuk layanan sebagai Kreditor dan Debitur. Semua persetujuan Anda atas dokumen, notifikasi dan persetujuan yang timbul secara elektronik dari penggunaan Situs Web dan layanan disediakan dengan cara mendaftar secara elektronik. Perjanjian apa pun yang Anda berikan secara elektronik melalui Situs Web sepenuhnya bertanggung jawab dan mengikat Anda sebagai pengguna layanan, baik hak dan kewajiban yang timbul dari perjanjian atau ketentuan dan persyaratan umum ini. \n\nKEWAJIBAN PENGGUNA WEB \nAnda harus memberikan informasi yang benar, terkini dan lengkap dalam hubungan Anda dengan Avantee (termasuk saat membuat akun), dan harus segera memperbarui informasi tersebut sesuai kebutuhan sehingga informasinya tetap benar, terkini dan lengkap. Jika Anda diberikan User ID dan atau data apapun dari Avantee, Anda Harus menjaga User ID dan data lain tersebut tetap aman, tidak mengizinkan orang lain untuk menggunakan User ID Anda, termasuk tidak mengungkapkan atau memberikannya kepada orang lain dan segera memberita jika Anda mengetahui adanya pengungkapan atau penggunaan User ID Anda yang tidak sah. Anda tidak boleh bertindak dengan cara apapun, atau menggunakan atau mengenalkan apapun (virus, worm, trojan horse, timebomb, keystroke logger, spyware atau fitur sejenis lainnya) yang dengan cara apapun berbahya, atau mungkin berbahaya bagi Situs Web dan/atau berupaya merusak atau mengganggu Situs Web. Kecuali dengan persetujuan Avantee, akses terhadap Situs Web hanya boleh dilakukan melalui browser web standard dan bukan dengan metode lain (seperti scraping, deep-linking, harvesting, data mining, penggunaan robot atau spider, automation, atau pengumpulan data, ekstraksi atau metode pemantauan yang serupa). Anda harus terlebih dahulu mendapatkan izin tertulis dari Avantee untuk membuat link ke Situs Web Avantee. Anda mengganti kerugian Avantee terhadap semua kerugian yang Avantee derita atau alami sebagai akibat langsung atau tidak langsung dari kegagalan Anda untuk mematuhi Persyaratan ini, termasuk adanya kegagalan orang yang mengakses dan menggunakan Situs Avantee dengan menggunakan User ID Anda. \n\nHAK CIPTA \nAvantee (dan pemberi lisensi Avantee) memiliki semua hak kepemilikan dan hak atas kekayaan intelektual pada Situs Web (termasuk namun tidak terbatas pada semua informasi, data, teks, grafik, karya seni, foto, logo, ikon, rekaman suara, video dan tampilan dan nuansa), dan sistem pendukung. Kecuali dengan persetujuan tertulis dari Avantee, hak atas kekayaan intelektual pada Situs Web tidak dapat diduplikasikan, ditransmisikan, dipajang, didistribusikan (untuk kompensasi atau sejenisnya), diubah atau disimpan untuk dengan cara dan tujuan apapun. \n\nPEMBEBASAN TANGGUNG JAWAB AVANTEE \nAnda mengakses dan menggunakan Situs Web dengan risiko Anda sendiri. Informasi yang terdapat pada Situs Web ini disediakan “apa adanya”. Avantee tidak memberikan jaminan terhadap tingkat akurasi pada materi yang tersedia, baik secara langsung maupun tidak langsung. Avantee tidak dapat dan tidak menjamin tingkat akurasi, keabsahan, kecocokan atau kesempurnaan dari informasi atau data yang tersedia untuk Anda untuk tujuan apapun di dalam Situs Web ini. Avantee tidak akan bertanggung jawab pada setiap kerugian atau kerusakan yang dapat muncul dari terjadinya intersepsi oleh pihak ketiga terhadap informasi yang tersedia kepada Anda melalui Web Situs ini. Tidak satupun dari Avantee termasuk juga afiliasinya, direktur, petugas, pekerja atau perwakilannya akan menanggung atau bertanggung jawab terhadap segala jenis kerugian atau kerusakan yang Anda lakukan atau alami dalam kondisi terjadinya kegagalan atau interupsi pada Situs Web ini, atau yang berakibat pada tindakan atau kelalaian dari pihak lainnya sehingga mempengaruhi akses Anda, ketidakmampuan untuk mengakses, atau untuk menggunakan Situs Web ini atau materi yang terdapat di dalamnya. Sejauh diizinkan oleh undang-undang, Avantee dan pemberi lisensi Avantee tidak bertanggung jawab atau bertanggung jawab kepada Anda atau orang lain atas kerugian sehubungan dengan keadaan: Situs Web tidak tersedia (seluruhnya atau sebagian) atau tampilannya menjadi lambat. Ada kesalahan dalam, atau kelalaian dari, informasi apapun yang tersedia melalui Situs Web. Paparan virus atau bentuk gangguan lainnya yang dapat merusak sistem komputer Anda atau menyebabkan Anda terkena penipuan saat mengakses atau menggunakan Situs Web. Untuk menghindari keraguan, Anda bertanggung jawab untuk memastikan proses dimana Anda mengakses dan menggunakan Situs Web melindungi Anda dari hal ini. Situs manapun yang terhubung dari Situs Web Tautan di Situs Web ini ke situs lain tidak menyiratkan pengesahan, persetujuan atau rekomendasi dari, atau tanggung jawab atas situs-situs tersebut atau isinya. Informasi yang tersedia di dalam Situs Web ini hanya bertujuan untuk memberikan informasi. Sehingga Situs Web tidak dapat dianggap sebagai penawaran atau permintaan, atau dianggap sebagai rekomendasi untuk membeli, menjual atau juga mencapai kesepakatan dengan pemberian pinjaman apapun. Anda sangat disarankan untuk mendapatkan saran independen dalam memberikan pinjaman, finansial, legal dan pajak sebelum melanjutkan dengan pemberian pinjaman apapun. Tidak ada hal yang terdapat di dalam Situs Web ini yang bersifat atau ditafsirkan sebagai saran arahan dan rekomendasi untuk melakukan pemberian pinjaman. \n\nKEBIJAKAN PRIVASI DAN KONTEN PENGGUNA \nAvantee menghormati perlindungan atas privasi Anda. Avantee tidak mengumpulkan informasi pribadi tentang Anda kecuali Anda secara khusus dan dengan sengaja memilih untuk memberikan informasi tersebut kepada Avantee berupa: Data pribadi yang Anda berikan kepada Avantee. Setiap data yang dibutuhkan untuk mengakses akun Anda sebagai Pengguna, termasuk namun tidak terbatas pada Alamat IP, e-mail, nomor telpon dan hal lain saat Anda mengunjungi dan mengakses Situs Web. Anda bertanggung jawab penuh atas semua materi dan informasi yang Anda berikan, unggah, publikasikan, dan tampilkan di Situs Web serta semua materi dan informasi yang Anda kirim atau berikan kepada Pengguna lain. Anda memahami dan menyetujui bahwa Avantee memiliki hak, namun tidak berkewajiban, untuk meninjau dan menghapus semua isi Pengguna atas kebijakannya sendiri (tanpa pemberitahuan), termasuk namun tidak terbatas pada, konten Pengguna atas pertimbangan Avantee yang diklasifikasikan sebagai pelanggaran terhadap persyaratan dan ketentuan umum ini, bertentangan dengan hukum dan peraturan yang berlaku, atau dapat melanggar atau membahayakan hak dan keamanan Pengguna lain. Dengan menggunakan Situs Web ini, Anda memberi hak kepada Avantee untuk menggunakan, menyalin, menampilkan, memformat ulang, dan mendistribusikan Konten Pengguna untuk tujuan lain (pemasaran dan / atau promosi) atau hal lain yang terkait dengan Situs Web. Anda berhak mencabut konten Pengguna Anda kapan saja dan jika Anda mencabut Konten Pengguna Anda dari Situs Web, setiap hak yang Anda berikan kepada Avantee sebagaimana dinyatakan di atas akan tetap berlaku. \n\nPENGHAPUSAN AKUN \nAnda setuju bahwa jika terjadi pelanggaran yang Anda lakukan terhadap ketentuan dalam persyaratan dan ketentuan ini atau dengan undang-undang yang berlaku, Avantee dapat secara sepihak dan tanpa pemberitahuan sebelumnya menghapus Akun Anda di Situs Web, membatasi akses Anda ke Situs Web dan menghentikan Layanan untuk Anda. Anda setuju bahwa setiap kehilangan materi atau materi yang timbul dari penghentian Akun Anda dan / atau pembatasan akses terhadap hal-hal seperti yang disebutkan di atas adalah tanggung jawab Anda sepenuhnya. Anda setuju untuk melepaskan, membebaskan, dan membebaskan Avantee, afiliasi, pemegang saham, direktur, komisaris, karyawan, subkontraktor, pemasok, agen dari dan atas segala dan segala kewajiban, klaim, kerugian, kerusakan, termasuk biaya konsultan hukum, yang timbul dari pelanggaran terhadap persyaratan dan ketentuan umum ini dan persyaratan lain yang ditetapkan oleh Avantee.</string>
     <string name="verifikasi_email_anda">Verifikasi email Anda</string>
     <string name="dummy_kami_telah">Kami telah mengirimkan email ke johndoe@gmail.com dengan tautan yang perlu Anda klik untuk verifikasi. Harap cek folder spam atau klik “Kirim ulang” jika email tidak masuk.</string>
     <string name="kirim_ulang">Kirim ulang</string>
@@ -270,12 +197,6 @@
     <string name="email_terkirim">Email terkirim</string>
     <string name="des_email_terkirim1">Kami telah mengirimkan email ke </string>
     <string name="des_email_terkirim2"> dengan tautan yang perlu Anda klik untuk verifikasi. Harap cek folder spam atau klik “Kirim ulang” jika email tidak masuk.</string>
-    <string name="des_email_resent1">Kami telah mengirim ulang email verifikasi ke </string>
-    <string name="des_email_resent2">. Klik tautan dalam email untuk verifikasi akun Anda.</string>
-    <string name="email_not_verified">Email belum terverifikasi</string>
-    <string name="des_email_not_verified">Mohon klik tautan di email verifikasi terlebih dahulu.</string>
-    <string name="registration_success">Pendaftaran berhasil</string>
-    <string name="des_regristration_success">Akun berhasil didaftarkan sebagai pemberi dana di Avantee. Silakan masuk kembali menggunakan email dan kata sandi Anda.</string>
     <string name="account_setting">Pengaturan akun</string>
     <string name="faq">FAQ</string>
     <string name="term_and_condition">Syarat dan ketentuan</string>
@@ -310,14 +231,12 @@
     <string name="nol_percent">0%</string>
     <string name="tenor">Tenor</string>
     <string name="nol_hari">0 hari</string>
-    <string name="selesai_pendanaan">Selesai pendanaan</string>
     <string name="nominal_pendanaan">Nominal pendanaan</string>
     <string name="pb">Pokok+bunga yang diterima</string>
     <string name="sisa_tenor">Sisa tenor</string>
     <string name="angsuran_per_sudah">Angsuran/bunga sudah dibayar</string>
     <string name="angsuran_per_selanjutnya">Angsuran/bunga selanjutnya</string>
     <string name="tepat_waktu">Tepat waktu</string>
-    <string name="tot_angs_selanjutnya">Total Angsuran/Bunga Selanjutnya</string>
     <string name="tot_angs_sudah">Total Angsuran/Bunga Sudah Dibayar</string>
     <string name="belum_dibayar">Belum dibayar</string>
     <string name="tot_nom_port_pending">Total Nominal Portofolio Pending</string>
@@ -352,7 +271,6 @@
     <string name="tot_pin_selesai">Total pinjaman selesai</string>
     <string name="daftar_di_sini">Belum punya akun? Daftar!</string>
     <string name="filter">Filter</string>
-    <string name="sembilanpuluh_day_left">90 hari terakhir</string>
     <string name="txt_iap_des">Lihat semua info dan penawaran khusus dari kami sebagai bentuk apresiasi terhadap loyalitas anda kepada kami.</string>
     <string name="isi_nom_pendanaan">Isi Nominal Pendanaan</string>
     <string name="isi_nom_penarikan">Isi Nominal Penarikan Dana</string>
@@ -362,12 +280,10 @@
     <string name="saldo_tersedia">Saldo tersedia</string>
     <string name="tf_bank">Transfer Bank</string>
     <string name="with_uniqe_code_va">Dengan kode unik ke rekening VA</string>
-    <string name="est_bunga_akan_diterima">Estimasi bunga yang akan diterima</string>
     <string name="tot_angs_belum_terbayar">TOTAL ANGSURAN/BUNGA BELUM TERBAYAR</string>
     <string name="no_port_pending">Anda belum mempunyai portofolio pendanaan pending</string>
     <string name="no_port_aktif">Anda belum mempunyai portofolio pendanaan aktif</string>
     <string name="no_port_selesai">Anda belum mempunyai portofolio pendanaan selesai</string>
-    <string name="va">Virtual Account</string>
     <string name="saldo_va">Saldo Virtual Account</string>
     <string name="norek">No rek.</string>
     <string name="rdl">RDL</string>
@@ -381,7 +297,6 @@
     <string name="jumlah_tagihan">Jumlah Tagihan</string>
     <string name="dibayar_pada">Dibayar pada</string>
     <string name="jumlah_pembayaran">Jumlah pembayaran</string>
-    <string name="pilih_kewarganegaraan">Pilih kewarganegaraan</string>
     <string name="tkb_1">Tingkat Keberhasilan 90 (TKB90) menunjukkan tingkat keberhasilan Avantee dalam menjaga tingkat kredit macet/ Non Performing Loan (NPL) agar tetap rendah. Semakin tinggi nilai TKB90, semakin baik performa Avantee dalam menekan angka NPL.</string>
     <string name="tkb_2">TKB90 adalah ukuran tingkat keberhasilan penyelenggara Fintech P2P Lending dalam memfasilitasi penyelesaian kewajiban pinjam meminjam dalam jangka waktu sampai dengan 90 hari sejak tanggal jatuh tempo.
         TWP90 adalah ukuran tingkat wanprestasi atau kelalaian penyelesaian kewajiban yang tertera dalam perjanjian diatas 90 hari sejak tanggal jatuh tempo.</string>
@@ -394,21 +309,14 @@
     <string name="no">Tidak</string>
     <string name="total_saldo_tersedia">Total saldo tersedia</string>
     <string name="info_penarikan_dana_maks_1">Dana maksimum yang bisa Anda tarik adalah sebesar </string>
-    <string name="info_penarikan_dana_maks_2_nol"> </string>
-    <string name="info_penarikan_dana_maks_2_above500jt"> (saldo tersedia dipotong biaya penarikan sebesar 35.000).</string>
-    <string name="info_penarikan_dana_maks_2_below500jt"> (saldo tersedia dipotong biaya penarikan sebesar 2.900).</string>
     <string name="reach_limit_withdrawal">Anda telah mencapai batas maksimum penarikan dana dengan kelipatan Rp1.000.000</string>
-    <string name="reach_limit_number">Nominal yang diinputkan melebihi batas seharusnya</string>
     <string name="desc_withdrawal_conf">Anda akan melakukan penarikan dana dengan detail sebagai berikut:</string>
     <string name="confirmation">Konfirmasi</string>
     <string name="withdrawal_nominal">Nominal penarikan</string>
-    <string name="withdrawal_fee">Biaya penarikan</string>
     <string name="withdrawal_admin_fee">Setiap penarikan dana akan dikenai biaya administrasi.</string>
-    <string name="withdrawal_success">Penarikan dana berhasil</string>
     <string name="withdrawal_in_process">Penarikan dana sedang diproses</string>
     <string name="withdrawal_in_process_desc">Proses memerlukan waktu maksimal 5 hari kerja. Silahkan menunggu hingga dana ditransfer ke rekening bank Anda.</string>
     <string name="dana_akan_ditransfer_ke">Dana akan ditransfer ke:</string>
-    <string name="total_yang_akan_diterima">Total yang akan diterima</string>
     <string name="change_pass">Ubah kata sandi</string>
     <string name="new_pass">Kata sandi baru</string>
     <string name="surat_kuasa">Surat Kuasa</string>
@@ -430,7 +338,6 @@
     <string name="periode_of_trans">Periode transaksi</string>
     <string name="pick_range_time">Pilih rentang waktu</string>
     <string name="pembayaran">Pembayaran</string>
-    <string name="take_ktp_pict">Ambil foto KTP</string>
     <string name="min_digit_npwp">No. NPWP minimum 15 digit</string>
     <string name="min_digit_ktp">No. KTP minimum 16 digit</string>
     <string name="max_digit_ktp">No. KTP maksimum 16 digit</string>
@@ -446,7 +353,6 @@
     <string name="setuju_lanjutkan">Saya setuju, lanjutkan.</string>
     <string name="biaya_admin_penarikan">Penarikan dana akan dikenakan biaya administrasi sebesar </string>
     <string name="finish_funding_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses pendanaan ini akan kami anggap batal. Lanjutkan?</string>
-    <string name="finish_regis_first">Sebelum kembali pastikan Anda sudah menyelesaikan proses tanda tangan digital ini hingga akhir. Jika belum, maka proses verifikasi dokumen akun ini akan tidak valid. Lanjutkan?</string>
     <string name="va_short">VA</string>
     <string name="back_from_funding_process">Apakah Anda yakin mau keluar dari proses pendanaan?</string>
     <string name="system_in_trouble">Sistem sedang mengalami gangguan. Silahkan coba lagi nanti.</string>
@@ -457,9 +363,7 @@
     <string name="signers_confirmation">Sebelum beralih ke halaman lain, pastikan tidak ada tahapan yang terlewat demi kelengkapan data. Mau kemana?</string>
     <string name="funding_done">Proses pendanaan selesai</string>
     <string name="surat_kuasa_downloaded">Surat Kuasa berhasil didownload pada internal storage HP Anda di dalam folder Download</string>
-    <string name="surat_kuasa_downloaded_v29up">Surat Kuasa berhasil didownload pada internal storage HP Anda di dalam folder aplikasi (Android/data/byc.avt.avanteelender/files/Download)</string>
     <string name="surat_perjanjian_downloaded">Surat Perjanjian Kerja Sama berhasil didownload pada internal storage HP Anda di dalam folder Download</string>
-    <string name="surat_perjanjian_downloaded_v29up">Surat Perjanjian Kerja Sama berhasil didownload pada internal storage HP Anda di dalam folder aplikasi (Android/data/byc.avt.avanteelender/files/Download)</string>
     <string name="factsheet_downloaded">Factsheet telah berhasil didownload pada internal storage HP Anda di dalam folder Download</string>
     <string name="agreement">Agreement</string>
     <string name="download_failed">Download dokumen gagal, silahkan coba beberapa saat lagi.</string>
@@ -489,15 +393,11 @@
     <string name="login_to_otp">Silahkan login kembali untuk melakukan verifikasi OTP.</string>
     <string name="postal_code_max_char">Kode pos maksimum 5 digit</string>
     <string name="postal_code_min_char">Kode pos minimum 5 digit</string>
-    <string name="req_ava">Pengambilan foto disarankan menggunakan rasio layar 1:1 (persegi) dengan orientasi kamera landscape maupun portrait.</string>
-    <string name="req_doc">Pengambilan foto disarankan menggunakan rasio layar 4:3 (persegi panjang) dengan orientasi kamera landscape.</string>
     <string name="nav_penawaran">Penawaran</string>
     <string name="take_photo">Ambil foto</string>
     <string name="tata_cara_foto">Silahkan ikuti panduan di bawah ini:</string>
     <string name="selfie_title">Panduan Foto Wajah</string>
     <string name="selfie_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
-    <string name="swafoto_title">Panduan Foto Swafoto</string>
-    <string name="swafoto_sop">• Pastikan wajah Anda terlihat dengan pencahayaan yang cukup.\n• Posisikan handphone Anda sesuai pada contoh gambar di atas.\n• Pastikan area wajah terlihat jelas tanpa menggunakan aksesoris (kacamata, masker, dan sebagainya).  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="ktp_title">Panduan Foto KTP</string>
     <string name="ktp_sop">• Pastikan foto e-KTP adalah asli dan bukan salinan. \n• Pastikan e-KTP sesuai dengan data di akun AVANTEE Anda. \n• Posisikan e-KTP sesuai pada contoh gambar di atas dan pastikan informasi terlihat jelas. \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="npwptitle">Panduan Foto NPWP</string>
@@ -505,7 +405,6 @@
     <string name="ttd_title">Panduan Foto Spesimen TTD</string>
     <string name="ttd_sop">• Pastikan foto spesimen adalah asli dan bukan salinan. \n• Tidak ada pantulan cahaya maupun bayangan pada foto spesimen. \n• Posisikan spesimen sesuai pada contoh gambar di atas.  \n• Crop hasil foto sesuai kebutuhan menggunakan galeri. \n• Gunakan fitur rotasi jika hasil rotasi foto belum sesuai dengan ketentuan.</string>
     <string name="bitmap_null">Terjadi kesalahan, silahkan coba lagi.</string>
-    <string name="rotate">Rotasikan</string>
     <string name="must_portrait">Orientasi pengambilan foto harus portrait. Coba lagi!</string>
     <string name="failed_on_multiples">Nominal pendanaan tidak sesuai dengan kelipatan nominal yang diizinkan yaitu </string>
     <string name="failed_on_maxinvest">Nominal pendanaan tidak sesuai dengan maksimum nominal yang diizinkan yaitu </string>
@@ -516,7 +415,6 @@
     <string name="reupload">Unggah Data Kembali</string>
     <string name="rejection_by_privy">Akun Anda gagal verifikasi oleh PrivyID</string>
     <string name="save">Simpan</string>
-    <string name="unggah_foto_passport">Unggah foto passport</string>
     <string name="format_diperbolehkan">Format yang diperbolehkan: .jpg, .png</string>
     <string name="reupload_success">Sukses mengupload data/berkas terbaru</string>
     <string name="reupload_failed">Gagal mengupload data/berkas terbaru. Silahkan coba lagi!</string>

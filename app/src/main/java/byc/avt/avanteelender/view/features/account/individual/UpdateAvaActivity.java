@@ -411,12 +411,8 @@ public class UpdateAvaActivity extends AppCompatActivity {
             }
         }else if (requestCode == 2296) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    storageAccess = true;
-                } else {
-                    storageAccess = false;
+                if (!Environment.isExternalStorageManager()) {
                     Toast.makeText(UpdateAvaActivity.this, "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                    checkStorageAccess();
                 }
             }
         }
@@ -447,27 +443,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
             String errorMessage = "Device tidak support untuk memotong gambar.";
             Toast toast = Toast.makeText( UpdateAvaActivity.this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
-        }
-    }
-
-    Boolean storageAccess = false;
-    private void checkStorageAccess(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()) {
-                storageAccess = true;
-            } else {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                    intent.addCategory("android.intent.category.DEFAULT");
-                    intent.setData(Uri.parse(String.format("package:%s", UpdateAvaActivity.this.getPackageName())));
-                    startActivityForResult(intent, 2296);
-                } catch (Exception e) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, 2296);
-                }
-            }
-
         }
     }
 
