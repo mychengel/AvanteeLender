@@ -8,28 +8,42 @@ public class PortofolioAktif implements Parcelable {
     private String loan_rating; //endpointB
     private String loan_no;
     private String funding_id;
-    private String kontrak;
     private String interest;
     private String tenor;
     private String sisa_tenor;
     private String status;
     private String angs_paid;
     private String angs_next;
+    private String surat_kuasa;
+    private String agreement_penerima_dana;
 
     public PortofolioAktif(){};
 
-    public PortofolioAktif(String loan_type, String loan_rating, String loan_no, String funding_id, String kontrak, String interest, String tenor, String sisa_tenor, String status, String angs_paid, String angs_next) {
+    public PortofolioAktif(
+            String loan_type,
+            String loan_rating,
+            String loan_no,
+            String funding_id,
+            String interest,
+            String tenor,
+            String sisa_tenor,
+            String status,
+            String angs_paid,
+            String angs_next,
+            String surat_kuasa,
+            String agreement_penerima_dana) {
         this.loan_type = loan_type;
         this.loan_rating = loan_rating;
         this.loan_no = loan_no;
         this.funding_id = funding_id;
-        this.kontrak = kontrak;
         this.interest = interest;
         this.tenor = tenor;
         this.sisa_tenor = sisa_tenor;
         this.status = status;
         this.angs_paid = angs_paid;
         this.angs_next = angs_next;
+        this.surat_kuasa = surat_kuasa;
+        this.agreement_penerima_dana = agreement_penerima_dana;
     }
 
     protected PortofolioAktif(Parcel in) {
@@ -37,13 +51,14 @@ public class PortofolioAktif implements Parcelable {
         loan_rating = in.readString();
         loan_no = in.readString();
         funding_id = in.readString();
-        kontrak = in.readString();
         interest = in.readString();
         tenor = in.readString();
         sisa_tenor = in.readString();
         status = in.readString();
         angs_paid = in.readString();
         angs_next = in.readString();
+        surat_kuasa = in.readString();
+        agreement_penerima_dana = in.readString();
     }
 
     public static final Creator<PortofolioAktif> CREATOR = new Creator<PortofolioAktif>() {
@@ -74,10 +89,6 @@ public class PortofolioAktif implements Parcelable {
         return funding_id;
     }
 
-    public String getKontrak() {
-        return kontrak;
-    }
-
     public String getInterest() {
         return interest;
     }
@@ -102,6 +113,14 @@ public class PortofolioAktif implements Parcelable {
         return angs_next;
     }
 
+    public String getSurat_kuasa() {
+        return surat_kuasa;
+    }
+
+    public String getAgreement_penerima_dana() {
+        return agreement_penerima_dana;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -113,12 +132,13 @@ public class PortofolioAktif implements Parcelable {
         parcel.writeString(loan_rating);
         parcel.writeString(loan_no);
         parcel.writeString(funding_id);
-        parcel.writeString(kontrak);
         parcel.writeString(interest);
         parcel.writeString(tenor);
         parcel.writeString(sisa_tenor);
         parcel.writeString(status);
         parcel.writeString(angs_paid);
         parcel.writeString(angs_next);
+        parcel.writeString(surat_kuasa);
+        parcel.writeString(agreement_penerima_dana);
     }
 }

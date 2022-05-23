@@ -32,8 +32,7 @@ public class PDFViewerActivity extends AppCompatActivity {
 
     private static final String TAG = "PDFViewerActivity";
     public static final String PDF_URL = "pdf_url";
-    private String pdfURL = "";
-    private Toolbar toolbar;
+    public static final String ACTIVITY_TITLE = "activity_title";
     private PDFView pdfView;
     private CircularProgressIndicator progressIndicator;
 
@@ -42,7 +41,7 @@ public class PDFViewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfviewer);
 
-        toolbar = findViewById(R.id.pdfView_toolbar);
+        Toolbar toolbar = findViewById(R.id.pdfView_toolbar);
         pdfView = findViewById(R.id.pdfView);
         progressIndicator = findViewById(R.id.progress_circular);
         progressIndicator.setVisibility(View.VISIBLE);
@@ -51,10 +50,18 @@ public class PDFViewerActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_back_24px);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+
+        if (getIntent().getStringExtra(ACTIVITY_TITLE) != null) {
+            String title = getIntent().getStringExtra(ACTIVITY_TITLE);
+            if (!title.isEmpty()) {
+                getSupportActionBar().setTitle(title);
+            }
+        } else {
+            getSupportActionBar().setTitle("");
+        }
 
         if (getIntent().getStringExtra(PDF_URL) != null) {
-            pdfURL = getIntent().getStringExtra(PDF_URL);
+            String pdfURL = getIntent().getStringExtra(PDF_URL);
             if (!pdfURL.isEmpty()) {
                 new LoadPdfFromUrl(this).execute(pdfURL);
             }

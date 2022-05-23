@@ -234,6 +234,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                                 String pdfUrl = res.getString("factsheet");
                                 Intent intent = new Intent(PendanaanDetailActivity.this, PDFViewerActivity.class);
                                 intent.putExtra(PDFViewerActivity.PDF_URL, pdfUrl);
+                                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Factsheet");
                                 new Routes(PendanaanDetailActivity.this).moveIn(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();

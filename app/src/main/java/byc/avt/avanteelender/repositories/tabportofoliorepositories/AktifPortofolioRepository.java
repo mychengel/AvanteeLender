@@ -206,13 +206,14 @@ public class AktifPortofolioRepository {
                                             loan_rating,
                                             rows.getJSONObject(i).getString("loan_no"),
                                             rows.getJSONObject(i).getString("funding_id"),
-                                            rows.getJSONObject(i).getString("dokumen_kontrak"),
                                             rows.getJSONObject(i).getString("bunga_pinjaman_pa"),
                                             rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
                                             rows.getJSONObject(i).getString("remaining_period"),
                                             rows.getJSONObject(i).getString("status_pembayaran"),
                                             rows.getJSONObject(i).getString("total_angsuran_terbayar_per_loan"),
-                                            rows.getJSONObject(i).getString("total_angsuran_selanjutnya_per_loan"));
+                                            rows.getJSONObject(i).getString("total_angsuran_selanjutnya_per_loan"),
+                                            rows.getJSONObject(i).getString("surat_kuasa"),
+                                            rows.getJSONObject(i).getString("agreement_penerima_dana"));
                                     list.add(pa);
                                 }
                             }
@@ -279,8 +280,18 @@ public class AktifPortofolioRepository {
                                     String tax = rows.getJSONObject(i).getString("tax");
                                     String status = rows.getJSONObject(i).getString("status");
                                     String delay_details = rows.getJSONObject(i).getString("delay_details");
-                                    PortofolioAktifDetail pad = new PortofolioAktifDetail(periode, date_payment, date_actualtrans,
-                                            principal_payment, interest_amount, payment_amount, actual_payment, tax, status, delay_details);
+                                    PortofolioAktifDetail pad = new PortofolioAktifDetail(
+                                            periode,
+                                            date_payment,
+                                            date_actualtrans,
+                                            principal_payment,
+                                            interest_amount,
+                                            payment_amount,
+                                            actual_payment,
+                                            tax,
+                                            status,
+                                            delay_details);
+
                                     list.add(pad);
                                 }
                                 result.setValue(list);

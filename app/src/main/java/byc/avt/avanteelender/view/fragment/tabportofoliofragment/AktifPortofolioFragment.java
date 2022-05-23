@@ -40,8 +40,11 @@ import byc.avt.avanteelender.helper.EndlessRecyclerOnScrollListener;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.PortofolioAktif;
+import byc.avt.avanteelender.view.features.pendanaan.PendanaanDetailActivity;
 import byc.avt.avanteelender.view.fragment.PortofolioFragment;
+import byc.avt.avanteelender.view.misc.PDFViewerActivity;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
 
 public class AktifPortofolioFragment extends Fragment {
@@ -56,6 +59,10 @@ public class AktifPortofolioFragment extends Fragment {
     private CardView cv_download_surat_kuasa, cv_download_perjanjian_kerja_sama;
     ConstraintLayout cons, cons_lottie;
     ProgressBar prog_bar;
+    private String procurationUrl = "";
+    private String agreementUrl = "";
+
+    private static final String TAG = "AktifPortofolioFragment";
 
     public static AktifPortofolioFragment newInstance() {
         return new AktifPortofolioFragment();
@@ -89,10 +96,10 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_surat_kuasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermission();
-                dialog.show();
-                viewModel.downloadSuratKuasa(prefManager.getUid(), prefManager.getToken());
-                viewModel.getResultDownloadSuratKuasa().observe(getActivity(), showResultDownloadSuratKuasa);
+                Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
+                intent.putExtra(PDFViewerActivity.PDF_URL, procurationUrl);
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Surat Kuasa");
+                new Routes(getActivity()).moveIn(intent);
             }
         });
 
@@ -100,10 +107,10 @@ public class AktifPortofolioFragment extends Fragment {
         cv_download_perjanjian_kerja_sama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermission();
-                dialog.show();
-                viewModel.downloadSuratPerjanjian(prefManager.getUid(), prefManager.getToken());
-                viewModel.getResultDownloadSuratPerjanjian().observe(getActivity(), showResultDownloadSuratPerjanjian);
+                Intent intent = new Intent(getActivity(), PDFViewerActivity.class);
+                intent.putExtra(PDFViewerActivity.PDF_URL, agreementUrl);
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Perjanjian Kerja sama");
+                new Routes(getActivity()).moveIn(intent);
             }
         });
 
@@ -197,6 +204,8 @@ public class AktifPortofolioFragment extends Fragment {
                 }
                 txt_tot_angs_bunga_dibayar.setText(f.toNumb(result.getString("total_angsuran_terbayar")));
                 txt_tot_angs_bunga_selanjutnya.setText(f.toNumb(result.getString("total_angsuran_belum_terbayar")));
+                procurationUrl = result.getString("surat_kuasa");
+                agreementUrl = result.getString("surat_perjanjian");
 
             } catch (JSONException e) {
                 e.printStackTrace();
