@@ -269,17 +269,6 @@ public class UpdateAvaActivity extends AppCompatActivity {
                             });
                         }
                     })
-                    .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int PICK_IMAGE_REQUEST = 0;
-                            if(PICK_IMAGE_TYPE == PICK_TYPE_AVA){
-                                PICK_IMAGE_REQUEST = PICK_AVA;
-                            }
-                            dialog.cancel();
-                            showGallery(PICK_IMAGE_REQUEST);
-                        }
-                    })
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogs, int which) {

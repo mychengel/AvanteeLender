@@ -629,23 +629,6 @@ public class DataPendukungShowActivity extends AppCompatActivity {
                             });
                         }
                     })
-                    .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int PICK_IMAGE_REQUEST = 0;
-                            if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
-                                PICK_IMAGE_REQUEST = PICK_KTP;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_NPWP){
-                                PICK_IMAGE_REQUEST = PICK_NPWP;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
-                                PICK_IMAGE_REQUEST = PICK_SELFIE;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD;
-                            }
-                            dialog.cancel();
-                            showGallery(PICK_IMAGE_REQUEST);
-                        }
-                    })
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogs, int which) {
