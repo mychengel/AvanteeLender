@@ -95,11 +95,20 @@ public class PendanaanRepository {
                                 result.setValue(list);
                             }else{
                                 for(int i = 0; i < rows.length(); i++){
-                                    Pendanaan p = new Pendanaan(rows.getJSONObject(i).getString("loan_type"), rows.getJSONObject(i).getString("rating_pinjaman"), rows.getJSONObject(i).getString("loan_no"),
-                                            rows.getJSONObject(i).getString("jumlah_hari_pinjam"), rows.getJSONObject(i).getString("invest_bunga"),
-                                            rows.getJSONObject(i).getString("nominal_pinjaman"), rows.getJSONObject(i).getString("funding"),
-                                            rows.getJSONObject(i).getString("jaminan_status"), rows.getJSONObject(i).getString("tipe_jaminan"),rows.getJSONObject(i).getString("city_name"),
-                                            rows.getJSONObject(i).getString("publikasi_end"), rows.getJSONObject(i).getString("borrower_code"), rows.getJSONObject(i).getString("picture_bg"));
+                                    Pendanaan p = new Pendanaan(
+                                            rows.getJSONObject(i).getString("loan_type"),
+                                            rows.getJSONObject(i).getString("rating_pinjaman"),
+                                            rows.getJSONObject(i).getString("loan_no"),
+                                            rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
+                                            rows.getJSONObject(i).getString("invest_bunga"),
+                                            rows.getJSONObject(i).getString("nominal_pinjaman"),
+                                            rows.getJSONObject(i).getString("funding"),
+                                            rows.getJSONObject(i).getString("jaminan_status"),
+                                            rows.getJSONObject(i).getString("tipe_jaminan"),
+                                            rows.getJSONObject(i).getString("city_name"),
+                                            rows.getJSONObject(i).getString("publikasi_end"),
+                                            rows.getJSONObject(i).getString("borrower_code"),
+                                            rows.getJSONObject(i).getString("picture_bg"));
                                     list.add(p);
                                     result.setValue(list);
                                 }

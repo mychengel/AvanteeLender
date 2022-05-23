@@ -4,18 +4,10 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.AuthFailureError;
@@ -26,32 +18,21 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.DocumentType;
-import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.helper.InputStreamVolleyRequest;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioAktifDetail;
-import byc.avt.avanteelender.view.auth.SignersCheckActivity;
 
 public class AktifPortofolioRepository {
 
@@ -216,20 +197,26 @@ public class AktifPortofolioRepository {
                         try {
                             rows = response.getJSONArray("rows");
                             final int maxRows = rows.length() - 1;
-                            if (rows.length() == 0) {
-                                result.setValue(list);
-                            } else {
+                            if (rows.length() != 0) {
                                 for (int i = 0; i < rows.length(); i++) {
                                     String loan_rating = rows.getJSONObject(i).getString("loan_rating");
                                     String loan_type = rows.getJSONObject(i).getString("loan_type");
-                                    PortofolioAktif pa = new PortofolioAktif(loan_type, loan_rating, rows.getJSONObject(i).getString("loan_no"), rows.getJSONObject(i).getString("funding_id"),
-                                            rows.getJSONObject(i).getString("dokumen_kontrak"), rows.getJSONObject(i).getString("bunga_pinjaman_pa"), rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
-                                            rows.getJSONObject(i).getString("remaining_period"), rows.getJSONObject(i).getString("status_pembayaran"),
-                                            rows.getJSONObject(i).getString("total_angsuran_terbayar_per_loan"), rows.getJSONObject(i).getString("total_angsuran_selanjutnya_per_loan"));
+                                    PortofolioAktif pa = new PortofolioAktif(
+                                            loan_type,
+                                            loan_rating,
+                                            rows.getJSONObject(i).getString("loan_no"),
+                                            rows.getJSONObject(i).getString("funding_id"),
+                                            rows.getJSONObject(i).getString("dokumen_kontrak"),
+                                            rows.getJSONObject(i).getString("bunga_pinjaman_pa"),
+                                            rows.getJSONObject(i).getString("jumlah_hari_pinjam"),
+                                            rows.getJSONObject(i).getString("remaining_period"),
+                                            rows.getJSONObject(i).getString("status_pembayaran"),
+                                            rows.getJSONObject(i).getString("total_angsuran_terbayar_per_loan"),
+                                            rows.getJSONObject(i).getString("total_angsuran_selanjutnya_per_loan"));
                                     list.add(pa);
                                 }
-                                result.setValue(list);
                             }
+                            result.setValue(list);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -280,8 +267,7 @@ public class AktifPortofolioRepository {
                         int tot = 0;
                         try {
                             rows = response.getJSONArray("rows");
-                            if (rows.length() == 0) {
-                            } else {
+                            if (rows.length() != 0) {
                                 for (int i = 0; i < rows.length(); i++) {
                                     String periode = rows.getJSONObject(i).getString("schedule_period");
                                     String date_payment = rows.getJSONObject(i).getString("next_payment");
@@ -298,9 +284,7 @@ public class AktifPortofolioRepository {
                                     list.add(pad);
                                 }
                                 result.setValue(list);
-
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -52,6 +52,7 @@ import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.Pendanaan;
 import byc.avt.avanteelender.view.fragment.tabportofoliofragment.PortofolioAktifDetailActivity;
+import byc.avt.avanteelender.view.misc.PDFViewerActivity;
 import byc.avt.avanteelender.view.others.FactsheetActivity;
 import byc.avt.avanteelender.view.sheet.DanaiSheetFragment;
 import byc.avt.avanteelender.view.sheet.HistoriPinjamanSheetFragment;
@@ -76,6 +77,8 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     private ConstraintLayout cons, cons_det_peminjam, cons_his_pinjaman, cons_risk_info;
     private Button btn_danai;
     private ProgressBar prog, prog_img;
+
+    private static final String TAG = "PendanaanDetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +222,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         @Override
         public void onChanged(final JSONObject result) {
             try {
-                if(result.getBoolean("status") == false){
+                if(!result.getBoolean("status")){
                     f.showMessage(getString(R.string.failed_load_data));
                 }else{
                     final JSONObject res = result.getJSONObject("result");
@@ -227,10 +230,15 @@ public class PendanaanDetailActivity extends AppCompatActivity {
                     img_factsheet.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            checkPermission();
-                            dialog.show();
-                            viewModel.downloadFactsheet(prefManager.getUid(), prefManager.getToken(), loan_no);
-                            viewModel.getResultDownloadFactsheet().observe(PendanaanDetailActivity.this, showResultDownloadFactsheet);
+                            try {
+                                String pdfUrl = res.getString("factsheet");
+                                Intent intent = new Intent(PendanaanDetailActivity.this, PDFViewerActivity.class);
+                                intent.putExtra(PDFViewerActivity.PDF_URL, pdfUrl);
+                                new Routes(PendanaanDetailActivity.this).moveIn(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "onClickToPDFViewerActivity: " + e.getMessage());
+                            }
                         }
                     });
                     txt_loan_rating.setText(res.getString("loan_rating"));
