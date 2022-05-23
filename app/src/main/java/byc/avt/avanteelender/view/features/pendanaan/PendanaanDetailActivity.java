@@ -118,23 +118,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
 
     }
 
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
-
-    private void checkPermission(){
-        final int permission = ActivityCompat.checkSelfPermission(PendanaanDetailActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(PendanaanDetailActivity.this, PERMISSIONS_STORAGE, 1);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     public void confirmDanai(){
         dialog.show();
         viewModel.getStageFunding(prefManager.getUid(), prefManager.getToken(), loan_no);
@@ -197,26 +180,6 @@ public class PendanaanDetailActivity extends AppCompatActivity {
         viewModel.getDetailPendanaan(prefManager.getUid(), prefManager.getToken(), loan_no);
         viewModel.getDetailPendanaanResult().observe(PendanaanDetailActivity.this, showDetailPendanaan);
     }
-
-    private Observer<String> showResultDownloadFactsheet = new Observer<String>() {
-        @Override
-        public void onChanged(String result) {
-            dialog.cancel();
-            new AlertDialog.Builder(PendanaanDetailActivity.this)
-                    .setTitle("Konfirmasi")
-                    .setIcon(R.drawable.logo)
-                    .setMessage(result)
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    })
-                    .create()
-                    .show();
-        }
-    };
 
     private Observer<JSONObject> showDetailPendanaan = new Observer<JSONObject>() {
         @Override

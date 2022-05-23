@@ -117,30 +117,6 @@ public class AktifPortofolioFragment extends Fragment {
         loadData();
     }
 
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
-
-    private void checkPermission() {
-        final int permission = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 1);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2296) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (!Environment.isExternalStorageManager()) {
-                    Toast.makeText(requireActivity(), "Avantee Lender Apps membutuhkan ijin akses penyimpanan HP!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
     private void loadData() {
         dialog.show();
         viewModel.portofolioAktifHeader(prefManager.getUid(), prefManager.getToken());
@@ -148,46 +124,6 @@ public class AktifPortofolioFragment extends Fragment {
         viewModel.portofolioAktifList(prefManager.getUid(), prefManager.getToken(), "1");
         viewModel.getResultList().observe(getActivity(), showDataList);
     }
-
-    private Observer<String> showResultDownloadSuratKuasa = new Observer<String>() {
-        @Override
-        public void onChanged(String result) {
-            dialog.cancel();
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Konfirmasi")
-                    .setIcon(R.drawable.logo)
-                    .setMessage(result)
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    })
-                    .create()
-                    .show();
-        }
-    };
-
-    private Observer<String> showResultDownloadSuratPerjanjian = new Observer<String>() {
-        @Override
-        public void onChanged(String result) {
-            dialog.cancel();
-            new AlertDialog.Builder(getActivity())
-                    .setTitle("Konfirmasi")
-                    .setIcon(R.drawable.logo)
-                    .setMessage(result)
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    })
-                    .create()
-                    .show();
-        }
-    };
 
     private Observer<JSONObject> showDataHeader = new Observer<JSONObject>() {
         @Override
