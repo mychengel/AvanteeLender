@@ -38,9 +38,11 @@ import byc.avt.avanteelender.adapter.PortofolioAktifDetailAdapter;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
+import byc.avt.avanteelender.helper.Routes;
 import byc.avt.avanteelender.model.PortofolioAktif;
 import byc.avt.avanteelender.model.PortofolioAktifDetail;
 import byc.avt.avanteelender.view.features.pendanaan.PendanaanDetailActivity;
+import byc.avt.avanteelender.view.misc.PDFViewerActivity;
 import byc.avt.avanteelender.viewmodel.PendanaanViewModel;
 import byc.avt.avanteelender.viewmodel.tabportofolioviewmodel.AktifPortofolioViewModel;
 
@@ -137,13 +139,20 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO:
+                Intent intent = new Intent(PortofolioAktifDetailActivity.this, PDFViewerActivity.class);
+                intent.putExtra(PDFViewerActivity.PDF_URL, "");
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Agreement");
+                new Routes(PortofolioAktifDetailActivity.this).moveIn(intent);
             }
         });
 
         cv_download_surat_kuasa_pemberi_dana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO:
+                Intent intent = new Intent(PortofolioAktifDetailActivity.this, PDFViewerActivity.class);
+                intent.putExtra(PDFViewerActivity.PDF_URL, "");
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Surat Kuasa");
+                new Routes(PortofolioAktifDetailActivity.this).moveIn(intent);
             }
         });
 
