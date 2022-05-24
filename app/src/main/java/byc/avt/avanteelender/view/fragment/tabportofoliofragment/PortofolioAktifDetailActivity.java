@@ -140,8 +140,8 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO:
                 Intent intent = new Intent(PortofolioAktifDetailActivity.this, PDFViewerActivity.class);
-                intent.putExtra(PDFViewerActivity.PDF_URL, "");
-                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Agreement");
+                intent.putExtra(PDFViewerActivity.PDF_URL, portAktif.getSurat_kuasa());
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Surat Kuasa");
                 new Routes(PortofolioAktifDetailActivity.this).moveIn(intent);
             }
         });
@@ -150,8 +150,8 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PortofolioAktifDetailActivity.this, PDFViewerActivity.class);
-                intent.putExtra(PDFViewerActivity.PDF_URL, "");
-                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Surat Kuasa");
+                intent.putExtra(PDFViewerActivity.PDF_URL, portAktif.getAgreement_penerima_dana());
+                intent.putExtra(PDFViewerActivity.ACTIVITY_TITLE, "Agreement");
                 new Routes(PortofolioAktifDetailActivity.this).moveIn(intent);
             }
         });

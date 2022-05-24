@@ -11,10 +11,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.model.Pendanaan;
 import byc.avt.avanteelender.repositories.PendanaanRepository;
-import byc.avt.avanteelender.repositories.SplashRepository;
 
 public class PendanaanViewModel extends AndroidViewModel {
     private PendanaanRepository repository;
@@ -26,22 +24,11 @@ public class PendanaanViewModel extends AndroidViewModel {
     private MutableLiveData<String> resultViewKontrakFunding = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSetujuFunding = new MutableLiveData<>();
     private MutableLiveData<String> resultSignerFunding = new MutableLiveData<>();
-    private MutableLiveData<String> resultSignStatus = new MutableLiveData<>();
-    private MutableLiveData<String> resultDownloadFactsheet = new MutableLiveData<>();
 
     public PendanaanViewModel(@NonNull Application application) {
         super(application);
         repository = PendanaanRepository.getInstance();
     }
-
-    public void downloadFactsheet(String uid, String token, String loan_id){
-        resultDownloadFactsheet = repository.downloadFactSheet(uid, token, getApplication(), DocumentType.FACTSHEET_LOAN, loan_id);
-    }
-
-    public LiveData<String> getResultDownloadFactsheet(){
-        return resultDownloadFactsheet;
-    }
-
 
     public void getStageFunding(String uid, String token, String loan_no){
         resultStageFunding = repository.stageFunding(loan_no, uid, token, getApplication());
@@ -106,13 +93,4 @@ public class PendanaanViewModel extends AndroidViewModel {
     public LiveData<JSONObject> getDetailPendanaanResult(){
         return resultDetailPendanaan;
     }
-
-    public void getSignStatus(String uid, String token, String docToken){
-        resultSignStatus = repository.checkSignStatus(docToken, uid, token, getApplication());
-    }
-
-    public LiveData<String> getSignStatusResult(){
-        return resultSignStatus;
-    }
-
 }

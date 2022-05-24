@@ -1,11 +1,6 @@
 package byc.avt.avanteelender.repositories;
 
-import static android.content.Context.DOWNLOAD_SERVICE;
-
-import android.app.DownloadManager;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -32,10 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.helper.Fungsi;
 import byc.avt.avanteelender.helper.GlobalVariables;
-import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.Pendanaan;
 
 public class PendanaanRepository {
@@ -43,7 +36,6 @@ public class PendanaanRepository {
     private static PendanaanRepository repository;
     private String url = GlobalVariables.BASE_URL;
     RequestQueue requestQueue;
-    private PrefManager prefManager;
 
     private PendanaanRepository() {
     }
@@ -53,30 +45,6 @@ public class PendanaanRepository {
             repository = new PendanaanRepository();
         }
         return repository;
-    }
-
-    public MutableLiveData<String> downloadFactSheet(final String uid, final String token, final Context context, final DocumentType documentType, final String loanNumber) {
-        final MutableLiveData<String> result = new MutableLiveData<>();
-        if (documentType == DocumentType.FACTSHEET_LOAN) {
-            final String myUrl = url+documentType.getEndpoint()+loanNumber;
-            final String filename = loanNumber+"_Factsheet";
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(myUrl));
-            request.addRequestHeader("Authorization", GlobalVariables.basicAuth);
-            request.addRequestHeader("Token", token);
-            request.addRequestHeader("Uid", uid);
-            request.setTitle(filename);
-            request.setMimeType("application/pdf");
-            request.allowScanningByMediaScanner();
-            request.setAllowedOverMetered(true);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename+".pdf");
-            DownloadManager dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
-            dm.enqueue(request);
-            result.setValue(context.getString(R.string.factsheet_downloaded));
-        } else {
-            result.setValue(context.getString(R.string.download_failed));
-        }
-        return result;
     }
 
     public MutableLiveData<ArrayList<Pendanaan>> getListPendanaan(final String uid, final String token, final Context context) {

@@ -1,11 +1,6 @@
 package byc.avt.avanteelender.repositories.tabportofoliorepositories;
 
-import static android.content.Context.DOWNLOAD_SERVICE;
-
-import android.app.DownloadManager;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -27,8 +22,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-import byc.avt.avanteelender.R;
-import byc.avt.avanteelender.helper.DocumentType;
 import byc.avt.avanteelender.helper.GlobalVariables;
 import byc.avt.avanteelender.helper.PrefManager;
 import byc.avt.avanteelender.model.PortofolioAktif;
@@ -49,86 +42,6 @@ public class AktifPortofolioRepository {
             repository = new AktifPortofolioRepository();
         }
         return repository;
-    }
-
-    public MutableLiveData<String> downloadDocument(final String uid, final String token, final Context context, final DocumentType documentType, final String loanNumber) {
-        final MutableLiveData<java.lang.String> result = new MutableLiveData<>();
-        final String filename = getFileName(documentType, loanNumber);
-        final String myUrl = getUrl(documentType, loanNumber);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(myUrl));
-        request.addRequestHeader("Authorization", GlobalVariables.basicAuth);
-        request.addRequestHeader("Token", token);
-        request.addRequestHeader("Uid", uid);
-        request.setTitle(filename);
-        request.setMimeType("application/pdf");
-        request.allowScanningByMediaScanner();
-        request.setAllowedOverMetered(true);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename + ".pdf");
-        DownloadManager dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
-        dm.enqueue(request);
-        result.setValue(context.getString(getResultMessage(documentType)));
-        return result;
-    }
-
-    private Integer getResultMessage(DocumentType documentType) {
-        int result = 0;
-        switch (documentType) {
-            case AGREEMENT:
-            case PROCURATION_LOAN:
-                result = R.string.surat_perjanjian_downloaded;
-                break;
-            case PROCURATION:
-            case AGREEMENT_LOAN:
-                result = R.string.surat_kuasa_downloaded;
-                break;
-            case FACTSHEET_LOAN:
-                result = R.string.factsheet_downloaded;
-                break;
-        }
-        return result;
-    }
-
-    private String getUrl(DocumentType documentType, String loanNumber) {
-        String documentUrl = "";
-
-        switch (documentType) {
-            case AGREEMENT:
-            case PROCURATION:
-                documentUrl = url + documentType.getEndpoint();
-                break;
-            case AGREEMENT_LOAN:
-            case PROCURATION_LOAN:
-            case FACTSHEET_LOAN:
-                documentUrl = url + documentType.getEndpoint() + loanNumber;
-                break;
-        }
-        Log.d("GETURLENUM", "getUrl: " + documentUrl);
-        return documentUrl;
-    }
-
-    private String getFileName(DocumentType documentType, String loanNumber) {
-        String fileName = "";
-
-        switch (documentType) {
-            case AGREEMENT:
-                fileName = GlobalVariables.LENDER_CODE + "_SuratPerjanjian";
-                break;
-            case PROCURATION:
-                fileName = GlobalVariables.LENDER_CODE + "_SuratKuasa";
-                break;
-            case AGREEMENT_LOAN:
-                fileName = loanNumber + "_SuratKuasa";
-                break;
-            case PROCURATION_LOAN:
-                fileName = loanNumber + "_Agreement";
-                break;
-            case FACTSHEET_LOAN:
-                fileName = loanNumber + "_Factsheet";
-                break;
-        }
-        Log.d("GETFILENAMEENUM", "getFileName: " + fileName);
-        return fileName;
     }
 
     public MutableLiveData<JSONObject> portofolioAktifHeader(final String uid, final String token, Context context) {
