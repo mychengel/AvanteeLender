@@ -29,6 +29,7 @@ import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -84,6 +85,7 @@ public class PendanaanDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendanaan_detail);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         f = new Fungsi(PendanaanDetailActivity.this);
         viewModel = new ViewModelProvider(PendanaanDetailActivity.this).get(PendanaanViewModel.class);
         prefManager = PrefManager.getInstance(PendanaanDetailActivity.this);

@@ -344,18 +344,6 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
 //                                    mdialog.cancel();
 //                                }
 //                            });
-
-                        }
-                    })
-                    .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int PICK_IMAGE_REQUEST = 0;
-                            if(PICK_IMAGE_TYPE == PICK_TYPE_PASSPORT){
-                                PICK_IMAGE_REQUEST = PICK_PASSPORT;
-                            }
-                            dialog.cancel();
-                            showGallery(PICK_IMAGE_REQUEST);
                         }
                     })
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
@@ -402,15 +390,6 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
         startActivityForResult(cameraIntent, PICK_IMAGE_REQUEST);
     }
 
-    private void showGallery(int PICK_IMAGE_REQUEST) {
-        Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        Intent chooser = Intent.createChooser(galleryIntent, "Select Picture");
-        startActivityForResult(chooser, PICK_IMAGE_REQUEST);
-    }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -451,8 +430,6 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
                         txt_filesupport.setText(filePath.getLastPathSegment());
                     }
                     ////new
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -501,7 +478,6 @@ public class PRTypeUpOneActivity extends AppCompatActivity {
         cekView();
         cekDone();
     }
-
 
     private void performCrop(Uri picUri, int PIC_CROP){
         try {

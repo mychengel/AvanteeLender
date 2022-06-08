@@ -17,6 +17,7 @@ import android.text.Spanned;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
@@ -53,6 +54,7 @@ public class TermsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog = GlobalVariables.loadingDialog(TermsActivity.this);
         viewModel = new ViewModelProvider(TermsActivity.this).get(AuthenticationViewModel.class);
         bar = findViewById(R.id.toolbar_terms);

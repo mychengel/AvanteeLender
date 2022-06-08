@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class HistoriTransaksiListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_histori_transaksi_list);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         f = new Fungsi(HistoriTransaksiListActivity.this);
         viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         bar = findViewById(R.id.toolbar_his_trx_list);

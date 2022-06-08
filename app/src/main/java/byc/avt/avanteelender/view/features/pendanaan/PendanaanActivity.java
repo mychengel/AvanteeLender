@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class PendanaanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendanaan);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         f = new Fungsi(PendanaanActivity.this);
         viewModel = new ViewModelProvider(PendanaanActivity.this).get(PendanaanViewModel.class);
         prefManager = PrefManager.getInstance(PendanaanActivity.this);

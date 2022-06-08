@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -62,6 +63,7 @@ public class SignersCheckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signers_check);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog = GlobalVariables.loadingDialog(SignersCheckActivity.this);
         prefManager = PrefManager.getInstance(SignersCheckActivity.this);
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);

@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,6 +58,7 @@ public class PenarikanDanaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_penarikan_dana);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog = GlobalVariables.loadingDialog(PenarikanDanaActivity.this);
         viewModel = new ViewModelProvider(PenarikanDanaActivity.this).get(DashboardViewModel.class);
         toolbar = findViewById(R.id.toolbar_penarikan_dana);

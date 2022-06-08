@@ -600,21 +600,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
 
                         }
                     })
-                    .setNegativeButton("GALERI", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int PICK_IMAGE_REQUEST = 0;
-                            if(PICK_IMAGE_TYPE == PICK_TYPE_KTP){
-                                PICK_IMAGE_REQUEST = PICK_KTP;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_SELFIE){
-                                PICK_IMAGE_REQUEST = PICK_SELFIE;
-                            }else if(PICK_IMAGE_TYPE == PICK_TYPE_TTD){
-                                PICK_IMAGE_REQUEST = PICK_TTD;
-                            }
-                            dialog.cancel();
-                            showGallery(PICK_IMAGE_REQUEST);
-                        }
-                    })
                     .setNeutralButton("BATAL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogs, int which) {
@@ -657,14 +642,6 @@ public class PRTypeUpTwoActivity extends AppCompatActivity {
         cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
         cameraIntent.putExtra(MediaStore.Images.Media.IS_PENDING, 1);
         startActivityForResult(cameraIntent, PICK_IMAGE_REQUEST);
-    }
-
-    private void showGallery(int PICK_IMAGE_REQUEST) {
-        Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        Intent chooser = Intent.createChooser(galleryIntent, "Select Picture");
-        startActivityForResult(chooser, PICK_IMAGE_REQUEST);
     }
 
     @Override

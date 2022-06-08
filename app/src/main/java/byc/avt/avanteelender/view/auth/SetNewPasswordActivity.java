@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -48,6 +49,7 @@ public class SetNewPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_new_password);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         prefManager = PrefManager.getInstance(SetNewPasswordActivity.this);
         dialog = GlobalVariables.loadingDialog(SetNewPasswordActivity.this);
         viewModel = new ViewModelProvider(SetNewPasswordActivity.this).get(AuthenticationViewModel.class);

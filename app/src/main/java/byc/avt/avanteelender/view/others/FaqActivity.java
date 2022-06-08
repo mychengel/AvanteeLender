@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -42,6 +43,7 @@ public class FaqActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog = GlobalVariables.loadingDialog(FaqActivity.this);
         viewModel = new ViewModelProvider(FaqActivity.this).get(AuthenticationViewModel.class);
         bar = findViewById(R.id.toolbar_faq);

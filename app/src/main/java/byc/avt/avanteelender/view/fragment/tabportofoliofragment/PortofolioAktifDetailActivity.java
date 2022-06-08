@@ -25,6 +25,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ public class PortofolioAktifDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portofolio_aktif_detail);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         f = new Fungsi(PortofolioAktifDetailActivity.this);
         viewModel = new ViewModelProvider(PortofolioAktifDetailActivity.this).get(AktifPortofolioViewModel.class);
         prefManager = PrefManager.getInstance(PortofolioAktifDetailActivity.this);

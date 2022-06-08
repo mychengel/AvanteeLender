@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -76,6 +77,7 @@ public class WithdrawalConfirmationSheetFragment extends BottomSheetDialogFragme
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_sheet_withdrawal_confirmation, container, false);
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         txt_nominal_penarikan = view.findViewById(R.id.txt_nom_penarikan_fr_sheet_withdrawal_confirmation);
         txt_biaya_penarikan = view.findViewById(R.id.lbl_biaya_penarikan_fr_sheet_withdrawal_confirmation);
 

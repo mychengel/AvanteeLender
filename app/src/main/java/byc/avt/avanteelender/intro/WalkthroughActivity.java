@@ -61,6 +61,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_walkthrough);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         viewPager = findViewById(R.id.view_pager_walkthrough);
         dotsLayout = findViewById(R.id.layout_dots_walkthrough);
@@ -247,8 +248,6 @@ public class WalkthroughActivity extends AppCompatActivity {
             Dexter.withContext(WalkthroughActivity.this)
                     .withPermissions(
                             Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION
                     )
@@ -267,8 +266,6 @@ public class WalkthroughActivity extends AppCompatActivity {
             Dexter.withContext(WalkthroughActivity.this)
                     .withPermissions(
                             Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION
                     )

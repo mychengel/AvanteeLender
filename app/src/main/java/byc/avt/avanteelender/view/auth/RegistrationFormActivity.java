@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_form);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         appBar = findViewById(R.id.appbar_regis_form);
         collapsing = findViewById(R.id.collapsing_regis_form);
         params = (AppBarLayout.LayoutParams) collapsing.getLayoutParams();

@@ -13,6 +13,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class RiskInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risk_info);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         dialog = GlobalVariables.loadingDialog(RiskInfoActivity.this);
         viewModel = new ViewModelProvider(RiskInfoActivity.this).get(AuthenticationViewModel.class);
         bar = findViewById(R.id.toolbar_risk_info);
