@@ -244,8 +244,10 @@
                             app:layout_constraintStart_toEndOf="@+id/textView21"
                             app:layout_constraintTop_toTopOf="@+id/textView21" />
 
+                        <!-- TODO: remove android:visibility="gone" to use-->
                         <TextView
                             android:id="@+id/textView24"
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -255,8 +257,10 @@
                             app:layout_constraintStart_toStartOf="@+id/lbl_no_rek_va_fr_dashboard"
                             app:layout_constraintTop_toBottomOf="@+id/lbl_no_rek_va_fr_dashboard" />
 
+                        <!-- TODO: remove android:visibility="gone" to use-->
                         <TextView
                             android:id="@+id/lbl_no_rek_rdl_fr_dashboard"
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/norek"
@@ -265,8 +269,10 @@
                             app:layout_constraintStart_toStartOf="@+id/textView24"
                             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
+                        <!-- TODO: remove android:visibility="gone" to use-->
                         <TextView
                             android:id="@+id/lbl_saldo_rdl_fr_dashboard"
+                            android:visibility="gone"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"

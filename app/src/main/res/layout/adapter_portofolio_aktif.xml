@@ -240,15 +240,18 @@
 
             <TextView
                 android:id="@+id/lbl_tepat_waktu_adp_port_aktif"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/ibm_plex_sans_medium"
                 android:text="@string/tepat_waktu"
+                android:textAlignment="textEnd"
                 android:textColor="@color/darkO05"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_sisatenor_adp_port_aktif"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lbl_sisa_tenor_adp_port_aktif"
+                app:layout_constraintTop_toTopOf="@+id/txt_sisatenor_adp_port_aktif" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

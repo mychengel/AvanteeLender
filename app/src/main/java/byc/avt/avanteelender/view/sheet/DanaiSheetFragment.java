@@ -58,7 +58,7 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
     Button btn_next;
     boolean mSaldo = true, mTfBank = false;
     ImageView img_plus, img_minus;
-    TextView txt_saldo_va, txt_saldo_rdl, txt_total_saldo, txt_min_invest, txt_max_invest, txt_kelipatan;
+    TextView txt_saldo_va, txt_total_saldo, txt_min_invest, txt_max_invest, txt_kelipatan;
     EditText edit_nominal;
     public static JSONObject job;
     CheckBox cb_agree;
@@ -113,8 +113,6 @@ public class DanaiSheetFragment extends BottomSheetDialogFragment {
         txt_total_saldo.setText(f.toNumb(""+totalSaldo));
         txt_saldo_va = view.findViewById(R.id.txt_saldo_va_fr_sheet_danai);
         txt_saldo_va.setText(f.toNumb(""+saldoVa));
-        txt_saldo_rdl = view.findViewById(R.id.txt_saldo_rdl_fr_sheet_danai);
-        txt_saldo_rdl.setText(f.toNumb(""+saldoRdl));
         txt_min_invest = view.findViewById(R.id.txt_min_invest_fr_sheet_danai);
         txt_min_invest.setText(getString(R.string.min_invest)+" "+f.toNumb(""+minInvest));
         txt_max_invest = view.findViewById(R.id.txt_max_invest_fr_sheet_danai);

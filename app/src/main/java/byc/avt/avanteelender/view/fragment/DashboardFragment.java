@@ -65,7 +65,7 @@ public class DashboardFragment extends Fragment {
     Fungsi f = new Fungsi(getActivity());
     private PrefManager prefManager;
     private RecyclerView rvHistoryTrx;
-    private TextView txt_no_trans_history, lbl_rek_va, lbl_saldo_va, lbl_rek_rdl, lbl_saldo_rdl, lbl_dana_pending;
+    private TextView txt_no_trans_history, lbl_rek_va, lbl_saldo_va, lbl_dana_pending;
     private TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
     private Dialog dialog;
     private Button btn_pendanaan, btn_histori_trx, btn_iap, btn_topup, btn_withdraw;
@@ -96,8 +96,6 @@ public class DashboardFragment extends Fragment {
         img_expand_wallet = view.findViewById(R.id.img_expand_wallet_fr_dashboard);
         lbl_rek_va = view.findViewById(R.id.lbl_no_rek_va_fr_dashboard);
         lbl_saldo_va = view.findViewById(R.id.lbl_saldo_va_fr_dashboard);
-        lbl_rek_rdl = view.findViewById(R.id.lbl_no_rek_rdl_fr_dashboard);
-        lbl_saldo_rdl = view.findViewById(R.id.lbl_saldo_rdl_fr_dashboard);
         lbl_dana_pending = view.findViewById(R.id.lbl_dana_status_pending_fr_dashboard);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
