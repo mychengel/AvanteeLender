@@ -428,6 +428,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/div_top2_port_aktif_det" />
+        app:layout_constraintTop_toBottomOf="@+id/div_top2_port_aktif_det"
+        tools:listitem="@layout/adapter_portofolio_aktif_detail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

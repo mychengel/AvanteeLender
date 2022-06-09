@@ -734,7 +734,8 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/btn_histori_trx_fr_dashboard"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:listitem="@layout/history_trx_adapter"/>
 
                     <TextView
                         android:id="@+id/txt_no_transaction_history_fr_dashboar"

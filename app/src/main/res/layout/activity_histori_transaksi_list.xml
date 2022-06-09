@@ -85,10 +85,11 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbl_filter_text_his_trx_list">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/lbl_filter_text_his_trx_list"
+                app:layout_constraintVertical_bias="0.0"
+                tools:listitem="@layout/history_trx_adapter" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_his_trx_filter"

@@ -158,9 +158,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_tot_pinjaman_port_pending" >
-
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/txt_tot_pinjaman_port_pending"
+        tools:listitem="@layout/adapter_portofolio_pending" />
 
     <ProgressBar
         android:id="@+id/progressBar_port_pending"
