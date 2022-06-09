@@ -39,7 +39,7 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_notification_36dp"
-                app:title="@string/nav_penawaran"
+                app:title="@string/nav_blog"
                 app:titleTextAppearance="@style/ToolbarTheme"
                 app:titleTextColor="@color/dark" />
 

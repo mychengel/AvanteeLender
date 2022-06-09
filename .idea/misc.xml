@@ -8,6 +8,12 @@
         <entry key="app/src/main/res/drawable/button_grey.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_state_selector.xml" value="0.16041666666666668" />
         <entry key="app/src/main/res/drawable/button_white_state_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.239" />
+        <entry key="app/src/main/res/drawable/ic_loan_rating_a.xml" value="0.239" />
+        <entry key="app/src/main/res/drawable/ic_loan_rating_b.xml" value="0.239" />
+        <entry key="app/src/main/res/drawable/ic_loan_rating_c.xml" value="0.239" />
+        <entry key="app/src/main/res/drawable/ic_loan_rating_d.xml" value="0.239" />
+        <entry key="app/src/main/res/drawable/ic_loan_rating_e.xml" value="0.239" />
         <entry key="app/src/main/res/layout/activity_address_data_show.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_after_sign.xml" value="0.3078125" />
         <entry key="app/src/main/res/layout/activity_bank_info_show.xml" value="0.291412353515625" />
@@ -110,6 +116,8 @@
         <entry key="app/src/main/res/layout/screen_walkthrough_4.xml" value="0.3078125" />
         <entry key="app/src/main/res/layout/screen_walkthrough_5.xml" value="0.3078125" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.16587837837837838" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.239" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.239" />
       </map>
     </option>
   </component>

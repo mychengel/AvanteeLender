@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dot_inactive">#80909090</color>
-    <color name="dot_active">#27B050</color>
+    <color name="dot_active">#138808</color>
     <color name="barColor">#32FFFFFF</color>
 
     <array name="array_dot_active">
@@ -22,11 +22,11 @@
 
 
     <color name="colorPrimaryDark">#F3F3F3</color>
-    <color name="colorAccent">#25C70B</color>
+    <color name="colorAccent">#138808</color>
     <color name="navInactive">#BEC2C7</color>
 
     <!-- Colors Accent -->
-    <color name="colorPrimary">#25C70B</color>
+    <color name="colorPrimary">#138808</color>
     <color name="colorPrimaryO06">#9925C70B</color>
     <color name="colorPrimaryO015">#E3FFE0</color>
     <color name="colorPrimaryA">#1DB474</color>
