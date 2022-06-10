@@ -76,6 +76,8 @@
     <string name="back">Kembali</string>
     <string name="ive_read_2">Saya telah membaca dan setuju dengan Syarat dan Ketentuan Avantee diatas</string>
     <string name="verify">Verifikasi</string>
+    <string name="copy">Salin</string>
+    <string name="copied_to_clipboard">Tersalin ke papan klip</string>
 
     <!-- TODO: Lender Type Page -->
     <string name="lender_type">Tipe pemberi dana</string>

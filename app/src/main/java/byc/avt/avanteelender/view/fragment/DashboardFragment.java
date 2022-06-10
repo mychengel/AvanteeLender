@@ -1,6 +1,9 @@
 package byc.avt.avanteelender.view.fragment;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -65,7 +69,7 @@ public class DashboardFragment extends Fragment {
     Fungsi f = new Fungsi(getActivity());
     private PrefManager prefManager;
     private RecyclerView rvHistoryTrx;
-    private TextView txt_no_trans_history, lbl_rek_va, lbl_saldo_va, lbl_dana_pending;
+    private TextView txt_no_trans_history, lbl_rek_va, lbl_saldo_va, lbl_dana_pending, txtCopy;
     private TextView txt_code, txt_ewallet, txt_nom_active_port, txt_estimate_received_interest, txt_tot_loan, txt_late, txt_nom_pending_port, txt_tot_pending;
     private Dialog dialog;
     private Button btn_pendanaan, btn_histori_trx, btn_iap, btn_topup, btn_withdraw;
@@ -97,6 +101,8 @@ public class DashboardFragment extends Fragment {
         lbl_rek_va = view.findViewById(R.id.lbl_no_rek_va_fr_dashboard);
         lbl_saldo_va = view.findViewById(R.id.lbl_saldo_va_fr_dashboard);
         lbl_dana_pending = view.findViewById(R.id.lbl_dana_status_pending_fr_dashboard);
+        txtCopy = view.findViewById(R.id.txt_copy);
+        txtCopy.setVisibility(View.GONE);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         //Recycler View
@@ -244,7 +250,7 @@ public class DashboardFragment extends Fragment {
 
     private Observer<JSONObject> showWallet = new Observer<JSONObject>() {
         @Override
-        public void onChanged(JSONObject result) {
+        public void onChanged(final JSONObject result) {
             try {
                 if(result.getInt("code") == 200){
                     long mywallet = result.getLong("total_dana");
@@ -258,6 +264,7 @@ public class DashboardFragment extends Fragment {
                     txt_ewallet.setText(f.toNumb(""+mywallet));
                     lbl_rek_va.setText("No rek. "+result.getString("no_rekening_va"));
                     lbl_saldo_va.setText(f.toNumb(""+saldova));
+                    enableCopyButton(result.getString("no_rekening_va"));
 //                    lbl_rek_rdl.setText("No rek. "+result.getString("no_rekening_rdl"));
 //                    lbl_saldo_rdl.setText(f.toNumb(""+result.getString("total_dana_rdl")));
                     lbl_dana_pending.setText(f.toNumb(""+result.getLong("dana_pending")));
@@ -347,6 +354,21 @@ public class DashboardFragment extends Fragment {
             cekDone();
         }
     };
+
+    private  void enableCopyButton(final String va) {
+        txtCopy.setVisibility(View.VISIBLE);
+        txtCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager manager = (ClipboardManager) requireActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData data = ClipData.newPlainText("VA", va);
+                manager.setPrimaryClip(data);
+
+                Toast.makeText(requireActivity(),R.string.copied_to_clipboard,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void cekDone(){
         if(headerdone && trxdone && dashboarddone && activedone && pendingdone){
