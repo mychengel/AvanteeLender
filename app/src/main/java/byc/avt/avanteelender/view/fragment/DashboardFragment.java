@@ -1,11 +1,13 @@
 package byc.avt.avanteelender.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -33,6 +35,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -62,7 +65,7 @@ import byc.avt.avanteelender.view.features.topup.TopupInstructionActivity;
 import byc.avt.avanteelender.view.others.SettingActivity;
 import byc.avt.avanteelender.viewmodel.DashboardViewModel;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private DashboardViewModel viewModel;
     Toolbar toolbar;
@@ -76,6 +79,7 @@ public class DashboardFragment extends Fragment {
     private boolean headerdone, trxdone, dashboarddone, activedone, pendingdone = false;
     private ConstraintLayout cons_det_wallet;
     private ImageView img_expand_wallet;
+    private SwipeRefreshLayout refreshLayout;
     boolean is_expand = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -83,6 +87,7 @@ public class DashboardFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -90,6 +95,7 @@ public class DashboardFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         prefManager = PrefManager.getInstance(getActivity());
         toolbar = view.findViewById(R.id.toolbar_fr_dashboard);
+        refreshLayout = view.findViewById(R.id.swipeRefreshDashboard);
         dialog = GlobalVariables.loadingDialog(requireActivity());
         btn_pendanaan = view.findViewById(R.id.btn_start_invest_fr_dashboard);
         btn_histori_trx = view.findViewById(R.id.btn_histori_trx_fr_dashboard);
@@ -216,6 +222,9 @@ public class DashboardFragment extends Fragment {
                 new Routes(getActivity()).moveIn(intent);
             }
         });
+
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setColorSchemeColors(R.color.colorPrimary, R.color.colorAccent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -246,6 +255,10 @@ public class DashboardFragment extends Fragment {
         viewModel.getResultTotActivePort().observe(getActivity(), showTotActivePort);
         viewModel.getTotPendingPort(prefManager.getUid(), prefManager.getToken());
         viewModel.getResultTotPendingPort().observe(getActivity(), showTotPendingPort);
+
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     private Observer<JSONObject> showWallet = new Observer<JSONObject>() {
@@ -412,4 +425,8 @@ public class DashboardFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onRefresh() {
+        this.loadDashboard();
+    }
 }
