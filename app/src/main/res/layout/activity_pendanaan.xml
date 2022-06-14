@@ -92,7 +92,7 @@
                             android:textSize="13sp"
                             android:background="@android:color/transparent"
                             android:textColor="@color/darkO05"
-                            android:text="@string/nol"
+                            android:text="@string/nol_percent_tkb"
                             tools:ignore="RtlSymmetry" />
 
                     </LinearLayout>

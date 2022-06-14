@@ -231,6 +231,7 @@
     <string name="mark_a1">A1</string>
     <string name="bunga_per_th">Bunga/th</string>
     <string name="nol_percent">0%</string>
+    <string name="nol_percent_tkb">&#160;-%&#160;</string>
     <string name="tenor">Tenor</string>
     <string name="nol_hari">0 hari</string>
     <string name="nominal_pendanaan">Nominal pendanaan</string>
