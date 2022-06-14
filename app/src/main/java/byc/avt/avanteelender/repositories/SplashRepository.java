@@ -54,7 +54,7 @@ public class SplashRepository {
                         try {
                             status = response.getBoolean("status");
                             Log.e("Status", status+"");
-                            if(status == true){
+                            if(status){
                                 msg.setValue("ok");
                             }else{
                                 prefManager.clearUserData();

@@ -24,6 +24,7 @@ public class PendanaanViewModel extends AndroidViewModel {
     private MutableLiveData<String> resultViewKontrakFunding = new MutableLiveData<>();
     private MutableLiveData<JSONObject> resultSetujuFunding = new MutableLiveData<>();
     private MutableLiveData<String> resultSignerFunding = new MutableLiveData<>();
+    private MutableLiveData<JSONObject> resultSettingData = new MutableLiveData<>();
 
     public PendanaanViewModel(@NonNull Application application) {
         super(application);
@@ -92,5 +93,13 @@ public class PendanaanViewModel extends AndroidViewModel {
 
     public LiveData<JSONObject> getDetailPendanaanResult(){
         return resultDetailPendanaan;
+    }
+
+    public void getSettingData(){
+        resultSettingData = repository.getSettingData(getApplication());
+    }
+
+    public LiveData<JSONObject> getResultSettingData(){
+        return resultSettingData;
     }
 }

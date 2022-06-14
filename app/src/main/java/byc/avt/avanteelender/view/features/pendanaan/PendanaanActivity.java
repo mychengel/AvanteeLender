@@ -3,25 +3,33 @@ package byc.avt.avanteelender.view.features.pendanaan;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spanned;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import byc.avt.avanteelender.R;
 import byc.avt.avanteelender.helper.Routes;
+import byc.avt.avanteelender.view.sheet.TermSheetFragment;
 import byc.avt.avanteelender.view.sheet.TkbSheetFragment;
 import byc.avt.avanteelender.adapter.PendanaanAdapter;
 import byc.avt.avanteelender.helper.Fungsi;
@@ -38,8 +46,8 @@ public class PendanaanActivity extends AppCompatActivity {
     private Dialog dialog;
     private Toolbar toolbar;
     private Fungsi f;
-    private ImageView img_tbk;
     private RecyclerView rv;
+    private TextView tvTKBValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +64,11 @@ public class PendanaanActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rv = findViewById(R.id.rv_pendanaan);
         dialog = GlobalVariables.loadingDialog(PendanaanActivity.this);
-        img_tbk = findViewById(R.id.img_tbk_pendanaan);
-        img_tbk.setOnClickListener(new View.OnClickListener() {
+
+        CardView cvTKB = findViewById(R.id.cv_tkb_funding);
+        tvTKBValue = findViewById(R.id.tv_tkb_funding_value);
+
+        cvTKB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TkbSheetFragment tkbFragment = TkbSheetFragment.getInstance();
@@ -78,9 +89,12 @@ public class PendanaanActivity extends AppCompatActivity {
         dialog.show();
         viewModel.getListPendanaan(prefManager.getUid(), prefManager.getToken());
         viewModel.getListPendanaanResult().observe(PendanaanActivity.this, showListPendanaan);
+
+        viewModel.getSettingData();
+        viewModel.getResultSettingData().observe(PendanaanActivity.this, showTKBData);
     }
 
-    private Observer<ArrayList<Pendanaan>> showListPendanaan = new Observer<ArrayList<Pendanaan>>() {
+    private final Observer<ArrayList<Pendanaan>> showListPendanaan = new Observer<ArrayList<Pendanaan>>() {
         @Override
         public void onChanged(final ArrayList<Pendanaan> result) {
             if(result.isEmpty()){
@@ -100,6 +114,26 @@ public class PendanaanActivity extends AppCompatActivity {
                         new Routes(PendanaanActivity.this).moveIn(i);
                     }
                 });
+            }
+        }
+    };
+
+    private final Observer<JSONObject> showTKBData = new Observer<JSONObject>() {
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onChanged(JSONObject result) {
+            try {
+                if(result.getInt("code") == 200){
+                    JSONObject job = result.getJSONObject("result");
+                    double tkb_value = job.getDouble("nilai_tkb");
+                    tvTKBValue.setText(" " + tkb_value + "%");
+                }else{
+                    f.showMessage(getString(R.string.failed_load_info));
+                }
+                dialog.cancel();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                dialog.cancel();
             }
             dialog.cancel();
         }
